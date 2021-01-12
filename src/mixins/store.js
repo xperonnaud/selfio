@@ -95,7 +95,7 @@ export default {
         },
         preferences: {
             get() {
-                return this.$store.state.selfio.preferences[0]
+                return this.$store.state.selfio.preferences
             },
         },
         weightUnit: {
@@ -203,17 +203,10 @@ export default {
                 return this.$store.state.ui.selectedItemRelations
             },
         },
-        saveAction: {
+        vuetifyColors: {
             get() {
-                return this.$store.state.ui.saveAction
+                return this.$store.state.ui.colors
             },
-            set(value) {
-                this.$store.commit("updateUiSaveAction", value)
-            }
-        },
-        saveActionCall() {
-            if(typeof this.saveAction == 'function')
-                this.saveAction();
         },
         currentRoutePath() {
             if(this.isMounted && this.$route)
@@ -356,45 +349,8 @@ export default {
             return color;
         },
         getVuetifyColor(index) {
-            let lightArray = [
-                '#F44336',
-                '#E91E63',
-                '#9C27B0',
-                '#673AB7',
-                '#3F51B5',
-                '#2196F3',
-                '#00BCD4',
-                '#009688',
-                '#4CAF50',
-                '#8BC34A',
-                '#FFEB3B',
-                '#FF9800',
-                '#FF5722',
-                '#795548',
-                '#607D8B',
-            ];
-            let darkArray = [
-                '#FF5252',
-                '#FF4081',
-                '#E040FB',
-                '#7C4DFF',
-                '#536DFE',
-                '#448AFF',
-                '#18FFFF',
-                '#64FFDA',
-                '#69F0AE',
-                '#EEFF41',
-                '#FFFF00',
-                '#FFAB40',
-                '#FF6E40',
-                '#8D6E63',
-                '#607D8B',
-            ];
-
-            let colorArray = (this.isDark ? darkArray : lightArray);
-
+            let colorArray = (this.isDark ? this.vuetifyColors.dark : this.vuetifyColors.light);
             let randomNumber = index ? (index % colorArray.length) : Math.floor(Math.random() * colorArray.length);
-
             return colorArray[randomNumber];
         },
     },

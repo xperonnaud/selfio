@@ -53,11 +53,14 @@
             (isMobile ? 'ml-0' : 'ml-4')
           ]"
         >
-          <save-btn
-            isOutlined
-            forceText
-            :action="saveAction"
-          ></save-btn>
+          <v-btn
+            v-bind:class="['elevation-0',{'max-width':isMobile},reversedFontShadeColor]"
+            :color="darkColor('primary')"
+            @click.stop="updatePreferences()"
+          >
+            <v-icon v-text="'mdi-check'"/>
+            <span v-text="'Save'" />
+          </v-btn>
         </v-col>
       </v-row>
     </v-container>
@@ -67,7 +70,6 @@
 
 <script>
 
-  import SaveBtn from "@/components/elements/Btns/SaveBtn";
   import GearTagsForm from "@/components/forms/GearTagsForm";
   import InventoryTagsForm from "@/components/forms/InventoryTagsForm";
   import AdventureTagsForm from "@/components/forms/AdventureTagsForm";
@@ -75,7 +77,6 @@
   export default {
     name: "settings",
     components: {
-      SaveBtn,
       GearTagsForm,
       InventoryTagsForm,
       AdventureTagsForm
@@ -85,7 +86,6 @@
       tab: 'gear-tags',
     }),
     mounted() {
-      this.$store.commit("updateUiSaveAction", this.updatePreferences)
       this.isMounted = true;
     }
   }

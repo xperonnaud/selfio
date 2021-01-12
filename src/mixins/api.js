@@ -87,11 +87,17 @@ export default {
             }
         },
         async handleResponse(responseType, message, response, callback, ...args) {
-            console.log('handleResponse', responseType, message, response, callback, ...args);
+            const ERROR_STR = 'Request failed with status code ';
+            let hasError = (responseType === 'error');
+            let errorCode = (hasError && message.includes(ERROR_STR)) ? message.replace(ERROR_STR,'') : null;
 
-            // if(responseType === 'error') {
-            //     await this.api_auth_refresh(callback, ...args);
-            // }
+            if(hasError && (typeof errorCode == 'string') && callback) {
+                console.log('handleResponse',response);
+
+                if(errorCode === '403') {
+                    await callback(...args);
+                }
+            }
 
             if(message)
                 this.updateSnackbar(responseType, message);
@@ -109,10 +115,7 @@ export default {
                     { token: self.apiAccessToken }
                 )
                 .then(async function (response) {
-                    // if(typeof callback == 'function') {
-                    //     self.isTokenRefreshed = true;
-                    //     await callback(...args);
-                    // }
+                    self.$store.commit('updateApiAccessToken',response.data.data.token);
 
                 }).catch(async function (error) {
                     await self.handleResponse('error', error.message, error);
@@ -220,7 +223,7 @@ export default {
                 await self.handleResponse('success', 'Brand deleted');
 
             }).catch(async function (error) {
-                await self.handleResponse('error', error.message, error, self.api_remove_brand, brandId, brandIndex);
+                await self.handleResponse('error', error.message, error);
             })
         },
 
@@ -305,12 +308,14 @@ export default {
                 +'&fields=*'
             )
             .then(async function (response) {
+                console.log('api_get_preferences success',response.data.data);
                 if(response.data.data.length > 0) {
-                    self.$store.commit("updatePreferences",response.data.data);
+                    self.$store.commit("updatePreferences",response.data.data[0]);
                 } else {
                     await self.api_init_preferences();
                 }
             }).catch(async function (error) {
+                console.log('api_get_preferences error',error);
                 await self.handleResponse('error', error.message, error);
             })
         },
@@ -333,7 +338,8 @@ export default {
                 preferences
             )
             .then(function (response) {
-                self.$store.commit("updatePreferences",response.data.data[0]);
+                console.log('api_init_preferences',response.data.data)
+                self.$store.commit("updatePreferences",response.data.data);
             }).catch(async function (error) {
                 await self.handleResponse('error', error.message, error);
             })
@@ -344,6 +350,9 @@ export default {
             if(preferences.created_on)
                 delete preferences.created_on;
 
+            if(preferences.updated_on)
+                delete preferences.updated_on;
+
             await axios.patch(
                 self.apiBaseUrl
                 +'items/preferences/'
@@ -353,34 +362,37 @@ export default {
                 preferences
             )
             .then(async function (response) {
-                Object.assign(self.$store.state.selfio.preferences, response.data.data[0]);
+                Object.assign(self.$store.state.selfio.preferences, response.data.data);
                 await self.handleResponse('success', 'Preferences updated');
 
             }).catch(async function (error) {
-                await self.handleResponse('error', error.message, error, self.api_patch_preferences, preferences);
+                await self.handleResponse('error', error.message, error);
             })
         },
         async api_patch_preference_tag(tags, tagType) {
             let self = this;
 
-            Object.assign(self.$store.state.selfio.preferences[0][tagType+'_tags'], tags);
+            Object.assign(self.$store.state.selfio.preferences[tagType+'_tags'], tags);
 
-            if(self.$store.state.selfio.preferences[0].created_on)
-                delete self.$store.state.selfio.preferences[0].created_on;
+            if(self.$store.state.selfio.preferences.created_on)
+                delete self.$store.state.selfio.preferences.created_on;
+
+            if(self.$store.state.selfio.preferences.updated_on)
+                delete self.$store.state.selfio.preferences.updated_on;
 
             await axios.patch(
                 self.apiBaseUrl
                 +'items/preferences/'
-                +self.$store.state.selfio.preferences[0].id
+                +self.$store.state.selfio.preferences.id
                 +'?access_token='
                 +self.apiAccessToken,
-                self.$store.state.selfio.preferences[0]
+                self.$store.state.selfio.preferences
             )
             .then(async function (response) {
-                Object.assign(self.$store.state.selfio.preferences, response.data.data[0]);
+                Object.assign(self.$store.state.selfio.preferences, response.data.data);
                 await self.handleResponse('success', 'Tags updated');
             }).catch(async function (error) {
-                await self.handleResponse('error', error.message, error, self.api_patch_preference_tag, tags, tagType);
+                await self.handleResponse('error', error.message, error);
             })
         },
 
@@ -434,6 +446,9 @@ export default {
 
             if(gear.created_on)
                 delete gear.created_on;
+
+            if(gear.updated_on)
+                delete gear.updated_on;
 
             if(typeof gear.state == 'undefined')
                 gear.state = null;
@@ -534,6 +549,9 @@ export default {
 
             if(inventory.created_on)
                 delete inventory.created_on;
+
+            if(inventory.updated_on)
+                delete inventory.updated_on;
 
             if(inventory.inventory_gear)
                 delete inventory.inventory_gear;
@@ -807,6 +825,9 @@ export default {
 
             if(adventure.created_on)
                 delete adventure.created_on;
+
+            if(adventure.updated_on)
+                delete adventure.updated_on;
 
             if(adventure.tags === '')
                 adventure.tags = [];

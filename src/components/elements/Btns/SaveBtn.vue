@@ -1,15 +1,15 @@
 <template>
 
   <v-btn
-    v-if="action"
     :color="darkColor(color)"
     :outlined="isOutlined"
+    :block="isBlock"
     :icon="isMobile ? isIcon : false"
     :disabled="disabled"
-    @click.stop="action()"
+    class="elevation-0"
   >
     <v-icon v-if="!isOutlined" v-text="'mdi-check'"/>
-    <span v-show="(!isMobile || isOutlined)" v-text="'Save'" />
+    <span v-show="forceText" v-text="'Save'" />
   </v-btn>
 
 </template>
@@ -39,19 +39,19 @@
         type: Boolean,
         default: false
       },
+      isBlock: {
+        type: Boolean,
+        default: false
+      },
       color: {
         type: String,
         default: 'primary'
-      },
-      action: {
-        type: Function,
-        default: null
       },
       disabled: {
         type: Boolean,
         default: false
       }
-    }
+    },
   }
 
 </script>

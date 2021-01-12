@@ -40,18 +40,6 @@
       ></form-post-btn>
     </template>
 
-    <template v-else-if="isSettingsRoute && saveAction">
-      <v-spacer />
-
-      <save-btn
-        :action="saveAction"
-        :isIcon="isMobile"
-        :isOutlined="!isMobile"
-        :forceText="!isMobile"
-        class="ml-2 mr-1"
-      ></save-btn>
-    </template>
-
     <template v-if="isItemRoute" v-slot:extension>
       <v-list
           v-show="!loading"

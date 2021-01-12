@@ -2,10 +2,10 @@
 
   <div v-if="isMounted">
     <v-sheet
-        max-width="100%"
-        color="transparent"
+      max-width="100%"
+      color="transparent"
     >
-      <v-container fluid  class="py-0">
+      <v-container fluid class="py-0">
         <v-row>
           <v-col
               cols="12"
@@ -39,7 +39,6 @@
       tab: 'password',
     }),
     mounted() {
-      this.$store.commit("updateUiSaveAction", this.updatePassword)
       this.isMounted = true;
     }
   }

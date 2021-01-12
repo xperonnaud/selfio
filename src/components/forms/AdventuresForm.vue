@@ -107,6 +107,7 @@
                                     :key="`gear-checklist-${updatedItem.adventure_inventory}`"
                                     :value="roundedPackedGearRatio"
                                     :color="navItemColor('inventories')"
+                                    :background-color="xProgressColor"
                                     :height="3"
                                   ></v-progress-linear>
                                 </v-list-item-subtitle>

@@ -10,6 +10,9 @@ export default {
         xOverlayColor() {
             return ('grey '+(this.isDark ? 'darken-1' : 'lighten-1'));
         },
+        xProgressColor() {
+            return ('grey '+(this.isDark ? 'darken-3' : 'lighten-4'));
+        },
         xTabsColor() {
             return ('grey '+(this.isDark ? 'darken-4' : 'lighten-5'));
         },

@@ -70,12 +70,15 @@
     <v-container v-bind:class="['pb-0 pt-2']">
       <v-row>
         <v-col cols="12" class="py-1">
-          <save-btn
-            isOutlined
-            forceText
+          <v-btn
+            v-bind:class="['elevation-0',{'max-width':isMobile},reversedFontShadeColor]"
+            :color="darkColor('primary')"
             :disabled="!valid"
-            :action="saveAction"
-          ></save-btn>
+            @click.stop="updatePassword()"
+          >
+            <v-icon v-text="'mdi-check'"/>
+            <span v-text="'Save'" />
+          </v-btn>
         </v-col>
       </v-row>
     </v-container>
@@ -85,13 +88,8 @@
 
 <script>
 
-  import SaveBtn from "@/components/elements/Btns/SaveBtn";
-
   export default {
     name: 'password-update-form',
-    components: {
-      SaveBtn
-    },
     data: () => ({
       valid: false,
       newPassword: '',

@@ -71,8 +71,6 @@
     watch: {
       currentRouteName(val) {
         if(this.isMounted && val) {
-          this.saveAction = null;
-
           if(this.navigationCollapse===true && this.isMobile) {
             this.navigationCollapse = !this.navigationCollapse;
           }
@@ -99,11 +97,6 @@
         this.$router.push('home');
 
       this.isMounted = true;
-
-      this.$router.beforeEach((to, from, next) => {
-        this.saveAction = null;
-        next();
-      })
     }
   };
 
@@ -137,8 +130,17 @@
 
   .back {
     &:not(.is-logged-in) {
-      background:linear-gradient(0deg, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url(./assets/images/mountainView.jpg);
-      background-size: cover;
+      background-position: center !important;
+
+      &.is-small {
+        background-size: contain !important;
+        background:linear-gradient(0deg, rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.85)), url(./assets/images/mountain_bgd_mobile.jpg);
+      }
+
+      &:not(.is-small) {
+        background-size: cover !important;
+        background:linear-gradient(0deg, rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.85)), url(./assets/images/mountain_bgd_desktop.jpg);
+      }
 
       #inspire {
         background: none;

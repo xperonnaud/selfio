@@ -235,7 +235,6 @@
         this.deleteDialog = true;
       },
       async deleteBrand() {
-        console.log('deleteBrand');
         let brandId = this.selectedBrandId;
         let brandIndex = (typeof brandId == 'number') ? this.brandReferences[brandId] : null;
         if(brandIndex)

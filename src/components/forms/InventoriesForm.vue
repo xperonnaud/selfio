@@ -194,7 +194,7 @@
 
                                   <v-list-item-title>
                                     <div class="d-flex">
-                                      <div class="text-caption" style="width: 70px;">
+                                      <div class="text-caption" style="width: 80px;">
                                         <div
                                             v-if="gearTypeId && objFilter(gearTypes, 'id', parseInt(gearTypeId))[0]"
                                         >{{ objFilter(gearTypes, 'id', parseInt(gearTypeId))[0].title }}</div>
@@ -234,6 +234,7 @@
                                       :value="gearTypeStat.weight | percentageFilter(inventoryGearList, inventoryTotalWeight)"
                                       :color="getVuetifyColor((gearTypeId ? gearTypeId : 0))"
                                       :height="3"
+                                      :background-color="xProgressColor"
                                     ></v-progress-linear>
                                   </v-list-item-title>
                                 </v-list-item>
@@ -402,7 +403,7 @@
                       dense
                     >
                       <template v-for="(gearTypeStat, gearTypeId) in gearTypeStats">
-                        <v-list-item :key="`gear-type-stat-${gearTypeId}`" class="pa-0">
+                        <v-list-item :key="`gear-type-stat-${gearTypeId}`" class="pa-0" style="min-height: 36px;">
                           <v-list-item-avatar
                               width="24"
                               height="24"
@@ -420,7 +421,7 @@
 
                           <v-list-item-title>
                             <div class="d-flex">
-                              <div class="text-caption" style="width: 70px;">
+                              <div class="text-caption" style="width: 80px;">
                                 <div
                                   v-if="gearTypeId && objFilter(gearTypes, 'id', parseInt(gearTypeId))[0]"
                                 >{{ objFilter(gearTypes, 'id', parseInt(gearTypeId))[0].title }}</div>
@@ -459,7 +460,8 @@
                             <v-progress-linear
                               :value="gearTypeStat.weight | percentageFilter(inventoryGearList, inventoryTotalWeight)"
                               :color="getVuetifyColor((gearTypeId ? gearTypeId : 0))"
-                              :height="3"
+                              :height="6"
+                              :background-color="xProgressColor"
                             ></v-progress-linear>
                           </v-list-item-title>
                         </v-list-item>

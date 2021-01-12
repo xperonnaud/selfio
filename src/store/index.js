@@ -37,8 +37,6 @@ export default new Vuex.Store({
             adventures: [],
         },
         ui: {
-            saveAction: null,
-
             formDialog: false,
             formDialogType: null,
             selectedItemRelations: {},
@@ -153,7 +151,44 @@ export default new Vuex.Store({
                 'snowy-rainy',
                 'sunny',
                 'windy',
-            ]
+            ],
+
+            colors: {
+                light: [
+                    '#D32F2F',
+                    '#C2185B',
+                    '#7B1FA2',
+                    '#673AB7',
+                    '#512DA8',
+                    '#303F9F',
+                    '#1976D2',
+                    '#0097A7',
+                    '#00796B',
+                    '#388E3C',
+                    '#FFEE58',
+                    '#F57C00',
+                    '#E64A19',
+                    '#5D4037',
+                    '#455A64',
+                ],
+                dark: [
+                    '#EF5350',
+                    '#F06292',
+                    '#BA68C8',
+                    '#7E57C2',
+                    '#5C6BC0',
+                    '#42A5F5',
+                    '#26C6DA',
+                    '#26A69A',
+                    '#66BB6A',
+                    '#EEFF41',
+                    '#FBC02D',
+                    '#FFA726',
+                    '#FF7043',
+                    '#8D6E63',
+                    '#78909C',
+                ],
+            }
         },
     },
     mutations: {
@@ -413,9 +448,6 @@ export default new Vuex.Store({
             }
         },
         // Ui
-        updateUiSaveAction(state, saveAction) {
-            state.ui.saveAction = saveAction;
-        },
         updateUiFormDialog(state, formDialog) {
             state.ui.formDialog = formDialog;
         },
