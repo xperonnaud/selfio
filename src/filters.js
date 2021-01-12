@@ -1,0 +1,93 @@
+
+ import Vue from 'vue'
+ import moment from "moment";
+
+ Vue.filter("capitalizeFilter", function (value) {
+     if (!value) return '';
+     return value.toLowerCase()
+         .split(' ')
+         .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
+         .join(' ');
+ });
+
+ Vue.filter("convertSpecialCharsFilter", function (value) {
+     if (!value) return '';
+     return value.toString().replace(/_/g," / ");
+ });
+
+ Vue.filter("removeSlashFilter", function (value) {
+     if (!value) return '';
+     return value.toString().substring(1);
+ });
+
+ Vue.filter("noDashFilter", function (value) {
+     if (!value) return '';
+     return value.toString().replace(/-+/g," ")
+ });
+
+ Vue.filter("singularFilter", function (value) {
+     if (!value) return '';
+     return value.toString().replace(/s$/,"").replace(/ie$/,"y")
+ });
+
+ Vue.filter("roundIntFilter", function (value) {
+     if (!value) return 0;
+     return (value).toFixed(0);
+ });
+
+ Vue.filter("roundDecimalFilter", function (value) {
+     if (!value) return 0;
+     return (value).toFixed(2);
+ });
+
+ Vue.filter("thousandthFilter", function (value) {
+     value = parseFloat(value);
+     return (value/1000).toFixed(1);
+ });
+
+ Vue.filter("percentageFilter", function (value, list, total) {
+     let nbInList = total ? total : list.length;
+     return (Math.floor((value / nbInList) * 100));
+ });
+
+ Vue.filter("minimalDateFilter", function (date) {
+     if(!date)
+         return '-';
+
+     return moment(date).format('DD/MM/YY');
+ });
+
+ Vue.filter("dateFilter", function (date) {
+     if(!date)
+         return '-';
+
+     return moment(date).format('dddd Do MMMM - YYYY');
+ });
+
+ Vue.filter("mobileDayMonthFilter", function (date) {
+     if(!date)
+         return '-';
+
+     return moment(date).format('DD/MM');
+ });
+
+ Vue.filter("dayMonthFilter", function (date) {
+     if(!date)
+         return '-';
+
+     return moment(date).format('dd MMM Do');
+ });
+
+ Vue.filter("yearFilter", function (date) {
+     if(!date)
+         return '';
+
+     return moment(date).format('YYYY');
+ });
+
+ Vue.filter("timeFilter", function (time) {
+     if(!time)
+         return '';
+
+     return moment(time).format('HH:mm');
+ });

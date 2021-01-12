@@ -1,4 +1,4 @@
-# we-app-core
+# selfio
 
 ## Project setup
 ```
