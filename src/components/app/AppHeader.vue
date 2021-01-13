@@ -25,23 +25,22 @@
         :style="isMobile ? 'margin-right: -6px !important;' : ''"
       ></filter-menu>
 
-      <v-divider v-if="!isMobile" vertical />
-
       <form-post-btn
         v-if="!isMobile && isItemRoute"
-        isOutlined
+        isFab
+        isSmall
         class="ml-2 mr-1 elevation-0"
       ></form-post-btn>
 
       <v-btn
         v-if="!isMobile && isConfigurationRoute"
         :color="darkColor('primary')"
-        outlined
+        fab
+        small
         @click="brandPostDialog = !brandPostDialog"
         v-bind:class="['px-2 ml-3 mr-1 elevation-0']"
       >
         <v-icon :color="darkColorText('primary')" v-text="'mdi-plus'" />
-        <span v-text="'New'" v-bind:class="[fontShadeColor]" />
       </v-btn>
 
       <v-dialog
@@ -85,16 +84,16 @@
             <v-spacer />
 
             <v-btn
-                @click="brandPostDialog = false"
-                v-text="'Cancel'"
-                text
+              @click="brandPostDialog = false"
+              v-text="'Cancel'"
+              text
             ></v-btn>
 
             <v-btn
-                @click="postBrand()"
-                :color="darkColor('primary')"
-                :disabled="!validBrand"
-                depressed
+              @click="postBrand()"
+              :color="darkColor('primary')"
+              :disabled="!validBrand"
+              depressed
             >
               <v-icon v-text="'mdi-check'" />
               <span v-text="'Add brand'" />
@@ -106,17 +105,17 @@
 
     <template v-if="isItemRoute" v-slot:extension>
       <v-list
-          v-show="!loading"
-          v-bind:class="['rounded-0 py-0 max-width', {'shadow-bottom':!isMobile}]"
-          one-line
-          flat
-          dense
-          :color="xTabsColor"
+        v-show="!loading"
+        v-bind:class="['rounded-0 py-0 max-width', {'shadow-bottom':!isMobile}]"
+        one-line
+        flat
+        dense
+        :color="xTabsColor"
       >
         <v-list-item>
           <v-list-item-avatar
-              v-if="currentRouteTitle !== 'Inventories'"
-              v-bind:class="[
+            v-if="currentRouteTitle !== 'Inventories'"
+            v-bind:class="[
               'x-avatar',
               'py-0',
                (isMobile ? 'my-0 mr-0' : 'mr-2'),
@@ -125,9 +124,9 @@
           </v-list-item-avatar>
 
           <component
-              v-if="listHeaderComponent"
-              :is="listHeaderComponent"
-              :ref="listHeaderRef"
+            v-if="listHeaderComponent"
+            :is="listHeaderComponent"
+            :ref="listHeaderRef"
           ></component>
         </v-list-item>
       </v-list>
