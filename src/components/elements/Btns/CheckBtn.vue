@@ -6,7 +6,7 @@
     :disabled="disabled"
     :color="darkColor('primary')"
   >
-    <v-icon v-text="'mdi-check'" />
+    <v-icon :size="28" v-text="'mdi-check'" />
   </v-btn>
 
 </template>

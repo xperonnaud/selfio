@@ -1,0 +1,78 @@
+<template>
+
+  <v-list>
+    <v-list-item class="mb-3">
+      <v-text-field
+        v-model="itemSearch"
+        filled
+        dense
+        label="Search"
+        prepend-inner-icon="mdi-magnify"
+        hide-details="auto"
+        clearable
+        small
+        :color="currentColor"
+      ></v-text-field>
+    </v-list-item>
+
+    <v-list-item class="mb-3">
+      <v-switch
+        v-model="itemOwned"
+        label="Private"
+        flat
+        inset
+      ></v-switch>
+    </v-list-item>
+  </v-list>
+
+</template>
+
+<script>
+
+  export default {
+    name: 'brands-filter',
+    props: {
+      filterMode: Boolean
+    },
+    data: () => ({
+      isMounted: false,
+      filterModeOn: false,
+    }),
+    computed: {
+      itemSearch: {
+        get() {
+          return this.$store.state.ui.itemSearch
+        },
+        set(value) {
+          this.$store.commit("updateUiItemSearch", value)
+        }
+      },
+      itemOwned: {
+        get() {
+          return this.$store.state.ui.itemOwned
+        },
+        set(value) {
+          this.$store.commit("updateUiItemOwned", value)
+        }
+      },
+    },
+    methods: {
+      closeFilterMenu() {
+        this.filterModeOn = false;
+      }
+    },
+    watch: {
+      filterMode(val) {
+        this.filterModeOn = val;
+      },
+      filterModeOn(val) {
+        this.$emit('update:filterMode',val);
+      }
+    },
+    mounted() {
+      this.filterModeOn = this.filterMode;
+      this.isMounted = true;
+    }
+  }
+
+</script>

@@ -6,16 +6,26 @@
         <div class="pa-12">
           <div class="d-flex justify-center">
             <v-icon
-                v-if="icon"
-                :color="color"
-                v-text="icon"
-                size="36"
-                class="mx-auto"
+              v-if="icon"
+              :color="color"
+              v-text="icon"
+              size="36"
+              class="mx-auto"
             ></v-icon>
           </div>
 
+          <v-btn
+            v-if="isLink && label"
+            :color="color"
+            class="my-3"
+            outlined
+            @click="openPostFormDialog()"
+          >
+            <span v-bind:class="['text-body-1',fontShadeColor]" v-text="label" />
+          </v-btn>
+
           <div
-            v-if="label"
+            v-else-if="label"
             class="text-body-1"
             v-text="label"
           />
@@ -31,6 +41,10 @@
   export default {
     name: 'empty-list',
     props: {
+      isLink: {
+        type: Boolean,
+        default: null
+      },
       label: {
         type: String,
         default: null

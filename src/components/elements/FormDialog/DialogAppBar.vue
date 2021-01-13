@@ -48,7 +48,7 @@
             :disabled="editMode || !isFormMounted"
             icon
           >
-            <v-icon :small="editMode" v-text="'mdi-delete-outline'" />
+            <v-icon :small="editMode" v-text="'mdi-trash-can-outline'" />
           </v-btn>
         </template>
         <v-card>
@@ -111,9 +111,10 @@
               :color="darkColor('red')"
               @click="deleteAction()"
               :disabled="hasItemRelations"
+              depressed
             >
-              <v-icon left small color="white" v-text="'mdi-alert'" />
-              <span v-text="'Delete'" />
+              <v-icon left small :color="(isDark ? 'black' : 'white')" v-text="'mdi-alert'" />
+              <span v-bind:class="[reversedFontShadeColor]" v-text="'Delete'" />
             </v-btn>
           </v-card-actions>
         </v-card>
@@ -126,7 +127,10 @@
         :disabled="editMode || !isFormValid || !isFormMounted"
         icon
       >
-        <v-icon :small="editMode" v-text="'mdi-check'" />
+        <v-icon
+          :size="editMode ? 24 : 28"
+          v-text="'mdi-check'"
+        />
       </v-btn>
     </v-app-bar>
 

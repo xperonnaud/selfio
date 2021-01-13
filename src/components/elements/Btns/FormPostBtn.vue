@@ -10,13 +10,11 @@
     :isDepressed="isDepressed"
     right
     bottom
-    v-bind:class="[
-      (isMobile ? 'px-0' : 'px-2 ml-3')
-    ]"
+    v-bind:class="[(isMobile ? 'px-0' : 'px-2 ml-3')]"
     @click="openPostFormDialog()"
   >
     <v-icon :color="(!isIcon && !isOutlined) ? (isDark ? 'black' : 'white') : null" v-text="'mdi-plus'" />
-    <span v-show="!isMobile" v-text="'New'" v-bind:class="[{reversedFontShadeColor:!isOutlined}]" />
+    <span v-show="!isMobile" v-text="'New'" v-bind:class="[(isOutlined ? fontShadeColor : null)]" />
   </v-btn>
 
 </template>

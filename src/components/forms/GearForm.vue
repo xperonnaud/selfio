@@ -8,231 +8,235 @@
       ]"
     >
       <v-tabs
+        v-if="isMounted"
+        v-model="tab"
         :color="currentColor"
         :background-color="xTabsColor"
         fixed-tabs
       >
-        <v-tab>
+        <v-tab :key="'gear-general'">
           <span v-text="'General'" />
         </v-tab>
-        <v-tab>
+        <v-tab :key="'gear-purchase'">
           <span v-text="'Purchase'" />
         </v-tab>
 
-        <v-tab-item>
-          <v-card flat :color="xBackgroundColor">
-            <v-card-text>
-              <v-row>
-                <v-col cols="12">
-                  <v-text-field
-                    label="Title / Model"
-                    v-model="updatedItem.title"
-                    :rules="xRules.text"
-                    :color="currentColor"
-                    hide-details="auto"
-                    required
-                    dense
-                    filled
-                  ></v-text-field>
-                </v-col>
+        <v-tabs-items v-model="tab">
+          <v-tab-item :key="'gear-general'">
+            <v-card flat :color="xBackgroundColor">
+              <v-card-text>
+                <v-row>
+                  <v-col cols="12">
+                    <v-text-field
+                      label="Title / Model"
+                      v-model="updatedItem.title"
+                      :rules="xRules.text"
+                      :color="currentColor"
+                      hide-details="auto"
+                      required
+                      dense
+                      filled
+                    ></v-text-field>
+                  </v-col>
 
-                <v-col cols="12">
-                  <x-selector
-                    label="Category"
-                    :list="typesList"
-                    :listReferences="gearTypeReferences"
-                    v-bind:value.sync="updatedItem.type"
-                    :iconSize="'26'"
-                  ></x-selector>
-                </v-col>
+                  <v-col cols="12">
+                    <x-selector
+                      label="Category"
+                      :list="typesList"
+                      :listReferences="gearTypeReferences"
+                      v-bind:value.sync="updatedItem.type"
+                      :iconSize="'26'"
+                    ></x-selector>
+                  </v-col>
 
-                <v-col cols="12">
-                  <v-text-field
-                    label="Weight"
-                    v-model="updatedItem.weight"
-                    :rules="xRules.integer"
-                    :color="currentColor"
-                    hide-details="auto"
-                    :suffix="weightUnit"
-                    dense
-                    filled
-                  ></v-text-field>
-                </v-col>
+                  <v-col cols="12">
+                    <v-text-field
+                      label="Weight"
+                      v-model="updatedItem.weight"
+                      :rules="xRules.integer"
+                      :color="currentColor"
+                      hide-details="auto"
+                      :suffix="weightUnit"
+                      dense
+                      filled
+                    ></v-text-field>
+                  </v-col>
 
-                <v-col cols="12">
-                  <x-increment
-                    label="Quantity owned"
-                    v-bind:value.sync="updatedItem.quantity_owned"
-                    :rules="xRules.decimal"
-                    :color="currentColor"
-                    :min="0"
-                  ></x-increment>
-                </v-col>
+                  <v-col cols="12">
+                    <x-increment
+                      label="Quantity owned"
+                      v-bind:value.sync="updatedItem.quantity_owned"
+                      :rules="xRules.decimal"
+                      :color="currentColor"
+                      :min="0"
+                    ></x-increment>
+                  </v-col>
 
-                <v-col cols="12">
-                  <x-combobox
-                    label="Tags"
-                    v-bind:value.sync="updatedItem.tags"
-                    v-bind:items="preferences.gear_tags"
-                    v-bind:route="'gear'"
-                  ></x-combobox>
-                </v-col>
+                  <v-col cols="12">
+                    <x-combobox
+                      label="Tags"
+                      v-bind:value.sync="updatedItem.tags"
+                      v-bind:items="preferences.gear_tags"
+                      v-bind:route="'gear'"
+                    ></x-combobox>
+                  </v-col>
 
-                <v-col cols="12">
-                  <v-textarea
-                    label="Description"
-                    v-model="updatedItem.description"
-                    :color="currentColor"
-                    hide-details="auto"
-                    auto-grow
-                    rows="1"
-                    dense
-                    filled
-                  ></v-textarea>
-                </v-col>
-              </v-row>
-            </v-card-text>
-          </v-card>
-        </v-tab-item>
-        <v-tab-item>
-          <v-card flat :color="xBackgroundColor">
-            <v-card-text>
-              <v-row>
+                  <v-col cols="12">
+                    <v-textarea
+                      label="Description"
+                      v-model="updatedItem.description"
+                      :color="currentColor"
+                      hide-details="auto"
+                      auto-grow
+                      rows="1"
+                      dense
+                      filled
+                    ></v-textarea>
+                  </v-col>
+                </v-row>
+              </v-card-text>
+            </v-card>
+          </v-tab-item>
+          <v-tab-item :key="'gear-purchase'">
+            <v-card flat :color="xBackgroundColor">
+              <v-card-text>
+                <v-row>
 
-                <v-col cols="12">
-                  <v-autocomplete
-                    label="Brand"
-                    :items="brandsList"
-                    v-model="updatedItem.brand"
-                    :color="currentColor"
-                    filled
-                    dense
-                    clearable
-                    @click:clear="updatedItem.brand = null"
-                    hide-details="auto"
-                    item-text="title"
-                    item-value="id"
-                  >
-                    <template v-slot:selection="data">
-                      <div
-                        color="transparent"
-                        v-bind="data.attrs"
-                        :input-value="data.selected"
-                        @click="data.select"
-                        style="height:30px !important; padding-top: 9px; padding-bottom: 2px;"
-                        class="py-2"
-                      >
-                        {{ data.item.title | capitalizeFilter }}
-                      </div>
-                    </template>
-
-                    <template v-slot:item="data">
-                      <template v-if="typeof data.item !== 'object'">
-                        <v-list-item-content v-text="data.item" />
+                  <v-col cols="12">
+                    <v-autocomplete
+                      label="Brand"
+                      :items="brandsList"
+                      v-model="updatedItem.brand"
+                      :color="currentColor"
+                      filled
+                      dense
+                      clearable
+                      @click:clear="updatedItem.brand = null"
+                      hide-details="auto"
+                      item-text="title"
+                      item-value="id"
+                    >
+                      <template v-slot:selection="data">
+                        <div
+                          color="transparent"
+                          v-bind="data.attrs"
+                          :input-value="data.selected"
+                          @click="data.select"
+                          style="height:30px !important; padding-top: 9px; padding-bottom: 2px;"
+                          class="py-2"
+                        >
+                          {{ data.item.title | capitalizeFilter }}
+                        </div>
                       </template>
-                      <template v-else>
-                        <v-list-item-content>
-                          <v-list-item-title>
-                            {{ data.item.title | capitalizeFilter }}
-                          </v-list-item-title>
-                        </v-list-item-content>
+
+                      <template v-slot:item="data">
+                        <template v-if="typeof data.item !== 'object'">
+                          <v-list-item-content v-text="data.item" />
+                        </template>
+                        <template v-else>
+                          <v-list-item-content>
+                            <v-list-item-title>
+                              {{ data.item.title | capitalizeFilter }}
+                            </v-list-item-title>
+                          </v-list-item-content>
+                        </template>
                       </template>
-                    </template>
-                  </v-autocomplete>
-                </v-col>
+                    </v-autocomplete>
+                  </v-col>
 
-                <v-col cols="12">
-                  <v-text-field
-                    label="Size"
-                    v-model="updatedItem.size"
-                    :color="currentColor"
-                    filled
-                    dense
-                    hide-details="auto"
-                  ></v-text-field>
-                </v-col>
+                  <v-col cols="12">
+                    <v-text-field
+                      label="Size"
+                      v-model="updatedItem.size"
+                      :color="currentColor"
+                      filled
+                      dense
+                      hide-details="auto"
+                    ></v-text-field>
+                  </v-col>
 
-                <v-col cols="12">
-                  <v-autocomplete
-                    label="State"
-                    :items="statesList"
-                    v-model="updatedItem.state"
-                    :color="currentColor"
-                    filled
-                    dense
-                    clearable
-                    @click:clear="updatedItem.state = null"
-                    hide-details="auto"
-                    item-text="title"
-                    item-value="id"
-                  >
-                    <template v-slot:selection="data">
-                      <div
-                        color="transparent"
-                        v-bind="data.attrs"
-                        :input-value="data.selected"
-                        @click="data.select"
-                        style="height:30px !important; padding-top: 9px; padding-bottom: 2px;"
-                        class=""
-                      >
-                        <v-avatar tile left min-width="21" width="21" height="21">
-                          <v-icon
-                            :color="data.item.color"
-                            v-text="'mdi-'+stateIcon(data.item.title)"
-                            size="18"
-                            style="padding-bottom: 6px;"
-                          ></v-icon>
-                        </v-avatar>
-
-                        {{ data.item.title }}
-                      </div>
-                    </template>
-
-                    <template v-slot:item="data">
-                      <template v-if="typeof data.item !== 'object'">
-                        <v-list-item-content v-text="data.item" />
-                      </template>
-                      <template v-else>
-                        <v-list-item-avatar tile width="21" height="21">
-                          <v-icon
+                  <v-col cols="12">
+                    <v-autocomplete
+                      label="State"
+                      :items="statesList"
+                      v-model="updatedItem.state"
+                      :color="currentColor"
+                      filled
+                      dense
+                      clearable
+                      @click:clear="updatedItem.state = null"
+                      hide-details="auto"
+                      item-text="title"
+                      item-value="id"
+                    >
+                      <template v-slot:selection="data">
+                        <div
+                          color="transparent"
+                          v-bind="data.attrs"
+                          :input-value="data.selected"
+                          @click="data.select"
+                          style="height:30px !important; padding-top: 9px; padding-bottom: 2px;"
+                          class=""
+                        >
+                          <v-avatar tile left min-width="21" width="21" height="21">
+                            <v-icon
                               :color="data.item.color"
-                              class="py-2 px-1"
                               v-text="'mdi-'+stateIcon(data.item.title)"
                               size="18"
-                          ></v-icon>
-                        </v-list-item-avatar>
+                              style="padding-bottom: 6px;"
+                            ></v-icon>
+                          </v-avatar>
 
-                        <v-list-item-content>
-                          <v-list-item-title v-html="data.item.title" />
-                        </v-list-item-content>
+                          {{ data.item.title }}
+                        </div>
                       </template>
-                    </template>
-                  </v-autocomplete>
-                </v-col>
 
-                <v-col cols="12">
-                  <v-text-field
-                    label="Price"
-                    v-model="updatedItem.price"
-                    :rules="xRules.decimal"
-                    :color="currentColor"
-                    filled
-                    dense
-                    hide-details="auto"
-                    :suffix="priceUnit"
-                  ></v-text-field>
-                </v-col>
+                      <template v-slot:item="data">
+                        <template v-if="typeof data.item !== 'object'">
+                          <v-list-item-content v-text="data.item" />
+                        </template>
+                        <template v-else>
+                          <v-list-item-avatar tile width="21" height="21">
+                            <v-icon
+                                :color="data.item.color"
+                                class="py-2 px-1"
+                                v-text="'mdi-'+stateIcon(data.item.title)"
+                                size="18"
+                            ></v-icon>
+                          </v-list-item-avatar>
 
-                <v-col cols="12">
-                  <x-date-picker
-                    label="Purchase date"
-                    v-bind:value.sync="updatedItem.purchase_date"
-                  ></x-date-picker>
-                </v-col>
-              </v-row>
-            </v-card-text>
-          </v-card>
-        </v-tab-item>
+                          <v-list-item-content>
+                            <v-list-item-title v-html="data.item.title" />
+                          </v-list-item-content>
+                        </template>
+                      </template>
+                    </v-autocomplete>
+                  </v-col>
+
+                  <v-col cols="12">
+                    <v-text-field
+                      label="Price"
+                      v-model="updatedItem.price"
+                      :rules="xRules.decimal"
+                      :color="currentColor"
+                      filled
+                      dense
+                      hide-details="auto"
+                      :suffix="priceUnit"
+                    ></v-text-field>
+                  </v-col>
+
+                  <v-col cols="12">
+                    <x-date-picker
+                      label="Purchase date"
+                      v-bind:value.sync="updatedItem.purchase_date"
+                    ></x-date-picker>
+                  </v-col>
+                </v-row>
+              </v-card-text>
+            </v-card>
+          </v-tab-item>
+        </v-tabs-items>
       </v-tabs>
     </v-container>
   </v-form>
@@ -288,6 +292,7 @@
       isMounted: false,
       isLoading: false,
       valid: false,
+      tab: 'gear-general',
 
       updatedItem: {},
     }),

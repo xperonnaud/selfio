@@ -93,6 +93,14 @@ export default {
                 return this.$store.state.ui.weathers
             },
         },
+        user: {
+            get() {
+                return this.$store.state.selfio.user
+            },
+        },
+        userId() {
+            return parseInt(this.user.id);
+        },
         preferences: {
             get() {
                 return this.$store.state.selfio.preferences

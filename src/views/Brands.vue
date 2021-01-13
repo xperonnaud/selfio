@@ -1,39 +1,37 @@
 
 <template>
 
-  <div v-if="isMounted">
-    <v-sheet
-      max-width="100%"
-      color="transparent"
-    >
-      <v-container fluid  class="py-0">
-        <v-row>
-          <v-col
-            cols="12"
-            v-bind:class="[
-                {'pa-0':isMobile}
-            ]"
-          >
-            <div style="max-width: 750px">
-              <brand-settings-form />
-            </div>
+    <v-sheet v-if="isMounted" height="100%">
 
-          </v-col>
-        </v-row>
-      </v-container>
+      <list-container
+        v-bind:icon="currentIcon"
+        v-bind:title="currentTitle"
+        v-bind:color="currentColor"
+        v-bind:items="brandsList"
+        v-bind:itemHeaders="brandHeaders"
+        v-bind:keyName="'name'"
+      ></list-container>
+
     </v-sheet>
-  </div>
 
 </template>
 
 <script>
 
-  import BrandSettingsForm from "@/components/forms/BrandSettingsForm";
+  import ListContainer from "@/components/containers/ListContainer";
 
   export default {
     name: "brands",
     components: {
-      BrandSettingsForm
+      ListContainer
+    },
+    computed: {
+      brandHeaders() {
+        return [
+          {text: 'Title', value: 'title', align: 'start'},
+          {text: 'Private', value: 'owned'},
+        ]
+      },
     },
     mounted() {
       this.isMounted = true;

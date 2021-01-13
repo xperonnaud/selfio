@@ -4,12 +4,12 @@
     v-model="snackbarDisplay"
     :timeout="(snackbarTimeout !== 0) ? snackbarTimeout : -1"
     :color="snackBarColor"
-    :outlined="snackbarType === 'error'"
+    text
     v-bind:class="[
-      'x-snack-bar pt-0',
+      'x-snack-bar',
       {'is-small':isMobile}
     ]"
-    top
+    bottom
   >
     <v-icon
       v-show="snackbarType === 'success'"

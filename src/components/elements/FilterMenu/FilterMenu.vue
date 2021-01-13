@@ -9,7 +9,7 @@
     >
       <template v-slot:activator="{ on, attrs }">
         <v-btn
-          v-if="isItemRoute"
+          v-if="isItemRoute || isConfigurationRoute"
           @click="filterModeOn = !filterModeOn"
           v-bind="attrs"
           v-on="on"
@@ -108,9 +108,8 @@
         let self = this;
         this.resetUniqueFilterRef();
         let listName = self.forcedRouteName ? self.forcedRouteName : this.$router.currentRoute.path;
-        let route = this.$options.filters.removeSlashFilter(listName);
 
-        if(this.itemRoutes.includes(route) || self.forcedRouteName)
+        if(this.isItemRoute || this.isConfigurationRoute || self.forcedRouteName)
           this.loader()
             .then(() => {
               self.filterComponent = () => self.loader();

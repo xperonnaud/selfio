@@ -3,9 +3,10 @@
   <v-btn
     :color="darkColor('red')"
     :disabled="disabled"
+    depressed
   >
-    <v-icon left small color="white" v-text="'mdi-alert'" />
-    <span v-text="'Delete'" />
+    <v-icon left small :color="(isDark ? 'black' : 'white')" v-text="'mdi-alert'" />
+    <span v-bind:class="[reversedFontShadeColor]" v-text="'Delete'" />
   </v-btn>
 
 </template>

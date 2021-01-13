@@ -130,8 +130,9 @@ export default {
                     email: self.apiLogin,
                     password: self.apiPassword
                 }
-            ).then(async function (response) {console.log(response)
+            ).then(async function (response) {
                 if(response && response.data) {
+                    self.$store.commit('updateUser',response.data.data.user);
                     self.$store.commit('updateApiAccessToken',response.data.data.token);
                     await self.api_auth_refresh();
                     await self.handleResponse('success');
@@ -308,14 +309,12 @@ export default {
                 +'&fields=*'
             )
             .then(async function (response) {
-                console.log('api_get_preferences success',response.data.data);
                 if(response.data.data.length > 0) {
                     self.$store.commit("updatePreferences",response.data.data[0]);
                 } else {
                     await self.api_init_preferences();
                 }
             }).catch(async function (error) {
-                console.log('api_get_preferences error',error);
                 await self.handleResponse('error', error.message, error);
             })
         },

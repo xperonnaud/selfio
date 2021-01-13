@@ -109,25 +109,25 @@
                                   <div class="d-flex">
                                     <div>
                                       <span
-                                          v-bind:class="[currentColorText]"
+                                          v-bind:class="['text-body-2',currentColorText]"
                                           v-text="currentInventoryGear.length"
                                       ></span>
                                       <span v-text="' Item'+(currentInventoryGear.length>1?'s':'')" />
                                     </div>
 
-                                    <x-divider />
+<!--                                    <x-divider />-->
 
-                                    <div>
-                                      <span v-bind:class="[currentColorText]">{{ sumInventoryWeight(item.inventory_gear) | thousandthFilter }}</span>
-                                      <span v-text="' k'+weightUnit" />
-                                    </div>
+<!--                                    <div>-->
+<!--                                      <span v-bind:class="['text-body-2',currentColorText]">{{ sumInventoryWeight(item.inventory_gear) | thousandthFilter }}</span>-->
+<!--                                      <span v-text="' k'+weightUnit" />-->
+<!--                                    </div>-->
 
-                                    <x-divider />
+<!--                                    <x-divider />-->
 
-                                    <div>
-                                      <span v-bind:class="[currentColorText]">{{ sumInventoryPrice(item.inventory_gear) | thousandthFilter }}</span>
-                                      <span v-text="' k'+priceUnit" />
-                                    </div>
+<!--                                    <div>-->
+<!--                                      <span v-bind:class="['text-body-2',currentColorText]">{{ sumInventoryPrice(item.inventory_gear) | thousandthFilter }}</span>-->
+<!--                                      <span v-text="' k'+priceUnit" />-->
+<!--                                    </div>-->
                                   </div>
                                 </v-list-item-action-text>
                               </v-list-item-action>
@@ -478,15 +478,15 @@
       <v-expand-transition>
         <v-row v-show="isEditing">
           <v-col cols="12" class="pa-0">
-              <v-card class="mx-auto" flat>
+              <v-card class="mx-auto" flat :color="xBackgroundColor">
 
                 <v-card-text class="pa-0">
-                  <v-toolbar>
+                  <v-toolbar class="pl-3 pr-2">
                     <v-btn @click="closeEditor()" icon>
                       <v-icon v-text="'mdi-arrow-left'" />
                     </v-btn>
 
-                    <v-toolbar-title class="pl-1" v-text="'Gear'" />
+                    <v-toolbar-title v-text="'Gear'" v-bind:class="[{'pa-0':isMobile}]" />
 
                     <v-spacer />
 
@@ -531,7 +531,7 @@
                       icon
                       style="margin-right: -9px !important;"
                     >
-                      <v-icon v-text="'mdi-check'" />
+                      <v-icon :size="28" v-text="'mdi-check'" />
                     </v-btn>
                   </v-toolbar>
 
@@ -549,7 +549,7 @@
                         <v-list-item
                           @click.stop="gearListItemAction(gear)"
                           :key="`${gear.id}-${index}`"
-                          class="x-checklist-item"
+                          v-bind:class="['x-checklist-item', {'px-7':isMobile}]"
                         >
                           <v-list-item-action>
                             <v-checkbox :input-value="inventoryGearList.includes(gear.id)" :color="currentColor" />

@@ -7,13 +7,14 @@ export default new Vuex.Store({
     state: {
         api: {
             authTimer: null,
-            login: 'x.peronnaud@gmail.com',
+            login: 'reivax@gmail.com',
             password: 'poppers78',
             accessToken: null,
             baseUrl: 'http://localhost:8080/selfio/',
             isTokenRefreshed: false
         },
         selfio: {
+            user: {},
             preferences: {},
             relations: [],
             files: [],
@@ -44,6 +45,7 @@ export default new Vuex.Store({
             selectedItemIndex: null,
 
             itemSearch: '',
+            itemOwned: null,
             itemTag: null,
             itemGearType: null,
             itemGearState: null,
@@ -106,7 +108,7 @@ export default new Vuex.Store({
                 brands: {
                     title: 'Brands',
                     icon: 'mdi-label-multiple',
-                    type: 'misc',
+                    type: 'configuration',
                 },
                 tags: {
                     title: 'Tags',
@@ -152,7 +154,6 @@ export default new Vuex.Store({
                 'sunny',
                 'windy',
             ],
-
             colors: {
                 light: [
                     '#D32F2F',
@@ -255,6 +256,9 @@ export default new Vuex.Store({
                 state.selfio.gearTypes.push(gt);
                 Object.assign(state.selfio.gearTypeReferences, { [gt.id] : (state.selfio.gearTypes.length - 1) });
             }
+        },
+        updateUser(state, user) {
+            Object.assign(state.selfio.user, user);
         },
         updatePreferences(state, preferences) {
             Object.assign(state.selfio.preferences, preferences);
@@ -469,6 +473,9 @@ export default new Vuex.Store({
         },
         updateUiItemSearch(state, itemSearch) {
             state.ui.itemSearch = itemSearch;
+        },
+        updateUiItemOwned(state, itemOwned) {
+            state.ui.itemOwned = itemOwned;
         },
         updateUiItemGearType(state, itemGearType) {
             state.ui.itemGearType = itemGearType;

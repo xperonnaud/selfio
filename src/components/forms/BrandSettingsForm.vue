@@ -52,73 +52,29 @@
 
             <template v-slot:item.actions="{ item }">
               <v-icon
+                v-if="item.owner === userId"
                 @click="openDeleteDialog(item.id)"
-                v-text="'mdi-delete-outline'"
+                v-text="'mdi-trash-can-outline'"
               ></v-icon>
+
+              <v-tooltip v-else left>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon
+                    :color="xOverlayColor"
+                    v-text="'mdi-delete-off-outline'"
+                    v-bind="attrs"
+                    v-on="on"
+                  ></v-icon>
+                </template>
+                <span v-text="'You may only delete a Brand that you created.'" />
+              </v-tooltip>
+
             </template>
           </v-data-table>
         </v-col>
 
       </v-row>
     </v-container>
-
-    <v-dialog
-      v-model="postDialog"
-      max-width="750px"
-      :hide-overlay="isMobile"
-      :transition="isMobile ? 'slide-x-transition' : 'fade-transition'"
-      persistent
-    >
-      <v-card
-        v-bind:class="[
-          {'rounded-0': isMobile},
-        ]"
-      >
-        <v-card-title class="headline">
-          <span v-text="'New Brand'" />
-        </v-card-title>
-
-        <v-card-text>
-          <v-row>
-            <v-col cols="12">
-              <v-form v-model="valid">
-                <v-text-field
-                  label="Title"
-                  v-model="defaultBrand.title"
-                  :rules="xRules.text"
-                  :color="darkColor('primary')"
-                  @keyup.enter="postBrand()"
-                  filled
-                  dense
-                  hide-details="auto"
-                  required
-                ></v-text-field>
-              </v-form>
-            </v-col>
-          </v-row>
-        </v-card-text>
-
-        <v-card-actions>
-
-          <v-spacer />
-
-          <v-btn
-            @click="postDialog = false"
-            v-text="'Cancel'"
-            text
-          ></v-btn>
-
-          <v-btn
-            @click="postBrand()"
-            :color="darkColor('primary')"
-            :disabled="!valid"
-          >
-            <v-icon v-text="'mdi-check'" />
-            <span v-text="'Add brand'" />
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
 
     <v-dialog
       v-model="deleteDialog"
@@ -184,10 +140,11 @@
           <v-btn
             :color="darkColor('red')"
             :disabled="hasBrandRelations"
+            depressed
             @click="deleteBrand()"
           >
-            <v-icon left small color="white" v-text="'mdi-alert'" />
-            <span v-text="'Delete'" />
+            <v-icon left small :color="(isDark ? 'black' : 'white')" v-text="'mdi-alert'" />
+            <span v-bind:class="[reversedFontShadeColor]" v-text="'Delete'" />
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -227,6 +184,7 @@
         if(this.valid === true) {
           await this.api_post_brand(this.defaultBrand);
           this.postDialog = false;
+          this.defaultBrand.title = '';
         }
       },
       async openDeleteDialog(brandId) {
@@ -237,7 +195,10 @@
       async deleteBrand() {
         let brandId = this.selectedBrandId;
         let brandIndex = (typeof brandId == 'number') ? this.brandReferences[brandId] : null;
-        if(brandIndex)
+
+        console.log('deleting brand',brandId, brandIndex)
+
+        if(typeof brandIndex == 'number' && (this.userId === this.brandsList[brandIndex].owner))
           await this.api_remove_brand(brandId, brandIndex);
         this.deleteDialog = false;
       },

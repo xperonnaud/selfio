@@ -10,7 +10,7 @@
         <v-container>
           <v-row>
             <v-col cols="12" class="pt-3 pb-0">
-              <div v-bind:class="['text-body-1',darkColorText('primary')]" v-text="'Units'" />
+              <div v-bind:class="['text-body-1']" v-text="'Units'" />
             </v-col>
 
             <v-col cols="6" sm="4" lg="3">
@@ -91,7 +91,7 @@
 
           <v-row>
             <v-col cols="12" class="pt-3 pb-0">
-              <div v-bind:class="['text-body-1',darkColorText('primary')]" v-text="'Interface'" />
+              <div v-bind:class="['text-body-1']" v-text="'Interface'" />
             </v-col>
 
             <v-col cols="12">

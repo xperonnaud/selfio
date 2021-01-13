@@ -325,10 +325,7 @@
 
             <v-card-text class="pa-0">
               <v-toolbar>
-                <v-btn
-                  @click="closeEditor()"
-                  icon
-                >
+                <v-btn @click="closeEditor()" icon>
                   <v-icon v-text="'mdi-arrow-left'" />
                 </v-btn>
 
@@ -339,20 +336,11 @@
                 <div class="d-flex">
                   <div>
                     <span class="font-weight-regular">
-                      <span v-bind:class="['text-caption',navItemColorText('inventories')]" v-text="updatedItem.packed_gear ? updatedItem.packed_gear.length : 0" />
+                      <span v-bind:class="['text-body-1',navItemColorText('inventories')]" v-text="updatedItem.packed_gear ? updatedItem.packed_gear.length : 0" />
                       <span class="text-tiny-dimmed" v-text="' / '" />
-                      <span v-bind:class="['text-caption',navItemColorText('inventories')]" v-text="originalInventoryGear.length" />
-                      <span class="text-caption" v-text="' packed'" />
+                      <span v-bind:class="['text-body-1',navItemColorText('inventories')]" v-text="originalInventoryGear.length" />
+                      <span class="text-body-1" v-text="' packed'" />
                     </span>
-                  </div>
-
-                  <div class="ml-1">
-                    <span class="text-tiny-dimmed" v-text="'('" />
-                    <span v-bind:class="['text-caption',navItemColorText('inventories')]">
-                      {{ packedGearRatio | roundIntFilter }}
-                    </span>
-                    <span class="text-caption" v-text="'%'" />
-                    <span class="text-tiny-dimmed" v-text="')'" />
                   </div>
 
                   <div class="ml-1">
@@ -380,10 +368,10 @@
                 <v-btn
                   @click="closeGearList()"
                   :color="darkColor('primary')"
-                  class="mx-1"
+                  class="ml-1"
                   icon
                 >
-                  <v-icon v-text="'mdi-check'" />
+                  <v-icon :size="28" v-text="'mdi-check'" />
                 </v-btn>
               </v-toolbar>
 
@@ -499,7 +487,7 @@
                     </v-list-item>
 
                     <v-divider
-                      v-if="(index < gearList.length - 1)"
+                      v-if="(index < originalInventoryGear.length - 1)"
                       :key="index"
                     ></v-divider>
                   </template>
@@ -713,7 +701,12 @@
       },
       async inventoryGear(val) {
         if(this.isMounted) {
-          Vue.set(this.updatedItem, 'packed_gear', this.item.packed_gear);
+          if(this.item && this.item.packed_gear) {
+            Vue.set(this.updatedItem, 'packed_gear', this.item.packed_gear);
+          } else {
+            Vue.set(this.updatedItem, 'packed_gear', []);
+          }
+
 
           if(val !== null) {
             await this.initInventoryGear();

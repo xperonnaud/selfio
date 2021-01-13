@@ -51,7 +51,10 @@
     <v-list v-if="apiAccessToken" dense>
       <template v-for="item in navigationRoutes">
         <v-list-item
-            v-if="(navigationItems[item].type === 'settings') || (navigationItems[item].type === 'misc') || (navigationItems[item].type === 'account')"
+            v-if="(navigationItems[item].type === 'settings')
+              || (navigationItems[item].type === 'misc')
+              || (navigationItems[item].type === 'configuration')
+              || (navigationItems[item].type === 'account')"
             :key="navigationItems[item].title"
             :to="{ name: item }"
             link
@@ -68,20 +71,24 @@
     </v-list>
 
     <template v-if="apiAccessToken" v-slot:append>
-      <div v-bind:class="{'pa-2':!navigationCollapse}">
-        <v-btn
-          @click="logout()"
-          :large="!isMobile"
-          block
+      <v-list v-bind:class="{'pa-2':!navigationCollapse}" dense>
+        <v-divider />
+        <v-list-item
+            @click.stop="logout()"
+            link
         >
-          <span v-text="'Logout'" />
+          <v-list-item-icon>
+            <v-icon
+              v-text="'mdi-logout'"
+              :color="darkColor()"
+            ></v-icon>
+          </v-list-item-icon>
 
-          <v-icon
-            v-text="'mdi-logout'"
-            :size="20"
-          ></v-icon>
-        </v-btn>
-      </div>
+          <v-list-item-content>
+            <v-list-item-title v-text="'Logout'" />
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
     </template>
   </v-navigation-drawer>
 

@@ -8,19 +8,19 @@
   >
     <v-list
       v-show="!(formDialog && isMobile) && !loading"
-      class="rounded-0 py-0"
+      v-bind:class="['rounded-0', (isMobile ? 'py-1' : 'py-2')]"
       one-line
       flat
     >
       <template v-for="(item, index) in filteredItems">
         <v-list-item
           :key="`${index}-${item.title}`"
-          @click.stop="openItemDialog(item, index)"
+          @click.stop="isItemRoute ? openItemDialog(item, index) : null"
           v-bind:class="['pl-3']"
         >
           <v-list-item-avatar
             v-if="(
-              (currentRouteTitle !== 'Inventories')
+              ((currentRouteTitle !== 'Brands') && (currentRouteTitle !== 'Inventories'))
               || item.activity
               || item.type
             )"
@@ -54,12 +54,12 @@
             :item="item"
           ></component>
 
-          <v-list-item-content v-if="!listComponent">
+          <v-list-item-content v-else>
             <v-row>
               <v-col cols="3" class="pa-0">
                 <v-skeleton-loader
-                    height="36"
-                    type="list-item-two-line"
+                  height="36"
+                  type="list-item-two-line"
                 ></v-skeleton-loader>
               </v-col>
 
@@ -67,8 +67,8 @@
 
               <v-col class="pa-0 pt-3">
                 <v-skeleton-loader
-                    width="60"
-                    type="text"
+                  width="60"
+                  type="text"
                 ></v-skeleton-loader>
               </v-col>
 
@@ -76,17 +76,8 @@
 
               <v-col class="pa-0 pt-3">
                 <v-skeleton-loader
-                    width="60"
-                    type="text"
-                ></v-skeleton-loader>
-              </v-col>
-
-              <v-col class="pa-0" />
-
-              <v-col class="pa-0 pt-3">
-                <v-skeleton-loader
-                    width="60"
-                    type="text"
+                  width="60"
+                  type="text"
                 ></v-skeleton-loader>
               </v-col>
 
@@ -108,17 +99,18 @@
         ></v-divider>
       </template>
 
-      <v-list-item v-if="items.length <= 0">
+      <v-list-item v-if="(items.length <= 0)">
         <v-list-item-content>
           <empty-list
             :label="`Add ${currentRouteName}`"
             :icon="currentNavItem.icon"
             :color="currentColor"
+            isLink
           ></empty-list>
         </v-list-item-content>
       </v-list-item>
 
-      <v-list-item v-else-if="filteredItems.length <= 0">
+      <v-list-item v-else-if="(filteredItems.length <= 0)">
         <v-list-item-content>
           <empty-list
             label="No results"
@@ -127,6 +119,7 @@
           ></empty-list>
         </v-list-item-content>
       </v-list-item>
+
     </v-list>
   </v-card>
 
@@ -174,6 +167,11 @@
           return this.$store.state.ui.itemSearch
         }
       },
+      itemOwned: {
+        get() {
+          return this.$store.state.ui.itemOwned
+        }
+      },
       itemTag: {
         get() {
           return this.$store.state.ui.itemTag
@@ -218,6 +216,7 @@
         return (this.items.filter(item => {
           if(
               !this.itemSearch
+              && !this.itemOwned
               && !this.itemTag
               && !this.itemGearType
               && !this.itemGearState
@@ -230,6 +229,7 @@
 
           return (
               (this.itemSearch ? item.title.toLowerCase().includes(this.itemSearch.toLowerCase()) : true)
+              && (this.itemOwned ? (item.owner === this.userId) : true)
               && (this.itemTag ? (item.tags.includes(this.itemTag)) : true)
               && (this.itemGearType ? (item.type === this.itemGearType) : true)
               && (this.itemGearState ? (item.state === this.itemGearState) : true)
@@ -247,7 +247,7 @@
         let self = this;
         let route = this.$options.filters.removeSlashFilter(this.$router.currentRoute.path);
 
-        if(this.itemRoutes.includes(route))
+        if(this.isItemRoute || this.isConfigurationRoute)
           this.loader()
             .then(() => {
               self.listComponent = () => self.loader();

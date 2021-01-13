@@ -55,6 +55,9 @@ export default {
         isItemRoute() {
             return (this.currentType === 'items');
         },
+        isConfigurationRoute() {
+            return (this.currentType === 'configuration');
+        },
         isSettingsRoute() {
             return (this.currentType === 'settings');
         },
@@ -190,7 +193,7 @@ export default {
             setTimeout(function(){
                 self.formDialog = true;
                 self.formDialogType = 'post';
-            }, 100);
+            }, 50);
         },
         async toggleTheme(theme) {
             this.$vuetify.theme.dark = theme
