@@ -2,9 +2,11 @@
 
   <v-form class="adventures-form" v-model="valid">
     <v-container
+      v-if="isMounted"
+      style="max-width: unset;"
       v-bind:class="[
         {'py-0': isMobile},
-        'pa-0 max-width'
+        'pa-0'
       ]"
     >
       <v-tabs

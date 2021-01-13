@@ -12,7 +12,6 @@
         <v-list-item-subtitle>
           <span v-if="item.start_date" class="text-caption">
             <span>{{item.start_date | dayMonthFilter}}</span>
-            <span> ({{item.start_date | yearFilter}})</span>
           </span>
 
           <span v-else v-text="'-'" class="text-tiny-dimmed" />

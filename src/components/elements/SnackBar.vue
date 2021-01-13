@@ -3,7 +3,7 @@
   <v-snackbar
     v-model="snackbarDisplay"
     :timeout="(snackbarTimeout !== 0) ? snackbarTimeout : -1"
-    :color="snackBarColor"
+    :color="darkColor(snackColor)"
     v-bind:class="[
       'x-snack-bar',
       'elevation-3',
@@ -15,14 +15,14 @@
     <v-icon
       v-show="snackbarType === 'success'"
       v-text="'mdi-checkbox-marked-circle'"
-      :color="darkColor(snackbarType)"
+      :color="darkColor(snackColor)"
       class="mr-2"
     />
 
     <v-icon
       v-show="snackbarType === 'error'"
       v-text="'mdi-alert'"
-      :color="darkColor(snackbarType)"
+      :color="darkColor(snackColor)"
       class="mr-2"
     />
 
@@ -50,6 +50,14 @@
       isMounted: false,
     }),
     computed: {
+      snackColor() {
+        if(this.snackbarType === 'success')
+          return 'green';
+        if(this.snackbarType === 'error')
+          return 'red';
+
+          return 'primary';
+      },
       textWordCount() {
         if(this.snackbarText)
           return this.snackbarText.split(' ').length;

@@ -2,7 +2,7 @@
 export default {
     computed: {
         imgSize() {
-            return (this.isMobile ? 18 : 24);
+            return (this.isMobile ? 22 : 24);
         },
         xBorderColorHex() {
             return (this.isDark ? '#424242' : '#E0E0E0');

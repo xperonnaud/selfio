@@ -40,7 +40,7 @@
         @click="brandPostDialog = !brandPostDialog"
         v-bind:class="['px-2 ml-3 mr-1 elevation-0']"
       >
-        <v-icon :color="darkColorText('primary')" v-text="'mdi-plus'" />
+        <v-icon v-bind:class="[reversedFontShadeColor]" v-text="'mdi-plus'" />
       </v-btn>
 
       <v-dialog
@@ -142,7 +142,7 @@
         @click.stop="updatePreferences()"
       >
         <v-icon
-          size="28"
+          :size="28"
           v-text="'mdi-check'"
         />
       </v-btn>
