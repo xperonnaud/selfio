@@ -4,18 +4,19 @@
     v-model="snackbarDisplay"
     :timeout="(snackbarTimeout !== 0) ? snackbarTimeout : -1"
     :color="snackBarColor"
-    text
     v-bind:class="[
       'x-snack-bar',
+      'elevation-3',
       {'is-small':isMobile}
     ]"
     bottom
+    outlined
   >
     <v-icon
       v-show="snackbarType === 'success'"
       v-text="'mdi-checkbox-marked-circle'"
+      :color="darkColor(snackbarType)"
       class="mr-2"
-      :color="isDark ? 'grey darken-4' : 'white'"
     />
 
     <v-icon
@@ -25,13 +26,7 @@
       class="mr-2"
     />
 
-    <span
-      v-text="snackbarText"
-      v-bind:class="[
-        {'white--text':snackbarType === 'success' && !isDark},
-        {'grey--text text--darken-4':snackbarType === 'success' && isDark}
-      ]"
-    ></span>
+    <span v-text="snackbarText" />
 
     <template v-slot:action="{ attrs }">
       <v-btn
@@ -40,7 +35,7 @@
         v-bind="attrs"
         @click="snackbarDisplay = false"
       >
-        <v-icon :color="(snackbarType === 'success') ? (isDark ? 'grey darken-4' : 'white') : null" v-text="'mdi-close'" />
+        <v-icon v-text="'mdi-close'" />
       </v-btn>
     </template>
   </v-snackbar>
@@ -65,7 +60,7 @@
         return ((1 + (this.textWordCount % 4)) * 1000); // 1 second => 4 words
       },
       snackBarColor() {
-        if(!this.snackbarType || this.snackbarType==='success')
+        if(!this.snackbarType)
           return this.darkColor('primary');
 
         return this.darkColor(this.snackbarType);
@@ -85,8 +80,8 @@
     &.is-small {
 
       .v-snack__wrapper {
-        margin-top: 0;
-        border-radius: 0 0 4px 4px;
+        //margin-top: 0;
+        //border-radius: 0 0 4px 4px;
       }
     }
   }

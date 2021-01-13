@@ -21,7 +21,7 @@
       <v-tabs-items v-model="tab">
         <v-tab-item :key="'gear-tags'">
           <v-card flat :color="xBackgroundColor">
-            <v-card-text v-bind:class="[{'pa-0':isMobile}]">
+            <v-card-text class="pa-0">
               <gear-tags-form />
             </v-card-text>
           </v-card>
@@ -29,7 +29,7 @@
 
         <v-tab-item :key="'inventory-tags'">
           <v-card flat :color="xBackgroundColor">
-            <v-card-text v-bind:class="[{'pa-0':isMobile}]">
+            <v-card-text class="pa-0">
               <inventory-tags-form />
             </v-card-text>
           </v-card>
@@ -37,7 +37,7 @@
 
         <v-tab-item :key="'adventure-tags'">
           <v-card flat :color="xBackgroundColor">
-            <v-card-text v-bind:class="[{'pa-0':isMobile}]">
+            <v-card-text class="pa-0">
               <adventure-tags-form />
             </v-card-text>
           </v-card>
@@ -45,14 +45,9 @@
       </v-tabs-items>
     </v-tabs>
 
-    <v-container v-bind:class="['py-0']" fluid>
-      <v-row>
-        <v-col
-          v-bind:class="[
-            'py-1',
-            (isMobile ? 'ml-0' : 'ml-4')
-          ]"
-        >
+    <v-container fluid v-bind:class="(isMobile ? 'px-4' : 'px-8')">
+      <v-row style="max-width: 750px">
+        <v-col cols="12" class="py-0">
           <v-btn
             v-bind:class="['elevation-0',{'max-width':isMobile},reversedFontShadeColor]"
             :color="darkColor('primary')"

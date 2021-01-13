@@ -50,32 +50,32 @@
      return (Math.floor((value / nbInList) * 100));
  });
 
- Vue.filter("minimalDateFilter", function (date) {
+ Vue.filter("minimalDateFilter", function (date, format = 'DD-MM-YY') {
      if(!date)
          return '-';
 
-     return moment(date).format('DD/MM/YY');
+     return moment(date).format(format);
  });
 
- Vue.filter("dateFilter", function (date) {
+ Vue.filter("dateFilter", function (date, format = 'dddd Do MMMM - YYYY') {
      if(!date)
          return '-';
 
-     return moment(date).format('dddd Do MMMM - YYYY');
+     return moment(date).format(format);
  });
 
  Vue.filter("mobileDayMonthFilter", function (date) {
      if(!date)
          return '-';
 
-     return moment(date).format('DD/MM');
+     return moment(date).format('DD-MM');
  });
 
- Vue.filter("dayMonthFilter", function (date) {
+ Vue.filter("dayMonthFilter", function (date, format = 'dd MMM Do YYYY') {
      if(!date)
          return '-';
 
-     return moment(date).format('dd MMM Do');
+     return moment(date).format(format);
  });
 
  Vue.filter("yearFilter", function (date) {

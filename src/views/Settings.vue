@@ -7,124 +7,133 @@
         max-width="100%"
         color="transparent"
       >
-        <v-container>
-          <v-row>
-            <v-col cols="12" class="pt-3 pb-0">
-              <div v-bind:class="['text-body-1']" v-text="'Units'" />
-            </v-col>
-
-            <v-col cols="6" sm="4" lg="3">
+        <v-container fluid v-bind:class="(isMobile ? 'pa-4' : 'pa-8')">
+          <v-row style="max-width: 750px">
+            <v-col cols="12">
               <div>
-                <div class="text-caption" v-text="'Weight'" />
-                <v-btn-toggle v-model="preferences.weight_unit" mandatory dense>
+                <div class="text-caption" v-text="'Weight Unit'" />
+                <v-btn-toggle v-model="preferences.weight_unit" mandatory dense tile borderless>
                   <v-btn
                       v-for="weightUnit in weightUnits"
                       :key="weightUnit"
                       :value="weightUnit"
                       v-text="weightUnit"
                       class="lowercase"
+                      large
                   ></v-btn>
                 </v-btn-toggle>
               </div>
             </v-col>
 
-            <v-col cols="6" sm="4" lg="3">
+            <v-col cols="12">
               <div>
-                <div class="text-caption" v-text="'Temperature'" />
-                <v-btn-toggle v-model="preferences.temperature_unit" mandatory dense>
+                <div class="text-caption" v-text="'Temperature Unit'" />
+                <v-btn-toggle v-model="preferences.temperature_unit" mandatory dense tile borderless>
                   <v-btn
                       v-for="temperatureUnit in temperatureUnits"
                       :key="temperatureUnit"
                       :value="temperatureUnit"
                       v-html="temperatureUnit"
                       class="lowercase"
+                      large
                   ></v-btn>
                 </v-btn-toggle>
               </div>
             </v-col>
 
-            <v-col cols="6" sm="4" lg="3">
+            <v-col cols="12">
               <div>
-                <div class="text-caption" v-text="'Distance'" />
-                <v-btn-toggle v-model="preferences.distance_unit" mandatory dense>
+                <div class="text-caption" v-text="'Distance Unit'" />
+                <v-btn-toggle v-model="preferences.distance_unit" mandatory dense tile borderless>
                   <v-btn
                       v-for="distanceUnit in distanceUnits"
                       :key="distanceUnit"
                       :value="distanceUnit"
                       v-text="distanceUnit"
                       class="lowercase"
+                      large
                   ></v-btn>
                 </v-btn-toggle>
               </div>
             </v-col>
 
-            <v-col cols="6" sm="4" lg="3">
+            <v-col cols="12">
               <div>
-                <div class="text-caption" v-text="'Elevation/Depth'" />
-                <v-btn-toggle v-model="preferences.elevation_unit" mandatory dense>
+                <div class="text-caption" v-text="'Elevation/Depth Unit'" />
+                <v-btn-toggle v-model="preferences.elevation_unit" mandatory dense tile borderless>
                   <v-btn
                       v-for="elevationUnit in elevationUnits"
                       :key="elevationUnit"
                       :value="elevationUnit"
                       v-text="elevationUnit"
                       class="lowercase"
+                      large
                   ></v-btn>
                 </v-btn-toggle>
               </div>
             </v-col>
 
-            <v-col cols="6" sm="4">
+            <v-col cols="12">
               <div>
-                <div class="text-caption" v-text="'Price'" />
-                <v-btn-toggle v-model="preferences.price_unit" mandatory dense>
+                <div class="text-caption" v-text="'Price Unit'" />
+                <v-btn-toggle v-model="preferences.price_unit" mandatory dense tile borderless>
                   <v-btn
                       v-for="priceUnit in priceUnits"
                       :key="priceUnit"
                       :value="priceUnit"
                       v-text="priceUnit"
                       class="lowercase"
+                      large
                   ></v-btn>
                 </v-btn-toggle>
               </div>
             </v-col>
-          </v-row>
 
-          <v-row>
-            <v-col cols="12" class="pt-3 pb-0">
-              <div v-bind:class="['text-body-1']" v-text="'Interface'" />
+            <v-col cols="12">
+              <div>
+                <div class="text-caption" v-text="'Date Format'" />
+                <v-btn-toggle v-model="preferences.date_format" mandatory dense tile borderless>
+                  <v-btn
+                      v-for="dateFormat in dateFormats"
+                      :key="dateFormat"
+                      :value="dateFormat"
+                      v-text="dateFormat"
+                      class="lowercase"
+                      large
+                  ></v-btn>
+                </v-btn-toggle>
+              </div>
             </v-col>
 
             <v-col cols="12">
               <div>
                 <div class="text-caption" v-text="'Theme'" />
-                <v-btn-toggle v-model="preferences.theme" mandatory dense>
+                <v-btn-toggle v-model="preferences.theme" mandatory dense tile borderless>
                   <v-btn
                       v-for="theme in themes"
-                      :key="theme"
-                      :value="theme"
-                      v-html="theme"
-                      @change="toggleTheme(theme);"
+                      :key="theme.label"
+                      :value="theme.label"
+                      v-text="theme.label"
+                      @change="toggleTheme(theme.label);"
                       class="lowercase"
+                      large
                   ></v-btn>
                 </v-btn-toggle>
               </div>
             </v-col>
-          </v-row>
 
-          <v-row>
             <v-col cols="12">
               <v-btn
-                v-bind:class="['elevation-0',{'max-width':isMobile},reversedFontShadeColor]"
-                :color="darkColor('primary')"
-                :disabled="!valid"
-                @click.stop="updatePreferences()"
+                  v-bind:class="['elevation-0',{'max-width':isMobile},reversedFontShadeColor]"
+                  :color="darkColor('primary')"
+                  :disabled="!valid"
+                  @click.stop="updatePreferences()"
               >
                 <v-icon v-text="'mdi-check'"/>
                 <span v-text="'Save'" />
               </v-btn>
             </v-col>
           </v-row>
-
         </v-container>
       </v-sheet>
     </v-form>
@@ -146,8 +155,12 @@
       elevationUnits: ['m', 'ft'],
       weightUnits: ['g', 'lbs'],
       temperatureUnits: ['&#8451;', '&#8457;'],
+      dateFormats: ['DD-MM-YY', 'MM-DD-YY', 'YY-MM-DD'],
 
-      themes: ['light', 'dark'],
+      themes: [
+        { label: 'light' },
+        { label: 'dark' },
+      ],
 
     }),
     mounted() {

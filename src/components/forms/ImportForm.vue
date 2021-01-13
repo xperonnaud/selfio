@@ -1,7 +1,7 @@
 <template>
 
   <v-form v-model="valid">
-    <v-container v-bind:class="['py-0']">
+    <v-container v-bind:class="(isMobile ? 'pt-3 px-4' : 'pt-7 px-8')" fluid>
       <v-row>
         <v-col v-if="!isMobile" cols="12">
           Incoming feature

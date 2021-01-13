@@ -16,14 +16,14 @@
 
       <v-tab-item>
         <v-card flat :color="xBackgroundColor">
-          <v-card-text v-bind:class="[{'pa-0':isMobile}]">
+          <v-card-text class="pa-0">
             <export-form />
           </v-card-text>
         </v-card>
       </v-tab-item>
       <v-tab-item>
         <v-card flat :color="xBackgroundColor">
-          <v-card-text v-bind:class="[{'pa-0':isMobile}]">
+          <v-card-text class="pa-0">
             <import-form />
           </v-card-text>
         </v-card>

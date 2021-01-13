@@ -50,7 +50,7 @@
 
         <v-col class="x-col">
           <div v-if="item.purchase_date">
-            <span class="text-body-2">{{item.purchase_date | minimalDateFilter}}</span>
+            <span class="text-body-2">{{item.purchase_date | minimalDateFilter(dateFormatPref)}}</span>
           </div>
           <empty-data solo v-else />
         </v-col>

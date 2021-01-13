@@ -327,6 +327,7 @@ export default {
                 weight_unit:"g",
                 status:"published",
                 temperature_unit:"&#8451;",
+                date_format:"DD-MM-YY",
                 theme:"light",
             }
 

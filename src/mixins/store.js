@@ -106,6 +106,9 @@ export default {
                 return this.$store.state.selfio.preferences
             },
         },
+        dateFormatPref() {
+            return this.preferences.date_format;
+        },
         weightUnit: {
             get() {
                 if(this.preferences && this.preferences.weight_unit)

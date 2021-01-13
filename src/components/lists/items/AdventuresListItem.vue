@@ -264,13 +264,13 @@
          return moment().isAfter(startDate);
       },
       dateStatusText(startDate) {
-        return (moment(startDate).format('DD/MM/YY') === moment().format('DD/MM/YY') ? 'today' : (this.isDatePassed(startDate) ? 'done' : 'planned'));
+        return (moment(startDate).format(this.dateFormatPref) === moment().format(this.dateFormatPref) ? 'today' : (this.isDatePassed(startDate) ? 'done' : 'planned'));
       },
       dateStatusColor(startDate) {
-        return (moment(startDate).format('DD/MM/YY') === moment().format('DD/MM/YY') ? this.darkColor('red') : (this.isDatePassed(startDate) ? this.darkColor('green') : this.darkColor('deep-orange')));
+        return (moment(startDate).format(this.dateFormatPref) === moment().format(this.dateFormatPref) ? this.darkColor('red') : (this.isDatePassed(startDate) ? this.darkColor('green') : this.darkColor('deep-orange')));
       },
       dateStatusIcon(startDate) {
-        return (moment(startDate).format('DD/MM/YY') === moment().format('DD/MM/YY') ? 'clock-alert-outline' : (this.isDatePassed(startDate) ? 'clock-check-outline' : 'progress-clock'));
+        return (moment(startDate).format(this.dateFormatPref) === moment().format(this.dateFormatPref) ? 'clock-alert-outline' : (this.isDatePassed(startDate) ? 'clock-check-outline' : 'progress-clock'));
       },
       initInventoryGear() {
         if(this.item.adventure_inventory) {

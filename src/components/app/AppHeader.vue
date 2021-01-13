@@ -131,6 +131,22 @@
         </v-list-item>
       </v-list>
     </template>
+
+    <template v-if="isSettingsRoute">
+      <v-spacer />
+
+      <v-btn
+        v-bind:class="[{'mr-1':!isMobile}]"
+        :color="darkColor('primary')"
+        icon
+        @click.stop="updatePreferences()"
+      >
+        <v-icon
+          size="28"
+          v-text="'mdi-check'"
+        />
+      </v-btn>
+    </template>
   </v-app-bar>
 
 </template>

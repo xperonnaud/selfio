@@ -454,7 +454,7 @@
 
                           <v-col v-if="!isMobile" class="x-col">
                             <div v-if="xGear(gear.gear_id).purchase_date" class="pt-2">
-                              <span class="text-body-2">{{xGear(gear.gear_id).purchase_date | minimalDateFilter}}</span>
+                              <span class="text-body-2">{{xGear(gear.gear_id).purchase_date | minimalDateFilter(dateFormatPref)}}</span>
                             </div>
                             <empty-data solo v-else />
                           </v-col>
