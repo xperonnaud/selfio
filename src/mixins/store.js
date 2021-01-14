@@ -351,19 +351,6 @@ export default {
             }
             return result;
         },
-        getRandomColor() {
-            let letters = '0123456789ABCDEF';
-            let color = '#';
-            for (let i = 0; i < 6; i++) {
-                color += letters[Math.floor(Math.random() * 16)];
-            }
-            return color;
-        },
-        getVuetifyColor(index) {
-            let colorArray = (this.isDark ? this.vuetifyColors.dark : this.vuetifyColors.light);
-            let randomNumber = index ? (index % colorArray.length) : Math.floor(Math.random() * colorArray.length);
-            return colorArray[randomNumber];
-        },
     },
     watch: {
         currentRoute() {

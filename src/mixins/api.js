@@ -162,6 +162,44 @@ export default {
         async logout() {
             await this.api_logout();
         },
+        async api_reset_password() {
+            let self = this;
+
+            this.$store.commit("updateUiIsAppLoading", true);
+
+            await axios.post(
+                self.apiBaseUrl+'auth/password/reset',
+                {
+                    email: self.apiLogin,
+                }
+            )
+            .then(async function (response) {
+                await self.handleResponse('success', 'Reset Password', response.data);
+            }).catch(async function (error) {
+                await self.handleResponse('error', error.message, error);
+            })
+
+            this.$store.commit("updateUiIsAppLoading", false);
+        },
+        async api_forgot_password() {
+            let self = this;
+
+            this.$store.commit("updateUiIsAppLoading", true);
+
+            await axios.post(
+                self.apiBaseUrl+'auth/password/request',
+                {
+                    email: self.apiLogin,
+                }
+            )
+            .then(async function (response) {
+                await self.handleResponse('success', 'Forgot Password', response.data);
+            }).catch(async function (error) {
+                await self.handleResponse('error', error.message, error);
+            })
+
+            this.$store.commit("updateUiIsAppLoading", false);
+        },
         reset_user_data() {
             this.$store.commit("updateApiPassword", null);
             this.$store.commit("updateApiAccessToken", null);

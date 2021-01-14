@@ -1,11 +1,10 @@
 
+import colors from 'vuetify/lib/util/colors'
+
 export default {
     computed: {
         imgSize() {
             return (this.isMobile ? 22 : 24);
-        },
-        xBorderColorHex() {
-            return (this.isDark ? '#424242' : '#E0E0E0');
         },
         xOverlayColor() {
             return ('grey '+(this.isDark ? 'darken-1' : 'lighten-1'));
@@ -168,6 +167,20 @@ export default {
         },
     },
     methods: {
+        hexColor(colorStr) {
+            const [nameFamily, nameModifier] = colorStr.split(' ')
+
+            const [firstWord, secondWord] = nameFamily.split('-')
+            let family = `${ firstWord }${ secondWord
+                ? secondWord.charAt(0).toUpperCase() + secondWord.slice(1)
+                : '' }`
+
+            let modifier = nameModifier
+                ? nameModifier.replace('-', '')
+                : 'base'
+
+            return colors[family][modifier]
+        },
         navItemColor(item) {
             if(item && this.navigationItems[item])
                 return this.darkColor(this.navigationItems[item].color);
@@ -176,6 +189,26 @@ export default {
         },
         navItemColorText(item) {
             return this.darkColorText(this.navigationItems[item].color);
+        },
+        activityColor(color = 'blue-grey') {
+            return (this.isDark ? color+' lighten-1' : color+' darken-2')
+        },
+        reversedActivityColor(color = 'blue-grey') {
+            return (this.isDark ? color+' darken-4' : color+' lighten-4')
+        },
+        getRandomColor() {
+            let letters = '0123456789ABCDEF';
+            let color = '#';
+            for (let i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        },
+        getVuetifyColor(index) {
+            return this.activityColor(this.vuetifyColors[index]);
+        },
+        getReversedVuetifyColor(index) {
+            return this.reversedActivityColor(this.vuetifyColors[index]);
         },
         darkColorText(color) {
             if(typeof color == 'undefined' || !color || color === 'black')
@@ -186,6 +219,16 @@ export default {
             if(typeof color == 'undefined' || !color || color === 'black')
                 return (this.isDark ? 'white' : 'grey darken-4');
             return (this.isDark ? color+' accent-2' : color+' darken-1')
+        },
+        darkBackground(color) {
+            if(typeof color == 'undefined' || !color || color === 'black')
+                return (this.isDark ? 'black' : 'grey lighten-5');
+            return (this.isDark ? color+' darken-4' : color+' lighten-5')
+        },
+        darkBackgroundText(color) {
+            if(typeof color == 'undefined' || !color || color === 'black')
+                return (this.isDark ? 'white' : 'grey darken-4');
+            return (this.isDark ? (color+' accent-1') : (color+' darken-1'))
         },
         openPostFormDialog() {
             let self = this;

@@ -51,8 +51,22 @@
                   :disabled="!valid || isLoading"
                   :loading="isLoading"
                 >
-                  <v-icon left v-text="'mdi-login'" />
-                  <span v-text="'Login'" />
+                  <v-icon left color="black" v-text="'mdi-login'" />
+                  <span :class="valid ? 'black--text' : 'text-disabled'" v-text="'Login'" />
+                </v-btn>
+              </v-col>
+
+              <v-col cols="12" class="py-0">
+                <v-btn
+                  :color="darkColor('primary')"
+                  block
+                  text
+                  small
+                  class="mt-2 mb-1 elevation-0"
+                  @click="forgotPassword()"
+                  :disabled="!valid || isLoading"
+                >
+                  <span class="text-caption" v-text="'Forgot password ?'" />
                 </v-btn>
               </v-col>
 
@@ -96,7 +110,12 @@
         this.isLoading = true;
         await this.api_auth();
         this.isLoading = false;
-      }
+      },
+      async forgotPassword() {
+        this.isLoading = true;
+        await this.api_forgot_password();
+        this.isLoading = false;
+      },
     },
     mounted() {
       this.isMounted = true;

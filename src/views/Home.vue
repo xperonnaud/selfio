@@ -7,107 +7,64 @@
       max-width="100%"
       color="transparent"
     >
-      <div v-bind:class="['d-flex flex-wrap', {'pa-6':!isMobile}]">
-        <v-card
-          v-bind:class="['home-item pa-3 mr-3 elevation-0', {'mb-1':isMobile}]"
-          :width="isMobile ? '100%' : 200"
-          :color="xCardColor"
-        >
-          Hello
-        </v-card>
-        <v-card
-            v-bind:class="['home-item pa-3 mr-3 elevation-0', {'mb-1':isMobile}]"
-            :width="isMobile ? '100%' : 200"
-            :color="xCardColor"
-        >
-          Hello
-        </v-card>
-        <v-card
-            v-bind:class="['home-item pa-3 mr-3 elevation-0', {'mb-1':isMobile}]"
-            :width="isMobile ? '100%' : 200"
-            :color="xCardColor"
-        >
-          Hello
-        </v-card>
+
+      <div v-bind:class="['d-flex flex-wrap', (isMobile ? 'pa-4' : 'px-8 py-11')]">
+        <template v-for="(item, index) in navigationRoutes">
+          <v-card
+              v-if="navigationItems[item].type === 'items'"
+              :key="index"
+              v-bind:class="['shadow-bottom', (isMobile ? 'my-2' : 'mr-3')]"
+              :width="isMobile ? '100%' : 300"
+              :color="xCardColor"
+          >
+            <v-list>
+              <v-list-item two-line>
+                <v-list-item-avatar>
+                  <v-icon
+                      :color="darkBackgroundText(navigationItems[item].color)"
+                      :class="[darkBackground(navigationItems[item].color)]"
+                      v-text="navigationItems[item].icon"
+                  ></v-icon>
+                </v-list-item-avatar>
+
+                <v-list-item-content>
+                  <v-list-item-title class="text-h6" v-text="countItems(navigationItems[item].title)" />
+                  <v-list-item-subtitle v-text="navigationItems[item].title" />
+                </v-list-item-content>
+
+                <v-list-item-action v-if="navigationItems[item].title !== 'Inventories'">
+                  <v-list-item-action-text class="text-subtitle-2">
+                    <span v-if="navigationItems[item].title === 'Gear'" class="text-subtitle-2" v-text="totalPrice" />
+                    <span v-if="navigationItems[item].title === 'Gear'" class="ml-1 text-caption" v-text="priceUnit" />
+
+                    <span v-if="navigationItems[item].title === 'Adventures'" class="text-subtitle-2" v-text="totalDistance" />
+                    <span v-if="navigationItems[item].title === 'Adventures'" class="ml-1 text-caption" v-text="distanceUnit" />
+                  </v-list-item-action-text>
+
+                  <v-list-item-action-text>
+                    <span v-if="navigationItems[item].title === 'Gear'" class="text-subtitle-2" v-text="totalWeight" />
+                    <span v-if="navigationItems[item].title === 'Gear'" class="ml-1 text-caption" v-text="weightUnit" />
+
+                    <span v-if="navigationItems[item].title === 'Adventures'" class="text-subtitle-2" v-text="totalElevation" />
+                    <span v-if="navigationItems[item].title === 'Adventures'" class="ml-1 text-caption" v-text="elevationUnit" />
+                  </v-list-item-action-text>
+                </v-list-item-action>
+              </v-list-item>
+            </v-list>
+          </v-card>
+        </template>
       </div>
 
-      <v-container class="py-0">
-<!--        <v-row>-->
-<!--          <template v-for="(item, index) in navigationRoutes">-->
-<!--            <v-col-->
-<!--              v-if="(navigationItems[item].type === 'items')"-->
-<!--              :key="index"-->
-<!--              cols="6"-->
-<!--              sm="6"-->
-<!--              md="4"-->
-<!--              lg="2"-->
-<!--              xl="2"-->
-<!--            >-->
-<!--              <v-card :to="{ name: item }" v-ripple>-->
-<!--                <v-list-item three-line>-->
-<!--                  <v-list-item-content>-->
-
-<!--                    <div class="text-button text-center mb-1">-->
-<!--                      <div class="d-flex justify-center">-->
-<!--                        <div class="text-body-1 pt-1 mr-1">-->
-<!--                          <v-icon-->
-<!--                            v-text="navigationItems[item].icon"-->
-<!--                            :color="darkColor(navigationItems[item].color)"-->
-<!--                            size="21"-->
-<!--                            class="mr-auto"-->
-<!--                          ></v-icon>-->
-<!--                        </div>-->
-<!--                        <div v-text="navigationItems[item].title" />-->
-<!--                      </div>-->
-<!--                      <div style="line-height:24px" v-text="countItems(navigationItems[item].title)" />-->
-<!--                    </div>-->
-
-<!--                    <v-divider />-->
-
-<!--                    <v-list-item-title class="d-flex">-->
-<!--                      <div v-if="navigationItems[item].title === 'Inventories'">-->
-<!--                        <span v-bind:class="[darkColorText(navigationItems[item].color), 'text-caption']" v-text="nbInventoryGear" />-->
-<!--                        <span class="text-caption" v-text="' listed gear'" />-->
-<!--                      </div>-->
-
-<!--                      <div v-if="navigationItems[item].title === 'Gear'">-->
-<!--                        <span v-bind:class="[darkColorText(navigationItems[item].color), 'text-caption']">{{ totalPrice | thousandthFilter }}</span>-->
-<!--                        <span class="text-caption" v-text="' k'+priceUnit" />-->
-<!--                      </div>-->
-
-<!--                      <v-spacer v-if="navigationItems[item].title === 'Gear'" />-->
-
-<!--                      <div v-if="navigationItems[item].title === 'Gear'">-->
-<!--                        <span v-bind:class="[darkColorText(navigationItems[item].color), 'text-caption']">{{ totalWeight | thousandthFilter }}</span>-->
-<!--                        <span class="text-caption" v-text="' k'+weightUnit" />-->
-<!--                      </div>-->
-
-<!--                      <div v-if="navigationItems[item].title === 'Adventures'">-->
-<!--                          <span v-bind:class="[darkColorText(navigationItems[item].color), 'text-caption']" v-text="totalDistance" />-->
-<!--                          <span class="text-caption" v-text="' '+distanceUnit" />-->
-<!--                      </div>-->
-
-<!--                      <v-spacer v-if="navigationItems[item].title === 'Adventures'" />-->
-
-<!--                      <div v-if="navigationItems[item].title === 'Adventures'">-->
-<!--                          <span v-bind:class="[darkColorText(navigationItems[item].color), 'text-caption']">{{ totalElevation | thousandthFilter }}</span>-->
-<!--                          <span class="text-caption" v-text="' k'+elevationUnit" />-->
-<!--                      </div>-->
-
-<!--                      <v-spacer v-if="navigationItems[item].title === 'Adventures'" />-->
-
-<!--                      <div v-if="navigationItems[item].title === 'Adventures'">-->
-<!--                          <span v-bind:class="[darkColorText(navigationItems[item].color), 'text-caption']" v-text="totalDepth" />-->
-<!--                          <span class="text-caption" v-text="' '+elevationUnit" />-->
-<!--                      </div>-->
-<!--                    </v-list-item-title>-->
-<!--                  </v-list-item-content>-->
-<!--                </v-list-item>-->
-<!--              </v-card>-->
-<!--            </v-col>-->
-<!--          </template>-->
-<!--        </v-row>-->
-      </v-container>
+      <div v-bind:class="['d-flex flex-wrap', (isMobile ? 'pa-4' : 'px-8 py-11')]">
+          <v-card
+            v-if="!isMobile"
+            v-bind:class="['shadow-bottom', (isMobile ? 'my-2' : 'mr-3')]"
+            :width="isMobile ? '100%' : 300"
+            :color="xCardColor"
+          >
+            Desktop Only Card
+          </v-card>
+      </div>
     </v-sheet>
   </div>
 

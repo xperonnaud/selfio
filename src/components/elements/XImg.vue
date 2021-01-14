@@ -3,12 +3,13 @@
   <v-sheet
     :color="background"
     style="border-radius: 32px;"
+    dark
   >
     <v-tooltip bottom>
       <template v-slot:activator="{ on, attrs }">
         <v-img
           :src="src"
-          v-bind:class="(logo ? '' : 'svg-image')"
+          v-bind:class="[(logo ? '' : 'svg-image')]"
           :width="width"
           :height="height"
           contain
@@ -28,6 +29,10 @@
     name: 'x-img',
     props: {
       src: String,
+      isCategory: {
+        type: Boolean,
+        default: false,
+      },
       tooltipText: {
         type: String,
         default: null,

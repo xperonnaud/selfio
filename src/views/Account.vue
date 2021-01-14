@@ -5,13 +5,31 @@
       max-width="100%"
       color="transparent"
     >
-      <v-container fluid v-bind:class="(isMobile ? 'pa-4' : 'pa-8')">
+      <v-container fluid v-bind:class="(isMobile ? 'px-4 py-3' : 'pa-8')">
         <v-row style="max-width: 750px">
           <v-col cols="12">
-            <v-sheet :color="xCardColor" class="pa-3">
-              <div v-text="'Login'" class="text-caption" />
-              <div v-text="userLogin" v-bind:class="darkColorText('primary')" />
-            </v-sheet>
+            <v-card
+              v-bind:class="['shadow-bottom', (isMobile ? 'my-0' : 'mr-3')]"
+              :width="isMobile ? '100%' : 300"
+              :color="xCardColor"
+            >
+              <v-list>
+                <v-list-item two-line>
+                  <v-list-item-avatar>
+                    <v-icon
+                      :color="darkBackgroundText('primary')"
+                      :class="[darkBackground('primary')]"
+                      v-text="navigationItems['account'].icon"
+                    ></v-icon>
+                  </v-list-item-avatar>
+
+                  <v-list-item-content>
+                    <v-list-item-title class="text-h6" v-text="userLogin" />
+                    <v-list-item-subtitle v-text="'Login'" />
+                  </v-list-item-content>
+                </v-list-item>
+              </v-list>
+            </v-card>
           </v-col>
 
           <v-col cols="12">

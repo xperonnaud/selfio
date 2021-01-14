@@ -1,9 +1,7 @@
 <template>
 
   <v-card
-    v-bind:class="[
-      'list-container mx-auto elevation-0',
-    ]"
+    v-bind:class="['list-container mx-auto elevation-0']"
     :color="xBackgroundColor"
   >
     <v-list
@@ -28,6 +26,7 @@
               'x-avatar',
               'py-0',
                (isMobile ? 'my-0 mr-1' : 'mr-2'),
+               (item.type ? getReversedVuetifyColor(item.type) : ''),
             ]"
           >
               <x-img
@@ -36,6 +35,7 @@
                 :width="imgSize"
                 :height="imgSize"
                 :tooltipText="xGearType(item.type).title"
+                isCategory
               ></x-img>
 
               <x-img

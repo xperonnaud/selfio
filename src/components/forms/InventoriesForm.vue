@@ -832,8 +832,10 @@
             let gearCategory = key === 0 ? null : this.xGearType(key);
             let percentage = this.$options.filters.percentageFilter(value.weight, this.inventoryGearList, this.inventoryTotalWeight);
             let chartLabel = (gearCategory && gearCategory.title ? gearCategory.title : 'Unknown') + ` | ${percentage}% (${this.weightUnit})`;
+            let color = this.hexColor(this.getVuetifyColor(gearCategory && gearCategory.id ? gearCategory.id : 0))
+
             labels.push(chartLabel);
-            colors.push(this.getVuetifyColor((gearCategory && gearCategory.id ? gearCategory.id : 0)));
+            colors.push(color);
             data.push(value.weight);
           }
 

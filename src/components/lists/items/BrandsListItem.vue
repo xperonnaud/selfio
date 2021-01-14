@@ -3,35 +3,31 @@
   <v-list-item-content>
     <v-row align="center" justify="center">
 
-      <v-col cols="10" class="py-0">
-        <div>
+      <v-col :cols="isMobile ? 10 : 11" class="py-0">
           <v-list-item-title
             v-text="item.title"
-            v-bind:class="['mb-1',{'text-body-2' : isMobile}]"
+            v-bind:class="[{'text-body-2' : isMobile}]"
           ></v-list-item-title>
-        </div>
       </v-col>
 
-      <v-col cols="2" class="pa-0">
-        <div class="mx-3">
-          <v-icon
-              v-if="item.owner === userId"
-              @click.stop="openDeleteDialog(item.id)"
-              v-text="'mdi-trash-can-outline'"
-          ></v-icon>
+      <v-col v-bind:class="['pa-0']">
+        <v-icon
+          v-if="item.owner === userId"
+          @click.stop="openDeleteDialog(item.id)"
+          v-text="'mdi-trash-can-outline'"
+        ></v-icon>
 
-          <v-tooltip v-else left>
-            <template v-slot:activator="{ on, attrs }">
-              <v-icon
-                :color="xOverlayColor"
-                v-text="'mdi-delete-off-outline'"
-                v-bind="attrs"
-                v-on="on"
-              ></v-icon>
-            </template>
-            <span v-text="'You may only delete a Private Brand (created by you).'" />
-          </v-tooltip>
-        </div>
+        <v-tooltip v-else left>
+          <template v-slot:activator="{ on, attrs }">
+            <v-icon
+              :color="xOverlayColor"
+              v-text="'mdi-lock-outline'"
+              v-bind="attrs"
+              v-on="on"
+            ></v-icon>
+          </template>
+          <span v-text="'You may only delete a Private Brand (created by you).'" />
+        </v-tooltip>
       </v-col>
     </v-row>
 
