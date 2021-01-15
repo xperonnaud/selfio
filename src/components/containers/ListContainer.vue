@@ -10,116 +10,117 @@
       one-line
       flat
     >
-      <template v-for="(item, index) in filteredItems">
-        <v-list-item
-          :key="`${index}-${item.title}`"
-          @click.stop="isItemRoute ? openItemDialog(item, index) : null"
-          v-bind:class="['pl-3']"
-        >
-          <v-list-item-avatar
-            v-if="(
-              ((currentRouteTitle !== 'Brands') && (currentRouteTitle !== 'Inventories'))
-              || item.activity
-              || item.type
-            )"
-            v-bind:class="[
-              'x-avatar',
-              'py-0',
-               (isMobile ? 'my-0 mr-3' : 'ml-2 mr-5'),
-               (item.type ? getReversedVuetifyColor(item.type) : ''),
-            ]"
+      <v-scroll-y-transition group>
+        <template v-for="(item, index) in filteredItems">
+          <v-list-item
+            :key="`${index}-${item.title}`"
+            @click.stop="isItemRoute ? openItemDialog(item, index) : null"
+            v-bind:class="['pl-3']"
           >
-              <x-img
-                v-if="item.type && xGearType(item.type)"
-                :src="xGearType(item.type).icon.data.full_url"
-                :width="22"
-                :height="22"
-                :tooltipText="xGearType(item.type).title"
-                isCategory
-              ></x-img>
+            <v-list-item-avatar
+              v-if="(
+                ((currentRouteTitle !== 'Brands') && (currentRouteTitle !== 'Inventories'))
+                || item.activity
+                || item.type
+              )"
+              v-bind:class="[
+                'x-avatar',
+                'py-0',
+                 (isMobile ? 'my-0 mr-3' : 'ml-2 mr-5'),
+                 (item.type ? getReversedVuetifyColor(item.type) : ''),
+              ]"
+            >
+                <x-img
+                  v-if="item.type && xGearType(item.type)"
+                  :src="xGearType(item.type).icon.data.full_url"
+                  :width="22"
+                  :height="22"
+                  :tooltipText="xGearType(item.type).title"
+                  isCategory
+                ></x-img>
 
-              <x-img
-                v-if="item.activity && xActivity(item.activity)"
-                :src="xActivity(item.activity).icon.data.full_url"
-                :width="24"
-                :height="24"
-                :tooltipText="xActivity(item.activity).title"
-              ></x-img>
-          </v-list-item-avatar>
+                <x-img
+                  v-if="item.activity && xActivity(item.activity)"
+                  :src="xActivity(item.activity).icon.data.full_url"
+                  :width="24"
+                  :height="24"
+                  :tooltipText="xActivity(item.activity).title"
+                ></x-img>
+            </v-list-item-avatar>
 
-          <component
-            v-if="listComponent"
-            :is="listComponent"
-            :ref="listRef"
-            :item="item"
-          ></component>
+            <component
+              v-if="listComponent"
+              :is="listComponent"
+              :ref="listRef"
+              :item="item"
+            ></component>
 
-          <v-list-item-content v-else>
-            <v-row>
-              <v-col cols="3" class="pa-0">
-                <v-skeleton-loader
-                  height="36"
-                  type="list-item-two-line"
-                ></v-skeleton-loader>
-              </v-col>
+            <v-list-item-content v-else>
+              <v-row>
+                <v-col cols="3" class="pa-0">
+                  <v-skeleton-loader
+                    height="36"
+                    type="list-item-two-line"
+                  ></v-skeleton-loader>
+                </v-col>
 
-              <v-col class="pa-0" />
+                <v-col class="pa-0" />
 
-              <v-col class="pa-0 pt-3">
-                <v-skeleton-loader
-                  width="60"
-                  type="text"
-                ></v-skeleton-loader>
-              </v-col>
+                <v-col class="pa-0 pt-3">
+                  <v-skeleton-loader
+                    width="60"
+                    type="text"
+                  ></v-skeleton-loader>
+                </v-col>
 
-              <v-col class="pa-0" />
+                <v-col class="pa-0" />
 
-              <v-col class="pa-0 pt-3">
-                <v-skeleton-loader
-                  width="60"
-                  type="text"
-                ></v-skeleton-loader>
-              </v-col>
+                <v-col class="pa-0 pt-3">
+                  <v-skeleton-loader
+                    width="60"
+                    type="text"
+                  ></v-skeleton-loader>
+                </v-col>
 
-              <v-col class="pa-0" />
+                <v-col class="pa-0" />
 
-              <v-col class="pa-0 pt-3">
-                <v-skeleton-loader
-                  width="60"
-                  type="text"
-                ></v-skeleton-loader>
-              </v-col>
-            </v-row>
+                <v-col class="pa-0 pt-3">
+                  <v-skeleton-loader
+                    width="60"
+                    type="text"
+                  ></v-skeleton-loader>
+                </v-col>
+              </v-row>
+            </v-list-item-content>
+          </v-list-item>
+
+          <v-divider
+            v-if="index < items.length - 1"
+            :key="index"
+          ></v-divider>
+        </template>
+
+        <v-list-item v-if="(items.length <= 0)">
+          <v-list-item-content>
+            <empty-list
+              :label="`Add ${currentRouteName}`"
+              :icon="currentNavItem.icon"
+              :color="currentColor"
+              isLink
+            ></empty-list>
           </v-list-item-content>
         </v-list-item>
 
-        <v-divider
-          v-if="index < items.length - 1"
-          :key="index"
-        ></v-divider>
-      </template>
-
-      <v-list-item v-if="(items.length <= 0)">
-        <v-list-item-content>
-          <empty-list
-            :label="`Add ${currentRouteName}`"
-            :icon="currentNavItem.icon"
-            :color="currentColor"
-            isLink
-          ></empty-list>
-        </v-list-item-content>
-      </v-list-item>
-
-      <v-list-item v-else-if="(filteredItems.length <= 0)">
-        <v-list-item-content>
-          <empty-list
-            label="No results"
-            icon="mdi-gauge-empty"
-            :color="navItemColor(currentRouteName)"
-          ></empty-list>
-        </v-list-item-content>
-      </v-list-item>
-
+        <v-list-item v-else-if="(filteredItems.length <= 0)">
+          <v-list-item-content>
+            <empty-list
+              label="No results"
+              icon="mdi-gauge-empty"
+              :color="navItemColor(currentRouteName)"
+            ></empty-list>
+          </v-list-item-content>
+        </v-list-item>
+      </v-scroll-y-transition>
     </v-list>
   </v-card>
 

@@ -599,118 +599,120 @@
                       class="overflow-y-auto"
                       :max-height="isMobile ? (listHeight) : 600"
                     >
-                      <template v-for="(gear, index) in filteredGears">
-                        <v-list-item
-                          @click.stop="gearListItemAction(gear)"
-                          :key="`${gear.id}-${index}`"
-                          v-bind:class="['x-checklist-item', {'px-7':isMobile}]"
-                        >
-                          <v-list-item-action>
-                            <v-checkbox :input-value="inventoryGearList.includes(gear.id)" :color="currentColor" />
-                          </v-list-item-action>
-
-                          <v-list-item-avatar
-                            v-bind:class="[
-                              'x-avatar',
-                              'my-0 mr-3',
-                              getReversedVuetifyColor(gear.type)
-                            ]"
+                      <v-scroll-y-transition group>
+                        <template v-for="(gear, index) in filteredGears">
+                          <v-list-item
+                            @click.stop="gearListItemAction(gear)"
+                            :key="`${gear.id}-${index}`"
+                            v-bind:class="['x-checklist-item', {'px-7':isMobile}]"
                           >
-                            <x-img
-                              v-if="gear.type && xGearType(gear.type)"
-                              :src="xGearType(gear.type).icon.data.full_url"
-                              :tooltipText="xGearType(gear.type).title"
-                              :width="22"
-                              :height="22"
-                              isCategory
-                            ></x-img>
-                          </v-list-item-avatar>
+                            <v-list-item-action>
+                              <v-checkbox :input-value="inventoryGearList.includes(gear.id)" :color="currentColor" />
+                            </v-list-item-action>
 
-                          <v-list-item-content>
-                            <v-row>
-                              <v-col :cols="isMobile ? 6 : 4" class="py-0">
-                                <div>
-                                  <v-list-item-title
-                                    v-text="gear.title"
-                                    v-bind:class="['mb-1',{'text-body-2' : isMobile}]"
-                                  ></v-list-item-title>
+                            <v-list-item-avatar
+                              v-bind:class="[
+                                'x-avatar',
+                                'my-0 mr-3',
+                                getReversedVuetifyColor(gear.type)
+                              ]"
+                            >
+                              <x-img
+                                v-if="gear.type && xGearType(gear.type)"
+                                :src="xGearType(gear.type).icon.data.full_url"
+                                :tooltipText="xGearType(gear.type).title"
+                                :width="22"
+                                :height="22"
+                                isCategory
+                              ></x-img>
+                            </v-list-item-avatar>
 
-                                  <v-list-item-subtitle
-                                    class="text-caption"
-                                    v-text="gear.brand ? xGearBrand(gear.brand).title : '-'"
-                                  ></v-list-item-subtitle>
-                                </div>
-                              </v-col>
+                            <v-list-item-content>
+                              <v-row>
+                                <v-col :cols="isMobile ? 6 : 4" class="py-0">
+                                  <div>
+                                    <v-list-item-title
+                                      v-text="gear.title"
+                                      v-bind:class="['mb-1',{'text-body-2' : isMobile}]"
+                                    ></v-list-item-title>
 
-                              <v-col v-if="isMobile" class="x-col text-caption stacked-item-data">
-                                <div v-if="gear.weight">
-                                  <span v-text="gear.weight" v-bind:class="[fontShadeColor]" />
-                                  <span class="text-tiny-dimmed" v-text="weightUnit" />
-                                </div>
-                                <empty-data v-else />
+                                    <v-list-item-subtitle
+                                      class="text-caption"
+                                      v-text="gear.brand ? xGearBrand(gear.brand).title : '-'"
+                                    ></v-list-item-subtitle>
+                                  </div>
+                                </v-col>
 
-                                <div v-if="gear.price">
-                                  <span v-text="gear.price" v-bind:class="[fontShadeColor]" />
-                                  <span class="text-tiny-dimmed" v-text="priceUnit" />
-                                </div>
-                                <empty-data v-else />
-                              </v-col>
+                                <v-col v-if="isMobile" class="x-col text-caption stacked-item-data">
+                                  <div v-if="gear.weight">
+                                    <span v-text="gear.weight" v-bind:class="[fontShadeColor]" />
+                                    <span class="text-tiny-dimmed" v-text="weightUnit" />
+                                  </div>
+                                  <empty-data v-else />
 
-                              <v-col v-if="!isMobile" class="x-col">
-                                <div v-if="gear.weight" class="pt-2">
-                                  <span class="text-body-2" v-text="gear.weight" />
-                                  <span class="text-tiny-dimmed" v-text="weightUnit" />
-                                </div>
-                                <empty-data solo v-else />
-                              </v-col>
+                                  <div v-if="gear.price">
+                                    <span v-text="gear.price" v-bind:class="[fontShadeColor]" />
+                                    <span class="text-tiny-dimmed" v-text="priceUnit" />
+                                  </div>
+                                  <empty-data v-else />
+                                </v-col>
 
-                              <v-col v-if="!isMobile" class="x-col">
-                                <div v-if="gear.price" class="pt-2">
-                                  <span class="text-body-2" v-text="gear.price" />
-                                  <span class="text-tiny-dimmed" v-text="priceUnit" />
-                                </div>
-                                <empty-data solo v-else />
-                              </v-col>
+                                <v-col v-if="!isMobile" class="x-col">
+                                  <div v-if="gear.weight" class="pt-2">
+                                    <span class="text-body-2" v-text="gear.weight" />
+                                    <span class="text-tiny-dimmed" v-text="weightUnit" />
+                                  </div>
+                                  <empty-data solo v-else />
+                                </v-col>
 
-                              <v-col v-if="!isMobile" class="x-col">
-                                <div v-if="gear.purchase_date" class="pt-2">
-                                  <span class="text-body-2">{{gear.purchase_date | minimalDateFilter(dateFormatPref)}}</span>
-                                </div>
-                                <empty-data solo v-else />
-                              </v-col>
+                                <v-col v-if="!isMobile" class="x-col">
+                                  <div v-if="gear.price" class="pt-2">
+                                    <span class="text-body-2" v-text="gear.price" />
+                                    <span class="text-tiny-dimmed" v-text="priceUnit" />
+                                  </div>
+                                  <empty-data solo v-else />
+                                </v-col>
 
-                              <v-col class="x-col">
-                                <v-tooltip v-if="gear.state && xGearState(gear.state)" bottom>
-                                  <template v-slot:activator="{ on, attrs }">
-                                    <v-icon
-                                      :color="xGearState(gear.state).color"
-                                      class="pa-2"
-                                      v-text="'mdi-'+stateIcon(xGearState(gear.state).title)"
-                                      :size="21"
-                                      v-bind="attrs"
-                                      v-on="on"
-                                    ></v-icon>
-                                  </template>
-                                  <span v-text="xGearState(gear.state).title" />
-                                </v-tooltip>
-                                <empty-data solo v-else />
-                              </v-col>
+                                <v-col v-if="!isMobile" class="x-col">
+                                  <div v-if="gear.purchase_date" class="pt-2">
+                                    <span class="text-body-2">{{gear.purchase_date | minimalDateFilter(dateFormatPref)}}</span>
+                                  </div>
+                                  <empty-data solo v-else />
+                                </v-col>
 
-                              <v-col class="x-col">
-                                <div class="ml-1 pt-2">
-                                  <span class="text-tiny-dimmed" v-html="'&#215;'" />
-                                  <span class="text-body-2" v-html="gear.quantity_owned ? gear.quantity_owned : 0" />
-                                </div>
-                              </v-col>
-                            </v-row>
-                          </v-list-item-content>
-                        </v-list-item>
+                                <v-col class="x-col">
+                                  <v-tooltip v-if="gear.state && xGearState(gear.state)" bottom>
+                                    <template v-slot:activator="{ on, attrs }">
+                                      <v-icon
+                                        :color="xGearState(gear.state).color"
+                                        class="pa-2"
+                                        v-text="'mdi-'+stateIcon(xGearState(gear.state).title)"
+                                        :size="21"
+                                        v-bind="attrs"
+                                        v-on="on"
+                                      ></v-icon>
+                                    </template>
+                                    <span v-text="xGearState(gear.state).title" />
+                                  </v-tooltip>
+                                  <empty-data solo v-else />
+                                </v-col>
 
-                        <v-divider
-                          v-if="(index < gearList.length - 1)"
-                          :key="index"
-                        ></v-divider>
-                      </template>
+                                <v-col class="x-col">
+                                  <div class="ml-1 pt-2">
+                                    <span class="text-tiny-dimmed" v-html="'&#215;'" />
+                                    <span class="text-body-2" v-html="gear.quantity_owned ? gear.quantity_owned : 0" />
+                                  </div>
+                                </v-col>
+                              </v-row>
+                            </v-list-item-content>
+                          </v-list-item>
+
+                          <v-divider
+                            v-if="(index < gearList.length - 1)"
+                            :key="index"
+                          ></v-divider>
+                        </template>
+                      </v-scroll-y-transition>
                     </v-responsive>
                   </v-list>
 

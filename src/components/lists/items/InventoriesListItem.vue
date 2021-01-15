@@ -25,27 +25,27 @@
 
         <v-col v-if="isMobile" class="x-col text-caption stacked-item-data">
           <div>
-            <span>{{ sumInventoryPrice(item.inventory_gear) | thousandthFilter }}</span>
-            <span class="text-tiny-dimmed" v-text="'k'+priceUnit" />
-          </div>
-          <div>
             <span>{{ sumInventoryWeight(item.inventory_gear) | thousandthFilter }}</span>
             <span class="text-tiny-dimmed" v-text="'k'+weightUnit" />
+          </div>
+          <div>
+            <span>{{ sumInventoryPrice(item.inventory_gear) | thousandthFilter }}</span>
+            <span class="text-tiny-dimmed" v-text="'k'+priceUnit" />
           </div>
         </v-col>
 
         <template v-else>
           <v-col class="x-col">
             <div>
-              <span class="text-body-2">{{ sumInventoryPrice(item.inventory_gear) | thousandthFilter }}</span>
-              <span class="text-tiny-dimmed" v-text="'k'+priceUnit" />
+              <span class="text-body-2">{{ sumInventoryWeight(item.inventory_gear) | thousandthFilter }}</span>
+              <span class="text-tiny-dimmed" v-text="'k'+weightUnit" />
             </div>
           </v-col>
 
           <v-col class="x-col">
             <div>
-              <span class="text-body-2">{{ sumInventoryWeight(item.inventory_gear) | thousandthFilter }}</span>
-              <span class="text-tiny-dimmed" v-text="'k'+weightUnit" />
+              <span class="text-body-2">{{ sumInventoryPrice(item.inventory_gear) | thousandthFilter }}</span>
+              <span class="text-tiny-dimmed" v-text="'k'+priceUnit" />
             </div>
           </v-col>
 

@@ -114,13 +114,21 @@
       >
         <v-list-item>
           <v-list-item-avatar
-            v-if="currentRouteTitle !== 'Inventories'"
+            v-if="avatarSortProp"
             v-bind:class="[
               'x-avatar',
-              'py-0',
-               (isMobile ? 'my-0 mr-2' : 'ml-2 mr-4'),
+              'my-0 py-0',
+               (isMobile ? 'mr-3' : 'ml-1 mr-4'),
             ]"
+            :style="isMobile ? 'margin-left: -4px;' : ''"
           >
+            <v-row align="center" justify="center">
+              <v-col class="x-col py-2 col-border-r x-primary-btn" @click.stop="sortItems(avatarSortProp)" v-ripple>
+                <div class="d-flex justify-center">
+                  <x-sort-icon :prop="avatarSortProp" />
+                </div>
+              </v-col>
+            </v-row>
           </v-list-item-avatar>
 
           <component
@@ -153,9 +161,12 @@
 
 <script>
 
+  import XSortIcon from "@/components/elements/XSortIcon";
+
   export default {
     name: 'app-header',
     components: {
+      XSortIcon,
       FormPostBtn: () => import('@/components/elements/Btns/FormPostBtn'),
       FilterMenu: () => import('@/components/elements/FilterMenu/FilterMenu'),
       SaveBtn: () => import('@/components/elements/Btns/SaveBtn'),
@@ -179,6 +190,15 @@
         self.listHeaderComponentCalled = `@/components/lists/headers/${listId}ListHeader.vue`;
         return () => import(`@/components/lists/headers/${listId}ListHeader.vue`)
       },
+      avatarSortProp() {
+        if(this.currentRouteTitle === 'Gear')
+          return 'type';
+
+        if(this.currentRouteTitle === 'Adventures')
+          return 'activity';
+
+        return null
+      }
     },
     methods: {
       async postBrand() {

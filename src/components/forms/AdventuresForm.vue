@@ -384,128 +384,130 @@
                   class="overflow-y-auto"
                   :max-height="isMobile ? (listHeight) : 600"
                 >
-                  <template v-for="(gear, index) in originalInventoryGear">
-                    <v-list-item
-                      @click.stop="packGear(gear.gear_id)"
-                      :key="`${gear.gear_id}-${index}`"
-                      class="x-checklist-item"
-                    >
-                      <v-list-item-action>
-                        <v-checkbox
-                          :input-value="isGearPacked(gear.gear_id)"
-                          :color="currentColor"
-                        ></v-checkbox>
-                      </v-list-item-action>
-
-                      <v-list-item-avatar
-                        v-bind:class="[
-                          'x-avatar',
-                          'my-0 mr-3',
-                          (xGear(gear.gear_id).type ?
-                            getReversedVuetifyColor(xGear(gear.gear_id).type)
-                            : ''
-                          )
-                        ]"
+                  <v-scroll-y-transition group>
+                    <template v-for="(gear, index) in originalInventoryGear">
+                      <v-list-item
+                        @click.stop="packGear(gear.gear_id)"
+                        :key="`${gear.gear_id}-${index}`"
+                        class="x-checklist-item"
                       >
-                        <x-img
-                          v-if="xGear(gear.gear_id).type"
-                          :src="xGearType(xGear(gear.gear_id).type).icon.data.full_url"
-                          :tooltipText="xGearType(xGear(gear.gear_id).type).title"
-                          :width="22"
-                          :height="22"
-                          isCategory
-                        ></x-img>
-                        <v-icon
-                            v-else
-                            v-text="'mdi-help-rhombus'"
-                        />
-                      </v-list-item-avatar>
+                        <v-list-item-action>
+                          <v-checkbox
+                            :input-value="isGearPacked(gear.gear_id)"
+                            :color="currentColor"
+                          ></v-checkbox>
+                        </v-list-item-action>
 
-                      <v-list-item-content>
-                        <v-row>
-                          <v-col :cols="isMobile ? 6 : 4" class="py-0">
-                            <div>
-                              <v-list-item-title
-                                v-text="xGear(gear.gear_id).title"
-                                v-bind:class="['mb-1',{'text-body-2' : isMobile}]"
-                              ></v-list-item-title>
+                        <v-list-item-avatar
+                          v-bind:class="[
+                            'x-avatar',
+                            'my-0 mr-3',
+                            (xGear(gear.gear_id).type ?
+                              getReversedVuetifyColor(xGear(gear.gear_id).type)
+                              : ''
+                            )
+                          ]"
+                        >
+                          <x-img
+                            v-if="xGear(gear.gear_id).type"
+                            :src="xGearType(xGear(gear.gear_id).type).icon.data.full_url"
+                            :tooltipText="xGearType(xGear(gear.gear_id).type).title"
+                            :width="22"
+                            :height="22"
+                            isCategory
+                          ></x-img>
+                          <v-icon
+                              v-else
+                              v-text="'mdi-help-rhombus'"
+                          />
+                        </v-list-item-avatar>
 
-                              <v-list-item-subtitle
-                                class="text-caption"
-                                v-text="xGear(gear.gear_id).brand ? xGearBrand(xGear(gear.gear_id).brand).title : '-'"
-                              ></v-list-item-subtitle>
-                            </div>
-                          </v-col>
+                        <v-list-item-content>
+                          <v-row>
+                            <v-col :cols="isMobile ? 6 : 4" class="py-0">
+                              <div>
+                                <v-list-item-title
+                                  v-text="xGear(gear.gear_id).title"
+                                  v-bind:class="['mb-1',{'text-body-2' : isMobile}]"
+                                ></v-list-item-title>
 
-                          <v-col v-if="isMobile" class="x-col text-caption stacked-item-data">
-                            <div v-if="xGear(gear.gear_id).weight">
-                              <span v-text="xGear(gear.gear_id).weight" v-bind:class="[fontShadeColor]" />
-                              <span class="text-tiny-dimmed" v-text="weightUnit" />
-                            </div>
-                            <empty-data v-else />
+                                <v-list-item-subtitle
+                                  class="text-caption"
+                                  v-text="xGear(gear.gear_id).brand ? xGearBrand(xGear(gear.gear_id).brand).title : '-'"
+                                ></v-list-item-subtitle>
+                              </div>
+                            </v-col>
 
-                            <div v-if="xGear(gear.gear_id).price">
-                              <span v-text="xGear(gear.gear_id).price" v-bind:class="[fontShadeColor]" />
-                              <span class="text-tiny-dimmed" v-text="priceUnit" />
-                            </div>
-                            <empty-data v-else />
-                          </v-col>
+                            <v-col v-if="isMobile" class="x-col text-caption stacked-item-data">
+                              <div v-if="xGear(gear.gear_id).weight">
+                                <span v-text="xGear(gear.gear_id).weight" v-bind:class="[fontShadeColor]" />
+                                <span class="text-tiny-dimmed" v-text="weightUnit" />
+                              </div>
+                              <empty-data v-else />
 
-                          <v-col v-if="!isMobile" class="x-col">
-                            <div v-if="xGear(gear.gear_id).weight" class="pt-2">
-                              <span class="text-body-2" v-text="xGear(gear.gear_id).weight" />
-                              <span class="text-tiny-dimmed" v-text="weightUnit" />
-                            </div>
-                            <empty-data solo v-else />
-                          </v-col>
+                              <div v-if="xGear(gear.gear_id).price">
+                                <span v-text="xGear(gear.gear_id).price" v-bind:class="[fontShadeColor]" />
+                                <span class="text-tiny-dimmed" v-text="priceUnit" />
+                              </div>
+                              <empty-data v-else />
+                            </v-col>
 
-                          <v-col v-if="!isMobile" class="x-col">
-                            <div v-if="xGear(gear.gear_id).price" class="pt-2">
-                              <span class="text-body-2" v-text="xGear(gear.gear_id).price" />
-                              <span class="text-tiny-dimmed" v-text="priceUnit" />
-                            </div>
-                            <empty-data solo v-else />
-                          </v-col>
+                            <v-col v-if="!isMobile" class="x-col">
+                              <div v-if="xGear(gear.gear_id).weight" class="pt-2">
+                                <span class="text-body-2" v-text="xGear(gear.gear_id).weight" />
+                                <span class="text-tiny-dimmed" v-text="weightUnit" />
+                              </div>
+                              <empty-data solo v-else />
+                            </v-col>
 
-                          <v-col v-if="!isMobile" class="x-col">
-                            <div v-if="xGear(gear.gear_id).purchase_date" class="pt-2">
-                              <span class="text-body-2">{{xGear(gear.gear_id).purchase_date | minimalDateFilter(dateFormatPref)}}</span>
-                            </div>
-                            <empty-data solo v-else />
-                          </v-col>
+                            <v-col v-if="!isMobile" class="x-col">
+                              <div v-if="xGear(gear.gear_id).price" class="pt-2">
+                                <span class="text-body-2" v-text="xGear(gear.gear_id).price" />
+                                <span class="text-tiny-dimmed" v-text="priceUnit" />
+                              </div>
+                              <empty-data solo v-else />
+                            </v-col>
 
-                          <v-col class="x-col">
-                            <v-tooltip v-if="xGear(gear.gear_id).state && xGearState(xGear(gear.gear_id).state)" bottom>
-                              <template v-slot:activator="{ on, attrs }">
-                                <v-icon
-                                  :color="xGearState(xGear(gear.gear_id).state).color"
-                                  class="pa-2"
-                                  v-text="'mdi-'+stateIcon(xGearState(xGear(gear.gear_id).state).title)"
-                                  :size="21"
-                                  v-bind="attrs"
-                                  v-on="on"
-                                ></v-icon>
-                              </template>
-                              <span v-text="xGearState(xGear(gear.gear_id).state).title" />
-                            </v-tooltip>
-                            <empty-data solo v-else />
-                          </v-col>
+                            <v-col v-if="!isMobile" class="x-col">
+                              <div v-if="xGear(gear.gear_id).purchase_date" class="pt-2">
+                                <span class="text-body-2">{{xGear(gear.gear_id).purchase_date | minimalDateFilter(dateFormatPref)}}</span>
+                              </div>
+                              <empty-data solo v-else />
+                            </v-col>
 
-                          <v-col class="x-col">
-                            <div class="ml-1 pt-2">
-                              <span class="text-tiny-dimmed" v-html="'&#215;'" />
-                              <span class="text-body-2" v-html="xGear(gear.gear_id).quantity_owned ? xGear(gear.gear_id).quantity_owned : 0" />
-                            </div>
-                          </v-col>
-                        </v-row>
-                      </v-list-item-content>
-                    </v-list-item>
+                            <v-col class="x-col">
+                              <v-tooltip v-if="xGear(gear.gear_id).state && xGearState(xGear(gear.gear_id).state)" bottom>
+                                <template v-slot:activator="{ on, attrs }">
+                                  <v-icon
+                                    :color="xGearState(xGear(gear.gear_id).state).color"
+                                    class="pa-2"
+                                    v-text="'mdi-'+stateIcon(xGearState(xGear(gear.gear_id).state).title)"
+                                    :size="21"
+                                    v-bind="attrs"
+                                    v-on="on"
+                                  ></v-icon>
+                                </template>
+                                <span v-text="xGearState(xGear(gear.gear_id).state).title" />
+                              </v-tooltip>
+                              <empty-data solo v-else />
+                            </v-col>
 
-                    <v-divider
-                      v-if="(index < originalInventoryGear.length - 1)"
-                      :key="index"
-                    ></v-divider>
-                  </template>
+                            <v-col class="x-col">
+                              <div class="ml-1 pt-2">
+                                <span class="text-tiny-dimmed" v-html="'&#215;'" />
+                                <span class="text-body-2" v-html="xGear(gear.gear_id).quantity_owned ? xGear(gear.gear_id).quantity_owned : 0" />
+                              </div>
+                            </v-col>
+                          </v-row>
+                        </v-list-item-content>
+                      </v-list-item>
+
+                      <v-divider
+                        v-if="(index < originalInventoryGear.length - 1)"
+                        :key="index"
+                      ></v-divider>
+                    </template>
+                  </v-scroll-y-transition>
                 </v-responsive>
               </v-list>
             </v-card-text>
