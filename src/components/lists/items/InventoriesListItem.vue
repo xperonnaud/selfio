@@ -48,6 +48,13 @@
               <span class="text-tiny-dimmed" v-text="'k'+weightUnit" />
             </div>
           </v-col>
+
+          <v-col class="x-col">
+            <div v-if="item.updated_on">
+              <span class="text-caption">{{item.updated_on | minimalDateFilter(dateFormatPref)}}</span>
+            </div>
+            <empty-data solo v-else />
+          </v-col>
         </template>
       </template>
 
@@ -64,11 +71,13 @@
 
 <script>
 
+  import EmptyData from "@/components/elements/Stepper/EmptyData";
   import EditIcon from "@/components/elements/EditIcon";
 
   export default {
     name: 'inventories-list-item',
     components: {
+      EmptyData,
       EditIcon
     },
     props: {

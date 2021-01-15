@@ -104,6 +104,10 @@
 
 <style lang="scss">
 
+  .col-border-r {
+    border-right: 1px solid #eee;
+  }
+
   .shadow-bottom {
     box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.12) !important;
   }
@@ -249,6 +253,10 @@
   }
 
   .is-dark {
+
+    .col-border-r {
+      border-color: #292929;
+    }
 
     .input-list-item {
       background-color: #141414;

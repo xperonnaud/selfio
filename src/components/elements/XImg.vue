@@ -10,12 +10,13 @@
       <template v-slot:activator="{ on, attrs }">
         <v-img
           :src="src"
+          :lazy-src="src"
           v-bind:class="[(logo ? '' : 'svg-image')]"
           :width="width"
           :height="height"
-          contain
           v-bind="attrs"
           v-on="on"
+          contain
         ></v-img>
       </template>
       <span v-if="tooltipText" v-text="tooltipText" />

@@ -32,7 +32,7 @@
           :key="navigationItems[item].title"
           :to="{ name: item }"
           link
-          :dense="isMobile"
+          dense
           :active-class="darkColorText(navigationItems[item].color)"
       >
         <v-list-item-icon>
@@ -56,7 +56,7 @@
           :key="navigationItems[item].title"
           :to="{ name: item }"
           link
-          :dense="isMobile"
+          dense
       >
         <v-list-item-icon>
           <v-icon v-text="navigationItems[item].icon" :color="darkColor(navigationItems[item].color)" />
@@ -70,7 +70,7 @@
 
     <v-divider />
 
-    <v-list-item link :dense="isMobile" @click.stop="toggleTheme()">
+    <v-list-item link dense @click.stop="toggleTheme()">
       <v-list-item-icon>
         <v-icon v-text="'mdi-theme-light-dark'" :color="darkColor()" />
       </v-list-item-icon>
@@ -86,7 +86,7 @@
       <v-list-item
           @click.stop="logout()"
           link
-          :dense="isMobile"
+          dense
       >
         <v-list-item-icon>
           <v-icon

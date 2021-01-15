@@ -6,11 +6,11 @@
       color="transparent"
     >
       <v-container fluid v-bind:class="(isMobile ? 'px-4 py-3' : 'pa-8')">
-        <v-row style="max-width: 750px">
+        <v-row style="max-width: 600px">
           <v-col cols="12">
             <v-card
               v-bind:class="['shadow-bottom', (isMobile ? 'my-0' : 'mr-3')]"
-              :width="isMobile ? '100%' : 300"
+              :width="isMobile ? '100%' : 400"
               :color="xCardColor"
             >
               <v-list>

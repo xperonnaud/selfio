@@ -44,140 +44,149 @@
         </div>
       </v-col>
 
-      <v-col v-show="!isMobile" class="py-0 px-1">
-        <div class="d-flex justify-center">
-          <div v-bind:class="['text-center max-width']">
-            <v-tooltip v-if="item.landscape" bottom>
+      <template v-if="!isMobile">
+        <v-col class="py-0 px-1">
+          <div class="d-flex justify-center">
+            <div v-bind:class="['text-center max-width']">
+              <v-tooltip v-if="item.landscape" bottom>
+                <template v-slot:activator="{ on, attrs }">
+                  <div
+                    class="list-icon-wrapper"
+                    style="margin-top: 2px"
+                    v-bind="attrs"
+                    v-on="on"
+                  >
+                    <x-img
+                      :src="xLandscape(item.landscape).icon.data.full_url"
+                      :width="isMobile ? 35 : 37"
+                      :height="isMobile ? 35 : 37"
+                      logo
+                    ></x-img>
+                  </div>
+                </template>
+                <span v-text="xLandscape(item.landscape).title" />
+              </v-tooltip>
+
+              <empty-data solo v-else />
+            </div>
+          </div>
+        </v-col>
+
+        <v-col class="py-0 px-1">
+          <div class="d-flex justify-center">
+            <div class="text-caption stacked-item-data  text-center max-width">
+              <div v-if="item.elevation">
+                <span v-text="item.elevation" />
+                <span v-show="!isMobile" v-html="'&nbsp;'" />
+                <span class="text-tiny-dimmed" v-text="elevationUnit" />
+              </div>
+              <empty-data v-else />
+
+              <div v-if="item.distance">
+                <span v-text="item.distance" />
+                <span v-show="!isMobile" v-html="'&nbsp;'" />
+                <span class="text-tiny-dimmed" v-html="distanceUnit" />
+              </div>
+              <empty-data v-else />
+            </div>
+          </div>
+        </v-col>
+
+        <v-col class="x-col py-0 px-1">
+          <div class="d-flex justify-center">
+            <div
+              v-bind:class="[
+                (isMobile ? 'mr-0' : 'mx-2'),
+                'text-center max-width justify-center'
+              ]"
+            >
+              <v-tooltip v-if="item.weather" bottom>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-sheet
+                    :color="isDark ? 'black' : 'grey lighten-4'"
+                    class="list-icon-wrapper"
+                    v-bind="attrs"
+                    v-on="on"
+                  >
+                    <v-icon
+                      class="pa-2"
+                      v-text="`mdi-weather-${item.weather}`"
+                    ></v-icon>
+                  </v-sheet>
+                </template>
+                <span>{{item.weather | noDashFilter}}</span>
+              </v-tooltip>
+              <empty-data v-else />
+            </div>
+          </div>
+        </v-col>
+
+        <v-col class="x-col py-0 px-1">
+          <div class="d-flex justify-center">
+            <div class="text-caption stacked-item-data text-center max-width">
+              <div v-if="item.temp_max">
+                <span v-text="item.temp_max" />
+                <span v-html="'&nbsp;'" />
+                <span class="text-tiny-dimmed" v-html="temperatureUnit" />
+              </div>
+              <empty-data v-else />
+              <div v-if="item.temp_min">
+                <span v-text="item.temp_min" />
+                <span v-html="'&nbsp;'" />
+                <span class="text-tiny-dimmed" v-html="temperatureUnit" />
+              </div>
+              <empty-data v-else />
+            </div>
+          </div>
+        </v-col>
+
+        <v-col class="py-0 px-1">
+          <div class="d-flex justify-center">
+            <v-tooltip v-if="item.humidity && (typeof item.humidity == 'number')" bottom>
               <template v-slot:activator="{ on, attrs }">
-                <div
-                  class="list-icon-wrapper"
-                  style="margin-top: 2px"
+                <v-progress-circular
+                  :size="isMobile ? 35 : 37"
+                  :width="2"
+                  :rotate="-90"
+                  :value="item.humidity"
+                  :color="'light-blue'"
+                  style="margin-top: 3px"
                   v-bind="attrs"
                   v-on="on"
                 >
-                  <x-img
-                    :src="xLandscape(item.landscape).icon.data.full_url"
-                    :width="isMobile ? 35 : 37"
-                    :height="isMobile ? 35 : 37"
-                    logo
-                  ></x-img>
-                </div>
+                  <span class="text-caption">
+                    <span v-bind:class="[fontShadeColor]" v-text="item.humidity" />
+                    <span class="text-tiny-dimmed" v-text="'%'" />
+                  </span>
+                </v-progress-circular>
               </template>
-              <span v-text="xLandscape(item.landscape).title" />
+              <span v-text="'Humidity %'" />
             </v-tooltip>
 
             <empty-data solo v-else />
           </div>
-        </div>
-      </v-col>
+        </v-col>
 
-      <v-col v-show="!isMobile" class="py-0 px-1">
-        <div class="d-flex justify-center">
-          <div class="text-caption stacked-item-data  text-center max-width">
-            <div v-if="item.elevation">
-              <span v-text="item.elevation" />
-              <span v-show="!isMobile" v-html="'&nbsp;'" />
-              <span class="text-tiny-dimmed" v-text="elevationUnit" />
-            </div>
-            <empty-data v-else />
-
-            <div v-if="item.distance">
-              <span v-text="item.distance" />
-              <span v-show="!isMobile" v-html="'&nbsp;'" />
-              <span class="text-tiny-dimmed" v-html="distanceUnit" />
-            </div>
-            <empty-data v-else />
-          </div>
-        </div>
-      </v-col>
-
-      <v-col v-show="!isMobile" class="x-col py-0 px-1">
-        <div class="d-flex justify-center">
+        <v-col class="x-col">
           <div
-            v-bind:class="[
-              (isMobile ? 'mr-0' : 'mx-2'),
-              'text-center max-width justify-center'
-            ]"
+            v-bind:class="['ml-1 text-caption']"
           >
-            <v-tooltip v-if="item.weather" bottom>
-              <template v-slot:activator="{ on, attrs }">
-                <v-sheet
-                  :color="isDark ? 'black' : 'grey lighten-4'"
-                  class="list-icon-wrapper"
-                  v-bind="attrs"
-                  v-on="on"
-                >
-                  <v-icon
-                    class="pa-2"
-                    v-text="`mdi-weather-${item.weather}`"
-                  ></v-icon>
-                </v-sheet>
-              </template>
-              <span>{{item.weather | noDashFilter}}</span>
-            </v-tooltip>
-            <empty-data v-else />
+            <span
+                v-bind:class="[
+                  { 'text-tiny-dimmed text-center':!duration }
+                ]"
+                v-html="duration ? convertMinutes(duration) : '-'"
+            />
           </div>
-        </div>
-      </v-col>
+        </v-col>
 
-      <v-col v-show="!isMobile" class="x-col py-0 px-1">
-        <div class="d-flex justify-center">
-          <div class="text-caption stacked-item-data text-center max-width">
-            <div v-if="item.temp_max">
-              <span v-text="item.temp_max" />
-              <span v-html="'&nbsp;'" />
-              <span class="text-tiny-dimmed" v-html="temperatureUnit" />
-            </div>
-            <empty-data v-else />
-            <div v-if="item.temp_min">
-              <span v-text="item.temp_min" />
-              <span v-html="'&nbsp;'" />
-              <span class="text-tiny-dimmed" v-html="temperatureUnit" />
-            </div>
-            <empty-data v-else />
+        <v-col class="x-col">
+          <div v-if="item.updated_on">
+            <span class="text-caption">{{item.updated_on | minimalDateFilter(dateFormatPref)}}</span>
           </div>
-        </div>
-      </v-col>
-
-      <v-col v-show="!isMobile" class="py-0 px-1">
-        <div class="d-flex justify-center">
-          <v-tooltip v-if="item.humidity && (typeof item.humidity == 'number')" bottom>
-            <template v-slot:activator="{ on, attrs }">
-              <v-progress-circular
-                :size="isMobile ? 35 : 37"
-                :width="2"
-                :rotate="-90"
-                :value="item.humidity"
-                :color="'light-blue'"
-                style="margin-top: 3px"
-                v-bind="attrs"
-                v-on="on"
-              >
-                <span class="text-caption">
-                  <span v-bind:class="[fontShadeColor]" v-text="item.humidity" />
-                  <span class="text-tiny-dimmed" v-text="'%'" />
-                </span>
-              </v-progress-circular>
-            </template>
-            <span v-text="'Humidity %'" />
-          </v-tooltip>
-
           <empty-data solo v-else />
-        </div>
-      </v-col>
-
-      <v-col v-show="!isMobile" class="x-col">
-        <div
-          v-bind:class="['ml-1 text-caption']"
-        >
-          <span
-              v-bind:class="[
-                { 'text-tiny-dimmed text-center':!duration }
-              ]"
-              v-html="duration ? convertMinutes(duration) : '-'"
-          />
-        </div>
-      </v-col>
+        </v-col>
+      </template>
 
       <v-col class="py-0 px-1">
         <div class="d-flex justify-start">
