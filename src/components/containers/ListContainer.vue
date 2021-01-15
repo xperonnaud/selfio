@@ -157,8 +157,6 @@
       listRef: null,
       listComponent: null,
       listComponentCalled: null,
-
-
     }),
     computed: {
       loader() {
@@ -246,13 +244,8 @@
           )
         }));
       },
-      sortedItems: function() {
+      sortedItems() {
         return _.orderBy(this.items, this.itemOrderBy, this.itemOrderOption);
-      }
-    },
-    filters: {
-      removeFC: function(name) {
-        return name.replace(" FC", "");
       }
     },
     methods: {

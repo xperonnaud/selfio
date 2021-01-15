@@ -587,6 +587,75 @@
                     >
                       <v-icon :size="28" v-text="'mdi-check'" />
                     </v-btn>
+
+                    <template v-slot:extension>
+                      <v-list
+                        v-bind:class="['rounded-0 py-0 max-width']"
+                        one-line
+                        flat
+                        dense
+                        color="transparent"
+                      >
+                        <v-list-item class="pl-15">
+                          <v-list-item-avatar
+                            v-bind:class="[
+                              'x-avatar',
+                              'my-0 py-0',
+                               (isMobile ? 'mr-3' : 'mr-2'),
+                            ]"
+                            width="40"
+                            height="40"
+                            :style="isMobile ? 'margin-left: -4px;' : ''"
+                          >
+                            <v-col class="x-col py-2 x-primary-btn" @click.stop="sortGear('type')" v-ripple>
+                              <div class="d-flex justify-center">
+                                <x-sort-icon prop="type" />
+                              </div>
+                            </v-col>
+                          </v-list-item-avatar>
+
+                          <v-list-item-content class="py-0">
+                            <v-row align="center" justify="center">
+
+                              <v-col :cols="isMobile ? 6 : 4" class="py-2 col-border-r x-primary-btn rounded" @click.stop="sortGear('title')" v-ripple>
+                                <div class="d-flex align-center">
+                                  <div class="text-caption" v-text="'Title / Model'" />
+                                  <x-sort-icon prop="title" />
+                                </div>
+                              </v-col>
+
+                              <v-col class="x-col py-2 col-border-r x-primary-btn rounded" @click.stop="sortGear('weight')" v-ripple>
+                                <div class="d-flex justify-center align-center">
+                                  <div v-show="!isMobile" class="text-caption" v-text="'Weight'" />
+                                  <x-sort-icon prop="weight" />
+                                </div>
+                              </v-col>
+
+                              <v-col v-if="!isMobile" class="x-col py-2 col-border-r x-primary-btn rounded" @click.stop="sortGear('price')" v-ripple>
+                                <div class="d-flex justify-center align-center">
+                                  <div class="text-caption" v-text="'Price'" />
+                                  <x-sort-icon prop="price" />
+                                </div>
+                              </v-col>
+
+                              <v-col class="x-col py-2 col-border-r x-primary-btn rounded" @click.stop="sortGear('state')" v-ripple>
+                                <div class="d-flex justify-center align-center">
+                                  <div v-show="!isMobile" class="text-caption" v-text="'State'" />
+                                  <x-sort-icon prop="state" />
+                                </div>
+                              </v-col>
+
+                              <v-col class="x-col py-2 col-border-r x-primary-btn rounded" @click.stop="sortGear('quantity_owned')" v-ripple>
+                                <div class="d-flex justify-center align-center">
+                                  <div v-show="!isMobile" class="text-caption ml-1" v-text="'Qty'" />
+                                  <x-sort-icon prop="quantity_owned" />
+                                </div>
+                              </v-col>
+                            </v-row>
+                          </v-list-item-content>
+                        </v-list-item>
+                      </v-list>
+                    </template>
                   </v-toolbar>
 
                   <v-list
@@ -600,7 +669,7 @@
                       :max-height="isMobile ? (listHeight) : 600"
                     >
                       <v-scroll-y-transition group>
-                        <template v-for="(gear, index) in filteredGears">
+                        <template v-for="(gear, index) in filteredGear">
                           <v-list-item
                             @click.stop="gearListItemAction(gear)"
                             :key="`${gear.id}-${index}`"
@@ -628,7 +697,7 @@
                             </v-list-item-avatar>
 
                             <v-list-item-content>
-                              <v-row>
+                              <v-row align="center" justify="center">
                                 <v-col :cols="isMobile ? 6 : 4" class="py-0">
                                   <div>
                                     <v-list-item-title
@@ -643,39 +712,18 @@
                                   </div>
                                 </v-col>
 
-                                <v-col v-if="isMobile" class="x-col text-caption stacked-item-data">
+                                <v-col class="x-col">
                                   <div v-if="gear.weight">
-                                    <span v-text="gear.weight" v-bind:class="[fontShadeColor]" />
+                                    <span class="text-caption" v-text="gear.weight" />
                                     <span class="text-tiny-dimmed" v-text="weightUnit" />
                                   </div>
-                                  <empty-data v-else />
+                                  <empty-data solo v-else />
+                                </v-col>
 
+                                <v-col v-show="!isMobile" class="x-col">
                                   <div v-if="gear.price">
-                                    <span v-text="gear.price" v-bind:class="[fontShadeColor]" />
+                                    <span class="text-caption" v-text="gear.price" />
                                     <span class="text-tiny-dimmed" v-text="priceUnit" />
-                                  </div>
-                                  <empty-data v-else />
-                                </v-col>
-
-                                <v-col v-if="!isMobile" class="x-col">
-                                  <div v-if="gear.weight" class="pt-2">
-                                    <span class="text-body-2" v-text="gear.weight" />
-                                    <span class="text-tiny-dimmed" v-text="weightUnit" />
-                                  </div>
-                                  <empty-data solo v-else />
-                                </v-col>
-
-                                <v-col v-if="!isMobile" class="x-col">
-                                  <div v-if="gear.price" class="pt-2">
-                                    <span class="text-body-2" v-text="gear.price" />
-                                    <span class="text-tiny-dimmed" v-text="priceUnit" />
-                                  </div>
-                                  <empty-data solo v-else />
-                                </v-col>
-
-                                <v-col v-if="!isMobile" class="x-col">
-                                  <div v-if="gear.purchase_date" class="pt-2">
-                                    <span class="text-body-2">{{gear.purchase_date | minimalDateFilter(dateFormatPref)}}</span>
                                   </div>
                                   <empty-data solo v-else />
                                 </v-col>
@@ -698,9 +746,9 @@
                                 </v-col>
 
                                 <v-col class="x-col">
-                                  <div class="ml-1 pt-2">
-                                    <span class="text-tiny-dimmed" v-html="'&#215;'" />
-                                    <span class="text-body-2" v-html="gear.quantity_owned ? gear.quantity_owned : 0" />
+                                  <div v-bind:class="['ml-1',((!gear.quantity_owned || gear.quantity_owned===0) ? darkColorText('red') : '')]">
+                                    <span class="text-tiny" v-html="'&#215;'" />
+                                    <span v-bind:class="['text-body-2']" v-html="gear.quantity_owned ? gear.quantity_owned : 0" />
                                   </div>
                                 </v-col>
                               </v-row>
@@ -741,6 +789,9 @@
 
 <script>
 
+  const _ = require('lodash');
+
+  import XSortIcon from "@/components/elements/XSortIcon";
   import XDivider from "@/components/elements/XDivider";
   import EmptyList from "@/components/elements/EmptyList";
   import EmptyData from "@/components/elements/Stepper/EmptyData";
@@ -752,6 +803,7 @@
   export default {
     name: 'inventories-form',
     components: {
+      XSortIcon,
       XPieChart: () => import('@/components/charts/XPieChart'),
       XCombobox,
       XDivider,
@@ -822,15 +874,12 @@
       isEditing: false,
       isLoading: false,
       isLoadingPieData: false,
-      listHeight: 150
+      listHeight: 150,
+
+      gearOrderBy: 'type',
+      gearOrderOption: 'desc',
     }),
     computed: {
-      gearTypeStatsLength() {
-        if(this.gearTypeStats === {})
-          return 0;
-
-        return Object.keys(this.gearTypeStats).length;
-      },
       itemSearch: {
         get() {
           return this.$store.state.ui.itemSearch
@@ -865,9 +914,9 @@
 
         return [];
       },
-      filteredGears() {
+      filteredGear() {
         if(this.isMounted)
-          return (this.gearList.filter(item => {
+          return (this.sortedGear.filter(item => {
             if(
               !this.itemSearch
               && !this.itemGearType
@@ -885,8 +934,23 @@
 
         return this.gearList;
       },
+      sortedGear() {
+        return _.orderBy(this.gearList, this.gearOrderBy, this.gearOrderOption);
+      }
     },
     methods: {
+      sortGear(by, option = "asc") {
+        if (this.gearOrderBy == by) {
+          if (this.gearOrderOption == "asc") {
+            this.gearOrderOption = "desc";
+          } else if (this.gearOrderOption == "desc") {
+            this.gearOrderOption = "asc";
+          }
+        } else {
+          this.itemOrderOption = option;
+          this.gearOrderBy = by;
+        }
+      },
       async initPieChartData(gearTypeStats) {
         if(this.isMounted && typeof Object.keys(gearTypeStats).length == 'number' && Object.keys(gearTypeStats).length > 0) {
           this.isLoadingPieData = true;
