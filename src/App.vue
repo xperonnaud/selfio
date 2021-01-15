@@ -150,7 +150,7 @@
 
   .list-icon-wrapper {
     border-radius: 20px;
-    max-width: 37px !important;
+    max-width: 40px !important;
     margin: auto;
   }
 
@@ -321,7 +321,7 @@
     }
 
     .text-tiny {
-      font-size: 10px !important;
+      font-size: 11px !important;
     }
 
     .floating-button {

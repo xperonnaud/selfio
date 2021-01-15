@@ -7,7 +7,6 @@
     floating
     app
     left
-
   >
     <template v-slot:prepend>
       <v-list-item one-line :to="'home'">
@@ -27,82 +26,79 @@
 
     <v-divider />
 
-    <v-list dense>
-      <template v-for="item in navigationRoutes">
-        <v-list-item
-            v-if="(navigationItems[item].type === 'app') || (navigationItems[item].type === 'items')"
-            :key="navigationItems[item].title"
-            :to="{ name: item }"
-            link
-        >
-          <v-list-item-icon>
-            <v-icon v-text="navigationItems[item].icon" :color="darkColor(navigationItems[item].color)" />
-          </v-list-item-icon>
-
-          <v-list-item-content>
-            <v-list-item-title v-text="navigationItems[item].title" />
-          </v-list-item-content>
-        </v-list-item>
-      </template>
-    </v-list>
-
-    <v-divider />
-
-    <v-list dense>
-      <template v-for="item in navigationRoutes">
-        <v-list-item
-            v-if="(navigationItems[item].type === 'settings')
-              || (navigationItems[item].type === 'misc')
-              || (navigationItems[item].type === 'configuration')
-              || (navigationItems[item].type === 'account')"
-            :key="navigationItems[item].title"
-            :to="{ name: item }"
-            link
-        >
-          <v-list-item-icon>
-            <v-icon v-text="navigationItems[item].icon" :color="darkColor(navigationItems[item].color)" />
-          </v-list-item-icon>
-
-          <v-list-item-content>
-            <v-list-item-title v-text="navigationItems[item].title" />
-          </v-list-item-content>
-        </v-list-item>
-      </template>
-    </v-list>
-
-    <v-divider />
-
-    <v-list dense>
-      <v-list-item link @click.stop="toggleTheme()">
+    <template v-for="item in navigationRoutes">
+      <v-list-item
+          v-if="(navigationItems[item].type === 'app') || (navigationItems[item].type === 'items')"
+          :key="navigationItems[item].title"
+          :to="{ name: item }"
+          link
+          :dense="isMobile"
+          :active-class="darkColorText(navigationItems[item].color)"
+      >
         <v-list-item-icon>
-          <v-icon v-text="'mdi-theme-light-dark'" color="black" />
+          <v-icon v-text="navigationItems[item].icon" :color="darkColor(navigationItems[item].color)" />
         </v-list-item-icon>
 
         <v-list-item-content>
-          <v-list-item-title v-text="'Theme'" />
+          <v-list-item-title v-text="navigationItems[item].title" />
         </v-list-item-content>
       </v-list-item>
-    </v-list>
+    </template>
+
+    <v-divider />
+
+    <template v-for="item in navigationRoutes">
+      <v-list-item
+          v-if="(navigationItems[item].type === 'settings')
+            || (navigationItems[item].type === 'misc')
+            || (navigationItems[item].type === 'configuration')
+            || (navigationItems[item].type === 'account')"
+          :key="navigationItems[item].title"
+          :to="{ name: item }"
+          link
+          :dense="isMobile"
+      >
+        <v-list-item-icon>
+          <v-icon v-text="navigationItems[item].icon" :color="darkColor(navigationItems[item].color)" />
+        </v-list-item-icon>
+
+        <v-list-item-content>
+          <v-list-item-title v-text="navigationItems[item].title" />
+        </v-list-item-content>
+      </v-list-item>
+    </template>
+
+    <v-divider />
+
+    <v-list-item link :dense="isMobile" @click.stop="toggleTheme()">
+      <v-list-item-icon>
+        <v-icon v-text="'mdi-theme-light-dark'" :color="darkColor()" />
+      </v-list-item-icon>
+
+      <v-list-item-content>
+        <v-list-item-title v-text="'Theme'" />
+      </v-list-item-content>
+    </v-list-item>
 
     <template v-slot:append>
-      <v-list v-bind:class="{'pa-2':!navigationCollapse}" dense>
-        <v-divider />
-        <v-list-item
-            @click.stop="logout()"
-            link
-        >
-          <v-list-item-icon>
-            <v-icon
-              v-text="'mdi-logout'"
-              :color="darkColor()"
-            ></v-icon>
-          </v-list-item-icon>
+      <v-divider />
 
-          <v-list-item-content>
-            <v-list-item-title v-text="'Logout'" />
-          </v-list-item-content>
-        </v-list-item>
-      </v-list>
+      <v-list-item
+          @click.stop="logout()"
+          link
+          :dense="isMobile"
+      >
+        <v-list-item-icon>
+          <v-icon
+            v-text="'mdi-logout'"
+            :color="darkColor()"
+          ></v-icon>
+        </v-list-item-icon>
+
+        <v-list-item-content>
+          <v-list-item-title v-text="'Logout'" />
+        </v-list-item-content>
+      </v-list-item>
     </template>
   </v-navigation-drawer>
 

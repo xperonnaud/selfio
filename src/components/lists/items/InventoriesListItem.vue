@@ -16,7 +16,6 @@
       </v-col>
 
       <template v-if="item.inventory_gear">
-
         <v-col class="x-col">
           <div class="ml-1 text-caption">
             <span class="text-body-2" v-text="item.inventory_gear.length" />

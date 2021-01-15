@@ -2,7 +2,7 @@
 
   <v-app-bar
     app
-    class="rounded-0 elevation-1"
+    v-bind:class="['rounded-0', (isItemRoute ? 'elevation-0' : 'elevation-1')]"
     :color="xTabsColor"
   >
     <v-app-bar-nav-icon
@@ -106,7 +106,7 @@
     <template v-if="isItemRoute" v-slot:extension>
       <v-list
         v-show="!loading"
-        v-bind:class="['rounded-0 py-0 max-width', {'shadow-bottom':!isMobile}]"
+        v-bind:class="['rounded-0 py-0 max-width shadow-bottom']"
         one-line
         flat
         dense

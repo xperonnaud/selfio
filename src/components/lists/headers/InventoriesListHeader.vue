@@ -3,7 +3,7 @@
   <v-list-item-content v-bind:class="[{'py-1':isMobile}]">
     <v-row align="center" justify="center">
 
-      <v-col :cols="isMobile ? 6 : 3" class="py-0">
+      <v-col :cols="isMobile ? 7 : 6" class="py-0">
         <div class="text-tiny" v-text="'Title'" />
         <div class="text-tiny" v-text="'Description'" />
       </v-col>
@@ -12,7 +12,7 @@
         <div class="text-caption text-center" v-text="'Items'" />
       </v-col>
 
-      <v-col v-if="isMobile" class="x-col text-caption stacked-item-data">
+      <v-col v-if="isMobile" class="x-col">
         <div class="text-tiny text-center" v-text="'Price'" />
         <div class="text-tiny text-center" v-text="'Weight'" />
       </v-col>

@@ -66,7 +66,7 @@
                   @click="forgotPassword()"
                   :disabled="!valid || isLoading"
                 >
-                  <span class="text-caption" v-text="'Forgot password ?'" />
+                  <span class="text-tiny" v-text="'Forgot password ?'" />
                 </v-btn>
               </v-col>
 
