@@ -142,13 +142,32 @@
                     </v-col>
 
                     <v-col cols="12" class="py-0 mb-3">
-                      <div class="pa-2 pb-1">
-                        <span class="text-caption" v-text="'Gear category repartition'" />
-                        <span
-                          v-show="currentInventoryGear.length <= 0"
-                          class="mx-1 text-tiny-dimmed"
-                          v-text="'(empty)'"
-                        />
+                      <div class="d-flex">
+                        <div class="pa-2 pb-1">
+                          <span class="text-caption" v-text="'Gear list'" />
+                          <span
+                            v-show="currentInventoryGear.length <= 0"
+                            class="mx-1 text-tiny-dimmed"
+                            v-text="'(empty)'"
+                          />
+                        </div>
+
+                        <v-spacer />
+
+                        <div class="d-flex pa-2 pb-1">
+
+                          <div>
+                            <span v-bind:class="['text-caption',currentColorText]">{{ sumInventoryWeight(item.inventory_gear) | thousandthFilter }}</span>
+                            <span class="text-caption" v-text="' k'+weightUnit" />
+                          </div>
+
+                          <x-divider style="height:34px !important;" />
+
+                          <div>
+                            <span v-bind:class="['text-caption',currentColorText]">{{ sumInventoryPrice(item.inventory_gear) | thousandthFilter }}</span>
+                            <span class="text-caption" v-text="' k'+priceUnit" />
+                          </div>
+                        </div>
                       </div>
 
                       <v-tabs
@@ -248,10 +267,10 @@
                             </v-list>
 
                             <empty-list
-                                v-else
-                                label="Add Gear"
-                                icon="mdi-pickaxe"
-                                :color="navItemColor('gear')"
+                              v-else
+                              label="Add Gear"
+                              icon="mdi-pickaxe"
+                              :color="navItemColor('gear')"
                             ></empty-list>
                           </v-responsive>
                         </v-tab-item>
@@ -261,21 +280,33 @@
                             class="overflow-y-auto pr-3 "
                             :height="300"
                           >
+                            <empty-list
+                              v-if="currentInventoryGear.length <= 0"
+                              label="Add Gear"
+                              icon="mdi-pickaxe"
+                              :color="navItemColor('gear')"
+                            ></empty-list>
+
                             <x-pie-chart
-                              v-if="isMounted && !isEditing && currentInventoryGear.length > 0 && pieChart.labels.length > 0 && pieChart.datasets.length > 0"
+                              v-else-if="isMounted && !isLoadingPieData && !isEditing  && pieChart.labels.length > 0 && pieChart.datasets.length > 0"
                               :key="`pie-chart-${updatedItem.title}-${gearTypeStats.length}`"
-                              class="ma-3"
+                              class="mx-3 my-6"
                               :labels="pieChart.labels"
                               :datasets="pieChart.datasets"
                               style="max-height: 203px !important"
                             ></x-pie-chart>
 
-                            <empty-list
+                            <v-card
                               v-else
-                              label="Add Gear"
-                              icon="mdi-pickaxe"
-                              :color="navItemColor('gear')"
-                            ></empty-list>
+                              class="pa-6 my-8 d-flex justify-center align-center elevation-0"
+                              style="max-height: 203px !important"
+                            >
+                              <v-progress-circular
+                                indeterminate
+                                size="48"
+                                :color="currentColor"
+                              ></v-progress-circular>
+                            </v-card>
                           </v-responsive>
                         </v-tab-item>
                       </v-tabs>
@@ -382,22 +413,35 @@
 
             <v-sheet class="elevation-0">
               <empty-list
-                v-show="inventoryGearList.length <= 0"
+                v-show="currentInventoryGear.length <= 0"
                 label="Add Gear"
                 icon="mdi-pickaxe"
                 :color="navItemColor('gear')"
               ></empty-list>
 
-              <v-row v-show="inventoryGearList.length > 0">
+              <v-row v-show="currentInventoryGear.length > 0">
                 <v-col cols="5">
                   <x-pie-chart
-                    v-if="isMounted && !isEditing && pieChart.labels.length > 0 && pieChart.datasets.length > 0"
+                    v-if="isMounted && !isLoadingPieData && !isEditing && pieChart.labels.length > 0 && pieChart.datasets.length > 0"
                     :key="`pie-chart-${updatedItem.title}-${gearTypeStats.length}`"
                     :labels="pieChart.labels"
                     :datasets="pieChart.datasets"
                     style="max-height: 230px !important; margin-top: 46px !important;"
                   ></x-pie-chart>
+
+                  <v-card
+                    v-else
+                    class="pa-6 d-flex justify-center align-center elevation-0"
+                    style="height: 230px; margin-top: 46px !important;"
+                  >
+                    <v-progress-circular
+                      indeterminate
+                      size="48"
+                      :color="currentColor"
+                    ></v-progress-circular>
+                  </v-card>
                 </v-col>
+
                 <v-col cols="7">
                   <v-responsive
                     class="overflow-y-auto pr-3 "
@@ -675,7 +719,7 @@
                     subheader
                     dense
                   >
-                    <v-subheader v-text="'Gear list'" />
+                    <v-subheader v-text="'Gear List'" />
                     <v-list-item>
                       <v-list-item-content>
                         <v-list-item-title v-text="'Empty'" />
@@ -775,6 +819,7 @@
       overlay: false,
       isEditing: false,
       isLoading: false,
+      isLoadingPieData: false,
       listHeight: 150
     }),
     computed: {
@@ -842,6 +887,7 @@
     methods: {
       async initPieChartData(gearTypeStats) {
         if(this.isMounted && typeof Object.keys(gearTypeStats).length == 'number' && Object.keys(gearTypeStats).length > 0) {
+          this.isLoadingPieData = true;
           let labels = [];
           let colors = [];
           let data = []
@@ -860,6 +906,7 @@
           this.pieChart.labels = labels;
           this.pieChart.datasets[0].backgroundColor = colors;
           this.pieChart.datasets[0].data = data;
+          this.isLoadingPieData = false;
         }
       },
       async closeEditor() {

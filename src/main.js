@@ -24,14 +24,11 @@ Vue.mixin(ScreenMixin);
 
 import store from './store';
 
-const moment = require('moment');
-
 new Vue({
   router,
   vuetify,
   store,
   axios,
-  // moment,
   VueAxios,
   render: h => h(App)
 }).$mount('#app')

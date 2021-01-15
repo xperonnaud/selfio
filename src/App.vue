@@ -104,6 +104,10 @@
 
 <style lang="scss">
 
+  .x-primary-btn {
+    cursor: pointer;
+  }
+
   .col-border-r {
     border-right: 1px solid #eee;
   }

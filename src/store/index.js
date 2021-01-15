@@ -55,6 +55,9 @@ export default new Vuex.Store({
             itemWeather: null,
             itemInventory: null,
 
+            itemOrderBy: "title",
+            itemOrderOption: "asc",
+
             snackbarDisplay: false,
             snackbarType: null,
             snackbarText: null,
@@ -481,6 +484,12 @@ export default new Vuex.Store({
         },
         updateUiItemInventory(state, itemInventory) {
             state.ui.itemInventory = itemInventory;
+        },
+        updateUiItemOrderBy(state, itemOrderBy) {
+            state.ui.itemOrderBy = itemOrderBy;
+        },
+        updateUiItemOrderOption(state, itemOrderOption) {
+            state.ui.itemOrderOption = itemOrderOption;
         },
         updateUiSnackbarDisplay(state, snackbarDisplay) {
             state.ui.snackbarDisplay = snackbarDisplay;

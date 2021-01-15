@@ -127,6 +127,8 @@
 
 <script>
 
+  const _ = require('lodash');
+
   import EmptyList from "@/components/elements/EmptyList";
   import XImg from "@/components/elements/XImg";
 
@@ -154,6 +156,8 @@
       listRef: null,
       listComponent: null,
       listComponentCalled: null,
+
+
     }),
     computed: {
       loader() {
@@ -213,7 +217,7 @@
         }
       },
       filteredItems() {
-        return (this.items.filter(item => {
+        return (this.sortedItems.filter(item => {
           if(
               !this.itemSearch
               && !this.itemOwned
@@ -240,12 +244,19 @@
               && (this.itemInventory ? (item.adventure_inventory === this.itemInventory) : true)
           )
         }));
+      },
+      sortedItems: function() {
+        return _.orderBy(this.items, this.itemOrderBy, this.itemOrderOption);
+      }
+    },
+    filters: {
+      removeFC: function(name) {
+        return name.replace(" FC", "");
       }
     },
     methods: {
       componentLoad() {
         let self = this;
-        let route = this.$options.filters.removeSlashFilter(this.$router.currentRoute.path);
 
         if(this.isItemRoute || this.isConfigurationRoute)
           this.loader()

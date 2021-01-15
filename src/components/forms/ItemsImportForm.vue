@@ -187,8 +187,4 @@
 
 <style lang="scss">
 
-  .x-primary-btn {
-    cursor: pointer;
-  }
-
 </style>

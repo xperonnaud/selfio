@@ -16,6 +16,22 @@ export default {
                 return this.$store.state;
             }
         },
+        itemOrderBy: {
+            get() {
+                return this.$store.state.ui.itemOrderBy
+            },
+            set(value) {
+                this.$store.commit("updateUiItemOrderBy", value)
+            }
+        },
+        itemOrderOption: {
+            get() {
+                return this.$store.state.ui.itemOrderOption
+            },
+            set(value) {
+                this.$store.commit("updateUiItemOrderOption", value)
+            }
+        },
         formDialog: {
             get() {
                 return this.$store.state.ui.formDialog
@@ -234,6 +250,18 @@ export default {
         },
     },
     methods: {
+        sortItems(by, option = "asc") {
+            if (this.itemOrderBy == by) {
+                if (this.itemOrderOption == "asc") {
+                    this.itemOrderOption = "desc";
+                } else if (this.itemOrderOption == "desc") {
+                    this.itemOrderOption = "asc";
+                }
+            } else {
+                this.itemOrderOption = option;
+                this.itemOrderBy = by;
+            }
+        },
         xGear(gearId) {
             if(gearId, this.gearList)
                 return (this.gearList[this.gearReferences[gearId]]);
