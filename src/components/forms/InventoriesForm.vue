@@ -178,13 +178,19 @@
                               <template v-for="(gearTypeStat, gearTypeId) in gearTypeStats">
                                 <v-list-item :key="`gear-type-stat-${gearTypeId}`" class="pa-0">
                                   <v-list-item-avatar
-                                    width="24"
-                                    height="24"
-                                    class="mr-2 x-avatar mb-0"
+                                    width="34"
+                                    min-width="34"
+                                    height="34"
+                                    v-bind:class="[
+                                      'x-avatar',
+                                      'my-0 mx-3',
+                                      getReversedVuetifyColor(gearTypeId)
+                                    ]"
                                   >
                                     <x-img
                                       v-if="gearTypeId && objFilter(gearTypes, 'id', parseInt(gearTypeId))[0]"
                                       :src="objFilter(gearTypes, 'id', parseInt(gearTypeId))[0].icon.data.full_url"
+                                      isCategory
                                     />
                                     <v-icon
                                       v-else
@@ -195,12 +201,11 @@
                                   <v-list-item-title>
                                     <div class="d-flex">
                                       <div class="text-caption" style="width: 80px;">
-                                        <div
-                                            v-if="gearTypeId && objFilter(gearTypes, 'id', parseInt(gearTypeId))[0]"
+                                        <div v-if="gearTypeId && objFilter(gearTypes, 'id', parseInt(gearTypeId))[0]"
                                         >{{ objFilter(gearTypes, 'id', parseInt(gearTypeId))[0].title }}</div>
                                         <div
-                                            v-else
-                                            v-text="'unknown'"
+                                          v-else
+                                          v-text="'unknown'"
                                         ></div>
                                       </div>
 
@@ -256,7 +261,7 @@
                             :height="300"
                           >
                             <x-pie-chart
-                              v-if="isMounted && currentInventoryGear.length > 0 && pieChart.labels.length > 0 && pieChart.datasets.length > 0"
+                              v-if="isMounted && !isEditing && currentInventoryGear.length > 0 && pieChart.labels.length > 0 && pieChart.datasets.length > 0"
                               :key="`pie-chart-${updatedItem.title}-${gearTypeStats.length}`"
                               class="ma-3"
                               :labels="pieChart.labels"
@@ -385,7 +390,7 @@
               <v-row v-show="inventoryGearList.length > 0">
                 <v-col cols="5">
                   <x-pie-chart
-                    v-if="isMounted && pieChart.labels.length > 0 && pieChart.datasets.length > 0"
+                    v-if="isMounted && !isEditing && pieChart.labels.length > 0 && pieChart.datasets.length > 0"
                     :key="`pie-chart-${updatedItem.title}-${gearTypeStats.length}`"
                     :labels="pieChart.labels"
                     :datasets="pieChart.datasets"
@@ -405,13 +410,19 @@
                       <template v-for="(gearTypeStat, gearTypeId) in gearTypeStats">
                         <v-list-item :key="`gear-type-stat-${gearTypeId}`" class="pa-0" style="min-height: 36px;">
                           <v-list-item-avatar
-                              width="24"
-                              height="24"
-                              class="mr-2 x-avatar"
+                            width="34"
+                            min-width="34"
+                            height="34"
+                            v-bind:class="[
+                              'x-avatar',
+                              'my-0 mx-3',
+                              getReversedVuetifyColor(gearTypeId)
+                            ]"
                           >
                             <x-img
                               v-if="gearTypeId && objFilter(gearTypes, 'id', parseInt(gearTypeId))[0]"
                               :src="objFilter(gearTypes, 'id', parseInt(gearTypeId))[0].icon.data.full_url"
+                              isCategory
                             />
                             <v-icon
                               v-else
@@ -522,14 +533,11 @@
                       class="mr-1"
                     ></filter-menu>
 
-                    <v-divider vertical />
-
                     <v-btn
                       @click="closeGearList()"
                       :color="darkColor('primary')"
-                      class="mx-1"
                       icon
-                      style="margin-right: -9px !important;"
+                      style="margin-right: 1px !important;"
                     >
                       <v-icon :size="28" v-text="'mdi-check'" />
                     </v-btn>
@@ -555,12 +563,20 @@
                             <v-checkbox :input-value="inventoryGearList.includes(gear.id)" :color="currentColor" />
                           </v-list-item-action>
 
-                          <v-list-item-avatar class="my-0 x-avatar">
+                          <v-list-item-avatar
+                            v-bind:class="[
+                              'x-avatar',
+                              'my-0 mr-3',
+                              getReversedVuetifyColor(gear.type)
+                            ]"
+                          >
                             <x-img
                               v-if="gear.type"
                               :src="xGearType(gear.type).icon.data.full_url"
-                              class="mr-3"
                               :tooltipText="xGearType(gear.type).title"
+                              :width="22"
+                              :height="22"
+                              isCategory
                             ></x-img>
                           </v-list-item-avatar>
 

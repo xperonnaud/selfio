@@ -4,7 +4,7 @@ import colors from 'vuetify/lib/util/colors'
 export default {
     computed: {
         imgSize() {
-            return (this.isMobile ? 22 : 24);
+            return (this.isMobile ? 22 : 22);
         },
         xOverlayColor() {
             return ('grey '+(this.isDark ? 'darken-1' : 'lighten-1'));
@@ -191,10 +191,10 @@ export default {
             return this.darkColorText(this.navigationItems[item].color);
         },
         activityColor(color = 'blue-grey') {
-            return (this.isDark ? color+' lighten-1' : color+' darken-2')
+            return (this.isDark ? color+' lighten-1' : color+' darken-2');
         },
         reversedActivityColor(color = 'blue-grey') {
-            return (this.isDark ? color+' darken-4' : color+' lighten-4')
+            return (this.isDark ? color+' darken-4' : color+' lighten-3');
         },
         getRandomColor() {
             let letters = '0123456789ABCDEF';
@@ -204,11 +204,11 @@ export default {
             }
             return color;
         },
-        getVuetifyColor(index) {
-            return this.activityColor(this.vuetifyColors[index]);
+        getVuetifyColor(categoryId) {
+            return this.activityColor(this.vuetifyColors[this.gearTypeReferences[categoryId]]);
         },
-        getReversedVuetifyColor(index) {
-            return this.reversedActivityColor(this.vuetifyColors[index]);
+        getReversedVuetifyColor(categoryId) {
+            return this.reversedActivityColor(this.vuetifyColors[this.gearTypeReferences[categoryId]]);
         },
         darkColorText(color) {
             if(typeof color == 'undefined' || !color || color === 'black')

@@ -7,7 +7,7 @@ export default new Vuex.Store({
     state: {
         api: {
             authTimer: null,
-            login: 'reivax@gmail.com',
+            login: 'x.peronnaud@gmail.com',
             password: 'poppers78',
             accessToken: null,
             baseUrl: 'http://localhost:8080/selfio/',
@@ -155,7 +155,6 @@ export default new Vuex.Store({
                 'windy',
             ],
             colors: [
-                'blue-grey',
                 'red',
                 'pink',
                 'purple',
@@ -171,6 +170,7 @@ export default new Vuex.Store({
                 'orange',
                 'deep-orange',
                 'brown',
+                'blue-grey',
             ],
         },
     },

@@ -349,9 +349,9 @@
                     <v-slide-x-transition>
                     <v-icon
                       v-show="packedGearRatio && packedGearRatio===100"
-                      small
                       v-text="'mdi-check'"
                       :color="darkColor('green')"
+                      small
                     />
                     </v-slide-x-transition>
                   </div>
@@ -365,12 +365,10 @@
                   class="mr-1"
                 ></filter-menu>
 
-                <v-divider vertical />
-
                 <v-btn
                   @click="closeGearList()"
                   :color="darkColor('primary')"
-                  class="ml-1"
+                  class="mx-1"
                   icon
                 >
                   <v-icon :size="28" v-text="'mdi-check'" />
@@ -399,13 +397,28 @@
                         ></v-checkbox>
                       </v-list-item-action>
 
-                      <v-list-item-avatar class="my-0 x-avatar">
+                      <v-list-item-avatar
+                        v-bind:class="[
+                          'x-avatar',
+                          'my-0 mr-3',
+                          (xGear(gear.gear_id).type ?
+                            getReversedVuetifyColor(xGear(gear.gear_id).type)
+                            : ''
+                          )
+                        ]"
+                      >
                         <x-img
                           v-if="xGear(gear.gear_id).type"
                           :src="xGearType(xGear(gear.gear_id).type).icon.data.full_url"
-                          class="mr-3"
                           :tooltipText="xGearType(xGear(gear.gear_id).type).title"
+                          :width="22"
+                          :height="22"
+                          isCategory
                         ></x-img>
+                        <v-icon
+                            v-else
+                            v-text="'mdi-help-rhombus'"
+                        />
                       </v-list-item-avatar>
 
                       <v-list-item-content>

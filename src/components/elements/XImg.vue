@@ -2,6 +2,7 @@
 
   <v-sheet
     :color="background"
+    class="mt-1"
     style="border-radius: 32px;"
     dark
   >

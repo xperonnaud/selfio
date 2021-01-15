@@ -118,7 +118,7 @@
             v-bind:class="[
               'x-avatar',
               'py-0',
-               (isMobile ? 'my-0 mr-0' : 'mr-2'),
+               (isMobile ? 'my-0 mr-2' : 'ml-2 mr-4'),
             ]"
           >
           </v-list-item-avatar>

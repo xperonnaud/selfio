@@ -63,9 +63,7 @@
             <v-col
               :key="itemIndex"
               :cols="isMobile ? 4 : 3"
-              v-bind:class="[
-                  {'pa-1': isMobile}
-              ]"
+              v-bind:class="[(isMobile ? 'pa-1' : 'pt-0 px-2')]"
             >
               <v-card
                 v-bind:class="[
@@ -82,13 +80,22 @@
               >
                 <div>
                   <div class="d-flex justify-space-around align-self-center">
-                    <x-img
-                      v-if="item.icon"
-                      :src="item.icon.data.full_url"
-                      :width="iconSize"
-                      :height="iconSize"
-                      :logo="logo"
-                    ></x-img>
+                    <v-avatar
+                      v-bind:class="[
+                        'x-avatar',
+                        (isCategory ? getReversedVuetifyColor(item.id) : ''),
+                      ]"
+                    >
+                      <x-img
+                        v-if="item.icon"
+                        :src="item.icon.data.full_url"
+                        :width="iconSize"
+                        :height="iconSize"
+                        :logo="logo"
+                        :isCategory="isCategory"
+                      ></x-img>
+                    </v-avatar>
+
                   </div>
 
                   <div
@@ -128,6 +135,10 @@
         default: '48'
       },
       logo: {
+        type: Boolean,
+        default: false
+      },
+      isCategory: {
         type: Boolean,
         default: false
       }

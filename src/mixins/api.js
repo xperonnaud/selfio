@@ -300,7 +300,7 @@ export default {
                 +'items/gear_types?access_token='
                 +self.apiAccessToken
                 +'&fields=id,title,icon.data.full_url'
-                +'&sort=title',
+                +'&sort=id',
             )
             .then(function (response) {
                 self.$store.commit("updateGearTypes",response.data.data);

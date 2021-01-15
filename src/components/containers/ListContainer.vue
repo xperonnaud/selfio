@@ -25,15 +25,15 @@
             v-bind:class="[
               'x-avatar',
               'py-0',
-               (isMobile ? 'my-0 mr-1' : 'mr-2'),
+               (isMobile ? 'my-0 mr-3' : 'ml-2 mr-5'),
                (item.type ? getReversedVuetifyColor(item.type) : ''),
             ]"
           >
               <x-img
                 v-if="item.type && xGearType(item.type)"
                 :src="xGearType(item.type).icon.data.full_url"
-                :width="imgSize"
-                :height="imgSize"
+                :width="22"
+                :height="22"
                 :tooltipText="xGearType(item.type).title"
                 isCategory
               ></x-img>
@@ -41,8 +41,8 @@
               <x-img
                 v-if="item.activity && xActivity(item.activity)"
                 :src="xActivity(item.activity).icon.data.full_url"
-                :width="imgSize"
-                :height="imgSize"
+                :width="24"
+                :height="24"
                 :tooltipText="xActivity(item.activity).title"
               ></x-img>
           </v-list-item-avatar>
