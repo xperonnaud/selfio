@@ -243,9 +243,9 @@ export default {
                 ? (theme === 'dark')
                 : (this.$vuetify.theme.dark = !this.$vuetify.theme.dark);
 
-            // let preferences = this.preferences;
-            // preferences.theme = (this.$vuetify.theme.dark ? 'dark' : 'light');
-            // await this.api_patch_preferences(preferences);
+            let preferences = this.preferences;
+            preferences.theme = (this.$vuetify.theme.dark ? 'dark' : 'light');
+            await this.api_patch_preferences(preferences, true);
         },
         convertMinutes(num){
             let d = Math.floor(num/1440); // 60*24

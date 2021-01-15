@@ -91,6 +91,7 @@
                         :src="item.icon.data.full_url"
                         :width="iconSize"
                         :height="iconSize"
+                        :tooltipText="item.description ? item.description : item.title"
                         :logo="logo"
                         :isCategory="isCategory"
                       ></x-img>

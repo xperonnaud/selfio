@@ -166,7 +166,6 @@ export default new Vuex.Store({
                 'green',
                 'light-green',
                 'yellow',
-                'amber',
                 'orange',
                 'deep-orange',
                 'brown',

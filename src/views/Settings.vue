@@ -14,12 +14,12 @@
                 <div class="text-caption" v-text="'Weight Unit'" />
                 <v-btn-toggle v-model="preferences.weight_unit" mandatory dense tile borderless>
                   <v-btn
-                      v-for="weightUnit in weightUnits"
-                      :key="weightUnit"
-                      :value="weightUnit"
-                      v-text="weightUnit"
-                      class="lowercase"
-                      large
+                    v-for="weightUnit in weightUnits"
+                    :key="weightUnit"
+                    :value="weightUnit"
+                    v-text="weightUnit"
+                    class="lowercase"
+                    large
                   ></v-btn>
                 </v-btn-toggle>
               </div>
@@ -30,12 +30,12 @@
                 <div class="text-caption" v-text="'Temperature Unit'" />
                 <v-btn-toggle v-model="preferences.temperature_unit" mandatory dense tile borderless>
                   <v-btn
-                      v-for="temperatureUnit in temperatureUnits"
-                      :key="temperatureUnit"
-                      :value="temperatureUnit"
-                      v-html="temperatureUnit"
-                      class="lowercase"
-                      large
+                    v-for="temperatureUnit in temperatureUnits"
+                    :key="temperatureUnit"
+                    :value="temperatureUnit"
+                    v-html="temperatureUnit"
+                    class="lowercase"
+                    large
                   ></v-btn>
                 </v-btn-toggle>
               </div>
@@ -46,12 +46,12 @@
                 <div class="text-caption" v-text="'Distance Unit'" />
                 <v-btn-toggle v-model="preferences.distance_unit" mandatory dense tile borderless>
                   <v-btn
-                      v-for="distanceUnit in distanceUnits"
-                      :key="distanceUnit"
-                      :value="distanceUnit"
-                      v-text="distanceUnit"
-                      class="lowercase"
-                      large
+                    v-for="distanceUnit in distanceUnits"
+                    :key="distanceUnit"
+                    :value="distanceUnit"
+                    v-text="distanceUnit"
+                    class="lowercase"
+                    large
                   ></v-btn>
                 </v-btn-toggle>
               </div>
@@ -62,12 +62,12 @@
                 <div class="text-caption" v-text="'Elevation/Depth Unit'" />
                 <v-btn-toggle v-model="preferences.elevation_unit" mandatory dense tile borderless>
                   <v-btn
-                      v-for="elevationUnit in elevationUnits"
-                      :key="elevationUnit"
-                      :value="elevationUnit"
-                      v-text="elevationUnit"
-                      class="lowercase"
-                      large
+                    v-for="elevationUnit in elevationUnits"
+                    :key="elevationUnit"
+                    :value="elevationUnit"
+                    v-text="elevationUnit"
+                    class="lowercase"
+                    large
                   ></v-btn>
                 </v-btn-toggle>
               </div>
@@ -78,12 +78,12 @@
                 <div class="text-caption" v-text="'Price Unit'" />
                 <v-btn-toggle v-model="preferences.price_unit" mandatory dense tile borderless>
                   <v-btn
-                      v-for="priceUnit in priceUnits"
-                      :key="priceUnit"
-                      :value="priceUnit"
-                      v-text="priceUnit"
-                      class="lowercase"
-                      large
+                    v-for="priceUnit in priceUnits"
+                    :key="priceUnit"
+                    :value="priceUnit"
+                    v-text="priceUnit"
+                    class="lowercase"
+                    large
                   ></v-btn>
                 </v-btn-toggle>
               </div>
@@ -94,29 +94,12 @@
                 <div class="text-caption" v-text="'Date Format'" />
                 <v-btn-toggle v-model="preferences.date_format" mandatory dense tile borderless>
                   <v-btn
-                      v-for="dateFormat in dateFormats"
-                      :key="dateFormat"
-                      :value="dateFormat"
-                      v-text="dateFormat"
-                      class="lowercase"
-                      large
-                  ></v-btn>
-                </v-btn-toggle>
-              </div>
-            </v-col>
-
-            <v-col cols="12">
-              <div>
-                <div class="text-caption" v-text="'Theme'" />
-                <v-btn-toggle v-model="preferences.theme" mandatory dense tile borderless>
-                  <v-btn
-                      v-for="theme in themes"
-                      :key="theme.label"
-                      :value="theme.label"
-                      v-text="theme.label"
-                      @change="toggleTheme(theme.label);"
-                      class="lowercase"
-                      large
+                    v-for="dateFormat in dateFormats"
+                    :key="dateFormat"
+                    :value="dateFormat"
+                    v-text="dateFormat"
+                    class="lowercase"
+                    large
                   ></v-btn>
                 </v-btn-toggle>
               </div>
@@ -124,10 +107,10 @@
 
             <v-col cols="12">
               <v-btn
-                  v-bind:class="['elevation-0',{'max-width':isMobile},reversedFontShadeColor]"
-                  :color="darkColor('primary')"
-                  :disabled="!valid"
-                  @click.stop="updatePreferences()"
+                v-bind:class="['elevation-0',{'max-width':isMobile},reversedFontShadeColor]"
+                :color="darkColor('primary')"
+                :disabled="!valid"
+                @click.stop="updatePreferences()"
               >
                 <v-icon v-text="'mdi-check'"/>
                 <span v-text="'Save'" />
@@ -156,12 +139,6 @@
       weightUnits: ['g', 'lbs'],
       temperatureUnits: ['&#8451;', '&#8457;'],
       dateFormats: ['DD-MM-YY', 'MM-DD-YY', 'YY-MM-DD'],
-
-      themes: [
-        { label: 'light' },
-        { label: 'dark' },
-      ],
-
     }),
     mounted() {
       this.isMounted = true;

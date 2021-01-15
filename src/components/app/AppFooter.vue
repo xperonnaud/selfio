@@ -122,12 +122,10 @@
 
 <script>
 
-  import FormPostBtn from "@/components/elements/Btns/FormPostBtn";
-
   export default {
     name: 'app-footer',
     components: {
-      FormPostBtn
+      FormPostBtn: () => import('@/components/elements/Btns/FormPostBtn'),
     },
     data: () => ({
       value: null,

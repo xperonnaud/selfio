@@ -382,7 +382,7 @@ export default {
                 await self.handleResponse('error', error.message, error);
             })
         },
-        async api_patch_preferences(preferences) {
+        async api_patch_preferences(preferences, noMessage) {
             let self = this;
 
             if(preferences.created_on)
@@ -401,7 +401,7 @@ export default {
             )
             .then(async function (response) {
                 Object.assign(self.$store.state.selfio.preferences, response.data.data);
-                await self.handleResponse('success', 'Preferences updated');
+                await self.handleResponse('success', (!noMessage ? 'Preferences updated' : null));
 
             }).catch(async function (error) {
                 await self.handleResponse('error', error.message, error);

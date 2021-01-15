@@ -13,7 +13,7 @@
           <v-card
               v-if="navigationItems[item].type === 'items'"
               :key="index"
-              v-bind:class="['shadow-bottom', (isMobile ? 'my-2' : 'mr-3')]"
+              v-bind:class="['shadow-bottom', (isMobile ? 'my-2' : 'mb-3 mr-3')]"
               :width="isMobile ? '100%' : 300"
               :color="xCardColor"
           >
@@ -21,9 +21,9 @@
               <v-list-item two-line>
                 <v-list-item-avatar>
                   <v-icon
-                      :color="darkBackgroundText(navigationItems[item].color)"
-                      :class="[darkBackground(navigationItems[item].color)]"
-                      v-text="navigationItems[item].icon"
+                    :color="darkBackgroundText(navigationItems[item].color)"
+                    :class="[darkBackground(navigationItems[item].color)]"
+                    v-text="navigationItems[item].icon"
                   ></v-icon>
                 </v-list-item-avatar>
 
@@ -34,19 +34,27 @@
 
                 <v-list-item-action v-if="navigationItems[item].title !== 'Inventories'">
                   <v-list-item-action-text class="text-subtitle-2">
-                    <span v-if="navigationItems[item].title === 'Gear'" class="text-subtitle-2" v-text="totalPrice" />
-                    <span v-if="navigationItems[item].title === 'Gear'" class="ml-1 text-caption" v-text="priceUnit" />
+                    <template v-if="navigationItems[item].title === 'Gear'">
+                      <span class="text-subtitle-2" v-text="totalPrice" />
+                      <span class="ml-1 text-caption" v-text="priceUnit" />
+                    </template>
 
-                    <span v-if="navigationItems[item].title === 'Adventures'" class="text-subtitle-2" v-text="totalDistance" />
-                    <span v-if="navigationItems[item].title === 'Adventures'" class="ml-1 text-caption" v-text="distanceUnit" />
+                    <template v-if="navigationItems[item].title === 'Adventures'">
+                      <span class="text-subtitle-2" v-text="totalDistance" />
+                      <span class="ml-1 text-caption" v-text="distanceUnit" />
+                    </template>
                   </v-list-item-action-text>
 
                   <v-list-item-action-text>
-                    <span v-if="navigationItems[item].title === 'Gear'" class="text-subtitle-2" v-text="totalWeight" />
-                    <span v-if="navigationItems[item].title === 'Gear'" class="ml-1 text-caption" v-text="weightUnit" />
+                    <template v-if="navigationItems[item].title === 'Gear'">
+                      <span class="text-subtitle-2" v-text="totalWeight" />
+                      <span class="ml-1 text-caption" v-text="weightUnit" />
+                    </template>
 
-                    <span v-if="navigationItems[item].title === 'Adventures'" class="text-subtitle-2" v-text="totalElevation" />
-                    <span v-if="navigationItems[item].title === 'Adventures'" class="ml-1 text-caption" v-text="elevationUnit" />
+                    <template v-if="navigationItems[item].title === 'Adventures'">
+                      <span class="text-subtitle-2" v-text="totalElevation" />
+                      <span class="ml-1 text-caption" v-text="elevationUnit" />
+                    </template>
                   </v-list-item-action-text>
                 </v-list-item-action>
               </v-list-item>

@@ -2,6 +2,7 @@
 
   <v-snackbar
     v-model="snackbarDisplay"
+    :dark="apiAccessToken ? isDark : true"
     :timeout="(snackbarTimeout !== 0) ? snackbarTimeout : -1"
     :color="darkColor(snackColor)"
     v-bind:class="[

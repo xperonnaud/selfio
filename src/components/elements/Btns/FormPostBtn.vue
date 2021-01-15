@@ -2,10 +2,9 @@
 
   <v-btn
     :color="currentColor"
-    :small="isSmall"
+    :width="48"
+    :height="48"
     :fab="isFab"
-    :rounded="isRounded"
-    :icon="isIcon"
     right
     bottom
     v-bind:class="[(isMobile ? 'px-0' : 'px-2 ml-3')]"

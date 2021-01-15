@@ -25,9 +25,9 @@
       </v-list-item>
     </template>
 
-    <v-divider v-if="apiAccessToken" />
+    <v-divider />
 
-    <v-list v-if="apiAccessToken" dense>
+    <v-list dense>
       <template v-for="item in navigationRoutes">
         <v-list-item
             v-if="(navigationItems[item].type === 'app') || (navigationItems[item].type === 'items')"
@@ -48,7 +48,7 @@
 
     <v-divider />
 
-    <v-list v-if="apiAccessToken" dense>
+    <v-list dense>
       <template v-for="item in navigationRoutes">
         <v-list-item
             v-if="(navigationItems[item].type === 'settings')
@@ -70,7 +70,21 @@
       </template>
     </v-list>
 
-    <template v-if="apiAccessToken" v-slot:append>
+    <v-divider />
+
+    <v-list dense>
+      <v-list-item link @click.stop="toggleTheme()">
+        <v-list-item-icon>
+          <v-icon v-text="'mdi-theme-light-dark'" color="black" />
+        </v-list-item-icon>
+
+        <v-list-item-content>
+          <v-list-item-title v-text="'Theme'" />
+        </v-list-item-content>
+      </v-list-item>
+    </v-list>
+
+    <template v-slot:append>
       <v-list v-bind:class="{'pa-2':!navigationCollapse}" dense>
         <v-divider />
         <v-list-item
@@ -99,9 +113,7 @@
   export default {
     name: 'app-nav',
     methods: {
-      test() {
-        alert('coucou');
-      }
+
     }
   }
 

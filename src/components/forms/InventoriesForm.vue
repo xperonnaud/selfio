@@ -571,7 +571,7 @@
                             ]"
                           >
                             <x-img
-                              v-if="gear.type"
+                              v-if="gear.type && xGearType(gear.type)"
                               :src="xGearType(gear.type).icon.data.full_url"
                               :tooltipText="xGearType(gear.type).title"
                               :width="22"

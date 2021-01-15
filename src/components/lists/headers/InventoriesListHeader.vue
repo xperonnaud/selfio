@@ -3,18 +3,9 @@
   <v-list-item-content v-bind:class="[{'py-1':isMobile}]">
     <v-row align="center" justify="center">
 
-      <v-col :cols="isMobile ? 7 : 6" class="py-0">
-        <div>
-          <v-list-item-title
-            v-text="'Title'"
-            v-bind:class="['mb-1',{'text-caption' : isMobile}]"
-          ></v-list-item-title>
-
-          <v-list-item-subtitle
-            class="text-caption"
-            v-text="'Description'"
-          ></v-list-item-subtitle>
-        </div>
+      <v-col :cols="isMobile ? 6 : 3" class="py-0">
+        <div class="text-tiny" v-text="'Title'" />
+        <div class="text-tiny" v-text="'Description'" />
       </v-col>
 
       <v-col class="x-col">

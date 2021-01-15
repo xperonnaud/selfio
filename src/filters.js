@@ -71,6 +71,13 @@
      return moment(date).format('DD-MM');
  });
 
+ Vue.filter("minDateFilter", function (date, format = 'MMM Do YY') {
+     if(!date)
+         return '-';
+
+     return moment(date).format(format);
+ });
+
  Vue.filter("dayMonthFilter", function (date, format = 'dd MMM Do YYYY') {
      if(!date)
          return '-';

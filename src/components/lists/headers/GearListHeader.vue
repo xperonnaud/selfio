@@ -4,17 +4,8 @@
     <v-row align="center" justify="center">
 
       <v-col :cols="isMobile ? 6 : 3" class="py-0">
-        <div>
-          <v-list-item-title
-            v-text="'Title / Model'"
-            v-bind:class="['mb-1',{'text-caption' : isMobile}]"
-          ></v-list-item-title>
-
-          <v-list-item-subtitle
-            class="text-caption"
-            v-text="'Brand'"
-          ></v-list-item-subtitle>
-        </div>
+        <div class="text-tiny" v-text="'Title / Model'" />
+        <div class="text-tiny" v-text="'Brand'" />
       </v-col>
 
       <v-col v-if="isMobile" class="x-col stacked-item-data">
@@ -31,8 +22,14 @@
           <div class="text-caption text-center" v-text="'Price'" />
         </v-col>
 
-        <v-col class="x-col">
-          <div class="text-caption text-center" v-text="'Purchase'" />
+        <v-col class="x-col stacked-item-data">
+          <div class="text-tiny text-center" v-text="'Purchase'" />
+          <div class="text-tiny text-center" v-text="'Date'" />
+        </v-col>
+
+        <v-col class="x-col stacked-item-data">
+          <div class="text-tiny text-center" v-text="'Last'" />
+          <div class="text-tiny text-center" v-text="'Update'" />
         </v-col>
       </template>
 
