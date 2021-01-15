@@ -21,7 +21,11 @@
         @click.stop="data.select"
       >
         <v-avatar v-if="data.item.icon" tile left width="21" height="21" class="x-avatar">
-          <x-img :src="data.item.icon.data.full_url" :logo="logo" />
+          <x-img
+            :src="data.item.icon.data.full_url"
+            :logo="logo"
+            :tooltipText="data.item.title"
+          />
         </v-avatar>
 
         {{ data.item.title }}
@@ -36,7 +40,11 @@
         class="max-width"
       >
         <v-avatar v-if="data.item.icon" tile left width="21" height="21" class="x-avatar">
-          <x-img :src="data.item.icon.data.full_url" :logo="logo" />
+          <x-img
+            :src="data.item.icon.data.full_url"
+            :logo="logo"
+            :tooltipText="data.item.title"
+          />
         </v-avatar>
 
         {{ data.item.title }}

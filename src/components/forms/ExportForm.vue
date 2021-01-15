@@ -92,7 +92,10 @@
 
             <template v-slot:item.type="{ item }">
               <v-avatar v-if="item.type && xGearType(item.type) && xGearType(item.type).icon" class="x-avatar" size="24">
-                <x-img :src="xGearType(item.type).icon.data.full_url" />
+                <x-img
+                    :src="xGearType(item.type).icon.data.full_url"
+                    :tooltipText="xGearType(item.type).title"
+                />
               </v-avatar>
             </template>
 

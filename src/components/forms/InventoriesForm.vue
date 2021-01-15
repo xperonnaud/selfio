@@ -178,9 +178,9 @@
                               <template v-for="(gearTypeStat, gearTypeId) in gearTypeStats">
                                 <v-list-item :key="`gear-type-stat-${gearTypeId}`" class="pa-0">
                                   <v-list-item-avatar
-                                    width="34"
-                                    min-width="34"
-                                    height="34"
+                                    width="30"
+                                    min-width="30"
+                                    height="30"
                                     v-bind:class="[
                                       'x-avatar',
                                       'my-0 mx-3',
@@ -188,8 +188,9 @@
                                     ]"
                                   >
                                     <x-img
-                                      v-if="gearTypeId && objFilter(gearTypes, 'id', parseInt(gearTypeId))[0]"
+                                      v-if="gearTypeId && xGearType(gearTypeId) && objFilter(gearTypes, 'id', parseInt(gearTypeId))[0]"
                                       :src="objFilter(gearTypes, 'id', parseInt(gearTypeId))[0].icon.data.full_url"
+                                      :tooltipText="xGearType(gearTypeId).title"
                                       isCategory
                                     />
                                     <v-icon
@@ -410,9 +411,9 @@
                       <template v-for="(gearTypeStat, gearTypeId) in gearTypeStats">
                         <v-list-item :key="`gear-type-stat-${gearTypeId}`" class="pa-0" style="min-height: 36px;">
                           <v-list-item-avatar
-                            width="34"
-                            min-width="34"
-                            height="34"
+                            width="30"
+                            min-width="30"
+                            height="30"
                             v-bind:class="[
                               'x-avatar',
                               'my-0 mx-3',
@@ -420,8 +421,9 @@
                             ]"
                           >
                             <x-img
-                              v-if="gearTypeId && objFilter(gearTypes, 'id', parseInt(gearTypeId))[0]"
+                              v-if="gearTypeId && xGearType(gearTypeId) && objFilter(gearTypes, 'id', parseInt(gearTypeId))[0]"
                               :src="objFilter(gearTypes, 'id', parseInt(gearTypeId))[0].icon.data.full_url"
+                              :tooltipText="xGearType(gearTypeId).title"
                               isCategory
                             />
                             <v-icon

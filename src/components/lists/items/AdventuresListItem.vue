@@ -60,6 +60,7 @@
                       :src="xLandscape(item.landscape).icon.data.full_url"
                       :width="isMobile ? 35 : 37"
                       :height="isMobile ? 35 : 37"
+                      :tooltipText="xLandscape(item.landscape).title"
                       logo
                     ></x-img>
                   </div>

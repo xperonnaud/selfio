@@ -40,6 +40,7 @@
                 <x-img
                   v-if="list[listReferences[pickerValue]] && list[listReferences[pickerValue]].icon"
                   :src="list[listReferences[pickerValue]].icon.data.full_url"
+                  :tooltipText="list[listReferences[pickerValue]].title"
                   :width="iconSize"
                   :height="iconSize"
                   :logo="logo"

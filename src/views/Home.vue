@@ -6,7 +6,7 @@
     height="100%"
     max-width="100%"
     color="transparent"
-    v-bind:class="[(isMobile ? 'pa-4' : 'pa-8')]"
+    v-bind:class="[(isMobile ? 'px-4 py-2' : 'pa-8')]"
   >
     <v-row>
       <v-col cols="12">

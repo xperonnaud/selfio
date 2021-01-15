@@ -80,9 +80,9 @@
       </v-col>
 
       <v-col class="x-col">
-        <div class="ml-1">
-          <span class="text-tiny-dimmed" v-html="'&#215;'" />
-          <span class="text-body-2" v-html="item.quantity_owned ? item.quantity_owned : 0" />
+        <div v-bind:class="['ml-1',((!item.quantity_owned || item.quantity_owned===0) ? darkColorText('red') : '')]">
+          <span class="text-tiny" v-html="'&#215;'" />
+          <span v-bind:class="['text-body-2']" v-html="item.quantity_owned ? item.quantity_owned : 0" />
         </div>
       </v-col>
 

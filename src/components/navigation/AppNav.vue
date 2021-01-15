@@ -24,7 +24,7 @@
       </v-list-item>
     </template>
 
-    <v-divider />
+    <v-divider v-bind:class="[(isMobile ? 'mb-1' : 'mb-2')]" />
 
     <template v-for="item in navigationRoutes">
       <v-list-item
@@ -45,7 +45,7 @@
       </v-list-item>
     </template>
 
-    <v-divider />
+    <v-divider v-bind:class="[(isMobile ? 'my-1' : 'my-2')]" />
 
     <template v-for="item in navigationRoutes">
       <v-list-item
@@ -68,7 +68,7 @@
       </v-list-item>
     </template>
 
-    <v-divider />
+    <v-divider v-bind:class="[(isMobile ? 'my-1' : 'my-2')]" />
 
     <v-list-item link dense @click.stop="toggleTheme()">
       <v-list-item-icon>
@@ -84,9 +84,10 @@
       <v-divider />
 
       <v-list-item
-          @click.stop="logout()"
-          link
-          dense
+        v-bind:class="[(isMobile ? 'my-1' : 'my-2')]"
+        @click.stop="logout()"
+        link
+        dense
       >
         <v-list-item-icon>
           <v-icon
@@ -108,6 +109,9 @@
 
   export default {
     name: 'app-nav',
+    components: {
+
+    },
     methods: {
 
     }
