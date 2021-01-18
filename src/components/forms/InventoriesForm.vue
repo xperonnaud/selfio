@@ -98,8 +98,8 @@
 
                                 <v-list-item-subtitle>
                                   <span
-                                      v-bind:class="[currentColorText, 'font-weight-regular']"
-                                      v-text="gearListDifferences > 0 ? gearListDifferences+' unsaved item'+(gearListDifferences>1?'s':'') : 'up to date'"
+                                    v-bind:class="[currentColorText, 'font-weight-regular']"
+                                    v-text="gearListDifferences > 0 ? gearListDifferences+' unsaved item'+(gearListDifferences>1?'s':'') : 'up to date'"
                                   ></span>
                                 </v-list-item-subtitle>
                               </v-list-item-content>
@@ -109,25 +109,11 @@
                                   <div class="d-flex">
                                     <div>
                                       <span
-                                          v-bind:class="['text-body-2',currentColorText]"
-                                          v-text="currentInventoryGear.length"
+                                        v-bind:class="['text-body-2',currentColorText]"
+                                        v-text="currentInventoryGear.length"
                                       ></span>
                                       <span v-text="' Item'+(currentInventoryGear.length>1?'s':'')" />
                                     </div>
-
-<!--                                    <x-divider />-->
-
-<!--                                    <div>-->
-<!--                                      <span v-bind:class="['text-body-2',currentColorText]">{{ sumInventoryWeight(item.inventory_gear) | thousandthFilter }}</span>-->
-<!--                                      <span v-text="' k'+weightUnit" />-->
-<!--                                    </div>-->
-
-<!--                                    <x-divider />-->
-
-<!--                                    <div>-->
-<!--                                      <span v-bind:class="['text-body-2',currentColorText]">{{ sumInventoryPrice(item.inventory_gear) | thousandthFilter }}</span>-->
-<!--                                      <span v-text="' k'+priceUnit" />-->
-<!--                                    </div>-->
                                   </div>
                                 </v-list-item-action-text>
                               </v-list-item-action>
@@ -156,17 +142,9 @@
 
                         <div v-if="item" class="d-flex pa-2 pb-1">
                           <div>
-                            <span v-if="item.inventory_gear" v-bind:class="['text-caption',currentColorText]">{{ sumInventoryWeight(item.inventory_gear) | thousandthFilter }}</span>
-                            <span v-else v-bind:class="['text-caption',currentColorText]">0</span>
+                            <span v-if="item.inventory_gear" v-bind:class="['text-caption',currentColorText]">{{ inventoryTotalWeight | thousandthFilter }}</span>
+                            <span v-else v-bind:class="['text-caption',currentColorText]" v-text="'0'" />
                             <span class="text-caption" v-text="' k'+weightUnit" />
-                          </div>
-
-                          <x-divider style="height:22px !important;" />
-
-                          <div>
-                            <span v-if="item.inventory_gear" v-bind:class="['text-caption',currentColorText]">{{ sumInventoryPrice(item.inventory_gear) | thousandthFilter }}</span>
-                            <span v-else v-bind:class="['text-caption',currentColorText]">0</span>
-                            <span class="text-caption" v-text="' k'+priceUnit" />
                           </div>
                         </div>
                       </div>
@@ -212,11 +190,12 @@
                                       :src="objFilter(gearTypes, 'id', parseInt(gearTypeId))[0].icon.data.full_url"
                                       :tooltipText="xGearType(gearTypeId).title"
                                       isCategory
-                                    />
+                                    ></x-img>
+
                                     <v-icon
                                       v-else
                                       v-text="'mdi-help-rhombus'"
-                                    />
+                                    ></v-icon>
                                   </v-list-item-avatar>
 
                                   <v-list-item-title>
@@ -231,7 +210,6 @@
                                       </div>
 
                                       <div class="d-flex font-weight-regular text-caption">
-
                                         <x-divider />
 
                                         <div style="width: 50px;">
@@ -381,7 +359,7 @@
                 <x-divider />
 
                 <div>
-                  <span v-if="item.inventory_gear" v-bind:class="[currentColorText]">{{ sumInventoryWeight(item.inventory_gear) | thousandthFilter }}</span>
+                  <span v-if="item.inventory_gear" v-bind:class="[currentColorText]">{{ inventoryTotalWeight | thousandthFilter }}</span>
                   <span v-else v-bind:class="[currentColorText]">0</span>
                   <span v-text="' k'+weightUnit" />
                 </div>
@@ -389,7 +367,7 @@
                 <x-divider />
 
                 <div>
-                  <span v-if="item.inventory_gear" v-bind:class="[currentColorText]">{{ sumInventoryPrice(item.inventory_gear) | thousandthFilter }}</span>
+                  <span v-if="item.inventory_gear" v-bind:class="[currentColorText]">{{ inventoryTotalPrice | thousandthFilter }}</span>
                   <span v-else v-bind:class="[currentColorText]">0</span>
                   <span v-text="' k'+priceUnit" />
                 </div>
@@ -398,10 +376,10 @@
               <v-spacer />
 
               <v-btn
-                  outlined
-                  small
-                  :color="darkColor('primary')"
-                  @click.stop="editInventory()"
+                outlined
+                small
+                :color="darkColor('primary')"
+                @click.stop="editInventory()"
               >
                 <v-icon
                   size="18"
@@ -555,7 +533,7 @@
                         <span
                           v-bind:class="[currentColorText]"
                           v-text="currentInventoryGear.length"
-                        />
+                        ></span>
                         <span v-text="' item'+(currentInventoryGear.length>1?'s':'')" class="text-tiny" />
                       </div>
 
@@ -564,13 +542,6 @@
                       <div>
                         <span v-bind:class="[currentColorText]">{{ inventoryTotalWeight | thousandthFilter }}</span>
                         <span v-text="'k'+weightUnit" class="text-tiny" />
-                      </div>
-
-                      <x-divider />
-
-                      <div>
-                        <span v-bind:class="[currentColorText]">{{ inventoryTotalPrice | thousandthFilter }}</span>
-                        <span v-text="'k'+priceUnit" class="text-tiny" />
                       </div>
                     </div>
 
