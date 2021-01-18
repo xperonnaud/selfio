@@ -74,7 +74,7 @@
       </template>
 
       <v-col class="x-col">
-        <div v-bind:class="['ml-1',((!item.quantity_owned || item.quantity_owned===0) ? darkColorText('red') : '')]">
+        <div v-bind:class="['ml-1', nullOrZeroColorText(item.quantity_owned)]">
           <span class="text-tiny" v-html="'&#215;'" />
           <span v-bind:class="['text-body-2']" v-html="item.quantity_owned ? item.quantity_owned : 0" />
         </div>

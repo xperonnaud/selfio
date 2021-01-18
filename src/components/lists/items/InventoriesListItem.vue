@@ -18,30 +18,18 @@
       <template v-if="item.inventory_gear">
         <v-col class="x-col">
           <div class="ml-1 text-caption">
-            <span class="text-body-2" v-text="item.inventory_gear.length" />
-            <span class="text-tiny-dimmed" v-text="' item'+(item.inventory_gear.length>0?'s':'')" />
+            <span v-bind:class="['text-body-2', nullOrZeroColorText(item.inventory_gear.length)]" v-text="item.inventory_gear.length" />
           </div>
         </v-col>
 
-        <v-col v-if="isMobile" class="x-col text-caption stacked-item-data">
+        <v-col class="x-col">
           <div>
-            <span>{{ sumInventoryWeight(item.inventory_gear) | thousandthFilter }}</span>
+            <span class="text-body-2">{{ sumInventoryWeight(item.inventory_gear) | thousandthFilter }}</span>
             <span class="text-tiny-dimmed" v-text="'k'+weightUnit" />
           </div>
-          <div>
-            <span>{{ sumInventoryPrice(item.inventory_gear) | thousandthFilter }}</span>
-            <span class="text-tiny-dimmed" v-text="'k'+priceUnit" />
-          </div>
         </v-col>
 
-        <template v-else>
-          <v-col class="x-col">
-            <div>
-              <span class="text-body-2">{{ sumInventoryWeight(item.inventory_gear) | thousandthFilter }}</span>
-              <span class="text-tiny-dimmed" v-text="'k'+weightUnit" />
-            </div>
-          </v-col>
-
+        <template v-if="!isMobile">
           <v-col class="x-col">
             <div>
               <span class="text-body-2">{{ sumInventoryPrice(item.inventory_gear) | thousandthFilter }}</span>
@@ -60,7 +48,7 @@
 
       <v-col cols="1" class="pa-0">
         <div class="mx-3">
-          <edit-icon v-bind:class="[{'mx-4' : !isMobile}]" :style="'padding: 9px 0'" />
+          <edit-icon v-bind:class="[{'mx-4': !isMobile}]" :style="'padding: 9px 0'" />
         </div>
       </v-col>
 

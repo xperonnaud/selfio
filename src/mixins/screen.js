@@ -167,6 +167,9 @@ export default {
         },
     },
     methods: {
+        nullOrZeroColorText(prop) {
+            return ((!prop || prop===0) ? this.darkColorText('red') : '');
+        },
         hexColor(colorStr) {
             const [nameFamily, nameModifier] = colorStr.split(' ')
 
