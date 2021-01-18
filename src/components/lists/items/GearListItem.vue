@@ -17,18 +17,12 @@
         </div>
       </v-col>
 
-      <v-col v-if="isMobile" class="x-col text-caption stacked-item-data">
+      <v-col v-if="isMobile" class="x-col">
         <div v-if="item.weight">
-          <span v-text="item.weight" v-bind:class="[fontShadeColor]" />
+          <span class="text-caption" v-text="item.weight" />
           <span class="text-tiny-dimmed" v-text="weightUnit" />
         </div>
-        <empty-data v-else />
-
-        <div v-if="item.price">
-          <span v-text="item.price" v-bind:class="[fontShadeColor]" />
-          <span class="text-tiny-dimmed" v-text="priceUnit" />
-        </div>
-        <empty-data v-else />
+        <empty-data solo v-else />
       </v-col>
 
       <template v-else>
@@ -61,23 +55,23 @@
           </div>
           <empty-data solo v-else />
         </v-col>
-      </template>
 
-      <v-col class="x-col">
-        <v-tooltip v-if="item.state && xGearState(item.state)" bottom>
-          <template v-slot:activator="{ on, attrs }">
-            <v-icon
-              :color="xGearState(item.state).color"
-              v-text="'mdi-'+stateIcon(xGearState(item.state).title)"
-              :size="21"
-              v-bind="attrs"
-              v-on="on"
-            ></v-icon>
-          </template>
-          <span v-text="xGearState(item.state).title" />
-        </v-tooltip>
-        <empty-data solo v-else />
-      </v-col>
+        <v-col class="x-col">
+          <v-tooltip v-if="item.state && xGearState(item.state)" bottom>
+            <template v-slot:activator="{ on, attrs }">
+              <v-icon
+                  :color="xGearState(item.state).color"
+                  v-text="'mdi-'+stateIcon(xGearState(item.state).title)"
+                  :size="21"
+                  v-bind="attrs"
+                  v-on="on"
+              ></v-icon>
+            </template>
+            <span v-text="xGearState(item.state).title" />
+          </v-tooltip>
+          <empty-data solo v-else />
+        </v-col>
+      </template>
 
       <v-col class="x-col">
         <div v-bind:class="['ml-1',((!item.quantity_owned || item.quantity_owned===0) ? darkColorText('red') : '')]">

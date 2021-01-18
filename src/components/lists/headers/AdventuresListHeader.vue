@@ -3,7 +3,7 @@
   <v-list-item-content class="py-0">
     <v-row align="center" justify="center">
 
-      <v-col :cols="isMobile ? 6 : 3" class="py-2 col-border-r x-primary-btn rounded" @click.stop="sortItems('title')" v-ripple>
+      <v-col :cols="isMobile ? 6 : 2" class="py-2 col-border-r x-primary-btn rounded" @click.stop="sortItems('title')" v-ripple>
         <div class="d-flex">
           <div>
             <div class="text-tiny" v-text="'Title'" />
@@ -39,14 +39,14 @@
 
         <v-col class="x-col py-2 col-border-r x-primary-btn rounded" @click.stop="sortItems('temperature_min')" v-ripple>
           <div class="d-flex justify-center">
-            <div class="text-caption" v-text="'Temperature'" />
+            <div class="text-caption" v-text="'Temp.'" />
             <x-sort-icon prop="temperature_min" />
           </div>
         </v-col>
 
         <v-col class="x-col py-2 col-border-r x-primary-btn rounded" @click.stop="sortItems('humidity')" v-ripple>
           <div class="d-flex justify-center">
-            <div class="text-caption" v-text="'Humidity'" />
+            <div class="text-caption" v-text="'Hum.'" />
             <x-sort-icon prop="humidity" />
           </div>
         </v-col>

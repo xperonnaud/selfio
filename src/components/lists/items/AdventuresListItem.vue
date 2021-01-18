@@ -3,7 +3,7 @@
   <v-list-item-content>
     <v-row align="center" justify="center">
 
-      <v-col :cols="isMobile ? 6 : 3" class="py-0">
+      <v-col :cols="isMobile ? 6 : 2" class="py-0">
         <v-list-item-title
           v-text="item.title"
           v-bind:class="[{'text-body-2' : isMobile}]"
@@ -141,44 +141,24 @@
           </div>
         </v-col>
 
-        <v-col class="py-0 px-1">
-          <div class="d-flex justify-center">
-            <v-tooltip v-if="item.humidity && (typeof item.humidity == 'number')" bottom>
-              <template v-slot:activator="{ on, attrs }">
-                <v-progress-circular
-                  :size="isMobile ? 35 : 37"
-                  :width="2"
-                  :rotate="-90"
-                  :value="item.humidity"
-                  :color="'light-blue'"
-                  style="margin-top: 3px"
-                  v-bind="attrs"
-                  v-on="on"
-                >
-                  <span class="text-caption">
-                    <span v-bind:class="[fontShadeColor]" v-text="item.humidity" />
-                    <span class="text-tiny-dimmed" v-text="'%'" />
-                  </span>
-                </v-progress-circular>
-              </template>
-              <span v-text="'Humidity %'" />
-            </v-tooltip>
-
-            <empty-data solo v-else />
+        <v-col class="x-col">
+          <div v-if="item.humidity" v-bind:class="['ml-1 text-caption']">
+            <span v-bind:class="['light-blue--text']" v-text="item.humidity" />
+            <span class="text-tiny-dimmed" v-text="'%'" />
           </div>
+          <empty-data solo v-else />
         </v-col>
 
         <v-col class="x-col">
-          <div
-            v-bind:class="['ml-1 text-caption']"
-          >
+          <div v-if="duration" v-bind:class="['ml-1 text-caption']">
             <span
-                v-bind:class="[
-                  { 'text-tiny-dimmed text-center':!duration }
-                ]"
-                v-html="duration ? convertMinutes(duration) : '-'"
+              v-bind:class="[
+                { 'text-tiny-dimmed text-center':!duration }
+              ]"
+              v-html="convertMinutes(duration)"
             />
           </div>
+          <empty-data solo v-else />
         </v-col>
 
         <v-col class="x-col">

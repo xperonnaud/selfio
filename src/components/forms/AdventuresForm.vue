@@ -385,10 +385,10 @@
                   :max-height="isMobile ? (listHeight) : 600"
                 >
                   <v-scroll-y-transition group>
-                    <template v-for="(gear, index) in originalInventoryGear">
+                    <template v-for="(gear, index) in filteredGear">
                       <v-list-item
+                        :key="`adventure-gear-${gear.gear_id}-${index}`"
                         @click.stop="packGear(gear.gear_id)"
-                        :key="`${gear.gear_id}-${index}`"
                         class="x-checklist-item"
                       >
                         <v-list-item-action>
@@ -416,14 +416,15 @@
                             :height="22"
                             isCategory
                           ></x-img>
+
                           <v-icon
-                              v-else
-                              v-text="'mdi-help-rhombus'"
+                            v-else
+                            v-text="'mdi-help-rhombus'"
                           />
                         </v-list-item-avatar>
 
                         <v-list-item-content>
-                          <v-row>
+                          <v-row align="center" justify="center">
                             <v-col :cols="isMobile ? 6 : 4" class="py-0">
                               <div>
                                 <v-list-item-title
@@ -438,44 +439,30 @@
                               </div>
                             </v-col>
 
-                            <v-col v-if="isMobile" class="x-col text-caption stacked-item-data">
-                              <div v-if="xGear(gear.gear_id).weight">
-                                <span v-text="xGear(gear.gear_id).weight" v-bind:class="[fontShadeColor]" />
-                                <span class="text-tiny-dimmed" v-text="weightUnit" />
-                              </div>
-                              <empty-data v-else />
-
-                              <div v-if="xGear(gear.gear_id).price">
-                                <span v-text="xGear(gear.gear_id).price" v-bind:class="[fontShadeColor]" />
-                                <span class="text-tiny-dimmed" v-text="priceUnit" />
-                              </div>
-                              <empty-data v-else />
-                            </v-col>
-
-                            <v-col v-if="!isMobile" class="x-col">
-                              <div v-if="xGear(gear.gear_id).weight" class="pt-2">
-                                <span class="text-body-2" v-text="xGear(gear.gear_id).weight" />
-                                <span class="text-tiny-dimmed" v-text="weightUnit" />
-                              </div>
-                              <empty-data solo v-else />
-                            </v-col>
-
-                            <v-col v-if="!isMobile" class="x-col">
-                              <div v-if="xGear(gear.gear_id).price" class="pt-2">
-                                <span class="text-body-2" v-text="xGear(gear.gear_id).price" />
-                                <span class="text-tiny-dimmed" v-text="priceUnit" />
-                              </div>
-                              <empty-data solo v-else />
-                            </v-col>
-
-                            <v-col v-if="!isMobile" class="x-col">
-                              <div v-if="xGear(gear.gear_id).purchase_date" class="pt-2">
-                                <span class="text-body-2">{{xGear(gear.gear_id).purchase_date | minimalDateFilter(dateFormatPref)}}</span>
-                              </div>
-                              <empty-data solo v-else />
-                            </v-col>
-
                             <v-col class="x-col">
+                              <div v-if="xGear(gear.gear_id).weight">
+                                <span class="text-caption" v-text="xGear(gear.gear_id).weight" />
+                                <span class="text-tiny-dimmed" v-text="weightUnit" />
+                              </div>
+                              <empty-data solo v-else />
+                            </v-col>
+
+                            <v-col v-if="!isMobile" class="x-col">
+                              <div v-if="xGear(gear.gear_id).price" >
+                                <span class="text-caption" v-text="xGear(gear.gear_id).price" />
+                                <span class="text-tiny-dimmed" v-text="priceUnit" />
+                              </div>
+                              <empty-data solo v-else />
+                            </v-col>
+
+                            <v-col v-if="!isMobile" class="x-col">
+                              <div v-if="xGear(gear.gear_id).purchase_date">
+                                <span class="text-caption">{{xGear(gear.gear_id).purchase_date | minimalDateFilter(dateFormatPref)}}</span>
+                              </div>
+                              <empty-data solo v-else />
+                            </v-col>
+
+                            <v-col v-if="!isMobile" class="x-col">
                               <v-tooltip v-if="xGear(gear.gear_id).state && xGearState(xGear(gear.gear_id).state)" bottom>
                                 <template v-slot:activator="{ on, attrs }">
                                   <v-icon
@@ -493,9 +480,9 @@
                             </v-col>
 
                             <v-col class="x-col">
-                              <div class="ml-1 pt-2">
+                              <div>
                                 <span class="text-tiny-dimmed" v-html="'&#215;'" />
-                                <span class="text-body-2" v-html="xGear(gear.gear_id).quantity_owned ? xGear(gear.gear_id).quantity_owned : 0" />
+                                <span class="text-caption" v-html="xGear(gear.gear_id).quantity_owned ? xGear(gear.gear_id).quantity_owned : 0" />
                               </div>
                             </v-col>
                           </v-row>
@@ -522,8 +509,11 @@
 
 <script>
 
+  const _ = require('lodash');
+
   import Vue from 'vue'
 
+  import XSortIcon from "@/components/elements/XSortIcon";
   import XDivider from "@/components/elements/XDivider";
   import EmptyData from "@/components/elements/Stepper/EmptyData";
   import XImg from "@/components/elements/XImg";
@@ -540,6 +530,7 @@
   export default {
     name: 'adventures-form',
     components: {
+      XSortIcon,
       XCombobox,
       XDivider,
       EmptyData,
@@ -600,6 +591,26 @@
       gearFilterMode: false,
     }),
     computed: {
+      itemSearch: {
+        get() {
+          return this.$store.state.ui.itemSearch
+        }
+      },
+      itemGearType: {
+        get() {
+          return this.$store.state.ui.itemGearType
+        }
+      },
+      itemGearState: {
+        get() {
+          return this.$store.state.ui.itemGearState
+        }
+      },
+      itemGearBrand: {
+        get() {
+          return this.$store.state.ui.itemGearBrand
+        }
+      },
       nbUnpackedItems() {
         if(this.isMounted && this.updatedItem.packed_gear && this.updatedItem.packed_gear.length)
           return (this.originalInventoryGear.length - this.updatedItem.packed_gear.length);
@@ -625,6 +636,27 @@
         if(this.isMounted && this.originalInventoryGear && this.originalInventoryGear.length)
           return ((((this.updatedItem.packed_gear && this.updatedItem.packed_gear.length > 0) ? this.updatedItem.packed_gear.length : 0) / this.originalInventoryGear.length) * 100);
         return null;
+      },
+      filteredGear() {
+        if(this.isMounted)
+          return (this.originalInventoryGear.filter(item => {
+            let gear = this.xGear(item.gear_id);
+            if(
+              !this.itemSearch
+              && !this.itemGearType
+              && !this.itemGearState
+              && !this.itemGearBrand
+            ) return this.originalInventoryGear;
+
+            return (
+              (this.itemSearch ? (gear.title && gear.title.toLowerCase().includes(this.itemSearch.toLowerCase())) : true)
+              && (this.itemGearType ? (gear.type && gear.type === this.itemGearType) : true)
+              && (this.itemGearState ? (gear.state && gear.state === this.itemGearState) : true)
+              && (this.itemGearBrand ? (gear.brand && gear.brand === this.itemGearBrand) : true)
+            )
+          }));
+
+        return this.originalInventoryGear;
       },
     },
     methods: {

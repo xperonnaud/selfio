@@ -638,9 +638,9 @@
                                 </div>
                               </v-col>
 
-                              <v-col class="x-col py-2 col-border-r x-primary-btn rounded" @click.stop="sortGear('state')" v-ripple>
+                              <v-col v-if="!isMobile" class="x-col py-2 col-border-r x-primary-btn rounded" @click.stop="sortGear('state')" v-ripple>
                                 <div class="d-flex justify-center align-center">
-                                  <div v-show="!isMobile" class="text-caption" v-text="'State'" />
+                                  <div class="text-caption" v-text="'State'" />
                                   <x-sort-icon prop="state" />
                                 </div>
                               </v-col>
@@ -672,7 +672,7 @@
                         <template v-for="(gear, index) in filteredGear">
                           <v-list-item
                             @click.stop="gearListItemAction(gear)"
-                            :key="`${gear.id}-${index}`"
+                            :key="`inventory-gear-${gear.id}-${index}`"
                             v-bind:class="['x-checklist-item', {'px-7':isMobile}]"
                           >
                             <v-list-item-action>
@@ -728,7 +728,7 @@
                                   <empty-data solo v-else />
                                 </v-col>
 
-                                <v-col class="x-col">
+                                <v-col v-show="!isMobile" class="x-col">
                                   <v-tooltip v-if="gear.state && xGearState(gear.state)" bottom>
                                     <template v-slot:activator="{ on, attrs }">
                                       <v-icon
@@ -925,10 +925,10 @@
             ) return this.gearList;
 
             return (
-              (this.itemSearch ? item.title.toLowerCase().includes(this.itemSearch.toLowerCase()) : true)
-              && (this.itemGearType ? (item.type === this.itemGearType) : true)
-              && (this.itemGearState ? (item.state === this.itemGearState) : true)
-              && (this.itemGearBrand ? (item.brand === this.itemGearBrand) : true)
+                (this.itemSearch ? (item.title && item.title.toLowerCase().includes(this.itemSearch.toLowerCase())) : true)
+                && (this.itemGearType ? (item.type && item.type === this.itemGearType) : true)
+                && (this.itemGearState ? (item.state && item.state === this.itemGearState) : true)
+                && (this.itemGearBrand ? (item.brand && item.brand === this.itemGearBrand) : true)
             )
           }));
 
@@ -947,7 +947,7 @@
             this.gearOrderOption = "asc";
           }
         } else {
-          this.itemOrderOption = option;
+          this.gearOrderOption = option;
           this.gearOrderBy = by;
         }
       },

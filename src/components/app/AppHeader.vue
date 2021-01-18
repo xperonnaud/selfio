@@ -106,7 +106,7 @@
     <template v-if="isItemRoute" v-slot:extension>
       <v-list
         v-show="!loading"
-        v-bind:class="['rounded-0 py-0 max-width shadow-bottom']"
+        v-bind:class="['rounded-0 py-0 max-width']"
         one-line
         flat
         dense

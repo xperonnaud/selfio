@@ -13,9 +13,11 @@
         </div>
       </v-col>
 
-      <v-col v-if="isMobile" class="x-col py-2 col-border-r">
-        <div class="text-tiny text-center" v-text="'Weight'" />
-        <div class="text-tiny text-center" v-text="'Price'" />
+      <v-col v-if="isMobile" class="x-col py-2 col-border-r x-primary-btn rounded" @click.stop="sortGear('weight')" v-ripple>
+        <div class="d-flex justify-center align-center">
+          <div class="text-caption" v-text="'Weight'" />
+          <x-sort-icon prop="weight" />
+        </div>
       </v-col>
 
       <template v-else>
@@ -52,14 +54,14 @@
             <x-sort-icon prop="updated_on" />
           </div>
         </v-col>
-      </template>
 
-      <v-col class="x-col py-2 col-border-r x-primary-btn rounded" @click.stop="sortItems('state')" v-ripple>
-        <div class="d-flex justify-center">
-          <div class="text-caption" v-text="'State'" />
-          <x-sort-icon prop="state" />
-        </div>
-      </v-col>
+        <v-col class="x-col py-2 col-border-r x-primary-btn rounded" @click.stop="sortItems('state')" v-ripple>
+          <div class="d-flex justify-center">
+            <div class="text-caption" v-text="'State'" />
+            <x-sort-icon prop="state" />
+          </div>
+        </v-col>
+      </template>
 
       <v-col class="x-col py-2 col-border-r x-primary-btn rounded" @click.stop="sortItems('quantity_owned')" v-ripple>
         <div class="d-flex justify-center">

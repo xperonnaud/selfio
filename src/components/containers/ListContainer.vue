@@ -13,7 +13,7 @@
       <v-scroll-y-transition group>
         <template v-for="(item, index) in filteredItems">
           <v-list-item
-            :key="`${index}-${item.title}`"
+            :key="`${currentRouteTitle}-${index}`"
             @click.stop="isItemRoute ? openItemDialog(item, index) : null"
             v-bind:class="['pl-3']"
           >
@@ -30,22 +30,22 @@
                  (item.type ? getReversedVuetifyColor(item.type) : ''),
               ]"
             >
-                <x-img
-                  v-if="item.type && xGearType(item.type)"
-                  :src="xGearType(item.type).icon.data.full_url"
-                  :width="22"
-                  :height="22"
-                  :tooltipText="xGearType(item.type).title"
-                  isCategory
-                ></x-img>
+              <x-img
+                v-if="item.type && xGearType(item.type)"
+                :src="xGearType(item.type).icon.data.full_url"
+                :width="22"
+                :height="22"
+                :tooltipText="xGearType(item.type).title"
+                isCategory
+              ></x-img>
 
-                <x-img
-                  v-if="item.activity && xActivity(item.activity)"
-                  :src="xActivity(item.activity).icon.data.full_url"
-                  :width="24"
-                  :height="24"
-                  :tooltipText="xActivity(item.activity).title"
-                ></x-img>
+              <x-img
+                v-if="item.activity && xActivity(item.activity)"
+                :src="xActivity(item.activity).icon.data.full_url"
+                :width="24"
+                :height="24"
+                :tooltipText="xActivity(item.activity).title"
+              ></x-img>
             </v-list-item-avatar>
 
             <component
@@ -218,29 +218,29 @@
       filteredItems() {
         return (this.sortedItems.filter(item => {
           if(
-              !this.itemSearch
-              && !this.itemOwned
-              && !this.itemTag
-              && !this.itemGearType
-              && !this.itemGearState
-              && !this.itemGearBrand
-              && !this.itemActivity
-              && !this.itemLandscape
-              && !this.itemWeather
-              && !this.itemInventory
+            !this.itemSearch
+            && !this.itemOwned
+            && !this.itemTag
+            && !this.itemGearType
+            && !this.itemGearState
+            && !this.itemGearBrand
+            && !this.itemActivity
+            && !this.itemLandscape
+            && !this.itemWeather
+            && !this.itemInventory
           ) return this.items;
 
           return (
-              (this.itemSearch ? item.title.toLowerCase().includes(this.itemSearch.toLowerCase()) : true)
-              && (this.itemOwned ? (item.owner === this.userId) : true)
-              && (this.itemTag ? (item.tags.includes(this.itemTag)) : true)
-              && (this.itemGearType ? (item.type === this.itemGearType) : true)
-              && (this.itemGearState ? (item.state === this.itemGearState) : true)
-              && (this.itemGearBrand ? (item.brand === this.itemGearBrand) : true)
-              && (this.itemActivity ? (item.activity === this.itemActivity) : true)
-              && (this.itemLandscape ? (item.landscape === this.itemLandscape) : true)
-              && (this.itemWeather ? (item.weather === this.itemWeather) : true)
-              && (this.itemInventory ? (item.adventure_inventory === this.itemInventory) : true)
+            (this.itemSearch ? item.title.toLowerCase().includes(this.itemSearch.toLowerCase()) : true)
+            && (this.itemOwned ? (item.owner === this.userId) : true)
+            && (this.itemTag ? (item.tags.includes(this.itemTag)) : true)
+            && (this.itemGearType ? (item.type === this.itemGearType) : true)
+            && (this.itemGearState ? (item.state === this.itemGearState) : true)
+            && (this.itemGearBrand ? (item.brand === this.itemGearBrand) : true)
+            && (this.itemActivity ? (item.activity === this.itemActivity) : true)
+            && (this.itemLandscape ? (item.landscape === this.itemLandscape) : true)
+            && (this.itemWeather ? (item.weather === this.itemWeather) : true)
+            && (this.itemInventory ? (item.adventure_inventory === this.itemInventory) : true)
           )
         }));
       },
