@@ -125,7 +125,7 @@
       </v-dialog>
     </template>
 
-    <template v-if="isItemRoute" v-slot:extension>
+    <template v-if="isItemRoute || isConfigurationRoute" v-slot:extension>
       <v-list
         v-show="!loading"
         v-bind:class="['rounded-0 py-0 max-width']"
@@ -145,7 +145,11 @@
             :style="isMobile ? 'margin-left: -4px;' : ''"
           >
             <v-row align="center" justify="center">
-              <v-col class="x-col py-2 col-border-r x-primary-btn" @click.stop="sortItems(avatarSortProp)" v-ripple>
+              <v-col
+                class="x-col py-2 col-border-r x-primary-btn"
+                @click.stop="sortItems(avatarSortProp)"
+                v-ripple
+              >
                 <div class="d-flex justify-center">
                   <x-sort-icon :prop="avatarSortProp" />
                 </div>
@@ -242,16 +246,16 @@
       },
       headerComponentLoad() {
         let self = this;
-        let route = this.$options.filters.removeSlashFilter(this.$router.currentRoute.path);
+        // let route = this.$options.filters.removeSlashFilter(this.$router.currentRoute.path);
 
-        if(this.itemRoutes.includes(route))
+        if(this.isItemRoute || this.isConfigurationRoute)
           this.headerLoader()
-              .then(() => {
-                self.listHeaderComponent = () => self.headerLoader();
-              })
-              .catch((e) => {
-                console.log('headerComponentLoad ERROR',e);
-              })
+            .then(() => {
+              self.listHeaderComponent = () => self.headerLoader();
+            })
+            .catch((e) => {
+              console.log('headerComponentLoad ERROR',e);
+            })
       },
     },
     watch: {
@@ -259,7 +263,7 @@
         if (!value)
           return null;
 
-        if(this.isItemRoute)
+        if(this.isItemRoute || this.isConfigurationRoute)
           this.headerComponentLoad();
       },
     },
@@ -267,7 +271,7 @@
       this.listHeaderRef = this.randomId();
       this.isMounted = true;
 
-      if(this.isItemRoute)
+      if(this.isItemRoute || this.isConfigurationRoute)
         this.headerComponentLoad();
     }
   }

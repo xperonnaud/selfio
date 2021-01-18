@@ -1,16 +1,21 @@
 <template>
 
-  <v-list-item-content v-bind:class="[{'py-1':isMobile}]">
+  <v-list-item-content class="py-0">
 
     <v-row align="center" justify="center">
-      <v-col cols="12" class="py-0">
-        <div>
-          <v-list-item-title
-            v-text="'Title'"
-            v-bind:class="['mb-1',{'text-caption' : isMobile}]"
-          ></v-list-item-title>
+      <v-col
+        :cols="isMobile ? 10 : 10"
+        class="py-2 col-border-r x-primary-btn rounded"
+        @click.stop="sortItems('title')"
+        v-ripple
+      >
+        <div class="d-flex">
+          <div class="text-caption" v-text="'Title'" />
+          <x-sort-icon prop="title" />
         </div>
       </v-col>
+
+      <x-col text="Action" prop="owner" />
     </v-row>
 
   </v-list-item-content>
@@ -19,8 +24,15 @@
 
 <script>
 
+  import XCol from "@/components/containers/XCol";
+  import XSortIcon from "@/components/elements/XSortIcon";
+
   export default {
     name: 'brand-list-header',
+    components: {
+      XCol,
+      XSortIcon
+    }
   }
 
 </script>
