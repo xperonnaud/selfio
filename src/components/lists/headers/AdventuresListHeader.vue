@@ -5,7 +5,7 @@
 
       <v-col
         :cols="isMobile ? 6 : 2"
-        class="py-2 col-border-r x-primary-btn rounded"
+        class="py-1 col-border-r x-primary-btn rounded"
         @click.stop="sortItems('title')"
         v-ripple
       >
@@ -19,7 +19,7 @@
       </v-col>
 
       <v-col class="x-col col-border-r py-2">
-        <div class="text-caption text-center" v-text="'Checklist'" />
+        <div class="text-tiny text-center" v-text="'Checklist'" />
       </v-col>
 
       <template v-if="!isMobile">
@@ -37,19 +37,19 @@
 
         <x-col text="Date" prop="start_date" />
 
-        <v-col class="x-col py-2 col-border-r">
-          <div class="text-caption text-center" v-text="'Duration'" />
+        <v-col class="x-col py-1 col-border-r">
+          <div class="text-tiny text-center" v-text="'Duration'" />
         </v-col>
 
         <x-col text="Update" prop="updated_on" />
       </template>
 
-      <v-col class="x-col py-2 col-border-r">
-        <div class="text-caption text-center" v-text="'Status'" />
+      <v-col class="x-col py-1 col-border-r">
+        <div class="text-tiny text-center" v-text="'Status'" />
       </v-col>
 
-      <v-col cols="1" py-2 class="pa-0">
-        <div class="text-caption" v-text="''" />
+      <v-col cols="1" class="pa-0">
+        <div class="text-tiny" v-text="''" />
       </v-col>
 
     </v-row>

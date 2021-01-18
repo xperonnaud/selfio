@@ -10,7 +10,6 @@
       one-line
       flat
     >
-<!--      <v-scroll-y-transition group>-->
         <template v-for="(item, index) in filteredItems">
           <v-list-item
             :key="`${currentRouteName}-${item.id}-${index}`"
@@ -170,7 +169,6 @@
             ></empty-list>
           </v-list-item-content>
         </v-list-item>
-<!--      </v-scroll-y-transition>-->
     </v-list>
   </v-card>
 

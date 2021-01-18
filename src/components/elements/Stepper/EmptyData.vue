@@ -5,7 +5,7 @@
       'text-tiny-dimmed text-center',
     ]"
     :style="'width: 100%;'"
-    v-text="'-'"
+    v-text="'.'"
   />
 
 </template>

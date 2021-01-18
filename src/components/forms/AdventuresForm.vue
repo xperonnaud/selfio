@@ -432,7 +432,7 @@
 
                                 <v-list-item-subtitle
                                   class="text-caption"
-                                  v-text="xGear(gear.gear_id).brand ? xGearBrand(xGear(gear.gear_id).brand).title : '-'"
+                                  v-text="xGear(gear.gear_id).brand ? xGearBrand(xGear(gear.gear_id).brand).title : '.'"
                                 ></v-list-item-subtitle>
                               </div>
                             </v-col>

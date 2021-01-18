@@ -14,7 +14,7 @@
             <span>{{item.start_date | dayMonthFilter}}</span>
           </span>
 
-          <span v-else v-text="'-'" class="text-tiny-dimmed" />
+          <span v-else v-text="'.'" class="text-tiny-dimmed" />
         </v-list-item-subtitle>
 
         <v-list-item-subtitle v-else>
@@ -22,14 +22,14 @@
             <span>{{ item.location }}</span>
           </span>
 
-          <span v-else v-text="'-'" class="text-tiny-dimmed" />
+          <span v-else v-text="'.'" class="text-tiny-dimmed" />
         </v-list-item-subtitle>
       </v-col>
 
       <v-col class="py-0 px-1">
         <div class="d-flex justify-center">
 <!--          {{ typeof packedGearRatio }} | {{ packedGearRatio}}-->
-          <v-tooltip v-if="(typeof packedGearRatio == 'number')" bottom>
+          <v-tooltip v-if="item.adventure_inventory && (typeof packedGearRatio == 'number')" bottom>
             <template v-slot:activator="{ on, attrs }">
               <v-progress-circular
                 :key="`adventure-checklist-${item.id}`"

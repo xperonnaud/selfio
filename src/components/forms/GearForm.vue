@@ -69,6 +69,7 @@
                       v-bind:value.sync="updatedItem.quantity_owned"
                       :rules="xRules.decimal"
                       :color="currentColor"
+                      :max="100"
                       :min="0"
                     ></x-increment>
                   </v-col>

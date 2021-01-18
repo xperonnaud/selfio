@@ -1,10 +1,9 @@
 <template>
 
   <v-list-item-content class="py-0">
-
     <v-row align="center" justify="center">
       <v-col
-        :cols="isMobile ? 10 : 10"
+        :cols="isMobile ? 9 : 11"
         class="py-2 col-border-r x-primary-btn rounded"
         @click.stop="sortItems('title')"
         v-ripple
@@ -17,7 +16,6 @@
 
       <x-col text="Action" prop="owner" />
     </v-row>
-
   </v-list-item-content>
 
 </template>

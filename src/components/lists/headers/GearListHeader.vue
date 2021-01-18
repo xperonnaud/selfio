@@ -5,7 +5,7 @@
 
       <v-col
         :cols="isMobile ? 6 : 3"
-        class="py-2 col-border-r x-primary-btn rounded"
+        class="py-1 col-border-r x-primary-btn rounded"
         @click.stop="sortItems('title')"
         v-ripple
       >
@@ -23,17 +23,17 @@
       <template v-if="!isMobile">
         <x-col text="Price" prop="price" />
 
-        <x-col text="Date" prop="purchase_date" />
+        <x-col text="Purchase" prop="purchase_date" />
 
         <x-col text="Update" prop="updated_on" />
 
         <x-col text="State" prop="state" />
       </template>
 
-      <x-col text="Qty" prop="quantity_owned" />
+      <x-col text="Quantity" prop="quantity_owned" />
 
       <v-col cols="1" class="pa-0">
-        <div class="text-caption" v-text="''" />
+        <div class="text-tiny" v-text="''" />
       </v-col>
 
     </v-row>

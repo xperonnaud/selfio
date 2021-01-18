@@ -7,7 +7,7 @@
         : (itemOrderOption === 'asc'
           ? 'mdi-menu-down'
           : 'mdi-menu-up')"
-      size="20"
+      :size="14"
       class="my-auto"
     ></v-icon>
   </div>

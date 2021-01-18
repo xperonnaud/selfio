@@ -1,5 +1,5 @@
 
-import colors from 'vuetify/lib/util/colors'
+import vuetifyColors from 'vuetify/lib/util/colors'
 
 export default {
     computed: {
@@ -182,7 +182,7 @@ export default {
                 ? nameModifier.replace('-', '')
                 : 'base'
 
-            return colors[family][modifier]
+            return vuetifyColors[family][modifier]
         },
         navItemColor(item) {
             if(item && this.navigationItems[item])

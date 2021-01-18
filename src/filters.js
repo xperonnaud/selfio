@@ -52,35 +52,35 @@
 
  Vue.filter("minimalDateFilter", function (date, format = 'DD-MM-YY') {
      if(!date)
-         return '-';
+         return '.';
 
      return moment(date).format(format);
  });
 
  Vue.filter("dateFilter", function (date, format = 'dddd Do MMMM - YYYY') {
      if(!date)
-         return '-';
+         return '.';
 
      return moment(date).format(format);
  });
 
  Vue.filter("mobileDayMonthFilter", function (date) {
      if(!date)
-         return '-';
+         return '.';
 
      return moment(date).format('DD-MM');
  });
 
  Vue.filter("minDateFilter", function (date, format = 'MMM Do YY') {
      if(!date)
-         return '-';
+         return '.';
 
      return moment(date).format(format);
  });
 
  Vue.filter("dayMonthFilter", function (date, format = 'dd MMM Do YYYY') {
      if(!date)
-         return '-';
+         return '.';
 
      return moment(date).format(format);
  });

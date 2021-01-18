@@ -2,7 +2,7 @@
 
   <v-app-bar
     app
-    v-bind:class="['rounded-0', (isItemRoute ? 'elevation-0' : 'elevation-1')]"
+    v-bind:class="['rounded-0', ('elevation-1')]"
     :color="xTabsColor"
   >
     <v-app-bar-nav-icon
@@ -146,7 +146,7 @@
           >
             <v-row align="center" justify="center">
               <v-col
-                class="x-col py-2 col-border-r x-primary-btn"
+                class="x-col py-1 col-border-r x-primary-btn"
                 @click.stop="sortItems(avatarSortProp)"
                 v-ripple
               >

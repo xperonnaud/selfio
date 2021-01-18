@@ -680,7 +680,7 @@
 
                                     <v-list-item-subtitle
                                       class="text-caption"
-                                      v-text="gear.brand ? xGearBrand(gear.brand).title : '-'"
+                                      v-text="gear.brand ? xGearBrand(gear.brand).title : '.'"
                                     ></v-list-item-subtitle>
                                   </div>
                                 </v-col>

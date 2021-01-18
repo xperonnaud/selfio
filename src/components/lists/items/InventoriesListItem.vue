@@ -11,7 +11,7 @@
 
         <v-list-item-subtitle
           v-bind:class="[(item.description ? 'text-caption' : 'text-tiny-dimmed')]"
-          v-text="item.description ? item.description : '-'"
+          v-text="item.description ? item.description : '.'"
         ></v-list-item-subtitle>
       </v-col>
 

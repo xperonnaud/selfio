@@ -12,7 +12,7 @@
 
           <v-list-item-subtitle
             class="text-caption"
-            v-text="item.brand ? xGearBrand(item.brand).title : '-'"
+            v-text="item.brand ? xGearBrand(item.brand).title : '.'"
           ></v-list-item-subtitle>
         </div>
       </v-col>
