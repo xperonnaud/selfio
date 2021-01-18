@@ -7,7 +7,7 @@ export default new Vuex.Store({
     state: {
         api: {
             authTimer: null,
-            login: 'x.peronnaud@gmail.com',
+            login: 'reivax@gmail.com',
             password: 'poppers78',
             accessToken: null,
             baseUrl: 'http://localhost:8080/selfio/',

@@ -88,8 +88,8 @@
 
                   <v-col class="pa-0 pt-3">
                     <v-skeleton-loader
-                        width="60"
-                        type="text"
+                      width="60"
+                      type="text"
                     ></v-skeleton-loader>
                   </v-col>
 
@@ -97,8 +97,8 @@
 
                   <v-col class="pa-0 pt-3">
                     <v-skeleton-loader
-                        width="60"
-                        type="text"
+                      width="60"
+                      type="text"
                     ></v-skeleton-loader>
                   </v-col>
 
@@ -106,8 +106,8 @@
 
                   <v-col class="pa-0 pt-3">
                     <v-skeleton-loader
-                        width="60"
-                        type="text"
+                      width="60"
+                      type="text"
                     ></v-skeleton-loader>
                   </v-col>
 
@@ -116,8 +116,8 @@
 
                     <v-col class="pa-0 pt-3">
                       <v-skeleton-loader
-                          width="60"
-                          type="text"
+                        width="60"
+                        type="text"
                       ></v-skeleton-loader>
                     </v-col>
 
@@ -125,8 +125,8 @@
 
                     <v-col class="pa-0 pt-3">
                       <v-skeleton-loader
-                          width="60"
-                          type="text"
+                        width="60"
+                        type="text"
                       ></v-skeleton-loader>
                     </v-col>
 
@@ -134,8 +134,8 @@
 
                     <v-col class="pa-0 pt-3">
                       <v-skeleton-loader
-                          width="60"
-                          type="text"
+                        width="60"
+                        type="text"
                       ></v-skeleton-loader>
                     </v-col>
                   </template>

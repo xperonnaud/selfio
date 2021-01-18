@@ -280,7 +280,7 @@
 
                   <v-col cols="12">
                     <x-increment
-                    label="Temperature Max"
+                    label="Max Temperature"
                     v-bind:value.sync="updatedItem.temp_max"
                     :rules="xRules.temperature"
                     :color="currentColor"
@@ -292,7 +292,7 @@
 
                   <v-col cols="12">
                     <x-increment
-                      label="Temperature Min"
+                      label="Min Temperature"
                       v-bind:value.sync="updatedItem.temp_min"
                       :rules="xRules.temperature"
                       :color="currentColor"
@@ -620,7 +620,11 @@
         return this.updatedItem.adventure_inventory;
       },
       inventoryHasGear() {
-        if(!this.inventoryGear || typeof this.inventoryGear !== 'number')
+        if(!this.inventoryGear
+            || typeof this.inventoryGear !== 'number'
+            || !this.xInventory(this.inventoryGear)
+            || !this.xInventory(this.inventoryGear).inventory_gear
+        )
           return false;
         return (this.xInventory(this.inventoryGear).inventory_gear.length > 0);
       },
@@ -674,7 +678,10 @@
         this.isEditing = false
       },
       async initInventoryGear() {
-        if(typeof this.updatedItem.adventure_inventory == 'number') {
+        if(typeof this.updatedItem.adventure_inventory == 'number'
+            && this.xInventory(this.updatedItem.adventure_inventory)
+            && this.xInventory(this.updatedItem.adventure_inventory).inventory_gear
+        ) {
           this.originalInventoryGear = [...this.xInventory(this.updatedItem.adventure_inventory).inventory_gear];
         }
       },

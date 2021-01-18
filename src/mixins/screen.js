@@ -254,13 +254,13 @@ export default {
 
             return(
                 (d !== 0 ? '<span class="text-tiny '+this.fontShadeColor+'">'+d+'</span>' : '')
-                + (d !== 0 ? '<span class="text-tiny-dimmed">'+(this.isMobile ? 'd' : ' days')+'</span> ' : '')
+                + (d !== 0 ? '<span class="text-tiny-dimmed">'+(this.isMobile ? 'd' : 'day'+(d > 1 ? 's' : ''))+'</span> ' : '')
 
                 + (h !== 0 ? '<span class="text-tiny '+this.fontShadeColor+'">'+h+'</span>' : '')
-                + (h !== 0 ? '<span class="text-tiny-dimmed">'+(this.isMobile ? 'h' : 'hrs')+'</span> ' : '')
+                + (h !== 0 ? '<span class="text-tiny-dimmed">'+(this.isMobile ? 'h' : 'hr'+(h > 1 ? 's' : ''))+'</span> ' : '')
 
                 + (m !== 0 ? '<span class="text-tiny '+this.fontShadeColor+'">'+m+'</span>' : '')
-                + (m !== 0 ? '<span class="text-tiny-dimmed">'+(this.isMobile ? 'mins' : 'mins')+'</span>' : '')
+                + (m !== 0 ? '<span class="text-tiny-dimmed">'+(this.isMobile ? 'min' : 'min')+(m > 1 ? 's' : '')+'</span>' : '')
             );
         },
     }

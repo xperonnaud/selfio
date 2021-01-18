@@ -135,9 +135,9 @@
       priceUnits: ['$', '€', '£', '¥'],
       distanceUnits: ['km', 'mi'],
       elevationUnits: ['m', 'ft'],
-      weightUnits: ['g/kg', 'oz/lbs'],
+      weightUnits: ['g', 'oz'],
       temperatureUnits: ['&#8451;', '&#8457;'],
-      dateFormats: ['Day-Month-Year', 'Month-Day-Year', 'Year-Month-Day'],
+      dateFormats: ['DD-MM-YY', 'MM-DD-YY', 'YY-MM-DD'],
     }),
     mounted() {
       this.isMounted = true;

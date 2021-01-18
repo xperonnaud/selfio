@@ -154,17 +154,18 @@
 
                         <v-spacer />
 
-                        <div class="d-flex pa-2 pb-1">
-
+                        <div v-if="item" class="d-flex pa-2 pb-1">
                           <div>
-                            <span v-bind:class="['text-caption',currentColorText]">{{ sumInventoryWeight(item.inventory_gear) | thousandthFilter }}</span>
+                            <span v-if="item.inventory_gear" v-bind:class="['text-caption',currentColorText]">{{ sumInventoryWeight(item.inventory_gear) | thousandthFilter }}</span>
+                            <span v-else v-bind:class="['text-caption',currentColorText]">0</span>
                             <span class="text-caption" v-text="' k'+weightUnit" />
                           </div>
 
                           <x-divider style="height:22px !important;" />
 
                           <div>
-                            <span v-bind:class="['text-caption',currentColorText]">{{ sumInventoryPrice(item.inventory_gear) | thousandthFilter }}</span>
+                            <span v-if="item.inventory_gear" v-bind:class="['text-caption',currentColorText]">{{ sumInventoryPrice(item.inventory_gear) | thousandthFilter }}</span>
+                            <span v-else v-bind:class="['text-caption',currentColorText]">0</span>
                             <span class="text-caption" v-text="' k'+priceUnit" />
                           </div>
                         </div>
@@ -368,7 +369,7 @@
 
               <v-spacer />
 
-              <div class="d-flex">
+              <div v-if="item" class="d-flex">
                 <div>
                   <span
                     v-bind:class="[currentColorText]"
@@ -380,14 +381,16 @@
                 <x-divider />
 
                 <div>
-                  <span v-bind:class="[currentColorText]">{{ sumInventoryWeight(item.inventory_gear) | thousandthFilter }}</span>
+                  <span v-if="item.inventory_gear" v-bind:class="[currentColorText]">{{ sumInventoryWeight(item.inventory_gear) | thousandthFilter }}</span>
+                  <span v-else v-bind:class="[currentColorText]">0</span>
                   <span v-text="' k'+weightUnit" />
                 </div>
 
                 <x-divider />
 
                 <div>
-                  <span v-bind:class="[currentColorText]">{{ sumInventoryPrice(item.inventory_gear) | thousandthFilter }}</span>
+                  <span v-if="item.inventory_gear" v-bind:class="[currentColorText]">{{ sumInventoryPrice(item.inventory_gear) | thousandthFilter }}</span>
+                  <span v-else v-bind:class="[currentColorText]">0</span>
                   <span v-text="' k'+priceUnit" />
                 </div>
               </div>
@@ -909,7 +912,7 @@
         return (addedGear.length + removedGear.length);
       },
       currentInventoryGear() {
-        if(this.isMounted && this.item)
+        if(this.isMounted && this.item && this.item.inventory_gear)
           return this.item.inventory_gear;
 
         return [];
@@ -1053,6 +1056,9 @@
       sumCheckedGearProperty(prop) {
         let self = this;
         let sum = 0;
+
+        if(!this.inventoryGearList)
+          return sum;
 
         this.inventoryGearList.forEach(function(gear) {
           let gearIndex = self.gearReferences[gear];

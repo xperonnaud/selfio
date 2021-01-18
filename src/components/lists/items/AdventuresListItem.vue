@@ -285,14 +285,17 @@
         return (moment(startDate).format(this.dateFormatPref) === moment().format(this.dateFormatPref) ? 'clock-alert-outline' : (this.isDatePassed(startDate) ? 'clock-check-outline' : 'progress-clock'));
       },
       initInventoryGear() {
-        if(this.item.adventure_inventory) {
+        if(this.item.adventure_inventory
+            && this.xInventory(this.item.adventure_inventory)
+            && this.xInventory(this.item.adventure_inventory).inventory_gear
+        ) {
           this.inventory_gear = this.xInventory(this.item.adventure_inventory).inventory_gear;
         }
       },
       adventureDaySpan(item) {
         let startDatetime = null;
         let endDatetime = null;
-        let unitOfTime = 'minutes';
+        let unitOfTime = 'minute';
 
         if(item.start_date && item.end_date) {
           if(item.start_time && item.end_time) {
@@ -302,13 +305,14 @@
           } else {
             startDatetime = moment(item.start_date);
             endDatetime = moment(item.end_date);
-            unitOfTime = 'days'
-
+            unitOfTime = 'day'
           }
         } else if(item.start_time && item.end_time) {
           startDatetime = moment(item.start_time);
           endDatetime = moment(item.end_time);
         }
+
+        unitOfTime = unitOfTime > 1 ? unitOfTime+'s' : unitOfTime
 
         this.duration = (startDatetime && endDatetime) ? endDatetime.diff(startDatetime, unitOfTime) : 0;
       }
