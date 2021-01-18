@@ -313,9 +313,7 @@ export default new Vuex.Store({
 
             for(const i of inventories) {
                 state.selfio.inventories.push(i);
-                if(state.selfio.inventoryReferences[i.id] && state.selfio.inventoryReferences[i.id].length > 0) {
-                    console.log('inventory already exists');
-                }
+
                 Object.assign(state.selfio.inventoryReferences, { [i.id] : (state.selfio.inventories.length - 1) });
 
                 if(!state.selfio.inventoryGear[i.id])
@@ -414,7 +412,7 @@ export default new Vuex.Store({
             let len = state.selfio.adventures.length;
             if (adventure !== state.selfio.adventures[len - 1]) {
                 Vue.set(state.selfio.adventures, len, adventure);
-                Object.assign(state.selfio.adventureReferences, { [adventure.id] : (len - 1) });
+                Object.assign(state.selfio.adventureReferences, { [adventure.id] : len });
 
                 if(adventure.adventure_inventory) {
                     if(!state.selfio.inventoryAdventures[adventure.adventure_inventory])

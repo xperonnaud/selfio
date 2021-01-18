@@ -788,6 +788,7 @@
 
           if(finalArray)
             await this.api_patch_preference_tag(finalArray, 'adventure');
+
           await this.api_patch_adventure(this.updatedItem, this.itemIndex, this.item.adventure_inventory);
           this.isLoading = false;
         }

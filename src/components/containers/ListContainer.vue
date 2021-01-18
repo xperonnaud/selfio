@@ -319,8 +319,10 @@
           let references = null;
           if(this.currentRouteName === 'gear') {
             references = this.gearReferences;
+
           } else if(this.currentRouteName === 'inventories') {
             references = this.inventoryReferences;
+
           } else if(this.currentRouteName === 'adventures') {
             references = this.adventureReferences;
           }
