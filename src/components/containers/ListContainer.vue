@@ -14,7 +14,7 @@
         <template v-for="(item, index) in filteredItems">
           <v-list-item
             :key="`${currentRouteTitle}-${index}`"
-            @click.stop="isItemRoute ? openItemDialog(item, index) : null"
+            @click.stop="isItemRoute ? openItemDialog(item) : null"
             v-bind:class="['pl-3']"
           >
             <v-list-item-avatar
@@ -100,7 +100,7 @@
           ></v-divider>
         </template>
 
-        <v-list-item v-if="(items.length <= 0)">
+        <v-list-item v-if="(items.length <= 0)" :key="`empty-list-${currentRouteName}`">
           <v-list-item-content>
             <empty-list
               :label="`Add ${currentRouteName}`"
@@ -111,7 +111,7 @@
           </v-list-item-content>
         </v-list-item>
 
-        <v-list-item v-else-if="(filteredItems.length <= 0)">
+        <v-list-item v-else-if="(filteredItems.length <= 0)" :key="`no-results-list-${currentRouteName}`">
           <v-list-item-content>
             <empty-list
               label="No results"
@@ -261,16 +261,32 @@
               console.log('componentLoad ERROR',e);
             })
       },
-      openItemDialog(item, itemIndex) {
+      openItemDialog(item) {
         if(item) {
           let self = this;
           this.isAppLoading = true;
-          setTimeout(function(){
-            self.selectedItem = item;
-            self.selectedItemIndex = itemIndex;
-            self.formDialog = true;
-            self.formDialogType = 'update';
-          }, 100);
+
+          let references = null;
+          if(this.currentRouteName === 'gear') {
+            references = this.gearReferences;
+          } else if(this.currentRouteName === 'inventories') {
+            references = this.inventoryReferences;
+          } else if(this.currentRouteName === 'adventures') {
+            references = this.adventureReferences;
+          }
+
+          if(references) {
+            let itemIndex = references[item.id];
+
+            setTimeout(function(){
+              self.selectedItem = item;
+              self.selectedItemIndex = itemIndex;
+              self.formDialog = true;
+              self.formDialogType = 'update';
+            }, 50);
+          } else {
+            self.formDialog = false;
+          }
         }
       },
     },

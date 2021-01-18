@@ -513,7 +513,6 @@
 
   import Vue from 'vue'
 
-  import XSortIcon from "@/components/elements/XSortIcon";
   import XDivider from "@/components/elements/XDivider";
   import EmptyData from "@/components/elements/Stepper/EmptyData";
   import XImg from "@/components/elements/XImg";
@@ -530,7 +529,6 @@
   export default {
     name: 'adventures-form',
     components: {
-      XSortIcon,
       XCombobox,
       XDivider,
       EmptyData,

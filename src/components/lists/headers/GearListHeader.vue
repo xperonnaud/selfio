@@ -13,7 +13,7 @@
         </div>
       </v-col>
 
-      <v-col v-if="isMobile" class="x-col py-2 col-border-r x-primary-btn rounded" @click.stop="sortGear('weight')" v-ripple>
+      <v-col v-if="isMobile" class="x-col py-2 col-border-r x-primary-btn rounded" @click.stop="sortItems('weight')" v-ripple>
         <div class="d-flex justify-center align-center">
           <div class="text-caption" v-text="'Weight'" />
           <x-sort-icon prop="weight" />

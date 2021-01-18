@@ -23,6 +23,7 @@
           <v-tooltip v-if="(typeof packedGearRatio == 'number')" bottom>
             <template v-slot:activator="{ on, attrs }">
               <v-progress-circular
+                :key="`adventure-checklist-${item.id}-${packedGearRatio}`"
                 :size="isMobile ? 35 : 37"
                 :width="2"
                 :rotate="-90"

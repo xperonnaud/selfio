@@ -175,6 +175,11 @@ export default {
                 return this.$store.state.selfio.gearReferences
             },
         },
+        adventureReferences: {
+            get() {
+                return this.$store.state.selfio.adventureReferences
+            },
+        },
         brandReferences: {
             get() {
                 return this.$store.state.selfio.brandReferences

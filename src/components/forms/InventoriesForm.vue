@@ -144,7 +144,7 @@
                     <v-col cols="12" class="py-0 mb-3">
                       <div class="d-flex">
                         <div class="pa-2 pb-1">
-                          <span class="text-caption" v-text="'Gear list'" />
+                          <span class="text-caption" v-text="'Gear List'" />
                           <span
                             v-show="currentInventoryGear.length <= 0"
                             class="mx-1 text-tiny-dimmed"
@@ -161,7 +161,7 @@
                             <span class="text-caption" v-text="' k'+weightUnit" />
                           </div>
 
-                          <x-divider style="height:34px !important;" />
+                          <x-divider style="height:22px !important;" />
 
                           <div>
                             <span v-bind:class="['text-caption',currentColorText]">{{ sumInventoryPrice(item.inventory_gear) | thousandthFilter }}</span>

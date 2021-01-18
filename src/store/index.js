@@ -36,6 +36,7 @@ export default new Vuex.Store({
             inventoryGear: {},
             inventoryAdventures: {},
             adventures: [],
+            adventureReferences: {},
         },
         ui: {
             formDialog: false,
@@ -254,6 +255,12 @@ export default new Vuex.Store({
                 Object.assign(state.selfio.gearReferences, { [g.id] : (state.selfio.gear.length - 1) });
             }
         },
+        patchGear(state, payload) {
+            let gearIndex = payload.index;
+            let gear = payload.data;
+            console.log('patchGear',gearIndex,gear);
+            Vue.set(state.selfio.gear, gearIndex, gear);
+        },
         addGear(state, gear) {
             let len = state.selfio.gear.length;
             if (gear !== state.selfio.gear[len - 1]) {
@@ -368,6 +375,7 @@ export default new Vuex.Store({
 
             for(const a of adventures) {
                 state.selfio.adventures.push(a);
+                Object.assign(state.selfio.adventureReferences, { [a.id] : (state.selfio.adventures.length - 1) });
 
                 if(a.adventure_inventory) {
                     if(!state.selfio.inventoryAdventures[a.adventure_inventory])
@@ -407,6 +415,7 @@ export default new Vuex.Store({
             let len = state.selfio.adventures.length;
             if (adventure !== state.selfio.adventures[len - 1]) {
                 Vue.set(state.selfio.adventures, len, adventure);
+                Object.assign(state.selfio.adventureReferences, { [adventure.id] : (len - 1) });
 
                 if(adventure.adventure_inventory) {
                     if(!state.selfio.inventoryAdventures[adventure.adventure_inventory])

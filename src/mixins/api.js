@@ -509,7 +509,8 @@ export default {
                 gear
             )
             .then(async function (response) {
-                Object.assign(self.$store.state.selfio.gear[gearIndex], response.data.data);
+                self.$store.commit("patchGear", { index: gearIndex, data: response.data.data });
+                // Object.assign(self.$store.state.selfio.gear[gearIndex], response.data.data);
                 await self.handleResponse('success', 'Gear updated');
 
             }).catch(async function (error) {
@@ -908,7 +909,7 @@ export default {
                 adventure
             )
             .then(async function (response) {
-                self.$store.commit("patchAdventure",payload);
+                self.$store.commit("patchAdventure", payload);
                 await self.handleResponse('success', 'Adventure updated');
 
             }).catch(async function (error) {
