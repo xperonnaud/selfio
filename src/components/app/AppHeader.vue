@@ -19,10 +19,32 @@
     <template v-if="isItemRoute || isConfigurationRoute">
       <v-spacer />
 
+      <v-expand-x-transition>
+        <v-text-field
+          v-show="!isMobile || displayItemSearch"
+          v-model="itemSearch"
+          label="Search"
+          :append-icon="!isMobile ? 'mdi-magnify' : null"
+          hide-details="auto"
+          clearable
+          small
+          :color="currentColor"
+        ></v-text-field>
+      </v-expand-x-transition>
+
+      <v-btn
+        v-show="isMobile"
+        @click="displayItemSearch = !displayItemSearch"
+        icon
+      >
+        <v-icon v-text="displayItemSearch ? 'mdi-close' : 'mdi-magnify'" />
+      </v-btn>
+
       <filter-menu
         v-bind:filterMode.sync="filterMode"
         v-bind:class="[{'mr-1':!isMobile}]"
         :style="isMobile ? 'margin-right: -6px !important;' : ''"
+        class="ml-1"
       ></filter-menu>
 
       <form-post-btn
@@ -179,11 +201,21 @@
       listHeaderComponent: null,
       listHeaderComponentCalled: null,
 
+      displayItemSearch: false,
+
       validBrand: false,
       defaultBrand: { title: '' },
       brandPostDialog: false,
     }),
     computed: {
+      itemSearch: {
+        get() {
+          return this.$store.state.ui.itemSearch
+        },
+        set(value) {
+          this.$store.commit("updateUiItemSearch", value)
+        }
+      },
       headerLoader() {
         let self = this;
         let listId = this.$options.filters.capitalizeFilter(this.currentRouteName);

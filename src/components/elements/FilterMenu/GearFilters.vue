@@ -2,20 +2,6 @@
 
   <v-list>
     <v-list-item class="mb-3">
-      <v-text-field
-        v-model="itemSearch"
-        filled
-        dense
-        label="Search"
-        prepend-inner-icon="mdi-magnify"
-        hide-details="auto"
-        clearable
-        small
-        :color="currentColor"
-      ></v-text-field>
-    </v-list-item>
-
-    <v-list-item class="mb-3">
       <v-autocomplete
         v-if="filterMode"
         :items="preferences.gear_tags"
@@ -27,7 +13,7 @@
         hide-details="auto"
         :color="currentColor"
       ></v-autocomplete>
-  </v-list-item>
+    </v-list-item>
 
     <v-list-item class="mb-3">
       <x-picker
@@ -157,14 +143,6 @@
       filterModeOn: false,
     }),
     computed: {
-      itemSearch: {
-        get() {
-          return this.$store.state.ui.itemSearch
-        },
-        set(value) {
-          this.$store.commit("updateUiItemSearch", value)
-        }
-      },
       itemTag: {
         get() {
           return this.$store.state.ui.itemTag

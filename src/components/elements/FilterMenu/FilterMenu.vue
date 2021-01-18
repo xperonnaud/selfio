@@ -15,7 +15,7 @@
           v-on="on"
           icon
         >
-          <v-icon v-text="filterMode?'mdi-minus':'mdi-magnify'" />
+          <v-icon v-text="filterMode?'mdi-filter-variant-minus':'mdi-filter-variant'" />
         </v-btn>
       </template>
 

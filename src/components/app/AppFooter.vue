@@ -25,7 +25,7 @@
       @click="brandPostDialog = !brandPostDialog"
       v-bind:class="['px-0']"
     >
-      <v-icon :color="darkColorText('primary')" v-text="'mdi-plus'" />
+      <v-icon v-bind:class="[reversedFontShadeColor]" v-text="'mdi-plus'" />
     </v-btn>
 
     <v-dialog
