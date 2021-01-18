@@ -110,9 +110,9 @@
                                     <div>
                                       <span
                                         v-bind:class="['text-body-2',currentColorText]"
-                                        v-text="currentInventoryGear.length"
+                                        v-text="inventoryTotalItems"
                                       ></span>
-                                      <span v-text="' Item'+(currentInventoryGear.length>1?'s':'')" />
+                                      <span v-text="' Item'+(inventoryTotalItems>1?'s':'')" />
                                     </div>
                                   </div>
                                 </v-list-item-action-text>
@@ -132,7 +132,7 @@
                         <div class="pa-2 pb-1">
                           <span class="text-caption" v-text="'Gear List'" />
                           <span
-                            v-show="currentInventoryGear.length <= 0"
+                            v-show="inventoryTotalItems <= 0"
                             class="mx-1 text-tiny-dimmed"
                             v-text="'(empty)'"
                           />
@@ -351,9 +351,9 @@
                 <div>
                   <span
                     v-bind:class="[currentColorText]"
-                    v-text="currentInventoryGear.length"
+                    v-text="inventoryTotalItems"
                   ></span>
-                  <span v-text="' Item'+(currentInventoryGear.length>1?'s':'')" />
+                  <span v-text="' Item'+(inventoryTotalItems>1?'s':'')" />
                 </div>
 
                 <x-divider />
@@ -400,7 +400,7 @@
                 :color="navItemColor('gear')"
               ></empty-list>
 
-              <v-row v-show="currentInventoryGear.length > 0">
+              <v-row v-show="inventoryGearList.length > 0">
                 <v-col cols="5">
                   <x-pie-chart
                     v-if="isMounted && !isLoadingPieData && !isEditing && pieChart.labels.length > 0 && pieChart.datasets.length > 0"
@@ -532,16 +532,16 @@
                       <div>
                         <span
                           v-bind:class="[currentColorText]"
-                          v-text="currentInventoryGear.length"
+                          v-text="inventoryTotalItems"
                         ></span>
-                        <span v-text="' item'+(currentInventoryGear.length>1?'s':'')" class="text-tiny" />
+                        <span v-text="' item'+(inventoryTotalItems>1?'s':'')" class="text-tiny" />
                       </div>
 
                       <x-divider />
 
                       <div>
                         <span v-bind:class="[currentColorText]">{{ inventoryTotalWeight | thousandthFilter }}</span>
-                        <span v-text="'k'+weightUnit" class="text-tiny" />
+                        <span v-text="' k'+weightUnit" class="text-tiny" />
                       </div>
                     </div>
 
@@ -836,10 +836,13 @@
       },
 
       updatedItem: {},
+
       inventoryGearList: [],
+      inventoryTotalItems: 0,
       inventoryTotalWeight: 0,
       inventoryTotalPrice: 0,
       originalGearList: [],
+
       gearInventoryRelations: {},
       gearTypeStats: {},
       gearFilterMode: false,
@@ -1043,6 +1046,7 @@
         return sum;
       },
       initInventoryStats() {
+        this.inventoryTotalItems = this.inventoryGearList ? this.inventoryGearList.length : 0;
         this.inventoryTotalWeight = this.sumCheckedGearProperty('weight');
         this.inventoryTotalPrice = this.sumCheckedGearProperty('price');
       }

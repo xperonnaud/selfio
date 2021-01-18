@@ -112,15 +112,6 @@
         this.totalPrice = totalPrice;
         this.totalWeight = totalWeight;
       },
-      async initInventoryTotals() {
-        let nbInventoryGear = 0;
-
-        this.inventoriesList.forEach(function(inventory) {
-          nbInventoryGear += inventory.inventory_gear.length;
-        });
-
-        this.nbInventoryGear = nbInventoryGear;
-      },
       async initAdventureTotals() {
         let totalDistance = 0;
         let totalElevation = 0;
@@ -143,7 +134,6 @@
       },
       async initCounters() {
         await this.initGearTotals();
-        await this.initInventoryTotals();
         await this.initAdventureTotals();
       },
       countItems(title) {

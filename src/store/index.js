@@ -264,7 +264,7 @@ export default new Vuex.Store({
             let len = state.selfio.gear.length;
             if (gear !== state.selfio.gear[len - 1]) {
                 Vue.set(state.selfio.gear, len, gear);
-                Object.assign(state.selfio.gearReferences, { [gear.id] : (len - 1) });
+                Object.assign(state.selfio.gearReferences, { [gear.id] : (len) });
             }
         },
         removeGear(state, gearIndex) {

@@ -51,6 +51,7 @@
             <v-icon :small="editMode" v-text="'mdi-trash-can-outline'" />
           </v-btn>
         </template>
+
         <v-card>
           <v-card-title class="headline">
             <span v-if="hasItemRelations" v-text="'Delete is not allowed.'" />
