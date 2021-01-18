@@ -103,6 +103,10 @@
 
 <style lang="scss">
 
+  .v-progress-circular__underlay {
+    stroke-width: 2;
+  }
+
   .x-primary-btn {
     cursor: pointer;
   }

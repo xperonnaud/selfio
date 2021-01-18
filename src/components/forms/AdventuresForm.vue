@@ -346,12 +346,12 @@
 
                   <div class="ml-1">
                     <v-slide-x-transition>
-                    <v-icon
-                      v-show="packedGearRatio && packedGearRatio===100"
-                      v-text="'mdi-check'"
-                      :color="navItemColor('inventories')"
-                      small
-                    />
+                      <v-icon
+                        v-show="packedGearRatio && packedGearRatio===100"
+                        v-text="'mdi-check'"
+                        :color="navItemColor('inventories')"
+                        small
+                      />
                     </v-slide-x-transition>
                   </div>
                 </div>
@@ -367,7 +367,6 @@
                 <v-btn
                   @click="closeGearList()"
                   :color="darkColor('primary')"
-                  class="mx-1"
                   icon
                 >
                   <v-icon :size="28" v-text="'mdi-check'" />

@@ -519,7 +519,7 @@
               <v-card class="mx-auto" flat :color="xBackgroundColor">
 
                 <v-card-text class="pa-0">
-                  <v-toolbar class="pl-3 pr-2">
+                  <v-toolbar class="px-3">
                     <v-btn @click="closeEditor()" icon>
                       <v-icon v-text="'mdi-arrow-left'" />
                     </v-btn>
@@ -528,7 +528,7 @@
 
                     <v-spacer />
 
-                    <div class="d-flex mt-1">
+                    <div class="d-flex">
                       <div>
                         <span
                           v-bind:class="[currentColorText]"
@@ -557,7 +557,6 @@
                       @click="closeGearList()"
                       :color="darkColor('primary')"
                       icon
-                      style="margin-right: 1px !important;"
                     >
                       <v-icon :size="28" v-text="'mdi-check'" />
                     </v-btn>
