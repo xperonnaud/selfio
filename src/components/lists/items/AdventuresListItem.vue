@@ -23,7 +23,7 @@
           <v-tooltip v-if="(typeof packedGearRatio == 'number')" bottom>
             <template v-slot:activator="{ on, attrs }">
               <v-progress-circular
-                :key="`adventure-checklist-${item.id}-${packedGearRatio}`"
+                :key="`adventure-checklist-${item.id}`"
                 :size="isMobile ? 35 : 37"
                 :width="2"
                 :rotate="-90"
@@ -33,7 +33,7 @@
                 v-on="on"
               >
                 <span class="text-caption">
-                  <span v-bind:class="[fontShadeColor]">{{packedGearRatio|roundIntFilter}}</span>
+                  <span v-bind:class="[fontShadeColor]">{{packedGearRatio | roundIntFilter}}</span>
                   <span class="text-tiny-dimmed" v-text="'%'" />
                 </span>
               </v-progress-circular>
