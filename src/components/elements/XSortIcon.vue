@@ -1,7 +1,15 @@
 <template>
 
-  <div>
-    <v-icon v-text="(itemOrderBy !== prop) ? 'mdi-menu-down' : (itemOrderOption === 'asc' ? 'mdi-menu-down' : 'mdi-menu-up')" />
+  <div class="d-flex align-center justify-center">
+    <v-icon
+      v-text="(itemOrderBy !== prop)
+        ? 'mdi-menu-down'
+        : (itemOrderOption === 'asc'
+          ? 'mdi-menu-down'
+          : 'mdi-menu-up')"
+      size="20"
+      class="my-auto"
+    ></v-icon>
   </div>
 
 </template>

@@ -13,7 +13,7 @@
       <v-scroll-y-transition group>
         <template v-for="(item, index) in filteredItems">
           <v-list-item
-            :key="`${currentRouteTitle}-${index}`"
+            :key="`${currentRouteName}-${item.id}-${index}`"
             @click.stop="isItemRoute ? openItemDialog(item) : null"
             v-bind:class="['pl-3']"
           >
@@ -50,6 +50,7 @@
 
             <component
               v-if="listComponent"
+              :key="`${currentRouteName}-list-item-component`"
               :is="listComponent"
               :ref="listRef"
               :item="item"
@@ -100,7 +101,7 @@
           ></v-divider>
         </template>
 
-        <v-list-item v-if="(items.length <= 0)" :key="`empty-list-${currentRouteName}`">
+        <v-list-item v-show="(items.length <= 0)" :key="`empty-list-${currentRouteName}`">
           <v-list-item-content>
             <empty-list
               :label="`Add ${currentRouteName}`"
@@ -111,7 +112,7 @@
           </v-list-item-content>
         </v-list-item>
 
-        <v-list-item v-else-if="(filteredItems.length <= 0)" :key="`no-results-list-${currentRouteName}`">
+        <v-list-item v-show="(filteredItems.length <= 0) && !(items.length <= 0)" :key="`no-results-list-${currentRouteName}`">
           <v-list-item-content>
             <empty-list
               label="No results"

@@ -20,14 +20,23 @@
       <template v-if="!isMobile">
         <v-col class="x-col py-2 col-border-r x-primary-btn rounded" @click.stop="sortItems('landscape')" v-ripple>
           <div class="d-flex justify-center">
-            <div class="text-caption" v-text="'Landscape'" />
+            <div class="text-caption" v-text="'Land.'" />
             <x-sort-icon prop="landscape" />
           </div>
         </v-col>
 
-        <v-col class="x-col py-2 stacked-item-data col-border-r">
-          <div class="text-tiny text-center" v-text="'Elevation'" />
-          <div class="text-tiny text-center" v-text="'Distance'" />
+        <v-col class="x-col py-2 col-border-r x-primary-btn rounded" @click.stop="sortItems('DDistance')" v-ripple>
+          <div class="d-flex justify-center">
+            <div class="text-caption" v-text="'Dist.'" />
+            <x-sort-icon prop="distance" />
+          </div>
+        </v-col>
+
+        <v-col class="x-col py-2 col-border-r x-primary-btn rounded" @click.stop="sortItems('elevation')" v-ripple>
+          <div class="d-flex justify-center">
+            <div class="text-caption" v-text="'Elev.'" />
+            <x-sort-icon prop="elevation" />
+          </div>
         </v-col>
 
         <v-col class="x-col py-2 col-border-r x-primary-btn rounded" @click.stop="sortItems('weather')" v-ripple>
@@ -48,6 +57,13 @@
           <div class="d-flex justify-center">
             <div class="text-caption" v-text="'Hum.'" />
             <x-sort-icon prop="humidity" />
+          </div>
+        </v-col>
+
+        <v-col class="x-col py-2 col-border-r x-primary-btn rounded" @click.stop="sortItems('start_date')" v-ripple>
+          <div class="d-flex justify-center">
+            <div class="text-caption" v-text="'Date'" />
+            <x-sort-icon prop="start_date" />
           </div>
         </v-col>
 

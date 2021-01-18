@@ -268,7 +268,6 @@
             <v-card flat :color="xBackgroundColor">
               <v-card-text>
                 <v-row>
-
                   <v-col cols="12">
                     <x-simple-selector
                       label="Weather"
@@ -281,13 +280,13 @@
 
                   <v-col cols="12">
                     <x-increment
-                      label="Humidity"
-                      v-bind:value.sync="updatedItem.humidity"
-                      :rules="xRules.integer"
-                      :color="currentColor"
-                      :min="0"
-                      :max="100"
-                      :append="'%'"
+                    label="Temperature Max"
+                    v-bind:value.sync="updatedItem.temp_max"
+                    :rules="xRules.temperature"
+                    :color="currentColor"
+                    :min="updatedItem.temp_min"
+                    :max="50"
+                    :append="temperatureUnit"
                     ></x-increment>
                   </v-col>
 
@@ -298,20 +297,20 @@
                       :rules="xRules.temperature"
                       :color="currentColor"
                       :min="-50"
-                      :max="50"
+                      :max="updatedItem.temp_max"
                       :append="temperatureUnit"
                     ></x-increment>
                   </v-col>
 
                   <v-col cols="12">
                     <x-increment
-                      label="Temperature Max"
-                      v-bind:value.sync="updatedItem.temp_max"
-                      :rules="xRules.temperature"
+                      label="Humidity"
+                      v-bind:value.sync="updatedItem.humidity"
+                      :rules="xRules.integer"
                       :color="currentColor"
-                      :min="-50"
-                      :max="50"
-                      :append="temperatureUnit"
+                      :min="0"
+                      :max="100"
+                      :append="'%'"
                     ></x-increment>
                   </v-col>
                 </v-row>

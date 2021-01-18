@@ -9,9 +9,17 @@
           v-bind:class="[{'text-body-2' : isMobile}]"
         ></v-list-item-title>
 
-        <v-list-item-subtitle>
+        <v-list-item-subtitle v-if="isMobile">
           <span v-if="item.start_date" class="text-caption">
             <span>{{item.start_date | dayMonthFilter}}</span>
+          </span>
+
+          <span v-else v-text="'-'" class="text-tiny-dimmed" />
+        </v-list-item-subtitle>
+
+        <v-list-item-subtitle v-else>
+          <span v-if="item.location" class="text-caption">
+            <span>{{ item.location }}</span>
           </span>
 
           <span v-else v-text="'-'" class="text-tiny-dimmed" />
@@ -20,6 +28,7 @@
 
       <v-col class="py-0 px-1">
         <div class="d-flex justify-center">
+<!--          {{ typeof packedGearRatio }} | {{ packedGearRatio}}-->
           <v-tooltip v-if="(typeof packedGearRatio == 'number')" bottom>
             <template v-slot:activator="{ on, attrs }">
               <v-progress-circular
@@ -32,10 +41,17 @@
                 v-bind="attrs"
                 v-on="on"
               >
-                <span class="text-caption">
+                <span v-show="packedGearRatio !== 100" class="text-caption">
                   <span v-bind:class="[fontShadeColor]">{{packedGearRatio | roundIntFilter}}</span>
                   <span class="text-tiny-dimmed" v-text="'%'" />
                 </span>
+
+                <v-icon
+                  v-show="packedGearRatio === 100"
+                  v-text="'mdi-check'"
+                  :color="navItemColor('inventories')"
+                  small
+                ></v-icon>
               </v-progress-circular>
             </template>
             <span v-text="inventoryTitle+' checklist'" />
@@ -74,24 +90,22 @@
           </div>
         </v-col>
 
-        <v-col class="py-0 px-1">
-          <div class="d-flex justify-center">
-            <div class="text-caption stacked-item-data  text-center max-width">
-              <div v-if="item.elevation">
-                <span v-text="item.elevation" />
-                <span v-show="!isMobile" v-html="'&nbsp;'" />
-                <span class="text-tiny-dimmed" v-text="elevationUnit" />
-              </div>
-              <empty-data v-else />
-
-              <div v-if="item.distance">
-                <span v-text="item.distance" />
-                <span v-show="!isMobile" v-html="'&nbsp;'" />
-                <span class="text-tiny-dimmed" v-html="distanceUnit" />
-              </div>
-              <empty-data v-else />
-            </div>
+        <v-col class="x-col">
+          <div v-if="item.distance" v-bind:class="['ml-1 text-caption']">
+            <span v-text="item.distance" />
+            <span v-html="'&nbsp;'" />
+            <span class="text-tiny-dimmed" v-text="distanceUnit" />
           </div>
+          <empty-data solo v-else />
+        </v-col>
+
+        <v-col class="x-col">
+          <div v-if="item.elevation" v-bind:class="['ml-1 text-caption']">
+            <span v-text="item.elevation" />
+            <span v-html="'&nbsp;'" />
+            <span class="text-tiny-dimmed" v-text="elevationUnit" />
+          </div>
+          <empty-data solo v-else />
         </v-col>
 
         <v-col class="x-col py-0 px-1">
@@ -107,6 +121,7 @@
                   <v-sheet
                     :color="isDark ? 'black' : 'grey lighten-4'"
                     class="list-icon-wrapper"
+
                     v-bind="attrs"
                     v-on="on"
                   >
@@ -146,6 +161,13 @@
           <div v-if="item.humidity" v-bind:class="['ml-1 text-caption']">
             <span v-bind:class="['light-blue--text']" v-text="item.humidity" />
             <span class="text-tiny-dimmed" v-text="'%'" />
+          </div>
+          <empty-data solo v-else />
+        </v-col>
+
+        <v-col class="x-col">
+          <div v-if="item.start_date">
+            <span class="text-caption">{{item.start_date | minimalDateFilter(dateFormatPref)}}</span>
           </div>
           <empty-data solo v-else />
         </v-col>
