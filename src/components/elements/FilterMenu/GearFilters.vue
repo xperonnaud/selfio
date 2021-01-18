@@ -82,7 +82,7 @@
     <v-list-item class="mb-3">
       <v-autocomplete
         label="State"
-        :items="statesList"
+        :items="gearStates"
         v-model="itemGearState"
         :color="currentColor"
         filled

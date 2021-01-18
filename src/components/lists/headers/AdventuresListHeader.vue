@@ -7,7 +7,7 @@
         <div class="d-flex">
           <div>
             <div class="text-tiny" v-text="'Title'" />
-            <div class="text-tiny" v-text="'Start Date'" />
+            <div class="text-tiny" v-text="'Location'" />
           </div>
           <x-sort-icon prop="title" />
         </div>

@@ -1009,16 +1009,20 @@
           let gearIndex = gearRefs[gearId];
 
           if(self.gearList[gearIndex]) {
-            let gearTypeIndex = self.gearList[gearIndex].type ? self.gearList[gearIndex].type : 0;
-            let gearWeight = self.gearList[gearIndex].weight ? self.gearList[gearIndex].weight : 0;
+            let gearQty = self.gearList[gearIndex].quantity_owned || 0;
 
-            if(!Object.prototype.hasOwnProperty.call(newGearTypeStats, gearTypeIndex) && !newGearTypeStats[gearTypeIndex]) {
-              Object.assign(newGearTypeStats, { [gearTypeIndex] : {items: 1, weight: gearWeight} });
+            if(gearQty !== 0) {
+              let gearTypeIndex = self.gearList[gearIndex].type ? self.gearList[gearIndex].type : 0;
+              let gearWeight = self.gearList[gearIndex].weight ? self.gearList[gearIndex].weight : 0;
 
-            } else {
-              let items = newGearTypeStats[gearTypeIndex].items + 1;
-              let weight = newGearTypeStats[gearTypeIndex].weight + gearWeight;
-              Object.assign(newGearTypeStats[gearTypeIndex],  { items: items, weight: weight } );
+              if(!Object.prototype.hasOwnProperty.call(newGearTypeStats, gearTypeIndex) && !newGearTypeStats[gearTypeIndex]) {
+                Object.assign(newGearTypeStats, { [gearTypeIndex] : {items: 1, weight: (gearWeight * gearQty)} });
+
+              } else {
+                let items = newGearTypeStats[gearTypeIndex].items + 1;
+                let weight = newGearTypeStats[gearTypeIndex].weight + (gearWeight * gearQty);
+                Object.assign(newGearTypeStats[gearTypeIndex],  { items: (items * gearQty), weight: weight } );
+              }
             }
           }
         });

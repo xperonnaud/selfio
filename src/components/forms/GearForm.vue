@@ -159,7 +159,7 @@
                   <v-col cols="12">
                     <v-autocomplete
                       label="State"
-                      :items="statesList"
+                      :items="gearStates"
                       v-model="updatedItem.state"
                       :color="currentColor"
                       filled

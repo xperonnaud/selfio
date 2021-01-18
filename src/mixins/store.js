@@ -167,7 +167,7 @@ export default {
         },
         gearStates: {
             get() {
-                return this.$store.state.selfio.gearStates
+                return this.$store.state.ui.gearStates
             },
         },
         gearReferences: {
@@ -284,7 +284,7 @@ export default {
         },
         xGearState(gearStateId) {
             if(gearStateId, this.gearStates)
-                return (this.gearStates[this.gearStateReferences[gearStateId]]);
+                return (this.gearStates[gearStateId - 1]);
             return null;
         },
         xInventory(inventoryId) {

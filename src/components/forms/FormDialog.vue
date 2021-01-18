@@ -55,7 +55,7 @@
       </v-card-text>
     </v-card>
 
-    <v-overlay :value="isLoading || isFormLoading">
+    <v-overlay :value="!isMounted || isLoading || isFormLoading">
       <v-progress-circular
         indeterminate
         size="64"

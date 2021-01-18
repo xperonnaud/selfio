@@ -10,7 +10,7 @@
       one-line
       flat
     >
-      <v-scroll-y-transition group>
+<!--      <v-scroll-y-transition group>-->
         <template v-for="(item, index) in filteredItems">
           <v-list-item
             :key="`${currentRouteName}-${item.id}-${index}`"
@@ -83,14 +83,63 @@
                   ></v-skeleton-loader>
                 </v-col>
 
-                <v-col class="pa-0" />
+                <template v-if="!isMobile">
+                  <v-col class="pa-0" />
 
-                <v-col class="pa-0 pt-3">
-                  <v-skeleton-loader
-                    width="60"
-                    type="text"
-                  ></v-skeleton-loader>
-                </v-col>
+                  <v-col class="pa-0 pt-3">
+                    <v-skeleton-loader
+                        width="60"
+                        type="text"
+                    ></v-skeleton-loader>
+                  </v-col>
+
+                  <v-col class="pa-0" />
+
+                  <v-col class="pa-0 pt-3">
+                    <v-skeleton-loader
+                        width="60"
+                        type="text"
+                    ></v-skeleton-loader>
+                  </v-col>
+
+                  <v-col class="pa-0" />
+
+                  <v-col class="pa-0 pt-3">
+                    <v-skeleton-loader
+                        width="60"
+                        type="text"
+                    ></v-skeleton-loader>
+                  </v-col>
+
+                  <template v-if="currentRouteName === 'adventures'">
+                    <v-col class="pa-0" />
+
+                    <v-col class="pa-0 pt-3">
+                      <v-skeleton-loader
+                          width="60"
+                          type="text"
+                      ></v-skeleton-loader>
+                    </v-col>
+
+                    <v-col class="pa-0" />
+
+                    <v-col class="pa-0 pt-3">
+                      <v-skeleton-loader
+                          width="60"
+                          type="text"
+                      ></v-skeleton-loader>
+                    </v-col>
+
+                    <v-col class="pa-0" />
+
+                    <v-col class="pa-0 pt-3">
+                      <v-skeleton-loader
+                          width="60"
+                          type="text"
+                      ></v-skeleton-loader>
+                    </v-col>
+                  </template>
+                </template>
               </v-row>
             </v-list-item-content>
           </v-list-item>
@@ -121,7 +170,7 @@
             ></empty-list>
           </v-list-item-content>
         </v-list-item>
-      </v-scroll-y-transition>
+<!--      </v-scroll-y-transition>-->
     </v-list>
   </v-card>
 

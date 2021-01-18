@@ -349,7 +349,7 @@
                     <v-icon
                       v-show="packedGearRatio && packedGearRatio===100"
                       v-text="'mdi-check'"
-                      :color="darkColor('green')"
+                      :color="navItemColor('inventories')"
                       small
                     />
                     </v-slide-x-transition>

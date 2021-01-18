@@ -12,7 +12,7 @@
             <v-col cols="12">
               <div>
                 <div class="text-caption" v-text="'Weight Unit'" />
-                <v-btn-toggle v-model="preferences.weight_unit" mandatory dense tile borderless>
+                <v-btn-toggle v-model="preferences.weight_unit" mandatory dense tile>
                   <v-btn
                     v-for="weightUnit in weightUnits"
                     :key="weightUnit"
@@ -28,7 +28,7 @@
             <v-col cols="12">
               <div>
                 <div class="text-caption" v-text="'Temperature Unit'" />
-                <v-btn-toggle v-model="preferences.temperature_unit" mandatory dense tile borderless>
+                <v-btn-toggle v-model="preferences.temperature_unit" mandatory dense tile>
                   <v-btn
                     v-for="temperatureUnit in temperatureUnits"
                     :key="temperatureUnit"
@@ -44,7 +44,7 @@
             <v-col cols="12">
               <div>
                 <div class="text-caption" v-text="'Distance Unit'" />
-                <v-btn-toggle v-model="preferences.distance_unit" mandatory dense tile borderless>
+                <v-btn-toggle v-model="preferences.distance_unit" mandatory dense tile>
                   <v-btn
                     v-for="distanceUnit in distanceUnits"
                     :key="distanceUnit"
@@ -60,7 +60,7 @@
             <v-col cols="12">
               <div>
                 <div class="text-caption" v-text="'Elevation/Depth Unit'" />
-                <v-btn-toggle v-model="preferences.elevation_unit" mandatory dense tile borderless>
+                <v-btn-toggle v-model="preferences.elevation_unit" mandatory dense tile>
                   <v-btn
                     v-for="elevationUnit in elevationUnits"
                     :key="elevationUnit"
@@ -76,7 +76,7 @@
             <v-col cols="12">
               <div>
                 <div class="text-caption" v-text="'Price Unit'" />
-                <v-btn-toggle v-model="preferences.price_unit" mandatory dense tile borderless>
+                <v-btn-toggle v-model="preferences.price_unit" mandatory dense tile>
                   <v-btn
                     v-for="priceUnit in priceUnits"
                     :key="priceUnit"
@@ -92,7 +92,7 @@
             <v-col cols="12">
               <div>
                 <div class="text-caption" v-text="'Date Format'" />
-                <v-btn-toggle v-model="preferences.date_format" mandatory dense tile borderless>
+                <v-btn-toggle v-model="preferences.date_format" mandatory dense tile>
                   <v-btn
                     v-for="dateFormat in dateFormats"
                     :key="dateFormat"
@@ -126,7 +126,6 @@
 
 <script>
 
-
   export default {
     name: "settings",
     data: () => ({
@@ -136,9 +135,9 @@
       priceUnits: ['$', '€', '£', '¥'],
       distanceUnits: ['km', 'mi'],
       elevationUnits: ['m', 'ft'],
-      weightUnits: ['g', 'lbs'],
+      weightUnits: ['g/kg', 'oz/lbs'],
       temperatureUnits: ['&#8451;', '&#8457;'],
-      dateFormats: ['DD-MM-YY', 'MM-DD-YY', 'YY-MM-DD'],
+      dateFormats: ['Day-Month-Year', 'Month-Day-Year', 'Year-Month-Day'],
     }),
     mounted() {
       this.isMounted = true;

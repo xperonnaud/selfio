@@ -51,11 +51,6 @@ export default {
                 return this.$store.state.selfio.gearTypes;
             }
         },
-        statesList: {
-            get() {
-                return this.$store.state.selfio.gearStates;
-            }
-        },
         inventoriesList: {
             get() {
                 return this.$store.state.selfio.inventories;
@@ -207,7 +202,6 @@ export default {
         reset_api_data() {
             this.$store.commit("updateBrands",[]);
             this.$store.commit("updateLandscapes",[]);
-            this.$store.commit("updateGearStates",[]);
             this.$store.commit("updateGearTypes",[]);
             this.$store.commit("updateGear",[]);
             this.$store.commit("updateInventories",[]);
@@ -277,18 +271,6 @@ export default {
             )
             .then(function (response) {
                 self.$store.commit("updateLandscapes",response.data.data);
-            }).catch(async function (error) {
-                await self.handleResponse('error', error.message, error);
-            })
-        },
-        async api_get_gear_states() {
-            let self = this;
-            await axios.get(
-                self.apiBaseUrl
-                +'items/gear_states?access_token='
-                +self.apiAccessToken
-            ).then(function (response) {
-                self.$store.commit("updateGearStates",response.data.data);
             }).catch(async function (error) {
                 await self.handleResponse('error', error.message, error);
             })

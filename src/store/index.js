@@ -23,7 +23,6 @@ export default new Vuex.Store({
             landscapes: [],
             landscapeReferences: {},
             weatherReferences: {},
-            gearStates: [],
             gearStateReferences: {},
             gearTypes: [],
             gearTypeReferences: {},
@@ -158,6 +157,13 @@ export default new Vuex.Store({
                 'sunny',
                 'windy',
             ],
+            gearStates: [
+                { id: 1, title: 'Poor', color: 'red' },
+                { id: 2, title: 'Used', color: 'orange' },
+                { id: 3, title: 'Ok', color: 'green' },
+                { id: 4, title: 'New', color: 'blue' },
+            ],
+            
             colors: [
                 'red',
                 'pink',
@@ -226,13 +232,6 @@ export default new Vuex.Store({
             for(const b of landscapes) {
                 state.selfio.landscapes.push(b);
                 Object.assign(state.selfio.landscapeReferences, { [b.id] : (state.selfio.landscapes.length - 1) });
-            }
-        },
-        updateGearStates(state, gearStates) {
-            while(state.selfio.gearStates.length > 0) state.selfio.gearStates.pop();
-            for(const gs of gearStates) {
-                state.selfio.gearStates.push(gs);
-                Object.assign(state.selfio.gearStateReferences, { [gs.id] : (state.selfio.gearStates.length - 1) });
             }
         },
         updateGearTypes(state, gearTypes) {
