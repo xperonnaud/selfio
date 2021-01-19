@@ -103,19 +103,18 @@ export default {
             }
         },
         async api_auth_refresh(callback, ...args) {
-            if(this.isTokenRefreshed === false) {
-                let self = this;
-                await axios.post(
-                    self.apiBaseUrl+'auth/refresh',
-                    { token: self.apiAccessToken }
-                )
-                .then(async function (response) {
-                    self.$store.commit('updateApiAccessToken',response.data.data.token);
+            let self = this;
+            await axios.post(
+                self.apiBaseUrl+'auth/refresh',
+                { token: self.apiAccessToken }
+            )
+            .then(async function (response) {
+                self.$store.commit('updateApiAccessToken',response.data.data.token);
+                await self.handleResponse('success');
 
-                }).catch(async function (error) {
-                    await self.handleResponse('error', error.message, error);
-                })
-            }
+            }).catch(async function (error) {
+                await self.handleResponse('error', error.message, error);
+            })
         },
         async api_auth() {
             let self = this;
