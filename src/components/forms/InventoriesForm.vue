@@ -173,8 +173,8 @@
                               one-line
                               dense
                             >
-                              <template v-for="(gearTypeStat, gearTypeId) in gearTypeStats">
-                                <v-list-item :key="`gear-type-stat-${gearTypeId}`" class="pa-0">
+                              <template v-for="(gearTypeStat) in sortedGearTypeStats">
+                                <v-list-item :key="`gear-type-stat-${gearTypeStat.id}`" class="pa-0">
                                   <v-list-item-avatar
                                     width="30"
                                     min-width="30"
@@ -182,13 +182,13 @@
                                     v-bind:class="[
                                       'x-avatar',
                                       'my-0 mx-3',
-                                      getReversedVuetifyColor(gearTypeId)
+                                      getReversedVuetifyColor(gearTypeStat.id)
                                     ]"
                                   >
                                     <x-img
-                                      v-if="gearTypeId && xGearType(gearTypeId) && objFilter(gearTypes, 'id', parseInt(gearTypeId))[0]"
-                                      :src="objFilter(gearTypes, 'id', parseInt(gearTypeId))[0].icon.data.full_url"
-                                      :tooltipText="xGearType(gearTypeId).title"
+                                      v-if="gearTypeStat.id && xGearType(gearTypeStat.id) && objFilter(gearTypes, 'id', parseInt(gearTypeStat.id))[0]"
+                                      :src="objFilter(gearTypes, 'id', parseInt(gearTypeStat.id))[0].icon.data.full_url"
+                                      :tooltipText="xGearType(gearTypeStat.id).title"
                                       isCategory
                                     ></x-img>
 
@@ -201,8 +201,8 @@
                                   <v-list-item-title>
                                     <div class="d-flex">
                                       <div class="text-caption" style="width: 80px;">
-                                        <div v-if="gearTypeId && objFilter(gearTypes, 'id', parseInt(gearTypeId))[0]"
-                                        >{{ objFilter(gearTypes, 'id', parseInt(gearTypeId))[0].title }}</div>
+                                        <div v-if="gearTypeStat.id && objFilter(gearTypes, 'id', parseInt(gearTypeStat.id))[0]"
+                                        >{{ objFilter(gearTypes, 'id', parseInt(gearTypeStat.id))[0].title }}</div>
                                         <div
                                           v-else
                                           v-text="'unknown'"
@@ -236,7 +236,7 @@
 
                                     <v-progress-linear
                                       :value="gearTypeStat.weight | percentageFilter(inventoryGearList, inventoryTotalWeight)"
-                                      :color="getVuetifyColor((gearTypeId ? gearTypeId : 0))"
+                                      :color="getVuetifyColor((gearTypeStat.id ? gearTypeStat.id : 0))"
                                       :height="3"
                                       :background-color="xProgressColor"
                                     ></v-progress-linear>
@@ -912,6 +912,9 @@
       },
       sortedGear() {
         return _.orderBy(this.gearList, this.gearOrderBy, this.gearOrderOption);
+      },
+      sortedGearTypeStats() {
+        return _.orderBy(this.gearTypeStats, 'weight', 'desc');
       }
     },
     methods: {
@@ -935,7 +938,7 @@
           let data = []
 
           for (const [key, value] of Object.entries(gearTypeStats)) {
-            let gearCategory = key === 0 ? null : this.xGearType(key);
+            let gearCategory = value.id === 0 ? null : this.xGearType(value.id);
             let percentage = this.$options.filters.percentageFilter(value.weight, this.inventoryGearList, this.inventoryTotalWeight);
             let chartLabel = (gearCategory && gearCategory.title ? gearCategory.title : 'Unknown') + ` | ${percentage}% (${this.weightUnit})`;
             let color = this.hexColor(this.getVuetifyColor(gearCategory && gearCategory.id ? gearCategory.id : 0))
@@ -992,22 +995,22 @@
               let gearWeight = self.gearList[gearIndex].weight ? self.gearList[gearIndex].weight : 0;
 
               if(!Object.prototype.hasOwnProperty.call(newGearTypeStats, gearTypeIndex) && !newGearTypeStats[gearTypeIndex]) {
-                Object.assign(newGearTypeStats, { [gearTypeIndex] : {items: 1, weight: (gearWeight * gearQty)} });
+                Object.assign(newGearTypeStats, { [gearTypeIndex] : {id: gearTypeIndex, items: 1, weight: (gearWeight * gearQty)} });
 
               } else {
                 let items = newGearTypeStats[gearTypeIndex].items + 1;
                 let weight = newGearTypeStats[gearTypeIndex].weight + (gearWeight * gearQty);
-                Object.assign(newGearTypeStats[gearTypeIndex],  { items: (items * gearQty), weight: weight } );
+                Object.assign(newGearTypeStats[gearTypeIndex],  { id: gearTypeIndex, items: (items * gearQty), weight: weight } );
               }
             }
           }
         });
 
         // resetting local GearTypeStats
-        self.gearTypeStats = {};
-        Object.assign(self.gearTypeStats,  newGearTypeStats );
+        this.gearTypeStats = {};
+        Object.assign(this.gearTypeStats,  newGearTypeStats);
 
-        await this.initPieChartData(newGearTypeStats);
+        await this.initPieChartData(this.sortedGearTypeStats);
       },
       async initGearList() {
         let self = this;
