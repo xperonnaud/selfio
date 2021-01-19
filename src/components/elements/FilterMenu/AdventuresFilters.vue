@@ -2,6 +2,14 @@
 
   <v-list>
     <v-list-item class="mb-3">
+      <x-picker
+        label="Activity"
+        :list="activitiesList"
+        v-bind:value.sync="itemActivity"
+      ></x-picker>
+    </v-list-item>
+
+    <v-list-item class="mb-3">
       <v-autocomplete
         v-if="filterMode"
         label="Tags"
@@ -16,11 +24,15 @@
     </v-list-item>
 
     <v-list-item class="mb-3">
-      <x-picker
-        label="Activity"
-        :list="activitiesList"
-        v-bind:value.sync="itemActivity"
-      ></x-picker>
+      <v-text-field
+        v-model="itemLocation"
+        label="Location"
+        :color="currentColor"
+        hide-details="auto"
+        clearable
+        dense
+        filled
+      ></v-text-field>
     </v-list-item>
 
     <v-list-item class="mb-3">
@@ -28,15 +40,6 @@
         label="Landscape"
         :list="landscapesList"
         v-bind:value.sync="itemLandscape"
-        logo
-      ></x-picker>
-    </v-list-item>
-
-    <v-list-item class="mb-3">
-      <x-picker
-        label="Weather"
-        :list="weathers"
-        v-bind:value.sync="itemWeather"
         logo
       ></x-picker>
     </v-list-item>
@@ -55,17 +58,29 @@
         :color="currentColor"
       ></v-autocomplete>
     </v-list-item>
+
+    <v-list-item class="mb-3">
+      <x-simple-selector
+          label="Weather"
+          :list="weathers"
+          v-bind:value.sync="itemWeather"
+          :iconSize="'26'"
+          hasIcon
+      ></x-simple-selector>
+    </v-list-item>
   </v-list>
 
 </template>
 
 <script>
 
+  import XSimpleSelector from "@/components/elements/Pickers/XSimpleSelector";
   import XPicker from "@/components/elements/Pickers/XPicker";
 
   export default {
     name: 'adventures-filter',
     components: {
+      XSimpleSelector,
       XPicker,
     },
     props: {
@@ -82,6 +97,14 @@
         },
         set(value) {
           this.$store.commit("updateUiItemTag", value)
+        }
+      },
+      itemLocation: {
+        get() {
+          return this.$store.state.ui.itemLocation
+        },
+        set(value) {
+          this.$store.commit("updateUiItemLocation", value)
         }
       },
       itemInventory: {

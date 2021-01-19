@@ -30,9 +30,9 @@
             >
               <template v-slot:top>
                 <v-text-field
-                    v-model="itemSearch"
-                    label="Search"
-                    class="mx-4"
+                  v-model="itemSearch"
+                  label="Search"
+                  class="mx-4"
                 ></v-text-field>
               </template>
 

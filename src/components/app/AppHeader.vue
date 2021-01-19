@@ -212,14 +212,6 @@
       brandPostDialog: false,
     }),
     computed: {
-      itemSearch: {
-        get() {
-          return this.$store.state.ui.itemSearch
-        },
-        set(value) {
-          this.$store.commit("updateUiItemSearch", value)
-        }
-      },
       headerLoader() {
         let self = this;
         let listId = this.$options.filters.capitalizeFilter(this.currentRouteName);

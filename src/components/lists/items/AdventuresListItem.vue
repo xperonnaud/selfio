@@ -28,7 +28,6 @@
 
       <v-col class="py-0 px-1">
         <div class="d-flex justify-center">
-<!--          {{ typeof packedGearRatio }} | {{ packedGearRatio}}-->
           <v-tooltip v-if="item.adventure_inventory && (typeof packedGearRatio == 'number')" bottom>
             <template v-slot:activator="{ on, attrs }">
               <v-progress-circular
@@ -147,6 +146,7 @@
                 <span class="text-tiny-dimmed" v-html="temperatureUnit" />
               </div>
               <empty-data v-else />
+
               <div v-if="item.temp_min">
                 <span v-text="item.temp_min" />
                 <span v-html="'&nbsp;'" />

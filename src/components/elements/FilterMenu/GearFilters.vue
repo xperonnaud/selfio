@@ -2,6 +2,14 @@
 
   <v-list>
     <v-list-item class="mb-3">
+      <x-picker
+          label="Category"
+          :list="typesList"
+          v-bind:value.sync="itemGearType"
+      ></x-picker>
+    </v-list-item>
+
+    <v-list-item class="mb-3">
       <v-autocomplete
         v-if="filterMode"
         :items="preferences.gear_tags"
@@ -13,14 +21,6 @@
         hide-details="auto"
         :color="currentColor"
       ></v-autocomplete>
-    </v-list-item>
-
-    <v-list-item class="mb-3">
-      <x-picker
-        label="Category"
-        :list="typesList"
-        v-bind:value.sync="itemGearType"
-      ></x-picker>
     </v-list-item>
 
     <v-list-item class="mb-3">
@@ -81,19 +81,18 @@
       >
         <template v-slot:selection="data">
           <div
-              color="transparent"
-              v-bind="data.attrs"
-              :input-value="data.selected"
-              @click="data.select"
-              style="height:30px !important; padding-top: 9px; padding-bottom: 2px;"
-              class=""
+            color="transparent"
+            v-bind="data.attrs"
+            :input-value="data.selected"
+            @click="data.select"
+            style="height:30px !important; padding-top: 9px; padding-bottom: 2px;"
           >
             <v-avatar tile left min-width="21" width="21" height="21">
               <v-icon
-                  :color="data.item.color"
-                  v-text="'mdi-'+stateIcon(data.item.title)"
-                  size="18"
-                  style="padding-bottom: 6px;"
+                :color="data.item.color"
+                v-text="'mdi-'+stateIcon(data.item.title)"
+                size="18"
+                style="padding-bottom: 6px;"
               ></v-icon>
             </v-avatar>
 
@@ -122,17 +121,30 @@
         </template>
       </v-autocomplete>
     </v-list-item>
+
+    <v-list-item class="mb-3">
+      <x-increment
+        label="Quantity owned"
+        v-bind:value.sync="itemQuantityOwned"
+        :rules="xRules.decimal"
+        :color="currentColor"
+        :max="100"
+        :min="0"
+      ></x-increment>
+    </v-list-item>
   </v-list>
 
 </template>
 
 <script>
 
+  import XIncrement from "@/components/elements/Pickers/XIncrement";
   import XPicker from "@/components/elements/Pickers/XPicker";
 
   export default {
     name: 'gear-filter',
     components: {
+      XIncrement,
       XPicker,
     },
     props: {
@@ -149,6 +161,14 @@
         },
         set(value) {
           this.$store.commit("updateUiItemTag", value)
+        }
+      },
+      itemQuantityOwned: {
+        get() {
+          return this.$store.state.ui.itemQuantityOwned
+        },
+        set(value) {
+          this.$store.commit("updateUiItemQuantityOwned", value)
         }
       },
       itemGearType: {

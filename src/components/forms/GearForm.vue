@@ -148,44 +148,46 @@
 
                   <v-col cols="12">
                     <v-text-field
-                      label="Size"
-                      v-model="updatedItem.size"
-                      :color="currentColor"
-                      filled
-                      dense
-                      hide-details="auto"
+                        label="Price"
+                        v-model="updatedItem.price"
+                        :rules="xRules.decimal"
+                        :color="currentColor"
+                        filled
+                        dense
+                        hide-details="auto"
+                        :suffix="priceUnit"
                     ></v-text-field>
                   </v-col>
 
                   <v-col cols="12">
                     <v-autocomplete
-                      label="State"
-                      :items="gearStates"
-                      v-model="updatedItem.state"
-                      :color="currentColor"
-                      filled
-                      dense
-                      clearable
-                      @click:clear="updatedItem.state = null"
-                      hide-details="auto"
-                      item-text="title"
-                      item-value="id"
+                        label="State"
+                        :items="gearStates"
+                        v-model="updatedItem.state"
+                        :color="currentColor"
+                        filled
+                        dense
+                        clearable
+                        @click:clear="updatedItem.state = null"
+                        hide-details="auto"
+                        item-text="title"
+                        item-value="id"
                     >
                       <template v-slot:selection="data">
                         <div
-                          color="transparent"
-                          v-bind="data.attrs"
-                          :input-value="data.selected"
-                          @click="data.select"
-                          style="height:30px !important; padding-top: 9px; padding-bottom: 2px;"
-                          class=""
+                            color="transparent"
+                            v-bind="data.attrs"
+                            :input-value="data.selected"
+                            @click="data.select"
+                            style="height:30px !important; padding-top: 9px; padding-bottom: 2px;"
+                            class=""
                         >
                           <v-avatar tile left min-width="21" width="21" height="21">
                             <v-icon
-                              :color="data.item.color"
-                              v-text="'mdi-'+stateIcon(data.item.title)"
-                              size="18"
-                              style="padding-bottom: 6px;"
+                                :color="data.item.color"
+                                v-text="'mdi-'+stateIcon(data.item.title)"
+                                size="18"
+                                style="padding-bottom: 6px;"
                             ></v-icon>
                           </v-avatar>
 
@@ -216,23 +218,21 @@
                   </v-col>
 
                   <v-col cols="12">
+                    <x-date-picker
+                        label="Purchase date"
+                        v-bind:value.sync="updatedItem.purchase_date"
+                    ></x-date-picker>
+                  </v-col>
+
+                  <v-col cols="12">
                     <v-text-field
-                      label="Price"
-                      v-model="updatedItem.price"
-                      :rules="xRules.decimal"
+                      label="Size"
+                      v-model="updatedItem.size"
                       :color="currentColor"
                       filled
                       dense
                       hide-details="auto"
-                      :suffix="priceUnit"
                     ></v-text-field>
-                  </v-col>
-
-                  <v-col cols="12">
-                    <x-date-picker
-                      label="Purchase date"
-                      v-bind:value.sync="updatedItem.purchase_date"
-                    ></x-date-picker>
                   </v-col>
                 </v-row>
               </v-card-text>

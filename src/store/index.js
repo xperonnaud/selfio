@@ -47,6 +47,8 @@ export default new Vuex.Store({
             itemSearch: '',
             itemOwned: null,
             itemTag: null,
+            itemLocation: null,
+            itemQuantityOwned: null,
             itemGearType: null,
             itemGearState: null,
             itemGearBrand: null,
@@ -472,6 +474,12 @@ export default new Vuex.Store({
         },
         updateUiItemTag(state, itemTag) {
             state.ui.itemTag = itemTag;
+        },
+        updateUiItemLocation(state, itemLocation) {
+            state.ui.itemLocation = itemLocation;
+        },
+        updateUiItemQuantityOwned(state, itemQuantityOwned) {
+            state.ui.itemQuantityOwned = itemQuantityOwned;
         },
         updateUiItemGearState(state, itemGearState) {
             state.ui.itemGearState = itemGearState;

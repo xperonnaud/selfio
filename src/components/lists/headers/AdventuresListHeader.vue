@@ -12,7 +12,7 @@
         <div class="d-flex">
           <div class="text-tiny">
             <div v-text="'Title'" />
-            <div v-text="'Location'" />
+            <div v-text="isMobile ? 'Start date' : 'Location'" />
           </div>
           <x-sort-icon prop="title" />
         </div>

@@ -213,11 +213,6 @@
         self.listComponentCalled = `@/components/lists/items/${listId}ListItem.vue`;
         return () => import(`@/components/lists/items/${listId}ListItem.vue`)
       },
-      itemSearch: {
-        get() {
-          return this.$store.state.ui.itemSearch
-        }
-      },
       itemOwned: {
         get() {
           return this.$store.state.ui.itemOwned
@@ -226,6 +221,16 @@
       itemTag: {
         get() {
           return this.$store.state.ui.itemTag
+        }
+      },
+      itemLocation: {
+        get() {
+          return this.$store.state.ui.itemLocation
+        }
+      },
+      itemQuantityOwned: {
+        get() {
+          return this.$store.state.ui.itemQuantityOwned
         }
       },
       itemGearType: {
@@ -269,6 +274,8 @@
             !this.itemSearch
             && !this.itemOwned
             && !this.itemTag
+            && !this.itemLocation
+            && !this.itemQuantityOwned
             && !this.itemGearType
             && !this.itemGearState
             && !this.itemGearBrand
@@ -280,8 +287,10 @@
 
           return (
             (this.itemSearch ? item.title.toLowerCase().includes(this.itemSearch.toLowerCase()) : true)
+            && (this.itemLocation ? item.location.toLowerCase().includes(this.itemLocation.toLowerCase()) : true)
             && (this.itemOwned ? (item.owner === this.userId) : true)
             && (this.itemTag ? (item.tags.includes(this.itemTag)) : true)
+            && (this.itemQuantityOwned ? (parseFloat(item.quantity_owned) === parseFloat(this.itemQuantityOwned)) : true)
             && (this.itemGearType ? (item.type === this.itemGearType) : true)
             && (this.itemGearState ? (item.state === this.itemGearState) : true)
             && (this.itemGearBrand ? (item.brand === this.itemGearBrand) : true)

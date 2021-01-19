@@ -240,9 +240,13 @@ export default {
                 return this.$store.state.ui.colors
             },
         },
-        currentRoutePath() {
-            if(this.isMounted && this.$route)
-                return this.$route.path;
+        itemSearch: {
+            get() {
+                return this.$store.state.ui.itemSearch
+            },
+            set(value) {
+                this.$store.commit("updateUiItemSearch", value)
+            }
         },
         currentRouteName() {
             if(this.isMounted && this.$route)

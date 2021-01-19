@@ -587,11 +587,6 @@
       gearFilterMode: false,
     }),
     computed: {
-      itemSearch: {
-        get() {
-          return this.$store.state.ui.itemSearch
-        }
-      },
       itemGearType: {
         get() {
           return this.$store.state.ui.itemGearType
