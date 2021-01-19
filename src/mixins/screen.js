@@ -2,7 +2,15 @@
 import vuetifyColors from 'vuetify/lib/util/colors'
 
 export default {
+    data () {
+        return {
+            windowHeight: 500,
+        }
+    },
     computed: {
+        currentWindowHeight() {
+            return this.windowHeight;
+        },
         imgSize() {
             return (this.isMobile ? 22 : 22);
         },
@@ -65,6 +73,9 @@ export default {
         },
         isMobile() {
             return this.$vuetify.breakpoint.mobile;
+        },
+        maxDialogContentHeight() {
+            return (this.currentWindowHeight < 660 ? this.currentWindowHeight : 660);
         },
         xRules() {
             return {
@@ -265,6 +276,9 @@ export default {
                 + (m !== 0 ? '<span class="text-tiny '+this.fontShadeColor+'">'+m+'</span>' : '')
                 + (m !== 0 ? '<span class="text-tiny-dimmed">'+(this.isMobile ? 'min' : 'min')+(m > 1 ? 's' : '')+'</span>' : '')
             );
+        },
+        initWindowHeight() {
+            this.windowHeight = (window.innerHeight - 92);
         },
     }
 }

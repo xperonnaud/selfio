@@ -29,6 +29,7 @@
           clearable
           small
           :color="currentColor"
+          style="max-width: 222px;"
         ></v-text-field>
       </v-expand-x-transition>
 

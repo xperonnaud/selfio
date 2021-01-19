@@ -6,6 +6,7 @@
     :hide-overlay="isMobile"
     :transition="isMobile ? 'slide-x-transition' : 'fade-transition'"
     persistent
+    style="overflow-y: unset;"
   >
     <v-card
       v-bind:class="[
@@ -24,34 +25,22 @@
         v-bind:deleteItem.sync="deleteItem"
       ></dialog-app-bar>
 
-      <v-card-text
-        v-bind:class="[
-          'pb-0',
-          'px-0',
-       ]"
-      >
-        <v-responsive
-          class="overflow-y-auto"
-          :min-height="isMobile ? undefined : 550"
-          :max-height="isMobile ? (windowHeight) : undefined"
-        >
-          <component
-            v-if="formComponent"
-            v-show="!isLoading"
-            :is="formComponent"
-            :ref="formRef"
-            :item="item"
-            :itemIndex="itemIndex"
-            v-bind:isFormLoading.sync="isFormLoading"
-            v-bind:isFormMounted.sync="isFormMounted"
-            v-bind:isFormValid.sync="isFormValid"
-            v-bind:postItem.sync="postItem"
-            v-bind:patchItem.sync="patchItem"
-            v-bind:deleteItem.sync="deleteItem"
-            v-bind:editMode.sync="editMode"
-          ></component>
-        </v-responsive>
-
+      <v-card-text v-bind:class="['pb-0 px-0']">
+        <component
+          v-if="formComponent"
+          v-show="!isLoading"
+          :is="formComponent"
+          :ref="formRef"
+          :item="item"
+          :itemIndex="itemIndex"
+          v-bind:isFormLoading.sync="isFormLoading"
+          v-bind:isFormMounted.sync="isFormMounted"
+          v-bind:isFormValid.sync="isFormValid"
+          v-bind:postItem.sync="postItem"
+          v-bind:patchItem.sync="patchItem"
+          v-bind:deleteItem.sync="deleteItem"
+          v-bind:editMode.sync="editMode"
+        ></component>
       </v-card-text>
     </v-card>
 
@@ -98,7 +87,6 @@
         formRef: this.randomId(),
         formComponent: null,
         formComponentCalled: null,
-        windowHeight: 150,
         hasItemRelations: false,
       }
     },
@@ -126,9 +114,6 @@
       },
     },
     methods: {
-      initWindowHeight() {
-        this.windowHeight = (window.innerHeight - 56);
-      },
       componentLoad() {
         let self = this;
         this.resetUniqueStepRef();
@@ -145,9 +130,9 @@
       },
       resetUniqueStepRef() {
         if(
-            this.isMounted
-            && this.formRef
-            && this.$refs[this.formRef]
+          this.isMounted
+          && this.formRef
+          && this.$refs[this.formRef]
         )
           this.$refs[this.formRef].$destroy();
 

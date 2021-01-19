@@ -37,14 +37,14 @@
 
         <x-col text="Date" prop="start_date" />
 
-        <v-col class="x-col py-1 col-border-r">
+        <v-col class="x-col py-2 col-border-r">
           <div class="text-tiny text-center" v-text="'Duration'" />
         </v-col>
 
         <x-col text="Update" prop="updated_on" />
       </template>
 
-      <v-col class="x-col py-1 col-border-r">
+      <v-col class="x-col py-2 col-border-r">
         <div class="text-tiny text-center" v-text="'Status'" />
       </v-col>
 

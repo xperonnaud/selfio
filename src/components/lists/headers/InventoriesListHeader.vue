@@ -18,16 +18,16 @@
         </div>
       </v-col>
 
-      <v-col class="x-col py-1 col-border-r">
+      <v-col class="x-col py-2 col-border-r">
         <div class="text-tiny text-center" v-text="'Items'" />
       </v-col>
 
-      <v-col class="x-col py-1 col-border-r">
+      <v-col class="x-col py-2 col-border-r">
         <div class="text-tiny text-center" v-text="'Weight'" />
       </v-col>
 
       <template v-if="!isMobile">
-        <v-col class="x-col py-1 col-border-r">
+        <v-col class="x-col py-2 col-border-r">
           <div class="text-tiny text-center" v-text="'Price'" />
         </v-col>
 
