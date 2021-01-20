@@ -103,6 +103,16 @@
 
 <style lang="scss">
 
+  .no-wrap * {
+    overflow: unset !important;
+    text-overflow: unset !important;
+    white-space: unset !important;
+  }
+
+  .row-max-width {
+    max-width: 600px;
+  }
+
   .v-progress-circular__underlay {
     stroke-width: 2;
   }

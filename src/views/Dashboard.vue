@@ -6,7 +6,7 @@
     <div class="d-flex justify-center">
       <v-sheet
         class="timeline-sheet"
-        :max-width="isMobile ? '100%' : '1200'"
+        :max-width="cardSize(1200)"
         color="transparent"
       >
 

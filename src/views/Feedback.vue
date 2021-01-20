@@ -8,11 +8,11 @@
         color="transparent"
       >
         <v-container fluid v-bind:class="(isMobile ? 'pa-4' : 'pa-8')">
-          <v-row style="max-width: 600px">
+          <v-row class="row-max-width">
             <v-col cols="12">
               <v-card
                 v-bind:class="['shadow-bottom', (isMobile ? 'my-0' : 'mr-3')]"
-                :width="isMobile ? '100%' : 400"
+                :width="cardSize(600)"
                 :color="xCardColor"
               >
                 <v-list>
@@ -24,9 +24,9 @@
                       ></v-icon>
                     </v-list-item-avatar>
 
-                    <v-list-item-content>
-                      <v-list-item-title class="text-h6" v-text="'Please give us your feedback!'" />
-                      <v-list-item-subtitle v-text="'Tell us about bugs, broken or needed features.'" />
+                    <v-list-item-content class="no-wrap">
+                      <v-list-item-title class="text-h6" v-text="'Your feedback is very important to us!'" />
+                      <v-list-item-subtitle v-text="'Please help us improve this application for You by sending us a message.'" />
                     </v-list-item-content>
                   </v-list-item>
                 </v-list>
@@ -37,7 +37,7 @@
               <v-text-field
                 label="Object"
                 v-model="feedback.object"
-                :rules="xRules.text"
+                :rules="xRules.object"
                 :color="darkColor('primary')"
                 hide-details="auto"
                 filled
@@ -47,9 +47,22 @@
           </v-col>
 
             <v-col cols="12">
+              <v-select
+                :items="feedbackCategories"
+                :color="darkColor('primary')"
+                hide-details="auto"
+                label="Category"
+                filled
+                dense
+                optional
+              ></v-select>
+            </v-col>
+
+            <v-col cols="12">
               <v-textarea
                 label="Message"
                 v-model="feedback.message"
+                :rules="xRules.message"
                 :color="darkColor('primary')"
                 hide-details="auto"
                 filled
@@ -59,7 +72,7 @@
             </v-col>
           </v-row>
 
-          <v-row style="max-width: 600px">
+          <v-row class="row-max-width">
             <v-col cols="12">
               <v-btn
                 v-bind:class="[
@@ -92,7 +105,11 @@
       isMounted: false,
       valid: false,
 
-      feedback: { object: null, message: null }
+      feedbackCategories: [
+        'Interface', 'Functionalities'
+      ],
+
+      feedback: { object: '', message: '' }
     }),
     mounted() {
       this.isMounted = true;

@@ -98,8 +98,12 @@ export default {
                 text: [
                     v => !!v || 'text required',
                 ],
-                comment: [
-                    v => (v.length <= 500) || 'comment length'
+                object: [
+                    v => !!v || 'object required',
+                ],
+                message: [
+                    v => !!v || 'message required',
+                    v => (v.length <= 500) || 'message length'
                 ],
                 firstname: [
                     v => !!v || 'firstname required',
@@ -181,6 +185,9 @@ export default {
         },
     },
     methods: {
+        cardSize(size) {
+            return (this.isMobile ? '100%' : (typeof size == 'number' ? size : 600));
+        },
         nullOrZeroColorText(prop) {
             return ((!prop || prop===0) ? this.darkColorText('red') : '');
         },

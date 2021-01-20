@@ -129,7 +129,7 @@ export default new Vuex.Store({
                 feedback: {
                     title: 'Feedback',
                     icon: 'mdi-comment-text',
-                    type: 'settings',
+                    type: 'misc',
                 },
                 import_export: {
                     title: 'Import / Export',

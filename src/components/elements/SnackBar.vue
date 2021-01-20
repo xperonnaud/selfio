@@ -66,7 +66,7 @@
         return 0;
       },
       snackbarTimeout() {
-        return ((1 + (this.textWordCount % 4)) * 1000); // 1 second => 4 words
+        return ((2 + (this.textWordCount % 4)) * 1000); // 1 second => 4 words
       },
       snackBarColor() {
         if(!this.snackbarType)

@@ -72,8 +72,11 @@ export default {
     },
     methods: {
         async postFeedback(feedback) {
-            alert('Posting Feedback. [method implementation in progress...]');
-            console.log('posting feedback',feedback);
+            if(feedback) {
+                this.isAppLoading = true;
+                await this.api_post_feedback(feedback);
+                this.isAppLoading = false;
+            }
         },
         async updatePassword() {
             alert('Updating PWD. [method implementation in progress...]');
@@ -210,6 +213,24 @@ export default {
             this.$store.commit("updateInventories",[]);
             this.$store.commit("updateActivities",[]);
             this.$store.commit("updateAdventures",[]);
+        },
+
+        async api_post_feedback(feedback) {
+            let self = this;
+            feedback.status = 'published'
+
+            await axios.post(
+                self.apiBaseUrl
+                +'items/feedbacks?access_token='
+                +self.apiAccessToken,
+                feedback
+            )
+                .then(async function () {
+                    await self.handleResponse('success', 'Feedback sent. Thank You!');
+
+                }).catch(async function (error) {
+                    await self.handleResponse('error', error.message, error);
+                })
         },
 
         async api_get_brands() {

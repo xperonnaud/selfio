@@ -16,7 +16,7 @@
                 v-if="navigationItems[item].type === 'items'"
                 :key="index"
                 v-bind:class="['shadow-bottom', (isMobile ? 'my-2' : 'mb-3 mr-3')]"
-                :width="isMobile ? '100%' : 300"
+                :width="cardSize(300)"
                 :color="xCardColor"
             >
               <v-list>

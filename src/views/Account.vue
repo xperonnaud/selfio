@@ -7,11 +7,11 @@
     >
       <v-form v-model="valid">
         <v-container fluid v-bind:class="(isMobile ? 'px-4 py-3' : 'pa-8')">
-          <v-row style="max-width: 600px">
+          <v-row class="row-max-width">
             <v-col cols="12">
               <v-card
                 v-bind:class="['shadow-bottom', (isMobile ? 'my-0' : 'mr-3')]"
-                :width="isMobile ? '100%' : 400"
+                :width="cardSize(600)"
                 :color="xCardColor"
               >
                 <v-list>
@@ -23,7 +23,7 @@
                       ></v-icon>
                     </v-list-item-avatar>
 
-                    <v-list-item-content>
+                    <v-list-item-content class="no-wrap">
                       <v-list-item-title class="text-h6" v-text="userLogin" />
                       <v-list-item-subtitle v-text="'Login'" />
                     </v-list-item-content>
