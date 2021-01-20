@@ -1,18 +1,18 @@
 <template>
 
   <v-combobox
-      :label="label"
-      v-model="pickerValue"
-      :items="items"
-      color="primary"
-      :item-color="navItemColor(route)"
-      hide-details="auto"
-      filled
-      dense
-      chips
-      small-chips
-      multiple
-      clearable
+    :label="label"
+    v-model="pickerValue"
+    :items="items"
+    color="primary"
+    :item-color="navItemColor(route)"
+    hide-details="auto"
+    filled
+    dense
+    chips
+    small-chips
+    multiple
+    clearable
   >
     <template v-slot:selection="data">
       <v-chip

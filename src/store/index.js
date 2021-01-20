@@ -90,13 +90,13 @@ export default new Vuex.Store({
                 },
                 gear: {
                     title: 'Gear',
-                    icon: 'mdi-pickaxe',
+                    icon: 'mdi-knife-military',
                     color: 'blue',
                     type: 'items'
                 },
                 inventories: {
                     title: 'Inventories',
-                    icon: 'mdi-package-variant',
+                    icon: 'mdi-semantic-web',
                     color: 'purple',
                     type: 'items'
                 },
@@ -133,7 +133,7 @@ export default new Vuex.Store({
                 },
                 import_export: {
                     title: 'Import / Export',
-                    icon: 'mdi-swap-vertical-bold',
+                    icon: 'mdi-database-export',
                     type: 'misc',
                 },
                 info: {

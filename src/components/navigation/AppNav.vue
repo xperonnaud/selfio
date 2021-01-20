@@ -36,7 +36,10 @@
         :active-class="darkColorText(navigationItems[item].color)"
       >
         <v-list-item-icon>
-          <v-icon v-text="navigationItems[item].icon" :color="darkColor(navigationItems[item].color)" />
+          <v-icon
+            v-text="navigationItems[item].icon"
+            :color="darkColor(navigationItems[item].color)"
+          ></v-icon>
         </v-list-item-icon>
 
         <v-list-item-content>
@@ -60,7 +63,7 @@
           dense
       >
         <v-list-item-icon>
-          <v-icon v-text="navigationItems[item].icon" />
+          <v-icon size="23" v-text="navigationItems[item].icon+(currentRouteTitle!==navigationItems[item].title ? '-outline' : '')" />
         </v-list-item-icon>
 
         <v-list-item-content>
@@ -78,7 +81,7 @@
       @click.stop="toggleTheme()"
     >
       <v-list-item-icon>
-        <v-icon v-text="'mdi-theme-light-dark'" />
+        <v-icon size="22" v-text="'mdi-lightbulb'" />
       </v-list-item-icon>
 
       <v-list-item-content>
