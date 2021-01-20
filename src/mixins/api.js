@@ -71,6 +71,10 @@ export default {
         },
     },
     methods: {
+        async postFeedback(feedback) {
+            alert('Posting Feedback. [method implementation in progress...]');
+            console.log('posting feedback',feedback);
+        },
         async updatePassword() {
             alert('Updating PWD. [method implementation in progress...]');
         },

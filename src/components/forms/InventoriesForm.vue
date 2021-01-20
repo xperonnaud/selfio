@@ -387,9 +387,8 @@
                 <v-spacer />
 
                 <v-btn
-                  outlined
                   small
-                  :color="darkColor('primary')"
+                  v-bind:class="[reversedFontShadeColor, 'elevation-0', 'primary-gradient-color']"
                   @click.stop="editInventory()"
                 >
                   <v-icon
@@ -567,7 +566,7 @@
 
                     <v-btn
                       @click="closeGearList()"
-                      :color="darkColor('primary')"
+                      class="primary-gradient-color-text"
                       icon
                     >
                       <v-icon :size="28" v-text="'mdi-check'" />

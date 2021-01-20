@@ -8,6 +8,7 @@
     color="transparent"
     v-bind:class="[(isMobile ? 'px-4 py-2' : 'pa-8')]"
   >
+    <div class="primary-gradient-color-text">Testing title</div>
     <v-row>
       <v-col cols="12">
         <div v-bind:class="['d-flex flex-wrap']">
@@ -67,16 +68,60 @@
       </v-col>
     </v-row>
 
-    <v-row>
+    <v-row style="max-width: 600px;">
       <v-col cols="12">
         <v-card
-            v-if="!isMobile"
-            v-bind:class="['shadow-bottom', (isMobile ? 'my-2' : 'mr-3')]"
-            :width="isMobile ? '100%' : 300"
-            :color="xCardColor"
+          v-bind:class="['shadow-bottom', (isMobile ? 'my-2' : 'mr-3')]"
+          :width="isMobile ? '100%' : 300"
+          :color="xCardColor"
         >
-          Desktop Only Card
+          <div class="primary-gradient-color-text">Testing title</div>
         </v-card>
+      </v-col>
+      <v-col cols="12">
+        <v-btn
+          block
+          large
+          class="elevation-0 primary-gradient-color"
+        >
+          <v-icon left color="black" v-text="'mdi-login'" />
+          <span class="black--text" v-text="'Testing large block btn'" />
+        </v-btn>
+      </v-col>
+
+      <v-col cols="12">
+        <v-list>
+          <v-list-item two-line>
+            <v-list-item-avatar>
+              <v-icon
+                :class="['primary-gradient-color-text']"
+                v-text="'mdi-cog'"
+              ></v-icon>
+            </v-list-item-avatar>
+
+            <v-list-item-content>
+              <v-list-item-title class="text-h6" v-text="'Title'" />
+              <v-list-item-subtitle v-text="'Test text'" />
+            </v-list-item-content>
+          </v-list-item>
+        </v-list>
+      </v-col>
+
+      <v-col cols="12">
+        <v-btn
+          block
+          text
+          small
+          class="mt-2 mb-1 elevation-0"
+        >
+          <span v-bind:class="['text-tiny', 'primary-gradient-color-text']" v-text="'Testing small txt block btn'" />
+        </v-btn>
+      </v-col>
+
+      <v-col cols="12">
+        <v-sheet height="120" width="120" class="pa-6 primary-gradient-color">
+          Testing Sheet
+        </v-sheet>
       </v-col>
     </v-row>
   </v-sheet>

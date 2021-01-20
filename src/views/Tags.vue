@@ -49,8 +49,12 @@
       <v-row style="max-width: 750px">
         <v-col cols="12" class="py-0">
           <v-btn
-            v-bind:class="['elevation-0',{'max-width':isMobile},reversedFontShadeColor]"
-            :color="darkColor('primary')"
+            v-bind:class="[
+              'elevation-0',
+              {'max-width':isMobile},
+              reversedFontShadeColor,
+              'primary-gradient-color'
+            ]"
             @click.stop="updatePreferences()"
           >
             <v-icon v-text="'mdi-check'"/>

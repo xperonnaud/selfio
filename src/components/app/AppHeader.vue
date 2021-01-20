@@ -11,7 +11,11 @@
     ></v-app-bar-nav-icon>
 
     <v-toolbar-title
-      v-bind:class="[currentColorText,'pl-0']">
+      v-bind:class="[
+        currentColorText === 'black--text' ? currentColorText : 'primary-gradient-color-text',
+        'pl-0'
+      ]"
+    >
       <span v-if="isItemRoute" v-text="'My '" />
       <span>{{ currentRouteName | convertSpecialCharsFilter | capitalizeFilter }}</span>
     </v-toolbar-title>
@@ -57,11 +61,10 @@
 
       <v-btn
         v-if="!isMobile && isConfigurationRoute"
-        :color="darkColor('primary')"
+        v-bind:class="['px-2 ml-3 mr-1 elevation-0 primary-gradient-color']"
+        @click="brandPostDialog = !brandPostDialog"
         fab
         small
-        @click="brandPostDialog = !brandPostDialog"
-        v-bind:class="['px-2 ml-3 mr-1 elevation-0']"
       >
         <v-icon v-bind:class="[reversedFontShadeColor]" v-text="'mdi-plus'" />
       </v-btn>
@@ -88,15 +91,15 @@
               <v-col cols="12">
                 <v-form v-model="validBrand">
                   <v-text-field
-                      label="Title"
-                      v-model="defaultBrand.title"
-                      :rules="xRules.text"
-                      :color="darkColor('primary')"
-                      @keyup.enter="postBrand()"
-                      filled
-                      dense
-                      hide-details="auto"
-                      required
+                    label="Title"
+                    v-model="defaultBrand.title"
+                    :rules="xRules.text"
+                    :color="darkColor('primary')"
+                    @keyup.enter="postBrand()"
+                    filled
+                    dense
+                    hide-details="auto"
+                    required
                   ></v-text-field>
                 </v-form>
               </v-col>
@@ -114,9 +117,9 @@
 
             <v-btn
               @click="postBrand()"
-              :color="darkColor('primary')"
               :disabled="!validBrand"
               depressed
+              v-bind:class="['primary-gradient-color', reversedFontShadeColor]"
             >
               <v-icon v-text="'mdi-check'" />
               <span v-text="'Add brand'" />
@@ -172,9 +175,9 @@
 
       <v-btn
         v-bind:class="[{'mr-1':!isMobile}]"
-        :color="darkColor('primary')"
         icon
         @click.stop="updatePreferences()"
+        class="primary-gradient-color-text"
       >
         <v-icon
           :size="28"

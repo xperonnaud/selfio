@@ -1,10 +1,9 @@
 <template>
 
   <v-btn
-    class="mr-1"
+    class="mr-1 primary-gradient-color-text"
     icon
     :disabled="disabled"
-    :color="darkColor('primary')"
   >
     <v-icon :size="28" v-text="'mdi-check'" />
   </v-btn>

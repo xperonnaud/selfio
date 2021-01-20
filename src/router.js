@@ -13,6 +13,7 @@ import Brands from './views/Brands.vue';
 import Settings from './views/Settings.vue';
 import ImportExport from './views/ImportExport.vue';
 
+import Feedback from './views/Feedback.vue';
 import Info from './views/Info.vue';
 import Dashboard from './views/Dashboard.vue';
 
@@ -74,6 +75,11 @@ export default new Router({
       path: '/info',
       name: 'info',
       component: Info
+    },
+    {
+      path: '/feedback',
+      name: 'feedback',
+      component: Feedback
     },
   ]
 });

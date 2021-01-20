@@ -386,7 +386,7 @@
 
                 <v-btn
                   @click="closeGearList()"
-                  :color="darkColor('primary')"
+                  class="primary-gradient-color-text"
                   icon
                 >
                   <v-icon :size="28" v-text="'mdi-check'" />

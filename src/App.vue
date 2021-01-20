@@ -259,7 +259,27 @@
     color: white !important;
   }
 
+  .primary-gradient-color {
+    background-image: linear-gradient(45deg, #FFB300, #F4511E);
+  }
+
+  .primary-gradient-color-text {
+    background: -webkit-linear-gradient(45deg, #F4511E, #FFB300);
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent;
+  }
+
   .is-dark {
+
+    .primary-gradient-color {
+      background-image: linear-gradient(45deg, #FFC107, #FF5722);
+    }
+
+    .primary-gradient-color-text {
+      background: -webkit-linear-gradient(45deg, #FF5722, #FFC107);
+      -webkit-background-clip: text !important;
+      -webkit-text-fill-color: transparent;
+    }
 
     .col-border-r {
       border-color: #292929;

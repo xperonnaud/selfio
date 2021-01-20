@@ -107,8 +107,12 @@
 
             <v-col cols="12">
               <v-btn
-                v-bind:class="['elevation-0',{'max-width':isMobile},reversedFontShadeColor]"
-                :color="darkColor('primary')"
+                v-bind:class="[
+                  'elevation-0',
+                  {'max-width':isMobile},
+                  reversedFontShadeColor,
+                  'primary-gradient-color'
+                ]"
                 :disabled="!valid"
                 @click.stop="updatePreferences()"
               >

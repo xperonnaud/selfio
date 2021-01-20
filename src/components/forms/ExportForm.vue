@@ -39,7 +39,7 @@
                   vertical
                 ></v-divider>
 
-                <v-icon left v-text="'mdi-database-export'" :color="darkColor('primary')" />
+                <v-icon left v-text="'mdi-database-export'" class="primary-gradient-color-text" />
 
                 <vue-blob-json-csv
                     @success="handleSuccess"
@@ -56,7 +56,7 @@
                         'x-primary-btn',
                         'mr-2',
                         reversedFontShadeColor,
-                        darkColor('primary')
+                        'primary-gradient-color'
                     ]"
                 ></vue-blob-json-csv>
 
@@ -74,7 +74,7 @@
                         {'theme--light':!isDark},
                         'x-primary-btn',
                         reversedFontShadeColor,
-                        darkColor('primary')
+                        'primary-gradient-color'
                     ]"
                 ></vue-blob-json-csv>
 
@@ -93,8 +93,8 @@
             <template v-slot:item.type="{ item }">
               <v-avatar v-if="item.type && xGearType(item.type) && xGearType(item.type).icon" class="x-avatar" size="24">
                 <x-img
-                    :src="xGearType(item.type).icon.data.full_url"
-                    :tooltipText="xGearType(item.type).title"
+                  :src="xGearType(item.type).icon.data.full_url"
+                  :tooltipText="xGearType(item.type).title"
                 />
               </v-avatar>
             </template>

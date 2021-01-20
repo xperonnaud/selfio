@@ -42,7 +42,7 @@
                   vertical
                 ></v-divider>
 
-                <v-icon left v-text="'mdi-database-export'" :color="darkColor('primary')" />
+                <v-icon left v-text="'mdi-database-export'" class="primary-gradient-color-text" />
 
                 <vue-blob-json-csv
                     @success="handleSuccess"
@@ -58,7 +58,7 @@
                         {'theme--light':!isDark},
                         'x-primary-btn',
                         'mr-2',
-                        darkColor('primary')
+                        'primary-gradient-color'
                     ]"
                 ></vue-blob-json-csv>
 
@@ -75,7 +75,7 @@
                         {'theme--dark':isDark},
                         {'theme--light':!isDark},
                         'x-primary-btn',
-                        darkColor('primary')
+                        'primary-gradient-color'
                     ]"
                 ></vue-blob-json-csv>
 

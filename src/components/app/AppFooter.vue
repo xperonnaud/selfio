@@ -17,8 +17,7 @@
     <v-btn
       v-if="isMobile"
       v-show="isConfigurationRoute"
-      class="floating-button"
-      :color="darkColor('primary')"
+      class="floating-button primary-gradient-color"
       fab
       small
       rounded
@@ -51,15 +50,15 @@
             <v-col cols="12">
               <v-form v-model="validBrand">
                 <v-text-field
-                    label="Title"
-                    v-model="defaultBrand.title"
-                    :rules="xRules.text"
-                    :color="darkColor('primary')"
-                    @keyup.enter="postBrand()"
-                    filled
-                    dense
-                    hide-details="auto"
-                    required
+                  label="Title"
+                  v-model="defaultBrand.title"
+                  :rules="xRules.text"
+                  :color="darkColor('primary')"
+                  @keyup.enter="postBrand()"
+                  filled
+                  dense
+                  hide-details="auto"
+                  required
                 ></v-text-field>
               </v-form>
             </v-col>
@@ -76,10 +75,10 @@
           ></v-btn>
 
           <v-btn
-              @click="postBrand()"
-              :color="darkColor('primary')"
-              :disabled="!validBrand"
-              depressed
+            @click="postBrand()"
+            class="primary-gradient-color"
+            :disabled="!validBrand"
+            depressed
           >
             <v-icon v-text="'mdi-check'" />
             <span v-text="'Add brand'" />

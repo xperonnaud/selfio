@@ -13,13 +13,13 @@
         <v-list-item-icon v-bind:class="[{'mr-7':!isMobile}]">
           <v-icon
             v-text="'mdi-cogs'"
-            :color="darkColor('red')"
+            class="primary-gradient-color-text"
             :size="24"
           ></v-icon>
         </v-list-item-icon>
 
         <v-list-item-content>
-          <v-list-item-title class="text-h5" v-text="'Cosmic Gear'" />
+          <v-list-item-title class="text-h5 primary-gradient-color-text" v-text="'Cosmic Gear'" />
         </v-list-item-content>
       </v-list-item>
     </template>
@@ -28,12 +28,12 @@
 
     <template v-for="item in navigationRoutes">
       <v-list-item
-          v-if="(navigationItems[item].type === 'app') || (navigationItems[item].type === 'items')"
-          :key="navigationItems[item].title"
-          :to="{ name: item }"
-          link
-          dense
-          :active-class="darkColorText(navigationItems[item].color)"
+        v-if="(navigationItems[item].type === 'app') || (navigationItems[item].type === 'items')"
+        :key="navigationItems[item].title"
+        :to="{ name: item }"
+        link
+        dense
+        :active-class="darkColorText(navigationItems[item].color)"
       >
         <v-list-item-icon>
           <v-icon v-text="navigationItems[item].icon" :color="darkColor(navigationItems[item].color)" />
@@ -55,11 +55,12 @@
             || (navigationItems[item].type === 'account')"
           :key="navigationItems[item].title"
           :to="{ name: item }"
+          active-class="primary-gradient-color-text"
           link
           dense
       >
         <v-list-item-icon>
-          <v-icon v-text="navigationItems[item].icon" :color="darkColor(navigationItems[item].color)" />
+          <v-icon v-text="navigationItems[item].icon" />
         </v-list-item-icon>
 
         <v-list-item-content>
@@ -70,9 +71,14 @@
 
     <v-divider v-bind:class="[(isMobile ? 'my-1' : 'my-2')]" />
 
-    <v-list-item link dense @click.stop="toggleTheme()">
+    <v-list-item
+      active-class="primary-gradient-color-text"
+      link
+      dense
+      @click.stop="toggleTheme()"
+    >
       <v-list-item-icon>
-        <v-icon v-text="'mdi-theme-light-dark'" :color="darkColor()" />
+        <v-icon v-text="'mdi-theme-light-dark'" />
       </v-list-item-icon>
 
       <v-list-item-content>

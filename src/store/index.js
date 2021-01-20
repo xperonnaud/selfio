@@ -79,6 +79,7 @@ export default new Vuex.Store({
                 'tags',
                 'import_export',
                 'settings',
+                'feedback',
                 'info',
             ],
             navigationItems: {
@@ -123,6 +124,11 @@ export default new Vuex.Store({
                 settings: {
                     title: 'Settings',
                     icon: 'mdi-cog',
+                    type: 'settings',
+                },
+                feedback: {
+                    title: 'Feedback',
+                    icon: 'mdi-comment-text',
                     type: 'settings',
                 },
                 import_export: {

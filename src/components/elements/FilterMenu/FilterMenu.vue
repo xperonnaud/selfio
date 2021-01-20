@@ -63,7 +63,7 @@
           <v-btn
             @click="closeFilterMenu()"
             text
-            :color="darkColor('primary')"
+            class="primary-gradient-color-text"
             icon
           >
             <v-icon v-text="'mdi-check'" />

@@ -42,23 +42,26 @@
 
               <v-col cols="12" class="py-0">
                 <v-btn
-                  :color="darkColor('primary')"
                   block
                   large
-                  class="elevation-0"
+                  class="elevation-0 primary-gradient-color"
                   @click="login()"
                   @keyup.enter="login()"
                   :disabled="!valid || isLoading"
                   :loading="isLoading"
                 >
                   <v-icon left color="black" v-text="'mdi-login'" />
-                  <span :class="valid ? 'black--text' : 'text-disabled'" v-text="'Login'" />
+                  <span
+                    v-bind:class="[
+                      valid ? 'black--text' : 'text-disabled'
+                    ]"
+                    v-text="'Login'"
+                  ></span>
                 </v-btn>
               </v-col>
 
               <v-col cols="12" class="py-0">
                 <v-btn
-                  :color="darkColor('primary')"
                   block
                   text
                   small
@@ -66,7 +69,7 @@
                   @click="forgotPassword()"
                   :disabled="!valid || isLoading"
                 >
-                  <span class="text-tiny" v-text="'Forgot password ?'" />
+                  <span class="text-tiny primary-gradient-color-text" v-text="'Forgot password ?'" />
                 </v-btn>
               </v-col>
 
