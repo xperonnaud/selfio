@@ -4,7 +4,7 @@
       :label="label"
       v-model="pickerValue"
       :items="items"
-      :color="navItemColor(route)"
+      color="primary"
       :item-color="navItemColor(route)"
       hide-details="auto"
       filled

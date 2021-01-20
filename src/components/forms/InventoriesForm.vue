@@ -39,7 +39,7 @@
                         <v-text-field
                           label="Title"
                           v-model="updatedItem.title"
-                          :color="currentColor"
+                          color="primary"
                           :rules="xRules.text"
                           filled
                           dense
@@ -190,7 +190,7 @@
                                       height="30"
                                       v-bind:class="[
                                         'x-avatar',
-                                        'my-0 mx-3',
+                                        'my-0 ml-3 mr-1',
                                         getReversedVuetifyColor(gearTypeStat.id)
                                       ]"
                                     >
@@ -207,7 +207,7 @@
                                       ></v-icon>
                                     </v-list-item-avatar>
 
-                                    <v-list-item-title>
+                                    <v-list-item-title class="mb-1">
                                       <div class="d-flex">
                                         <div class="text-caption" style="width: 80px;">
                                           <div v-if="gearTypeStat.id && objFilter(gearTypes, 'id', parseInt(gearTypeStat.id))[0]"
@@ -245,6 +245,7 @@
                                         :color="getVuetifyColor((gearTypeStat.id ? gearTypeStat.id : 0))"
                                         :height="3"
                                         :background-color="xProgressColor"
+                                        class="rounded"
                                       ></v-progress-linear>
                                     </v-list-item-title>
                                   </v-list-item>
@@ -315,7 +316,7 @@
               <v-text-field
                 label="Title"
                 v-model="updatedItem.title"
-                :color="currentColor"
+                color="primary"
                 :rules="xRules.text"
                 filled
                 dense
@@ -328,7 +329,7 @@
               <v-textarea
                 label="Description"
                 v-model="updatedItem.description"
-                :color="currentColor"
+                color="primary"
                 filled
                 dense
                 hide-details="auto"
@@ -451,7 +452,7 @@
                               height="30"
                               v-bind:class="[
                                 'x-avatar',
-                                'my-0 mx-3',
+                                'my-0 ml-3 mr-1',
                                 getReversedVuetifyColor(gearTypeId)
                               ]"
                             >
@@ -467,7 +468,7 @@
                               />
                             </v-list-item-avatar>
 
-                            <v-list-item-title>
+                            <v-list-item-title class="mb-1">
                               <div class="d-flex">
                                 <div class="text-caption" style="width: 80px;">
                                   <div
@@ -510,6 +511,7 @@
                                 :color="getVuetifyColor((gearTypeId ? gearTypeId : 0))"
                                 :height="6"
                                 :background-color="xProgressColor"
+                                class="rounded"
                               ></v-progress-linear>
                             </v-list-item-title>
                           </v-list-item>

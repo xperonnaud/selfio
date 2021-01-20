@@ -31,10 +31,6 @@
       isIcon: {
         type: Boolean,
         default: false
-      },
-      isSmall: {
-        type: Boolean,
-        default: false
       }
     }
   }

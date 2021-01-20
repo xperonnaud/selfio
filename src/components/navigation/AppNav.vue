@@ -19,7 +19,7 @@
         </v-list-item-icon>
 
         <v-list-item-content>
-          <v-list-item-title class="text-h5 primary-gradient-color-text" v-text="'Cosmic Gear'" />
+          <v-list-item-title class="text-h5" v-text="'Cosmic Gear'" />
         </v-list-item-content>
       </v-list-item>
     </template>

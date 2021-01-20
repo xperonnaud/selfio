@@ -8,10 +8,10 @@ const vuetify = new Vuetify({
     theme: {
         themes: {
             light: {
-                primary: '#FF9800',
+                primary: '#000000',
             },
             dark: {
-                primary: '#FF9800',
+                primary: '#FFFFFF',
             }
         }
     }

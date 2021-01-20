@@ -32,6 +32,9 @@ export default {
         xInputColor() {
             return (this.isDark ? '#141414' : '#E0E0E0');
         },
+        shadeColor() {
+            return (this.isDark ? 'white' : 'black');
+        },
         fontShadeColor() {
             return (this.isDark ? 'white--text' : 'black--text');
         },
@@ -205,10 +208,10 @@ export default {
             return this.darkColorText(this.navigationItems[item].color);
         },
         activityColor(color = 'blue-grey') {
-            return (this.isDark ? color+' lighten-1' : color+' darken-2');
+            return (this.isDark ? color+' darken-1' : color);
         },
         reversedActivityColor(color = 'blue-grey') {
-            return (this.isDark ? color+' darken-4' : color+' lighten-3');
+            return (this.isDark ? color+' darken-3' : color+' lighten-3');
         },
         getRandomColor() {
             let letters = '0123456789ABCDEF';

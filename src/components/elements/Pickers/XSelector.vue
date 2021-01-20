@@ -208,10 +208,10 @@
     .selector-card {
 
       &.selected {
-        border: 1px solid #FF9800 !important;
+        border: 1px solid #000 !important;
 
         &.is-dark {
-          border: 1px solid #FF9800 !important;
+          border: 1px solid #FFF !important;
         }
       }
 

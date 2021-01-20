@@ -12,7 +12,7 @@
 
     <v-toolbar-title
       v-bind:class="[
-        currentColorText === 'black--text' ? currentColorText : 'primary-gradient-color-text',
+        (isItemRoute ? currentColorText : 'primary-gradient-color-text'),
         'pl-0'
       ]"
     >
@@ -32,7 +32,7 @@
           hide-details="auto"
           clearable
           small
-          :color="currentColor"
+          :color="shadeColor"
           style="max-width: 222px;"
         ></v-text-field>
       </v-expand-x-transition>
@@ -64,18 +64,19 @@
         v-bind:class="['px-2 ml-3 mr-1 elevation-0 primary-gradient-color']"
         @click="brandPostDialog = !brandPostDialog"
         fab
-        small
+        :width="48"
+        :height="48"
       >
         <v-icon v-bind:class="[reversedFontShadeColor]" v-text="'mdi-plus'" />
       </v-btn>
 
       <v-dialog
-          v-if="!isMobile && isConfigurationRoute"
-          v-model="brandPostDialog"
-          max-width="750px"
-          :hide-overlay="isMobile"
-          :transition="isMobile ? 'slide-x-transition' : 'fade-transition'"
-          persistent
+        v-if="!isMobile && isConfigurationRoute"
+        v-model="brandPostDialog"
+        max-width="750px"
+        :hide-overlay="isMobile"
+        :transition="isMobile ? 'slide-x-transition' : 'fade-transition'"
+        persistent
       >
         <v-card
             v-bind:class="[

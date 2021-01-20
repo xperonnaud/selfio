@@ -318,7 +318,10 @@ export default {
         },
         clearMenuFilters() {
             this.$store.commit("updateUiItemSearch", '');
+            this.$store.commit("updateUiItemOwned", null);
+            this.$store.commit("updateUiItemLocation", null);
             this.$store.commit("updateUiItemTag", null);
+            this.$store.commit("updateUiItemQuantityOwned", null);
             this.$store.commit("updateUiItemGearType", null);
             this.$store.commit("updateUiItemGearState", null);
             this.$store.commit("updateUiItemGearBrand", null);

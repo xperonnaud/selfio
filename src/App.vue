@@ -260,11 +260,21 @@
   }
 
   .primary-gradient-color {
-    background-image: linear-gradient(45deg, #FFB300, #F4511E);
+    background-image: linear-gradient(45deg, #FFA000, #E64A19);
   }
 
   .primary-gradient-color-text {
-    background: -webkit-linear-gradient(45deg, #F4511E, #FFB300);
+    background: -webkit-linear-gradient(45deg, #E64A19, #FFA000);
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .gear-gradient-color {
+    background-image: linear-gradient(45deg, #2196F3, #0D47A1);
+  }
+
+  .gear-gradient-color-text {
+    background: -webkit-linear-gradient(45deg, #0D47A1, #2196F3);
     -webkit-background-clip: text !important;
     -webkit-text-fill-color: transparent;
   }
@@ -277,6 +287,16 @@
 
     .primary-gradient-color-text {
       background: -webkit-linear-gradient(45deg, #FF5722, #FFC107);
+      -webkit-background-clip: text !important;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .gear-gradient-color {
+      background-image: linear-gradient(45deg, #BBDEFB, #2196F3);
+    }
+
+    .gear-gradient-color-text {
+      background: -webkit-linear-gradient(45deg, #2196F3, #BBDEFB);
       -webkit-background-clip: text !important;
       -webkit-text-fill-color: transparent;
     }

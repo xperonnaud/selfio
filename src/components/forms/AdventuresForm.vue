@@ -115,6 +115,7 @@
                                       :color="navItemColor('inventories')"
                                       :background-color="xProgressColor"
                                       :height="3"
+                                      class="rounded"
                                     ></v-progress-linear>
                                   </v-list-item-subtitle>
                                 </v-list-item-content>

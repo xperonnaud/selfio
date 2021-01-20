@@ -37,7 +37,7 @@
                 label="Password"
                 v-model="newPassword"
                 :rules="xRules.password"
-                :color="darkColor('primary')"
+                :color="shadeColor"
                 type="password"
                 filled
                 dense
@@ -51,7 +51,7 @@
                   label="Password confirmation"
                   v-model="newPasswordConfirmation"
                   :rules="xRules.password"
-                  :color="darkColor('primary')"
+                  :color="shadeColor"
                   type="password"
                   filled
                   dense
