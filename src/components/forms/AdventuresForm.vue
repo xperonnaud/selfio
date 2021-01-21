@@ -29,11 +29,11 @@
           <span v-text="'Weather'" />
         </v-tab>
 
-        <v-tabs-items v-model="tab">
+        <v-tabs-items v-model="tab" :style="xBackgroundStyleColorStr">
           <v-tab-item :key="'adventure-general'">
             <v-responsive
               class="overflow-y-auto"
-              :max-height="maxDialogContentHeight"
+              :height="maxDialogContentHeight"
             >
               <v-card flat :color="xBackgroundColor">
                 <v-card-text>
@@ -180,7 +180,7 @@
           <v-tab-item :key="'adventure-calendar'">
             <v-responsive
               class="overflow-y-auto"
-              :max-height="maxDialogContentHeight"
+              :height="maxDialogContentHeight"
             >
               <v-card flat :color="xBackgroundColor">
                 <v-card-text>
@@ -222,7 +222,7 @@
           <v-tab-item :key="'adventure-location'">
             <v-responsive
               class="overflow-y-auto"
-              :max-height="maxDialogContentHeight"
+              :height="maxDialogContentHeight"
             >
               <v-card flat :color="xBackgroundColor">
                 <v-card-text>
@@ -283,7 +283,7 @@
           <v-tab-item :key="'adventure-weather'">
             <v-responsive
               class="overflow-y-auto"
-              :max-height="maxDialogContentHeight"
+              :height="maxDialogContentHeight"
             >
               <v-card flat :color="xBackgroundColor">
                 <v-card-text>

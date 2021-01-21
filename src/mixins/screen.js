@@ -26,6 +26,9 @@ export default {
         xCardColor() {
             return (this.isDark ? 'grey darken-4' : 'white');
         },
+        xBackgroundStyleColorStr() {
+            return 'background-color: #'+(this.isDark ? '000000' : 'eeeeee');
+        },
         xBackgroundColor() {
             return (this.isDark ? 'black' : 'grey lighten-3');
         },
@@ -215,7 +218,7 @@ export default {
             return this.darkColorText(this.navigationItems[item].color);
         },
         activityColor(color = 'blue-grey') {
-            return (this.isDark ? color+' darken-1' : color);
+            return (this.isDark ? color+' darken-1' : color+' lighten-1');
         },
         reversedActivityColor(color = 'blue-grey') {
             return (this.isDark ? color+' darken-3' : color+' lighten-3');
@@ -287,7 +290,8 @@ export default {
                 + (m !== 0 ? '<span class="text-tiny-dimmed">'+(this.isMobile ? 'min' : 'min')+(m > 1 ? 's' : '')+'</span>' : '')
             );
         },
-        initWindowHeight() {
+        initScreenHeight() {
+            console.log('window.innerHeight',window.innerHeight)
             this.windowHeight = (window.innerHeight - 92);
         },
     }

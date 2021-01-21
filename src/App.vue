@@ -96,6 +96,7 @@
         this.$router.push('home');
 
       this.isMounted = true;
+      this.initScreenHeight();
     }
   };
 

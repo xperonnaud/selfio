@@ -265,7 +265,6 @@ export default new Vuex.Store({
         patchGear(state, payload) {
             let gearIndex = payload.index;
             let gear = payload.data;
-            console.log('patchGear',gearIndex,gear);
             Vue.set(state.selfio.gear, gearIndex, gear);
         },
         addGear(state, gear) {

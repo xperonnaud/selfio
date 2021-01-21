@@ -21,11 +21,11 @@
           <span v-text="'Purchase'" />
         </v-tab>
 
-        <v-tabs-items v-model="tab">
+        <v-tabs-items v-model="tab" :style="xBackgroundStyleColorStr">
           <v-tab-item :key="'gear-general'">
             <v-responsive
               class="overflow-y-auto"
-              :max-height="maxDialogContentHeight"
+              :height="maxDialogContentHeight"
             >
               <v-card flat :color="xBackgroundColor">
                 <v-card-text>
@@ -62,6 +62,19 @@
                     </v-col>
 
                     <v-col cols="12">
+                      <v-text-field
+                        label="Weight"
+                        v-model="updatedItem.weight"
+                        :rules="xRules.integer"
+                        :color="currentColor"
+                        hide-details="auto"
+                        :suffix="weightUnit"
+                        dense
+                        filled
+                      ></v-text-field>
+                    </v-col>
+
+                    <v-col cols="12">
                       <x-increment
                         label="Quantity owned"
                         v-bind:value.sync="updatedItem.quantity_owned"
@@ -89,7 +102,7 @@
           <v-tab-item :key="'gear-purchase'">
             <v-responsive
               class="overflow-y-auto"
-              :max-height="maxDialogContentHeight"
+              :height="maxDialogContentHeight"
             >
               <v-card flat :color="xBackgroundColor">
                 <v-card-text>
@@ -138,14 +151,14 @@
 
                     <v-col cols="12">
                       <v-text-field
-                          label="Price"
-                          v-model="updatedItem.price"
-                          :rules="xRules.decimal"
-                          :color="currentColor"
-                          filled
-                          dense
-                          hide-details="auto"
-                          :suffix="priceUnit"
+                        label="Price"
+                        v-model="updatedItem.price"
+                        :rules="xRules.decimal"
+                        :color="currentColor"
+                        filled
+                        dense
+                        hide-details="auto"
+                        :suffix="priceUnit"
                       ></v-text-field>
                     </v-col>
 

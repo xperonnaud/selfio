@@ -77,6 +77,7 @@
         <v-icon
           v-if="item.consumable"
           v-text="'mdi-apple'"
+          color="green"
           style="margin-bottom: 3px;"
           small
         ></v-icon>
