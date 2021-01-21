@@ -19,7 +19,7 @@
 
       <v-col v-if="isMobile" class="x-col">
         <div v-if="item.weight">
-          <span class="text-caption" v-text="item.weight" />
+          <span class="text-caption">{{ item.weight | weightUnitFilter(weightUnit) }}</span>
           <span class="text-tiny-dimmed" v-text="weightUnit" />
         </div>
         <empty-data solo v-else />
@@ -28,7 +28,7 @@
       <template v-else>
         <v-col class="x-col">
           <div v-if="item.weight">
-            <span class="text-body-2" v-text="item.weight" />
+            <span class="text-body-2">{{ item.weight | weightUnitFilter(weightUnit) }}</span>
             <span class="text-tiny-dimmed" v-text="weightUnit" />
           </div>
           <empty-data solo v-else />

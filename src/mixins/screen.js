@@ -188,6 +188,12 @@ export default {
         },
     },
     methods: {
+        supWeightUnitConverter(weight) {
+            return this.$options.filters.supWeightUnitFilter(this.weightUnitConverter(weight), this.weightUnit);
+        },
+        weightUnitConverter(weight) {
+            return this.$options.filters.weightUnitFilter(weight, this.weightUnit);
+        },
         cardSize(size) {
             return (this.isMobile ? '100%' : (typeof size == 'number' ? size : 600));
         },

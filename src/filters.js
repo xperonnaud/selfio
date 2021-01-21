@@ -2,12 +2,36 @@
  import Vue from 'vue'
  import moment from "moment";
 
+ const gToKg = 0.001;
+ const gToOz = 0.035274;
+ const ozToLb = 0.0625;
+
  Vue.filter("capitalizeFilter", function (value) {
      if (!value) return '';
      return value.toLowerCase()
          .split(' ')
          .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
          .join(' ');
+ });
+
+ Vue.filter("weightUnitFilter", function (value, unit = 'g') {
+     if (!value) return '';
+
+     if(unit === 'g')
+        return value.toFixed(0).replace('.0','');
+
+     if(unit === 'oz')
+         return (value * gToOz).toFixed(1).replace('.0','');
+ });
+
+ Vue.filter("supWeightUnitFilter", function (value, unit = 'g') {
+     if (!value) return '';
+
+     if(unit === 'g')
+        return (value * gToKg).toFixed(1);
+
+     if(unit === 'oz')
+         return (value * ozToLb).toFixed(1);
  });
 
  Vue.filter("convertSpecialCharsFilter", function (value) {

@@ -126,15 +126,15 @@
                                       <x-divider />
 
                                       <div>
-                                        <span v-bind:class="[currentColorText]">{{ sumInventoryWeight(originalInventoryGear) | thousandthFilter }}</span>
-                                        <span v-text="' k'+weightUnit" />
+                                        <span v-bind:class="[currentColorText]">{{ sumInventoryWeight(originalInventoryGear) }}</span>
+                                        <span v-text="supWeightUnit" />
                                       </div>
 
                                       <x-divider />
 
                                       <div>
                                         <span v-bind:class="[currentColorText]">{{ sumInventoryPrice(originalInventoryGear) | thousandthFilter }}</span>
-                                        <span v-text="' k'+priceUnit" />
+                                        <span v-text="'k'+priceUnit" />
                                       </div>
                                     </div>
 
@@ -460,7 +460,7 @@
 
                             <v-col class="x-col">
                               <div v-if="xGear(gear.gear_id).weight">
-                                <span class="text-caption" v-text="xGear(gear.gear_id).weight" />
+                                <span class="text-caption">{{ xGear(gear.gear_id).weight | weightUnitFilter(weightUnit) }}</span>
                                 <span class="text-tiny-dimmed" v-text="weightUnit" />
                               </div>
                               <empty-data solo v-else />

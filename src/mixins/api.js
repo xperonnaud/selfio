@@ -1,5 +1,8 @@
 
 const axios = require('axios').default
+const gToKg = 0.001;
+const gToOz = 0.035274;
+const ozToLb = 0.0625;
 
 export default {
     computed: {
@@ -465,8 +468,13 @@ export default {
             if(gear.price === '')
                 gear.price = null;
 
-            if(gear.weight === '')
+            if(!gear.weight || gear.weight === '') {
                 gear.weight = null;
+
+            } else {
+                if(this.weightUnit === 'oz')
+                    gear.weight = (gear.weight / gToOz).toFixed(0)
+            }
 
             if(gear.quantity_owned === '')
                 gear.quantity_owned = null;
@@ -500,8 +508,13 @@ export default {
             if(gear.price === '')
                 gear.price = null;
 
-            if(gear.weight === '')
+            if(!gear.weight || gear.weight === '') {
                 gear.weight = null;
+
+            } else {
+                if(this.weightUnit === 'oz')
+                    gear.weight = (gear.weight / gToOz).toFixed(0)
+            }
 
             if(gear.quantity_owned === '')
                 gear.quantity_owned = null;
@@ -516,7 +529,6 @@ export default {
             )
             .then(async function (response) {
                 self.$store.commit("patchGear", { index: gearIndex, data: response.data.data });
-                // Object.assign(self.$store.state.selfio.gear[gearIndex], response.data.data);
                 await self.handleResponse('success', 'Gear updated');
 
             }).catch(async function (error) {

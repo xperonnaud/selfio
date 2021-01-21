@@ -13,19 +13,19 @@
         <div v-bind:class="['d-flex flex-wrap']">
           <template v-for="(item, index) in navigationRoutes">
             <v-card
-                v-if="navigationItems[item].type === 'items'"
-                :key="index"
-                v-bind:class="['shadow-bottom', (isMobile ? 'my-2' : 'mb-3 mr-3')]"
-                :width="cardSize(300)"
-                :color="xCardColor"
+              v-if="navigationItems[item].type === 'items'"
+              :key="index"
+              v-bind:class="['shadow-bottom', (isMobile ? 'my-2' : 'mb-3 mr-3')]"
+              :width="cardSize(300)"
+              :color="xCardColor"
             >
               <v-list>
                 <v-list-item two-line>
                   <v-list-item-avatar>
                     <v-icon
-                        :color="darkBackgroundText(navigationItems[item].color)"
-                        :class="[darkBackground(navigationItems[item].color)]"
-                        v-text="navigationItems[item].icon"
+                      :color="darkBackgroundText(navigationItems[item].color)"
+                      :class="[darkBackground(navigationItems[item].color)]"
+                      v-text="navigationItems[item].icon"
                     ></v-icon>
                   </v-list-item-avatar>
 
@@ -35,10 +35,10 @@
                   </v-list-item-content>
 
                   <v-list-item-action v-if="navigationItems[item].title !== 'Inventories'">
-                    <v-list-item-action-text class="text-subtitle-2">
+                    <v-list-item-action-text v-if="countersInitialized" class="text-subtitle-2">
                       <template v-if="navigationItems[item].title === 'Gear'">
-                        <span class="text-subtitle-2" v-text="totalPrice" />
-                        <span class="ml-1 text-caption" v-text="priceUnit" />
+                        <span class="text-subtitle-2">{{ totalWeight | weightUnitFilter(weightUnit) | supWeightUnitFilter(weightUnit) }}</span>
+                        <span class="ml-1 text-caption" v-text="supWeightUnit" />
                       </template>
 
                       <template v-if="navigationItems[item].title === 'Adventures'">
@@ -46,16 +46,21 @@
                         <span class="ml-1 text-caption" v-text="distanceUnit" />
                       </template>
                     </v-list-item-action-text>
+                    <v-skeleton-loader
+                        v-else
+                        :height="16"
+                        type="text"
+                    ></v-skeleton-loader>
 
-                    <v-list-item-action-text>
+                    <v-list-item-action-text v-if="countersInitialized">
                       <template v-if="navigationItems[item].title === 'Gear'">
-                        <span class="text-subtitle-2" v-text="totalWeight" />
-                        <span class="ml-1 text-caption" v-text="weightUnit" />
+                        <span class="text-subtitle-2" v-text="totalPrice" />
+                        <span class="ml-2 text-caption" v-text="priceUnit" />
                       </template>
 
                       <template v-if="navigationItems[item].title === 'Adventures'">
                         <span class="text-subtitle-2" v-text="totalElevation" />
-                        <span class="ml-1 text-caption" v-text="elevationUnit" />
+                        <span class="ml-2 text-caption" v-text="elevationUnit" />
                       </template>
                     </v-list-item-action-text>
                   </v-list-item-action>
@@ -76,6 +81,8 @@
     name: "home",
     data: () => ({
       isMounted: false,
+      countersInitialized: false,
+
       nbInventoryGear: 0,
       totalPrice: 0,
       totalWeight: 0,
@@ -122,6 +129,9 @@
       async initCounters() {
         await this.initGearTotals();
         await this.initAdventureTotals();
+
+        if(!this.countersInitialized)
+          this.countersInitialized = true;
       },
       countItems(title) {
         if(title === 'Gear')

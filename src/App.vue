@@ -29,7 +29,6 @@
 
 <script>
 
-  import AppBody from '@/components/app/AppBody';
   import SnackBar from "@/components/elements/SnackBar";
 
   export default {
@@ -37,7 +36,7 @@
     components: {
       AppHeader: () => import('@/components/app/AppHeader'),
       AppNav: () => import('@/components/navigation/AppNav'),
-      AppBody,
+      AppBody: () => import('@/components/app/AppBody'),
       AppFooter: () => import('@/components/app/AppFooter'),
       SnackBar,
     },

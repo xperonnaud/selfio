@@ -24,8 +24,8 @@
 
         <v-col class="x-col">
           <div>
-            <span class="text-body-2">{{ sumInventoryWeight(item.inventory_gear) | thousandthFilter }}</span>
-            <span class="text-tiny-dimmed" v-text="'k'+weightUnit" />
+            <span class="text-body-2">{{ sumInventoryWeight(item.inventory_gear) }}</span>
+            <span class="text-tiny-dimmed" v-text="supWeightUnit" />
           </div>
         </v-col>
 

@@ -65,7 +65,7 @@
                       <v-text-field
                         label="Weight"
                         v-model="updatedItem.weight"
-                        :rules="xRules.integer"
+                        :rules="xRules.decimal"
                         :color="currentColor"
                         hide-details="auto"
                         :suffix="weightUnit"
@@ -328,8 +328,11 @@
           if(typeof this.item.price == 'undefined' || !this.item.price)
             Vue.set(this.updatedItem, 'price', null);
 
-          if(typeof this.item.weight == 'undefined' || !this.item.weight)
+          if(typeof this.item.weight == 'undefined' || !this.item.weight) {
             Vue.set(this.updatedItem, 'weight', null);
+          } else {
+            Vue.set(this.updatedItem, 'weight', this.weightUnitConverter(this.item.weight));
+          }
 
           if(typeof this.item.quantity_owned == 'undefined' || !this.item.quantity_owned)
             Vue.set(this.updatedItem, 'quantity_owned', 1);

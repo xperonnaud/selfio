@@ -132,6 +132,18 @@ export default {
                 return 'g'
             },
         },
+        supWeightUnit() {
+            switch(this.weightUnit) {
+                case 'g':
+                    return 'kg'
+
+                case 'oz':
+                    return 'lb'
+
+                default:
+                    return 'g'
+            }
+        },
         priceUnit: {
             get() {
                 if(this.preferences && this.preferences.price_unit)
@@ -381,7 +393,8 @@ export default {
             return this.sumInventoryProperty(inventoryGear, 'price').toFixed(2);
         },
         sumInventoryWeight(inventoryGear) {
-            return this.sumInventoryProperty(inventoryGear, 'weight').toFixed(0);
+            let sum = this.sumInventoryProperty(inventoryGear, 'weight')
+            return this.supWeightUnitConverter(sum);
         },
         randomId(length = 16) {
             let result = '';

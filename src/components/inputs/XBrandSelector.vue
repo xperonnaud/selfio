@@ -59,11 +59,11 @@
       }
     },
     watch: {
-      value(val) {console.log('wwwtf',val);
+      value(val) {
         if(this.isMounted)
           this.brandValue = val;
       },
-      brandValue(val) {console.log('wtf',val);
+      brandValue(val) {
         if(this.isMounted)
           this.$emit('update:value',val);
       },

@@ -70,9 +70,9 @@
                             <x-divider />
 
                             <div>
-                              <span v-if="item.inventory_gear" v-bind:class="[currentColorText]">{{ inventoryTotalWeight | thousandthFilter }}</span>
+                              <span v-if="item.inventory_gear" v-bind:class="[currentColorText]">{{ inventoryTotalWeight | weightUnitFilter(weightUnit) | supWeightUnitFilter(weightUnit) }}</span>
                               <span v-else v-bind:class="[currentColorText]" v-text="'0'" />
-                              <span v-text="' k'+weightUnit" />
+                              <span v-text="supWeightUnit" />
                             </div>
 
                             <x-divider />
@@ -80,7 +80,7 @@
                             <div>
                               <span v-if="item.inventory_gear" v-bind:class="[currentColorText]">{{ inventoryTotalPrice | thousandthFilter }}</span>
                               <span v-else v-bind:class="[currentColorText]" v-text="'0'" />
-                              <span v-text="' k'+priceUnit" />
+                              <span v-text="'k'+priceUnit" />
                             </div>
                           </div>
 
@@ -171,8 +171,8 @@
                                           <x-divider />
 
                                           <div>
-                                            <span class="text-tiny" v-text="gearTypeStat.weight" />
-                                            <span class="text-tiny-dimmed" v-text="weightUnit" />
+                                            <span class="text-tiny">{{ gearTypeStat.weight | weightUnitFilter(weightUnit) | supWeightUnitFilter(weightUnit) }}</span>
+                                            <span class="text-tiny-dimmed" v-text="supWeightUnit" />
                                           </div>
                                         </div>
 
@@ -285,9 +285,9 @@
                             <x-divider />
 
                             <div>
-                              <span v-if="item.inventory_gear" v-bind:class="[currentColorText]">{{ inventoryTotalWeight | thousandthFilter }}</span>
-                              <span v-else v-bind:class="[currentColorText]">0</span>
-                              <span v-text="' k'+weightUnit" />
+                              <span v-if="item.inventory_gear" v-bind:class="[currentColorText]">{{ inventoryTotalWeight | weightUnitFilter(weightUnit) | supWeightUnitFilter(weightUnit) }}</span>
+                              <span v-else v-bind:class="[currentColorText]" v-text="'0'" />
+                              <span v-text="supWeightUnit" />
                             </div>
 
                             <x-divider />
@@ -407,7 +407,7 @@
                                             <x-divider />
 
                                             <div>
-                                              <span class="text-tiny" v-text="gearTypeStat.weight" />
+                                              <span class="text-tiny">{{ gearTypeStat.weight | weightUnitFilter(weightUnit) }}</span>
                                               <span class="text-tiny-dimmed" v-text="weightUnit" />
                                             </div>
                                           </div>
@@ -509,226 +509,6 @@
       </v-expand-transition>
 
       <v-expand-transition>
-<!--        <v-responsive-->
-<!--          class="overflow-y-auto"-->
-<!--          :max-height="desktopMaxHeight"-->
-<!--        >-->
-<!--          <v-row v-if="!isMobile" v-show="!isEditing">-->
-<!--            <v-col cols="12">-->
-<!--              <v-text-field-->
-<!--                label="Title"-->
-<!--                v-model="updatedItem.title"-->
-<!--                color="primary"-->
-<!--                :rules="xRules.text"-->
-<!--                filled-->
-<!--                dense-->
-<!--                hide-details="auto"-->
-<!--                required-->
-<!--              ></v-text-field>-->
-<!--            </v-col>-->
-
-<!--            <v-col cols="12">-->
-<!--              <v-textarea-->
-<!--                label="Description"-->
-<!--                v-model="updatedItem.description"-->
-<!--                color="primary"-->
-<!--                filled-->
-<!--                dense-->
-<!--                hide-details="auto"-->
-<!--                auto-grow-->
-<!--                rows="1"-->
-<!--              ></v-textarea>-->
-<!--            </v-col>-->
-
-<!--            <v-col cols="12">-->
-<!--              <x-combobox-->
-<!--                label="Tags"-->
-<!--                v-bind:value.sync="updatedItem.tags"-->
-<!--                v-bind:items="preferences.inventory_tags"-->
-<!--                v-bind:route="'inventories'"-->
-<!--              ></x-combobox>-->
-<!--            </v-col>-->
-
-<!--            <v-col cols="12">-->
-<!--              <v-toolbar dense flat class="elevation-0" :color="xTabsColor">-->
-<!--                <v-toolbar-title class="text-body-1" v-text="'Gear List'" />-->
-
-<!--                <div-->
-<!--                  v-show="currentInventoryGear.length <= 0"-->
-<!--                  class="mx-1 text-tiny-dimmed"-->
-<!--                  v-text="'(empty)'"-->
-<!--                />-->
-
-<!--                <v-spacer />-->
-
-<!--                <div v-if="item" class="d-flex">-->
-<!--                  <div>-->
-<!--                    <span-->
-<!--                      v-bind:class="[currentColorText]"-->
-<!--                      v-text="inventoryTotalItems"-->
-<!--                    ></span>-->
-<!--                    <span v-text="' Item'+(inventoryTotalItems>1?'s':'')" />-->
-<!--                  </div>-->
-
-<!--                  <x-divider />-->
-
-<!--                  <div>-->
-<!--                    <span v-if="item.inventory_gear" v-bind:class="[currentColorText]">{{ inventoryTotalWeight | thousandthFilter }}</span>-->
-<!--                    <span v-else v-bind:class="[currentColorText]">0</span>-->
-<!--                    <span v-text="' k'+weightUnit" />-->
-<!--                  </div>-->
-
-<!--                  <x-divider />-->
-
-<!--                  <div>-->
-<!--                    <span v-if="item.inventory_gear" v-bind:class="[currentColorText]">{{ inventoryTotalPrice | thousandthFilter }}</span>-->
-<!--                    <span v-else v-bind:class="[currentColorText]">0</span>-->
-<!--                    <span v-text="' k'+priceUnit" />-->
-<!--                  </div>-->
-<!--                </div>-->
-
-<!--                <v-spacer />-->
-
-<!--                <v-btn-->
-<!--                  small-->
-<!--                  v-bind:class="[reversedFontShadeColor, 'elevation-0', 'primary-gradient-color']"-->
-<!--                  @click.stop="editInventory()"-->
-<!--                >-->
-<!--                  <v-icon-->
-<!--                    size="18"-->
-<!--                    v-text="'mdi-pencil'"-->
-<!--                    class="mr-1"-->
-<!--                  />-->
-<!--                  <span v-text="'edit'" />-->
-<!--                </v-btn>-->
-<!--              </v-toolbar>-->
-
-<!--              <v-divider />-->
-
-<!--              <v-sheet class="elevation-0">-->
-<!--                <empty-list-->
-<!--                  v-show="currentInventoryGear.length <= 0"-->
-<!--                  label="Add Gear"-->
-<!--                  icon="mdi-pickaxe"-->
-<!--                  :color="navItemColor('gear')"-->
-<!--                ></empty-list>-->
-
-<!--                <v-row v-show="inventoryGearList.length > 0">-->
-<!--                  <v-col cols="5">-->
-<!--                    <x-pie-chart-->
-<!--                      v-if="isMounted && !isLoadingPieData && !isEditing && pieChart.labels.length > 0 && pieChart.datasets.length > 0"-->
-<!--                      :key="`pie-chart-${updatedItem.title}-${gearTypeStats.length}`"-->
-<!--                      :labels="pieChart.labels"-->
-<!--                      :datasets="pieChart.datasets"-->
-<!--                      style="max-height: 230px !important; margin-top: 46px !important;"-->
-<!--                    ></x-pie-chart>-->
-
-<!--                    <v-card-->
-<!--                      v-else-->
-<!--                      class="pa-6 d-flex justify-center align-center elevation-0"-->
-<!--                      style="height: 230px; margin-top: 46px !important;"-->
-<!--                    >-->
-<!--                      <v-progress-circular-->
-<!--                        indeterminate-->
-<!--                        size="48"-->
-<!--                        :color="currentColor"-->
-<!--                      ></v-progress-circular>-->
-<!--                    </v-card>-->
-<!--                  </v-col>-->
-
-<!--                  <v-col cols="7">-->
-<!--                    <v-responsive-->
-<!--                      class="overflow-y-auto pr-3 "-->
-<!--                      :height="330"-->
-<!--                    >-->
-<!--                      <v-list-->
-<!--                        class="pa-0"-->
-<!--                        one-line-->
-<!--                        dense-->
-<!--                      >-->
-<!--                        <template v-for="(gearTypeStat, gearTypeId) in gearTypeStats">-->
-<!--                          <v-list-item :key="`gear-type-stat-${gearTypeId}`" class="pa-0" style="min-height: 36px;">-->
-<!--                            <v-list-item-avatar-->
-<!--                              width="30"-->
-<!--                              min-width="30"-->
-<!--                              height="30"-->
-<!--                              v-bind:class="[-->
-<!--                                'x-avatar',-->
-<!--                                'my-0 ml-3 mr-1',-->
-<!--                                getReversedVuetifyColor(gearTypeId)-->
-<!--                              ]"-->
-<!--                            >-->
-<!--                              <x-img-->
-<!--                                v-if="gearTypeId && xGearType(gearTypeId) && objFilter(gearTypes, 'id', parseInt(gearTypeId))[0]"-->
-<!--                                :src="objFilter(gearTypes, 'id', parseInt(gearTypeId))[0].icon.data.full_url"-->
-<!--                                :tooltipText="xGearType(gearTypeId).title"-->
-<!--                                isCategory-->
-<!--                              />-->
-<!--                              <v-icon-->
-<!--                                v-else-->
-<!--                                v-text="'mdi-help-rhombus'"-->
-<!--                              />-->
-<!--                            </v-list-item-avatar>-->
-
-<!--                            <v-list-item-title class="mb-1">-->
-<!--                              <div class="d-flex">-->
-<!--                                <div class="text-caption" style="width: 80px;">-->
-<!--                                  <div-->
-<!--                                    v-if="gearTypeId && objFilter(gearTypes, 'id', parseInt(gearTypeId))[0]"-->
-<!--                                  >{{ objFilter(gearTypes, 'id', parseInt(gearTypeId))[0].title }}</div>-->
-<!--                                  <div-->
-<!--                                      v-else-->
-<!--                                      v-text="'unknown'"-->
-<!--                                  ></div>-->
-<!--                                </div>-->
-
-<!--                                <div class="d-flex font-weight-regular text-caption">-->
-
-<!--                                  <x-divider />-->
-
-<!--                                  <div>-->
-<!--                                    <span class="text-tiny" v-text="gearTypeStat.items" />-->
-<!--                                    <span class="text-tiny-dimmed" v-text="' item'" />-->
-<!--                                    <span class="text-tiny-dimmed" v-show="gearTypeStat.items > 1" v-text="'s'" />-->
-<!--                                  </div>-->
-
-<!--                                  <x-divider />-->
-
-<!--                                  <div>-->
-<!--                                    <span class="text-tiny" v-text="gearTypeStat.weight" />-->
-<!--                                    <span class="text-tiny-dimmed" v-text="weightUnit" />-->
-<!--                                  </div>-->
-<!--                                </div>-->
-
-<!--                                <v-spacer />-->
-
-<!--                                <div class="float-right">-->
-<!--                                  <span class="text-caption">{{ gearTypeStat.weight | percentageFilter(inventoryGearList, inventoryTotalWeight) }}</span>-->
-<!--                                  <span class="text-tiny-dimmed" v-text="'%'" />-->
-<!--                                </div>-->
-<!--                              </div>-->
-
-<!--                              <v-progress-linear-->
-<!--                                :value="gearTypeStat.weight | percentageFilter(inventoryGearList, inventoryTotalWeight)"-->
-<!--                                :color="getVuetifyColor((gearTypeId ? gearTypeId : 0))"-->
-<!--                                :height="6"-->
-<!--                                :background-color="xProgressColor"-->
-<!--                                class="rounded"-->
-<!--                              ></v-progress-linear>-->
-<!--                            </v-list-item-title>-->
-<!--                          </v-list-item>-->
-<!--                        </template>-->
-<!--                      </v-list>-->
-<!--                    </v-responsive>-->
-<!--                  </v-col>-->
-<!--                </v-row>-->
-<!--              </v-sheet>-->
-<!--            </v-col>-->
-<!--          </v-row>-->
-<!--        </v-responsive>-->
-      </v-expand-transition>
-
-      <v-expand-transition>
         <v-row v-show="isEditing">
           <v-col cols="12" class="pa-0">
               <v-card class="mx-auto" flat :color="xBackgroundColor">
@@ -755,8 +535,8 @@
                       <x-divider />
 
                       <div>
-                        <span v-bind:class="[currentColorText]">{{ inventoryTotalWeight | thousandthFilter }}</span>
-                        <span v-text="' k'+weightUnit" class="text-tiny" />
+                        <span v-bind:class="[currentColorText]">{{ inventoryTotalWeight | weightUnitFilter(weightUnit) | supWeightUnitFilter(weightUnit) }}</span>
+                        <span v-text="supWeightUnit" class="text-tiny" />
                       </div>
                     </div>
 
@@ -902,7 +682,7 @@
 
                                 <v-col class="x-col">
                                   <div v-if="gear.weight">
-                                    <span class="text-caption" v-text="gear.weight" />
+                                    <span class="text-caption">{{ gear.weight | weightUnitFilter(weightUnit) }}</span>
                                     <span class="text-tiny-dimmed" v-text="weightUnit" />
                                   </div>
                                   <empty-data solo v-else />

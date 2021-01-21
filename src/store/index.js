@@ -345,9 +345,9 @@ export default new Vuex.Store({
 
                 Vue.set(state.selfio.inventories, len, inventory);
 
-                if(state.selfio.inventoryReferences[inventory.id] && state.selfio.inventoryReferences[inventory.id].length > 0) {
+                if(state.selfio.inventoryReferences[inventory.id] && state.selfio.inventoryReferences[inventory.id].length > 0)
                     console.log('inventory already exists');
-                }
+
                 Object.assign(state.selfio.inventoryReferences, { [inventory.id] : len });
             }
         },
