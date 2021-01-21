@@ -54,10 +54,7 @@
     <v-expand-transition>
       <v-container
         v-show="isEditing"
-        v-bind:class="[
-          {'py-0': isMobile},
-          'elevation-0',
-        ]"
+        v-bind:class="['py-0 elevation-0']"
       >
         <v-row>
           <template v-for="(item, itemIndex) in list">

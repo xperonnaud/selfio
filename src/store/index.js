@@ -74,6 +74,7 @@ export default new Vuex.Store({
                 'gear',
                 'inventories',
                 'adventures',
+                'home',
                 'account',
                 'brands',
                 'tags',
@@ -85,8 +86,8 @@ export default new Vuex.Store({
             navigationItems: {
                 home: {
                     title: 'Home',
-                    icon: 'mdi-home',
-                    type: 'app',
+                    icon: 'mdi-view-dashboard',
+                    type: 'misc',
                 },
                 gear: {
                     title: 'Gear',
@@ -133,7 +134,7 @@ export default new Vuex.Store({
                 },
                 import_export: {
                     title: 'Import / Export',
-                    icon: 'mdi-database-export',
+                    icon: 'mdi-database',
                     type: 'misc',
                 },
                 info: {

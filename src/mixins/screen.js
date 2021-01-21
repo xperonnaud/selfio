@@ -291,7 +291,6 @@ export default {
             );
         },
         initScreenHeight() {
-            console.log('window.innerHeight',window.innerHeight)
             this.windowHeight = (window.innerHeight - 92);
         },
     }
