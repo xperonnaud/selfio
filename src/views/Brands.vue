@@ -2,7 +2,6 @@
 <template>
 
     <v-sheet v-if="isMounted" height="100%">
-
       <list-container
         v-bind:icon="currentIcon"
         v-bind:title="currentTitle"
@@ -11,7 +10,6 @@
         v-bind:itemHeaders="brandHeaders"
         v-bind:keyName="'name'"
       ></list-container>
-
     </v-sheet>
 
 </template>

@@ -103,6 +103,12 @@
 
 <style lang="scss">
 
+  .x-input {
+    background: rgba(0, 0, 0, 0.06) !important;
+    border-radius: 4px 4px 0 0;
+    padding: 0 12px !important;
+  }
+
   .no-wrap * {
     overflow: unset !important;
     text-overflow: unset !important;
@@ -213,11 +219,6 @@
   .x-slider {
     padding: 6px 3px;
     background-color: rgba(0, 0, 0, 0.08) !important;
-  }
-
-  .x-checkbox {
-    margin-top: unset !important;
-    padding-top: 3px !important;
   }
 
   .text-tiny {

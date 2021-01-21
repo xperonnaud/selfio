@@ -30,7 +30,9 @@
         <x-col text="State" prop="state" />
       </template>
 
-      <x-col text="Quantity" prop="quantity_owned" />
+      <x-col :text="isMobile ? 'Cons.' : 'Consumable'" prop="Consumable" />
+
+      <x-col :text="isMobile ? 'Qty.' : 'Quantity'" prop="quantity_owned" />
 
       <v-col cols="1" class="pa-0">
         <div class="text-tiny" v-text="''" />

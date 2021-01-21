@@ -535,14 +535,14 @@
   import XDivider from "@/components/elements/XDivider";
   import EmptyData from "@/components/elements/Stepper/EmptyData";
   import XImg from "@/components/elements/XImg";
-  import XIncrement from "@/components/elements/Pickers/XIncrement";
+  import XIncrement from "@/components/inputs/XIncrement";
   import FilterMenu from "@/components/elements/FilterMenu/FilterMenu";
   import EditIcon from "@/components/elements/EditIcon";
-  import XPicker from "@/components/elements/Pickers/XPicker";
-  import XTimePicker from "@/components/elements/Pickers/XTimePicker";
-  import XDatePicker from "@/components/elements/Pickers/XDatePicker";
-  import XSelector from "@/components/elements/Pickers/XSelector";
-  import XSimpleSelector from "@/components/elements/Pickers/XSimpleSelector";
+  import XPicker from "@/components/inputs/XPicker";
+  import XTimePicker from "@/components/inputs/XTimePicker";
+  import XDatePicker from "@/components/inputs/XDatePicker";
+  import XSelector from "@/components/inputs/XSelector";
+  import XSimpleSelector from "@/components/inputs/XSimpleSelector";
   import XCombobox from "@/components/inputs/XCombobox";
 
   export default {

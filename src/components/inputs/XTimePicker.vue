@@ -12,21 +12,22 @@
   >
     <template v-slot:activator="{ on, attrs }">
       <v-text-field
-          :label="label"
-          v-model="pickerValue"
-          :color="currentColor"
-          :rules="xRules.time"
-          v-bind="attrs"
-          v-on="on"
-          prepend-inner-icon="mdi-clock-time-four-outline"
-          readonly
-          filled
-          dense
-          clearable
-          hide-details
-          @click:clear="resetValue()"
+        :label="label"
+        v-model="pickerValue"
+        :color="currentColor"
+        :rules="xRules.time"
+        v-bind="attrs"
+        v-on="on"
+        prepend-inner-icon="mdi-clock-time-four-outline"
+        readonly
+        filled
+        dense
+        clearable
+        hide-details
+        @click:clear="resetValue()"
       ></v-text-field>
     </template>
+
     <v-time-picker
       v-if="timeMenu"
       v-model="pickerValue"

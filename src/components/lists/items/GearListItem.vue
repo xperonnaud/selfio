@@ -74,9 +74,22 @@
       </template>
 
       <v-col class="x-col">
+        <v-icon
+          v-if="item.consumable"
+          v-text="'mdi-apple'"
+          style="margin-bottom: 3px;"
+          small
+        ></v-icon>
+        <empty-data solo v-else />
+      </v-col>
+
+      <v-col class="x-col">
         <div v-bind:class="['ml-1', nullOrZeroColorText(item.quantity_owned)]">
           <span class="text-tiny" v-html="'&#215;'" />
-          <span v-bind:class="['text-body-2']" v-html="item.quantity_owned ? item.quantity_owned : 0" />
+          <span
+            v-bind:class="[isMobile ? 'text-caption' : 'text-body-2']"
+            v-html="item.quantity_owned ? item.quantity_owned : 0"
+          ></span>
         </div>
       </v-col>
 

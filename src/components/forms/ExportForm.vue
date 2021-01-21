@@ -91,7 +91,16 @@
             </template>
 
             <template v-slot:item.type="{ item }">
-              <v-avatar v-if="item.type && xGearType(item.type) && xGearType(item.type).icon" class="x-avatar" size="24">
+              <v-avatar
+                v-if="item.type && xGearType(item.type) && xGearType(item.type).icon"
+                v-bind:class="[
+                  'x-avatar',
+                  'py-0',
+                   (isMobile ? 'my-0 mr-3' : 'ml-2 mr-5'),
+                   (item.type ? getReversedVuetifyColor(item.type) : ''),
+                ]"
+                size="32"
+              >
                 <x-img
                   :src="xGearType(item.type).icon.data.full_url"
                   :tooltipText="xGearType(item.type).title"

@@ -218,7 +218,7 @@
                                         <div class="d-flex font-weight-regular text-caption">
                                           <x-divider />
 
-                                          <div style="width: 50px;">
+                                          <div style="width: 60px;">
                                             <span class="text-tiny" v-text="gearTypeStat.items" />
                                             <span class="text-tiny-dimmed" v-text="' item'" />
                                             <span class="text-tiny-dimmed" v-show="gearTypeStat.items > 1" v-text="'s'" />

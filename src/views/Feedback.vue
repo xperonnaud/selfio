@@ -26,7 +26,7 @@
 
                     <v-list-item-content class="no-wrap">
                       <v-list-item-title class="text-h6" v-text="'Your feedback is very important to us!'" />
-                      <v-list-item-subtitle v-text="'Please help us improve this application for You by sending us a message.'" />
+                      <v-list-item-subtitle v-text="'Please, tell us how we can improve this application for you.'" />
                     </v-list-item-content>
                   </v-list-item>
                 </v-list>

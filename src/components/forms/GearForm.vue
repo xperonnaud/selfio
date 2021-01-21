@@ -55,16 +55,10 @@
                     </v-col>
 
                     <v-col cols="12">
-                      <v-text-field
-                        label="Weight"
-                        v-model="updatedItem.weight"
-                        :rules="xRules.integer"
-                        :color="currentColor"
-                        hide-details="auto"
-                        :suffix="weightUnit"
-                        dense
-                        filled
-                      ></v-text-field>
+                      <x-checkbox
+                        label="Consumable"
+                        v-bind:value.sync="updatedItem.consumable"
+                      ></x-checkbox>
                     </v-col>
 
                     <v-col cols="12">
@@ -85,19 +79,6 @@
                         v-bind:items="preferences.gear_tags"
                         v-bind:route="'gear'"
                       ></x-combobox>
-                    </v-col>
-
-                    <v-col cols="12">
-                      <v-textarea
-                        label="Description"
-                        v-model="updatedItem.description"
-                        :color="currentColor"
-                        hide-details="auto"
-                        auto-grow
-                        rows="1"
-                        dense
-                        filled
-                      ></v-textarea>
                     </v-col>
                   </v-row>
                 </v-card-text>
@@ -170,33 +151,33 @@
 
                     <v-col cols="12">
                       <v-autocomplete
-                          label="State"
-                          :items="gearStates"
-                          v-model="updatedItem.state"
-                          :color="currentColor"
-                          filled
-                          dense
-                          clearable
-                          @click:clear="updatedItem.state = null"
-                          hide-details="auto"
-                          item-text="title"
-                          item-value="id"
+                        label="State"
+                        :items="gearStates"
+                        v-model="updatedItem.state"
+                        :color="currentColor"
+                        filled
+                        dense
+                        clearable
+                        @click:clear="updatedItem.state = null"
+                        hide-details="auto"
+                        item-text="title"
+                        item-value="id"
                       >
                         <template v-slot:selection="data">
                           <div
-                              color="transparent"
-                              v-bind="data.attrs"
-                              :input-value="data.selected"
-                              @click="data.select"
-                              style="height:30px !important; padding-top: 9px; padding-bottom: 2px;"
-                              class=""
+                            color="transparent"
+                            v-bind="data.attrs"
+                            :input-value="data.selected"
+                            @click="data.select"
+                            style="height:30px !important; padding-top: 9px; padding-bottom: 2px;"
+                            class=""
                           >
                             <v-avatar tile left min-width="21" width="21" height="21">
                               <v-icon
-                                  :color="data.item.color"
-                                  v-text="'mdi-'+stateIcon(data.item.title)"
-                                  size="18"
-                                  style="padding-bottom: 6px;"
+                                :color="data.item.color"
+                                v-text="'mdi-'+stateIcon(data.item.title)"
+                                size="18"
+                                style="padding-bottom: 6px;"
                               ></v-icon>
                             </v-avatar>
 
@@ -243,6 +224,19 @@
                         hide-details="auto"
                       ></v-text-field>
                     </v-col>
+
+                    <v-col cols="12">
+                      <v-textarea
+                        label="Description"
+                        v-model="updatedItem.description"
+                        :color="currentColor"
+                        hide-details="auto"
+                        auto-grow
+                        rows="1"
+                        dense
+                        filled
+                      ></v-textarea>
+                    </v-col>
                   </v-row>
                 </v-card-text>
               </v-card>
@@ -259,14 +253,16 @@
 
   import Vue from 'vue'
 
-  import XIncrement from "@/components/elements/Pickers/XIncrement";
-  import XDatePicker from "@/components/elements/Pickers/XDatePicker";
-  import XSelector from "@/components/elements/Pickers/XSelector";
+  import XIncrement from "@/components/inputs/XIncrement";
+  import XDatePicker from "@/components/inputs/XDatePicker";
+  import XSelector from "@/components/inputs/XSelector";
   import XCombobox from "@/components/inputs/XCombobox";
+  import XCheckbox from "@/components/inputs/XCheckbox";
 
   export default {
     name: 'gear-form',
     components: {
+      XCheckbox,
       XCombobox,
       XIncrement,
       XDatePicker,

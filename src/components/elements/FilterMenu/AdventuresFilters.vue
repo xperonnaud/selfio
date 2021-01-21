@@ -74,8 +74,8 @@
 
 <script>
 
-  import XSimpleSelector from "@/components/elements/Pickers/XSimpleSelector";
-  import XPicker from "@/components/elements/Pickers/XPicker";
+  import XSimpleSelector from "@/components/inputs/XSimpleSelector";
+  import XPicker from "@/components/inputs/XPicker";
 
   export default {
     name: 'adventures-filter',

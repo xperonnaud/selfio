@@ -138,8 +138,8 @@
 
 <script>
 
-  import XIncrement from "@/components/elements/Pickers/XIncrement";
-  import XPicker from "@/components/elements/Pickers/XPicker";
+  import XIncrement from "@/components/inputs/XIncrement";
+  import XPicker from "@/components/inputs/XPicker";
 
   export default {
     name: 'gear-filter',
