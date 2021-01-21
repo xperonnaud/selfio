@@ -287,7 +287,7 @@
                             <div>
                               <span v-if="item.inventory_gear" v-bind:class="[currentColorText]">{{ inventoryTotalWeight | weightUnitFilter(weightUnit) | supWeightUnitFilter(weightUnit) }}</span>
                               <span v-else v-bind:class="[currentColorText]" v-text="'0'" />
-                              <span v-text="supWeightUnit" />
+                              <span v-text="' '+supWeightUnit" />
                             </div>
 
                             <x-divider />
@@ -407,8 +407,8 @@
                                             <x-divider />
 
                                             <div>
-                                              <span class="text-tiny">{{ gearTypeStat.weight | weightUnitFilter(weightUnit) }}</span>
-                                              <span class="text-tiny-dimmed" v-text="weightUnit" />
+                                              <span class="text-tiny">{{ gearTypeStat.weight | weightUnitFilter(weightUnit) | supWeightUnitFilter(weightUnit) }}</span>
+                                              <span class="text-tiny-dimmed" v-text="supWeightUnit" />
                                             </div>
                                           </div>
 
@@ -931,12 +931,13 @@
           for (const [key, value] of Object.entries(gearTypeStats)) {
             let gearCategory = value.id === 0 ? null : this.xGearType(value.id);
             let percentage = this.$options.filters.percentageFilter(value.weight, this.inventoryGearList, this.inventoryTotalWeight);
-            let chartLabel = (gearCategory && gearCategory.title ? gearCategory.title : 'Unknown') + `, ${percentage}%, weight(${this.weightUnit})`;
+            let chartLabel = (gearCategory && gearCategory.title ? gearCategory.title : 'Unknown') + `, ${percentage}%, weight(${this.supWeightUnit})`;
             let color = this.hexColor(this.getVuetifyColor(gearCategory && gearCategory.id ? gearCategory.id : 0))
+            let displayedWeight = this.supWeightUnitConverter(value.weight);
 
             labels.push(chartLabel);
             colors.push(color);
-            data.push(value.weight);
+            data.push(displayedWeight);
           }
 
           this.pieChart.labels = labels;
