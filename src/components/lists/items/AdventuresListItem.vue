@@ -91,18 +91,16 @@
 
         <v-col class="x-col">
           <div v-if="item.distance" v-bind:class="['ml-1 text-caption']">
-            <span v-text="item.distance" />
-            <span v-html="'&nbsp;'" />
-            <span class="text-tiny-dimmed" v-text="distanceUnit" />
+            <span>{{ item.distance | distanceUnitFilter(distanceUnit) }}</span>
+            <span class="text-tiny-dimmed" v-text="' '+distanceUnit" />
           </div>
           <empty-data solo v-else />
         </v-col>
 
         <v-col class="x-col">
           <div v-if="item.elevation" v-bind:class="['ml-1 text-caption']">
-            <span v-text="item.elevation" />
-            <span v-html="'&nbsp;'" />
-            <span class="text-tiny-dimmed" v-text="elevationUnit" />
+            <span>{{ item.elevation | elevationUnitFilter(elevationUnit) }}</span>
+            <span class="text-tiny-dimmed" v-text="' '+elevationUnit" />
           </div>
           <empty-data solo v-else />
         </v-col>
@@ -141,16 +139,14 @@
           <div class="d-flex justify-center">
             <div class="text-caption stacked-item-data text-center max-width">
               <div v-if="item.temp_max">
-                <span v-text="item.temp_max" />
-                <span v-html="'&nbsp;'" />
-                <span class="text-tiny-dimmed" v-html="temperatureUnit" />
+                <span>{{ item.temp_max | temperatureUnitFilter(temperatureUnit) }}</span>
+                <span class="text-tiny-dimmed" v-html="' '+temperatureUnit" />
               </div>
               <empty-data v-else />
 
               <div v-if="item.temp_min">
-                <span v-text="item.temp_min" />
-                <span v-html="'&nbsp;'" />
-                <span class="text-tiny-dimmed" v-html="temperatureUnit" />
+                <span>{{ item.temp_min | temperatureUnitFilter(temperatureUnit) }}</span>
+                <span class="text-tiny-dimmed" v-html="' '+temperatureUnit" />
               </div>
               <empty-data v-else />
             </div>

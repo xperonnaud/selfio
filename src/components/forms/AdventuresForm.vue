@@ -253,7 +253,7 @@
                       <v-text-field
                         label="Elevation"
                         v-model="updatedItem.elevation"
-                        :rules="xRules.elevation"
+                        :rules="xRules.decimal"
                         :color="currentColor"
                         filled
                         dense
@@ -602,6 +602,7 @@
       isLoading: false,
       listHeight: 150,
 
+      isUpdatedItemFixed: false,
       updatedItem: {},
 
       originalInventoryGear: [],
@@ -729,24 +730,45 @@
         }
       },
       async fixUpdatedItem() {
-        if(this.item === null || !this.item) {
-          Vue.set(this.updatedItem, 'temp_max', null);
-          Vue.set(this.updatedItem, 'temp_min', null);
-          Vue.set(this.updatedItem, 'elevation', null);
-          Vue.set(this.updatedItem, 'distance', null);
-
-        } else {
-          if(typeof this.item.temp_max == 'undefined' || !this.item.temp_max)
+        if(!this.isUpdatedItemFixed) {
+          if(this.item === null || !this.item) {
             Vue.set(this.updatedItem, 'temp_max', null);
-
-          if(typeof this.item.temp_min == 'undefined' || !this.item.temp_min)
             Vue.set(this.updatedItem, 'temp_min', null);
-
-          if(typeof this.item.elevation == 'undefined' || !this.item.elevation)
             Vue.set(this.updatedItem, 'elevation', null);
-
-          if(typeof this.item.distance == 'undefined' || !this.item.distance)
             Vue.set(this.updatedItem, 'distance', null);
+            Vue.set(this.updatedItem, 'humidity', null);
+
+          } else {
+            if(typeof this.item.temp_max == 'undefined' || !this.item.temp_max) {
+              Vue.set(this.updatedItem, 'temp_max', null);
+            } else {
+              Vue.set(this.updatedItem, 'temp_max', this.temperatureUnitConverter(this.item.temp_max));
+            }
+
+            if(typeof this.item.temp_min == 'undefined' || !this.item.temp_min) {
+              Vue.set(this.updatedItem, 'temp_min', null);
+            } else {
+              Vue.set(this.updatedItem, 'temp_min', this.temperatureUnitConverter(this.item.temp_min));
+            }
+
+            if(typeof this.item.elevation == 'undefined' || !this.item.elevation) {
+              Vue.set(this.updatedItem, 'elevation', null);
+            } else {
+              Vue.set(this.updatedItem, 'elevation', this.elevationUnitConverter(this.item.elevation));
+            }
+
+            if(typeof this.item.distance == 'undefined' || !this.item.distance) {
+              Vue.set(this.updatedItem, 'distance', null);
+            } else {
+              Vue.set(this.updatedItem, 'distance', this.distanceUnitConverter(this.item.distance));
+            }
+
+            if(typeof this.item.humidity == 'undefined' || !this.item.humidity || isNaN(this.item.humidity)) {
+              Vue.set(this.updatedItem, 'humidity', null);
+            }
+          }
+
+          this.isUpdatedItemFixed = true;
         }
       }
     },

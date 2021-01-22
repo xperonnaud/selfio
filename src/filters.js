@@ -6,32 +6,65 @@
  const gToOz = 0.035274;
  const ozToLb = 0.0625;
 
+ const kmToMi = 0.621371;
+ const mToFt = 3.28084;
+
+ Vue.filter("weightUnitFilter", function (value, unit = 'g') {
+     if (!value) return '0';
+
+     if(unit === 'g')
+         return Math.round(value);
+
+     if(unit === 'oz')
+         return (Math.round(value * gToOz * 10) / 10);
+ });
+
+ Vue.filter("supWeightUnitFilter", function (value, unit = 'g') {
+     if (!value) return '0';
+
+     if(unit === 'g')
+         return (Math.round(value * gToKg * 10) / 10);
+
+     if(unit === 'oz')
+         return (Math.round(value * ozToLb * 10) / 10);
+ });
+
+ Vue.filter("distanceUnitFilter", function (value, unit = 'km') {
+     if (!value) return '0';
+
+     if(unit === 'km')
+         return (Math.round(value * 10) / 10);
+
+     if(unit === 'mi')
+         return (Math.round(value * kmToMi * 10) / 10);
+ });
+
+ Vue.filter("elevationUnitFilter", function (value, unit = 'm') {
+     if (!value) return '0';
+
+     if(unit === 'm')
+         return Math.round(value);
+
+     if(unit === 'ft')
+         return Math.round(value * mToFt);
+ });
+
+ Vue.filter("temperatureUnitFilter", function (value, unit = '&#8451;') {
+     if (!value) return '0';
+
+     if(unit === '&#8451;') // celsius
+         return value;
+
+     if(unit === '&#8457;') // fahrenheit
+         return Math.round((value * 9/5) + 32);
+ });
+
  Vue.filter("capitalizeFilter", function (value) {
      if (!value) return '';
      return value.toLowerCase()
          .split(' ')
          .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
          .join(' ');
- });
-
- Vue.filter("weightUnitFilter", function (value, unit = 'g') {
-     if (!value) return '';
-
-     if(unit === 'g')
-        return value.toFixed(0).replace('.0','');
-
-     if(unit === 'oz')
-         return (value * gToOz).toFixed(1).replace('.0','');
- });
-
- Vue.filter("supWeightUnitFilter", function (value, unit = 'g') {
-     if (!value) return '';
-
-     if(unit === 'g')
-        return (value * gToKg).toFixed(1);
-
-     if(unit === 'oz')
-         return (value * ozToLb).toFixed(1);
  });
 
  Vue.filter("convertSpecialCharsFilter", function (value) {

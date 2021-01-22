@@ -42,7 +42,7 @@
                       </template>
 
                       <template v-if="navigationItems[item].title === 'Adventures'">
-                        <span class="text-subtitle-2" v-text="totalDistance" />
+                        <span class="text-subtitle-2">{{ totalDistance | distanceUnitFilter(distanceUnit) }}</span>
                         <span class="ml-1 text-caption" v-text="distanceUnit" />
                       </template>
                     </v-list-item-action-text>
@@ -59,7 +59,7 @@
                       </template>
 
                       <template v-if="navigationItems[item].title === 'Adventures'">
-                        <span class="text-subtitle-2" v-text="totalElevation" />
+                        <span class="text-subtitle-2">{{ totalElevation | elevationUnitFilter(elevationUnit) }}</span>
                         <span class="ml-2 text-caption" v-text="elevationUnit" />
                       </template>
                     </v-list-item-action-text>
@@ -127,11 +127,15 @@
         this.totalDistance = totalDistance;
       },
       async initCounters() {
-        await this.initGearTotals();
-        await this.initAdventureTotals();
+        let self = this;
 
-        if(!this.countersInitialized)
-          this.countersInitialized = true;
+        await self.initGearTotals();
+        await self.initAdventureTotals();
+
+        setTimeout(async function(){
+          if(!self.countersInitialized)
+            self.countersInitialized = true;
+        }, 50);
       },
       countItems(title) {
         if(title === 'Gear')

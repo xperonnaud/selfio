@@ -129,14 +129,14 @@ export default {
                 temperature: [
                     v => (v === '')
                         || (v === null)
-                        || /^(-?[0-9]+)*$/.test(v)
-                        || 'temperature only (-40, 40)'
+                        || /^(-?[0-9]+(\.[0-9][0-9]?)?)*$/.test(v)
+                        || 'temperature only (-50, 50)'
                 ],
                 elevation: [
                     v => (v === '')
                         || (v === null)
-                        || /^(-?[0-9]+)*$/.test(v)
-                        || '-+ integers only'
+                        || /^(-?[0-9]+(\.[0-9][0-9]?)?)*$/.test(v)
+                        || '-+ integers && decimals only'
                 ],
                 integer: [
                     v => (v === '')
@@ -189,10 +189,19 @@ export default {
     },
     methods: {
         supWeightUnitConverter(weight) {
-            return this.$options.filters.supWeightUnitFilter(this.weightUnitConverter(weight), this.weightUnit);
+            return parseFloat(this.$options.filters.supWeightUnitFilter(this.weightUnitConverter(weight), this.weightUnit));
         },
         weightUnitConverter(weight) {
-            return this.$options.filters.weightUnitFilter(weight, this.weightUnit);
+            return parseFloat(this.$options.filters.weightUnitFilter(weight, this.weightUnit));
+        },
+        distanceUnitConverter(distance) {
+            return parseFloat(this.$options.filters.distanceUnitFilter(distance, this.distanceUnit));
+        },
+        elevationUnitConverter(elevation) {
+            return parseFloat(this.$options.filters.elevationUnitFilter(elevation, this.elevationUnit));
+        },
+        temperatureUnitConverter(temperature) {
+            return parseInt(this.$options.filters.temperatureUnitFilter(temperature, this.temperatureUnit));
         },
         cardSize(size) {
             return (this.isMobile ? '100%' : (typeof size == 'number' ? size : 600));
@@ -287,13 +296,13 @@ export default {
 
             return(
                 (d !== 0 ? '<span class="text-tiny '+this.fontShadeColor+'">'+d+'</span>' : '')
-                + (d !== 0 ? '<span class="text-tiny-dimmed">'+(this.isMobile ? 'd' : 'day'+(d > 1 ? 's' : ''))+'</span> ' : '')
+                + (d !== 0 ? '<span class="text-tiny-dimmed">d</span> ' : '')
 
                 + (h !== 0 ? '<span class="text-tiny '+this.fontShadeColor+'">'+h+'</span>' : '')
-                + (h !== 0 ? '<span class="text-tiny-dimmed">'+(this.isMobile ? 'h' : 'hr'+(h > 1 ? 's' : ''))+'</span> ' : '')
+                + (h !== 0 ? '<span class="text-tiny-dimmed">h</span> ' : '')
 
                 + (m !== 0 ? '<span class="text-tiny '+this.fontShadeColor+'">'+m+'</span>' : '')
-                + (m !== 0 ? '<span class="text-tiny-dimmed">'+(this.isMobile ? 'min' : 'min')+(m > 1 ? 's' : '')+'</span>' : '')
+                + (m !== 0 ? '<span class="text-tiny-dimmed">m</span>' : '')
             );
         },
         initScreenHeight() {

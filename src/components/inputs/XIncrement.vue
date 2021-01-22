@@ -98,16 +98,16 @@
     watch: {
       value(val) {
         if(this.isMounted)
-          this.pickerValue = val;
+          this.pickerValue = parseFloat(val);
       },
       pickerValue(val) {
         if(this.isMounted)
-          this.$emit('update:value',val);
+          this.$emit('update:value',parseFloat(val));
       },
     },
     mounted() {
       this.isMounted = true;
-      this.pickerValue = (typeof this.value == 'number') ? this.value : 0 ;
+      this.pickerValue = (typeof this.value == 'number') ? parseFloat(this.value) : 0 ;
     }
   }
 </script>

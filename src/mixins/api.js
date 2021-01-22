@@ -1,8 +1,12 @@
 
 const axios = require('axios').default
+
 const gToKg = 0.001;
 const gToOz = 0.035274;
 const ozToLb = 0.0625;
+
+const kmToMi = 0.621371;
+const mToFt = 3.28084;
 
 export default {
     computed: {
@@ -458,43 +462,8 @@ export default {
                 await self.handleResponse('error', error.message, error);
             })
         },
-        async api_post_gear(gear) {
-            let self = this;
+        fixedGear(gear) {
             gear.status = 'published'
-
-            if(typeof gear.state == 'undefined')
-                gear.state = null;
-
-            if(gear.price === '')
-                gear.price = null;
-
-            if(!gear.weight || gear.weight === '') {
-                gear.weight = null;
-
-            } else {
-                if(this.weightUnit === 'oz')
-                    gear.weight = (gear.weight / gToOz).toFixed(0)
-            }
-
-            if(gear.quantity_owned === '')
-                gear.quantity_owned = null;
-
-            await axios.post(
-                self.apiBaseUrl
-                +'items/gears?access_token='
-                +self.apiAccessToken,
-                gear
-            )
-            .then(async function (response) {
-                self.$store.commit("addGear",response.data.data);
-                await self.handleResponse('success', 'Gear added');
-
-            }).catch(async function (error) {
-                await self.handleResponse('error', error.message, error, self.api_post_gear, gear);
-            })
-        },
-        async api_patch_gear(gear, gearIndex) {
-            let self = this;
 
             if(gear.created_on)
                 delete gear.created_on;
@@ -513,11 +482,37 @@ export default {
 
             } else {
                 if(this.weightUnit === 'oz')
-                    gear.weight = (gear.weight / gToOz).toFixed(0)
+                    gear.weight = (Math.round(gear.weight / gToOz * 10) / 10)
             }
 
             if(gear.quantity_owned === '')
                 gear.quantity_owned = null;
+
+            return gear;
+        },
+        async api_post_gear(gear) {
+            let self = this;
+
+            gear = this.fixedGear(gear);
+
+            await axios.post(
+                self.apiBaseUrl
+                +'items/gears?access_token='
+                +self.apiAccessToken,
+                gear
+            )
+            .then(async function (response) {
+                self.$store.commit("addGear",response.data.data);
+                await self.handleResponse('success', 'Gear added');
+
+            }).catch(async function (error) {
+                await self.handleResponse('error', error.message, error, self.api_post_gear, gear);
+            })
+        },
+        async api_patch_gear(gear, gearIndex) {
+            let self = this;
+
+            gear = this.fixedGear(gear);
 
             await axios.patch(
                 self.apiBaseUrl
@@ -553,6 +548,20 @@ export default {
             })
         },
 
+        fixedInventory(inventory) {
+            inventory.status = 'published'
+
+            if(inventory.created_on)
+                delete inventory.created_on;
+
+            if(inventory.updated_on)
+                delete inventory.updated_on;
+
+            if(inventory.inventory_gear)
+                delete inventory.inventory_gear;
+
+            return inventory;
+        },
         async api_get_inventories() {
             let self = this;
             await axios.get(
@@ -571,10 +580,8 @@ export default {
         },
         async api_post_inventory(inventory, originalGearList, gearList, gearInventoryRelations) {
             let self = this;
-            inventory.status = 'published'
 
-            if(inventory.inventory_gear)
-                delete inventory.inventory_gear;
+            inventory = this.fixedInventory(inventory);
 
             await axios.post(
                 self.apiBaseUrl
@@ -604,14 +611,7 @@ export default {
         async api_patch_inventory(inventory, inventoryIndex, originalGearList, gearList, gearInventoryRelations) {
             let self = this;
 
-            if(inventory.created_on)
-                delete inventory.created_on;
-
-            if(inventory.updated_on)
-                delete inventory.updated_on;
-
-            if(inventory.inventory_gear)
-                delete inventory.inventory_gear;
+            inventory = this.fixedInventory(inventory);
 
             await axios.patch(
                 self.apiBaseUrl
@@ -823,27 +823,56 @@ export default {
                 await self.handleResponse('error', error.message, error);
             })
         },
-        async api_post_adventure(adventure) {
-            let self = this;
+        fixedAdventure(adventure) {
             adventure.status = 'published'
+
+            if(adventure.created_on)
+                delete adventure.created_on;
+
+            if(adventure.updated_on)
+                delete adventure.updated_on;
 
             if(adventure.tags === '')
                 adventure.tags = [];
 
-            if(adventure.distance === '')
+            if(!adventure.distance || adventure.distance === '') {
                 adventure.distance = null;
+            } else {
+                adventure.distance = parseFloat(adventure.distance);
 
-            if(adventure.elevation === '')
+                if(this.distanceUnit === 'mi')
+                    adventure.distance = Math.round(adventure.distance / kmToMi * 100) / 100;
+            }
+
+            if(!adventure.elevation || adventure.elevation === '') {
                 adventure.elevation = null;
+            } else {
+                adventure.elevation = parseFloat(adventure.elevation);
 
-            if(parseInt(adventure.temp_max) === 40 || adventure.temp_max === '')
+                if(this.elevationUnit === 'ft')
+                    adventure.elevation = Math.round(adventure.elevation / mToFt * 100) / 100;
+            }
+            console.log('adventure.temp_max AFTER',adventure.temp_max)
+            if(parseInt(adventure.temp_max) === 50 || adventure.temp_max === '') {
                 adventure.temp_max = null;
+            } else {
+                adventure.temp_max = parseInt(adventure.temp_max);
 
-            if(parseInt(adventure.temp_min) === -40 || adventure.temp_min === '')
+                if(this.temperatureUnit === '&#8457;') // fahrenheit
+                    adventure.temp_max = (Math.round((adventure.temp_max - 32) * 5/9 * 100) / 100);
+            }
+            console.log('adventure.temp_max AFTER',adventure.temp_max)
+            if(parseInt(adventure.temp_min) === -50 || adventure.temp_min === '') {
                 adventure.temp_min = null;
+            } else {
+                adventure.temp_min = parseInt(adventure.temp_min);
 
-            if(parseInt(adventure.humidity) === 0 || adventure.humidity === '')
-                adventure.humidity = null;
+                if(this.temperatureUnit === '&#8457;') // fahrenheit
+                    adventure.temp_min = (Math.round((adventure.temp_min - 32) * 5/9 * 100) / 100);
+            }
+
+            if(!adventure.humidity || adventure.humidity === '')
+                adventure.humidity = 0;
 
             if(adventure.start_time && typeof adventure.start_time != 'undefined') {
                 if(!adventure.start_time.match(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]$/) // hh:mm:ss
@@ -858,6 +887,13 @@ export default {
                     adventure.end_time += ':00';
                 }
             }
+
+            return adventure;
+        },
+        async api_post_adventure(adventure) {
+            let self = this;
+
+            adventure = this.fixedAdventure(adventure);
 
             await axios.post(
                 self.apiBaseUrl
@@ -874,48 +910,13 @@ export default {
         },
         async api_patch_adventure(adventure, adventureIndex, oldAdventureInventory) {
             let self = this;
+
+            adventure = this.fixedAdventure(adventure);
+
             let payload = {
                 adventure: adventure,
                 adventureIndex: adventureIndex,
                 oldAdventureInventory: oldAdventureInventory,
-            }
-
-            if(adventure.created_on)
-                delete adventure.created_on;
-
-            if(adventure.updated_on)
-                delete adventure.updated_on;
-
-            if(adventure.tags === '')
-                adventure.tags = [];
-
-            if(adventure.distance === '')
-                adventure.distance = null;
-
-            if(adventure.elevation === '')
-                adventure.elevation = null;
-
-            if(parseInt(adventure.temp_max) === 40 || adventure.temp_max === '')
-                adventure.temp_max = null;
-
-            if(parseInt(adventure.temp_min) === -40 || adventure.temp_min === '')
-                adventure.temp_min = null;
-
-            if(parseInt(adventure.humidity) === 0 || adventure.humidity === '')
-                adventure.humidity = null;
-
-            if(adventure.start_time && typeof adventure.start_time != 'undefined') {
-                if(!adventure.start_time.match(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]$/) // hh:mm:ss
-                    && adventure.start_time.match(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/)) { // hh:mm
-                    adventure.start_time += ':00';
-                }
-            }
-
-            if(adventure.end_time && typeof adventure.end_time != 'undefined') {
-                if(!adventure.end_time.match(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]$/) // hh:mm:ss
-                    && adventure.end_time.match(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/)) { // hh:mm
-                    adventure.end_time += ':00';
-                }
             }
 
             await axios.patch(
