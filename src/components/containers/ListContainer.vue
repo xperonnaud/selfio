@@ -20,27 +20,27 @@
               v-if="(
                 ((currentRouteTitle !== 'Brands') && (currentRouteTitle !== 'Inventories'))
                 || item.activity
-                || item.type
+                || item.category
               )"
               v-bind:class="[
                 'x-avatar',
                 'py-0',
                  (isMobile ? 'my-0 mr-3' : 'ml-2 mr-5'),
-                 (item.type ? getReversedVuetifyColor(item.type) : ''),
+                 (item.category ? getReversedVuetifyColor(item.category) : ''),
               ]"
             >
               <x-img
-                v-if="item.type && xGearType(item.type)"
-                :src="xGearType(item.type).icon.data.full_url"
+                v-if="item.category && xGearCategory(item.category)"
+                :src="xGearCategory(item.category).icon"
                 :width="22"
                 :height="22"
-                :tooltipText="xGearType(item.type).title"
+                :tooltipText="xGearCategory(item.category).title"
                 isCategory
               ></x-img>
 
               <x-img
                 v-if="item.activity && xActivity(item.activity)"
-                :src="xActivity(item.activity).icon.data.full_url"
+                :src="xActivity(item.activity).icon"
                 :width="24"
                 :height="24"
                 :tooltipText="xActivity(item.activity).title"
@@ -233,9 +233,9 @@
           return this.$store.state.ui.itemQuantityOwned
         }
       },
-      itemGearType: {
+      itemGearCategory: {
         get() {
-          return this.$store.state.ui.itemGearType
+          return this.$store.state.ui.itemGearCategory
         }
       },
       itemGearState: {
@@ -276,7 +276,7 @@
             && !this.itemTag
             && !this.itemLocation
             && !this.itemQuantityOwned
-            && !this.itemGearType
+            && !this.itemGearCategory
             && !this.itemGearState
             && !this.itemGearBrand
             && !this.itemActivity
@@ -288,10 +288,10 @@
           return (
             (this.itemSearch ? item.title.toLowerCase().includes(this.itemSearch.toLowerCase()) : true)
             && (this.itemLocation ? item.location.toLowerCase().includes(this.itemLocation.toLowerCase()) : true)
-            && (this.itemOwned ? (item.owner === this.userId) : true)
+            && (this.itemOwned ? (item.user_created === this.userId) : true)
             && (this.itemTag ? (item.tags.includes(this.itemTag)) : true)
             && (this.itemQuantityOwned ? (parseFloat(item.quantity_owned) === parseFloat(this.itemQuantityOwned)) : true)
-            && (this.itemGearType ? (item.type === this.itemGearType) : true)
+            && (this.itemGearCategory ? (item.category === this.itemGearCategory) : true)
             && (this.itemGearState ? (item.state === this.itemGearState) : true)
             && (this.itemGearBrand ? (item.brand === this.itemGearBrand) : true)
             && (this.itemActivity ? (item.activity === this.itemActivity) : true)

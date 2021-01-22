@@ -51,7 +51,7 @@
           <v-btn
             v-bind:class="[
               'elevation-0',
-              {'max-width':isMobile},
+              {'max-width': isMobile},
               reversedFontShadeColor,
               'primary-gradient-color'
             ]"

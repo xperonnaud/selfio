@@ -18,6 +18,11 @@ export default {
                 return this.$store.state.api.accessToken;
             }
         },
+        apiRefreshToken: {
+            get() {
+                return this.$store.state.api.refreshToken;
+            }
+        },
         apiLogin: {
             get() {
                 return this.$store.state.api.login;
@@ -55,7 +60,7 @@ export default {
         },
         typesList: {
             get() {
-                return this.$store.state.selfio.gearTypes;
+                return this.$store.state.selfio.gearCategories;
             }
         },
         inventoriesList: {
@@ -133,16 +138,18 @@ export default {
         async api_auth() {
             let self = this;
             await axios.post(
-                self.apiBaseUrl+'auth/authenticate',
+                self.apiBaseUrl+'auth/login',
                 {
                     email: self.apiLogin,
                     password: self.apiPassword
                 }
             ).then(async function (response) {
                 if(response && response.data) {
-                    self.$store.commit('updateUser',response.data.data.user);
-                    self.$store.commit('updateApiAccessToken',response.data.data.token);
-                    await self.api_auth_refresh();
+                    let data = response.data.data;
+                    self.$store.commit('updateUser',data.user);
+                    self.$store.commit('updateApiAccessToken',data.access_token);
+                    self.$store.commit('updateApiRefreshToken',data.refresh_token);
+                    // await self.api_auth_refresh();
                     await self.handleResponse('success');
                 }
             }).catch(async function (error) {
@@ -155,7 +162,10 @@ export default {
             this.$store.commit("updateUiIsAppLoading", true);
 
             await axios.post(
-            self.apiBaseUrl+'auth/logout'
+            self.apiBaseUrl+'auth/logout',
+                {
+                    refresh_token: self.apiRefreshToken
+                }
             )
             .then(async function (response) {
                 await self.handleResponse('success', 'Logged out', response.data);
@@ -211,11 +221,12 @@ export default {
         reset_user_data() {
             this.$store.commit("updateApiPassword", null);
             this.$store.commit("updateApiAccessToken", null);
+            this.$store.commit("updateApiRefreshToken", null);
         },
         reset_api_data() {
             this.$store.commit("updateBrands",[]);
             this.$store.commit("updateLandscapes",[]);
-            this.$store.commit("updateGearTypes",[]);
+            this.$store.commit("updateGearCategories",[]);
             this.$store.commit("updateGear",[]);
             this.$store.commit("updateInventories",[]);
             this.$store.commit("updateActivities",[]);
@@ -224,7 +235,6 @@ export default {
 
         async api_post_feedback(feedback) {
             let self = this;
-            feedback.status = 'published'
 
             await axios.post(
                 self.apiBaseUrl
@@ -257,7 +267,6 @@ export default {
         },
         async api_post_brand(brand) {
             let self = this;
-            brand.status = 'published'
 
             await axios.post(
                 self.apiBaseUrl
@@ -297,7 +306,7 @@ export default {
                 self.apiBaseUrl
                 +'items/landscapes?access_token='
                 +self.apiAccessToken
-                +'&fields=id,title,icon.data.full_url'
+                +'&fields=id,title,icon'
                 +'&sort=title',
             )
             .then(function (response) {
@@ -306,17 +315,17 @@ export default {
                 await self.handleResponse('error', error.message, error);
             })
         },
-        async api_get_gear_types() {
+        async api_get_gear_categories() {
             let self = this;
             await axios.get(
                 self.apiBaseUrl
-                +'items/gear_types?access_token='
+                +'items/gear_categories?access_token='
                 +self.apiAccessToken
-                +'&fields=id,title,icon.data.full_url'
+                +'&fields=id,title,icon'
                 +'&sort=id',
             )
             .then(function (response) {
-                self.$store.commit("updateGearTypes",response.data.data);
+                self.$store.commit("updateGearCategories",response.data.data);
             }).catch(async function (error) {
                 await self.handleResponse('error', error.message, error);
             })
@@ -327,7 +336,7 @@ export default {
                 self.apiBaseUrl
                 +'items/activities?access_token='
                 +self.apiAccessToken
-                +'&fields=id,title,color,icon.data.full_url'
+                +'&fields=id,title,color,icon'
                 +'&sort=title',
             )
             .then(function (response) {
@@ -339,8 +348,7 @@ export default {
 
         initPreferenceTagArray(itemTags, tagType) {
             if(itemTags && tagType) {
-                let typedTags = this.preferences[tagType+'_tags'];
-
+                let typedTags = (this.preferences[tagType+'_tags'] ? this.preferences[tagType+'_tags'] : []);
                 let finalArray = itemTags.concat(typedTags);
                 finalArray = [...new Set([...itemTags,...typedTags])];
 
@@ -376,10 +384,12 @@ export default {
                 elevation_unit:"m",
                 price_unit:"$",
                 weight_unit:"g",
-                status:"published",
                 temperature_unit:"&#8451;",
                 date_format:"DD-MM-YY",
                 theme:"light",
+                gear_tags:[],
+                inventory_tags:[],
+                adventure_tags:[],
             }
 
             await axios.post(
@@ -398,11 +408,11 @@ export default {
         async api_patch_preferences(preferences, noMessage) {
             let self = this;
 
-            if(preferences.created_on)
-                delete preferences.created_on;
+            if(preferences.date_created)
+                delete preferences.date_created;
 
-            if(preferences.updated_on)
-                delete preferences.updated_on;
+            if(preferences.date_updated)
+                delete preferences.date_updated;
 
             await axios.patch(
                 self.apiBaseUrl
@@ -420,16 +430,16 @@ export default {
                 await self.handleResponse('error', error.message, error);
             })
         },
-        async api_patch_preference_tag(tags, tagType) {
+        async api_patch_preference_tag(tags = [], tagType) {
             let self = this;
 
             Object.assign(self.$store.state.selfio.preferences[tagType+'_tags'], tags);
 
-            if(self.$store.state.selfio.preferences.created_on)
-                delete self.$store.state.selfio.preferences.created_on;
+            if(self.$store.state.selfio.preferences.date_created)
+                delete self.$store.state.selfio.preferences.date_created;
 
-            if(self.$store.state.selfio.preferences.updated_on)
-                delete self.$store.state.selfio.preferences.updated_on;
+            if(self.$store.state.selfio.preferences.date_updated)
+                delete self.$store.state.selfio.preferences.date_updated;
 
             await axios.patch(
                 self.apiBaseUrl
@@ -451,10 +461,10 @@ export default {
             let self = this;
             await axios.get(
                 self.apiBaseUrl
-                +'items/gears?access_token='
+                +'items/gear?access_token='
                 +self.apiAccessToken
                 +'&fields=*'
-                +'&sort=type,title',
+                +'&sort=category,title',
             )
             .then(function (response) {
                 self.$store.commit("updateGear",response.data.data);
@@ -463,19 +473,21 @@ export default {
             })
         },
         fixedGear(gear) {
-            gear.status = 'published'
 
-            if(gear.created_on)
-                delete gear.created_on;
+            if(gear.date_created)
+                delete gear.date_created;
 
-            if(gear.updated_on)
-                delete gear.updated_on;
+            if(gear.date_updated)
+                delete gear.date_updated;
 
             if(typeof gear.state == 'undefined')
                 gear.state = null;
 
             if(gear.price === '')
                 gear.price = null;
+
+            if(gear.tags === null || gear.tags === '')
+                gear.tags = [];
 
             if(!gear.weight || gear.weight === '') {
                 gear.weight = null;
@@ -497,7 +509,7 @@ export default {
 
             await axios.post(
                 self.apiBaseUrl
-                +'items/gears?access_token='
+                +'items/gear?access_token='
                 +self.apiAccessToken,
                 gear
             )
@@ -516,7 +528,7 @@ export default {
 
             await axios.patch(
                 self.apiBaseUrl
-                +'items/gears/'
+                +'items/gear/'
                 +gear.id
                 +'?access_token='
                 +self.apiAccessToken,
@@ -534,7 +546,7 @@ export default {
             let self = this;
             await axios.delete(
                 self.apiBaseUrl
-                + 'items/gears/'
+                + 'items/gear/'
                 + gearId
                 + '?access_token='
                 + self.apiAccessToken
@@ -549,13 +561,15 @@ export default {
         },
 
         fixedInventory(inventory) {
-            inventory.status = 'published'
 
-            if(inventory.created_on)
-                delete inventory.created_on;
+            if(inventory.date_created)
+                delete inventory.date_created;
 
-            if(inventory.updated_on)
-                delete inventory.updated_on;
+            if(inventory.date_updated)
+                delete inventory.date_updated;
+
+            if(inventory.tags === null || inventory.tags === '')
+                inventory.tags = [];
 
             if(inventory.inventory_gear)
                 delete inventory.inventory_gear;
@@ -714,7 +728,7 @@ export default {
                 self.apiBaseUrl
                 +'items/inventory_gear?access_token='
                 +self.apiAccessToken
-                +'&filter[gear_id][eq]='+gearId
+                +'&filter[gear_id][_eq]='+gearId
                 +'&fields=inventory_id',
             )
             .then(function (response) {
@@ -730,7 +744,7 @@ export default {
                 self.apiBaseUrl
                 +'items/inventory_gear?access_token='
                 +self.apiAccessToken
-                +'&filter[inventory_id][eq]='+inventoryId
+                +'&filter[inventory_id][_eq]='+inventoryId
                 +'&fields=gear_id',
             )
             .then(function (response) {
@@ -824,15 +838,14 @@ export default {
             })
         },
         fixedAdventure(adventure) {
-            adventure.status = 'published'
 
-            if(adventure.created_on)
-                delete adventure.created_on;
+            if(adventure.date_created)
+                delete adventure.date_created;
 
-            if(adventure.updated_on)
-                delete adventure.updated_on;
+            if(adventure.date_updated)
+                delete adventure.date_updated;
 
-            if(adventure.tags === '')
+            if(adventure.tags === null || adventure.tags === '')
                 adventure.tags = [];
 
             if(!adventure.distance || adventure.distance === '') {
@@ -852,7 +865,7 @@ export default {
                 if(this.elevationUnit === 'ft')
                     adventure.elevation = Math.round(adventure.elevation / mToFt * 100) / 100;
             }
-            console.log('adventure.temp_max AFTER',adventure.temp_max)
+
             if(parseInt(adventure.temp_max) === 50 || adventure.temp_max === '') {
                 adventure.temp_max = null;
             } else {
@@ -861,7 +874,7 @@ export default {
                 if(this.temperatureUnit === '&#8457;') // fahrenheit
                     adventure.temp_max = (Math.round((adventure.temp_max - 32) * 5/9 * 100) / 100);
             }
-            console.log('adventure.temp_max AFTER',adventure.temp_max)
+
             if(parseInt(adventure.temp_min) === -50 || adventure.temp_min === '') {
                 adventure.temp_min = null;
             } else {

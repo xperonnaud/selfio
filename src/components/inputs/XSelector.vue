@@ -39,7 +39,7 @@
               <template v-slot:prepend-inner style="margin-top: 0">
                 <x-img
                   v-if="list[listReferences[pickerValue]] && list[listReferences[pickerValue]].icon"
-                  :src="list[listReferences[pickerValue]].icon.data.full_url"
+                  :src="list[listReferences[pickerValue]].icon"
                   :tooltipText="list[listReferences[pickerValue]].title"
                   :width="iconSize"
                   :height="iconSize"
@@ -86,7 +86,7 @@
                     >
                       <x-img
                         v-if="item.icon"
-                        :src="item.icon.data.full_url"
+                        :src="item.icon"
                         :width="iconSize"
                         :height="iconSize"
                         :tooltipText="item.description ? item.description : item.title"

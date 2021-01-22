@@ -123,7 +123,7 @@
 
       <v-btn
         @click="formDialogAction()"
-        v-bind:class="[{'mr-1':!isMobile}, 'primary-gradient-color-text']"
+        v-bind:class="[{'mr-1':!isMobile}, {'primary-gradient-color-text': !(editMode || !isFormValid || !isFormMounted)}]"
         :disabled="editMode || !isFormValid || !isFormMounted"
         icon
       >

@@ -5,7 +5,7 @@
       <x-picker
           label="Category"
           :list="typesList"
-          v-bind:value.sync="itemGearType"
+          v-bind:value.sync="itemGearCategory"
       ></x-picker>
     </v-list-item>
 
@@ -171,12 +171,12 @@
           this.$store.commit("updateUiItemQuantityOwned", value)
         }
       },
-      itemGearType: {
+      itemGearCategory: {
         get() {
-          return this.$store.state.ui.itemGearType
+          return this.$store.state.ui.itemGearCategory
         },
         set(value) {
-          this.$store.commit("updateUiItemGearType", value)
+          this.$store.commit("updateUiItemGearCategory", value)
         }
       },
       itemGearState: {

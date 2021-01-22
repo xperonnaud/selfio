@@ -47,8 +47,8 @@
                       <x-selector
                         label="Category"
                         :list="typesList"
-                        :listReferences="gearTypeReferences"
-                        v-bind:value.sync="updatedItem.type"
+                        :listReferences="gearCategoryReferences"
+                        v-bind:value.sync="updatedItem.category"
                         :iconSize="'26'"
                         isCategory
                       ></x-selector>

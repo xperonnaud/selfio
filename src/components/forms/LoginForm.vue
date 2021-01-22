@@ -44,7 +44,7 @@
                 <v-btn
                   block
                   large
-                  class="elevation-0 primary-gradient-color"
+                  :class="['elevation-0', {'primary-gradient-color': !(!valid || isLoading)}]"
                   @click="login()"
                   @keyup.enter="login()"
                   :disabled="!valid || isLoading"
@@ -69,7 +69,10 @@
                   @click="forgotPassword()"
                   :disabled="!valid || isLoading"
                 >
-                  <span class="text-tiny primary-gradient-color-text" v-text="'Forgot password ?'" />
+                  <span
+                    :class="['text-tiny', {'primary-gradient-color-text': !(!valid || isLoading)}]"
+                    v-text="'Forgot password ?'"
+                  ></span>
                 </v-btn>
               </v-col>
 

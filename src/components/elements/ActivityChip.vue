@@ -7,7 +7,7 @@
     label
   >
     <v-avatar v-if="hasIcon" class="x-avatar" left>
-      <v-img :src="activity.icon.data.full_url" class="svg-image" />
+      <v-img :src="assetUrl+activity.icon" class="svg-image" />
     </v-avatar>
 
     <strong>{{activity.title}}</strong>

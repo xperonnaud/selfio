@@ -38,13 +38,13 @@
 
               <template v-slot:item.icon="{ item }">
                 <v-avatar v-if="item.icon" size="24">
-                  <img :src="item.icon.data.full_url" />
+                  <img :src="assetUrl+item.icon" />
                 </v-avatar>
               </template>
 
-              <template v-slot:item.type="{ item }">
+              <template v-slot:item.category="{ item }">
                 <v-avatar size="24">
-                  <img :src="item.type.icon.data.full_url" />
+                  <img :src="assetUrl+item.category.icon" />
                 </v-avatar>
               </template>
 
@@ -66,7 +66,7 @@
                     :color="item.activity.color"
                 >
                   <v-avatar left>
-                    <v-img :src="item.activity.icon.data.full_url" />
+                    <v-img :src="assetUrl+item.activity.icon" />
                   </v-avatar>
 
                   {{item.activity.title}}

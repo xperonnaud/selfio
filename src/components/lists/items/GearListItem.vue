@@ -50,8 +50,8 @@
         </v-col>
 
         <v-col class="x-col">
-          <div v-if="item.updated_on">
-            <span class="text-caption">{{item.updated_on | minimalDateFilter(dateFormatPref)}}</span>
+          <div v-if="item.date_updated">
+            <span class="text-caption">{{item.date_updated | minimalDateFilter(dateFormatPref)}}</span>
           </div>
           <empty-data solo v-else />
         </v-col>

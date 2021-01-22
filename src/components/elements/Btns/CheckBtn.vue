@@ -1,7 +1,7 @@
 <template>
 
   <v-btn
-    class="mr-1 primary-gradient-color-text"
+    :class="['mr-1', {'primary-gradient-color': disabled}]"
     icon
     :disabled="disabled"
   >

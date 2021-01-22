@@ -22,7 +22,7 @@
       >
         <v-avatar v-if="data.item.icon" tile left width="21" height="21" class="x-avatar">
           <x-img
-            :src="data.item.icon.data.full_url"
+            :src="data.item.icon"
             :logo="logo"
             :tooltipText="data.item.title"
           />
@@ -41,7 +41,7 @@
       >
         <v-avatar v-if="data.item.icon" tile left width="21" height="21" class="x-avatar">
           <x-img
-            :src="data.item.icon.data.full_url"
+            :src="data.item.icon"
             :logo="logo"
             :tooltipText="data.item.title"
           />

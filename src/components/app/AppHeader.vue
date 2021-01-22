@@ -120,7 +120,7 @@
               @click="postBrand()"
               :disabled="!validBrand"
               depressed
-              v-bind:class="['primary-gradient-color', reversedFontShadeColor]"
+              v-bind:class="[{'primary-gradient-color': validBrand}, reversedFontShadeColor]"
             >
               <v-icon v-text="'mdi-check'" />
               <span v-text="'Add brand'" />

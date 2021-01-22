@@ -17,12 +17,11 @@
     <v-btn
       v-if="isMobile"
       v-show="isConfigurationRoute"
-      class="floating-button primary-gradient-color"
+      :class="['px-0 floating-button', {'primary-gradient-color-text': validBrand}]"
       fab
       small
       rounded
       @click="brandPostDialog = !brandPostDialog"
-      v-bind:class="['px-0']"
     >
       <v-icon v-bind:class="[reversedFontShadeColor]" v-text="'mdi-plus'" />
     </v-btn>
@@ -76,7 +75,7 @@
 
           <v-btn
             @click="postBrand()"
-            class="primary-gradient-color"
+            :class="[{'primary-gradient-color': validBrand}]"
             :disabled="!validBrand"
             depressed
           >

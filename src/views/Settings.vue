@@ -111,7 +111,7 @@
                   'elevation-0',
                   {'max-width':isMobile},
                   reversedFontShadeColor,
-                  'primary-gradient-color'
+                  {'primary-gradient-color': valid}
                 ]"
                 :disabled="!valid"
                 @click.stop="updatePreferences()"

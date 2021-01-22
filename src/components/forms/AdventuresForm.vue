@@ -421,16 +421,16 @@
                           v-bind:class="[
                             'x-avatar',
                             'my-0 mr-3',
-                            (xGear(gear.gear_id).type ?
-                              getReversedVuetifyColor(xGear(gear.gear_id).type)
+                            (xGear(gear.gear_id).category ?
+                              getReversedVuetifyColor(xGear(gear.gear_id).category)
                               : ''
                             )
                           ]"
                         >
                           <x-img
-                            v-if="xGear(gear.gear_id).type"
-                            :src="xGearType(xGear(gear.gear_id).type).icon.data.full_url"
-                            :tooltipText="xGearType(xGear(gear.gear_id).type).title"
+                            v-if="xGear(gear.gear_id).category"
+                            :src="xGearCategory(xGear(gear.gear_id).category).icon"
+                            :tooltipText="xGearCategory(xGear(gear.gear_id).category).title"
                             :width="22"
                             :height="22"
                             isCategory
@@ -609,9 +609,9 @@
       gearFilterMode: false,
     }),
     computed: {
-      itemGearType: {
+      itemGearCategory: {
         get() {
-          return this.$store.state.ui.itemGearType
+          return this.$store.state.ui.itemGearCategory
         }
       },
       itemGearState: {
@@ -660,14 +660,14 @@
             let gear = this.xGear(item.gear_id);
             if(
               !this.itemSearch
-              && !this.itemGearType
+              && !this.itemGearCategory
               && !this.itemGearState
               && !this.itemGearBrand
             ) return this.originalInventoryGear;
 
             return (
               (this.itemSearch ? (gear.title && gear.title.toLowerCase().includes(this.itemSearch.toLowerCase())) : true)
-              && (this.itemGearType ? (gear.type && gear.type === this.itemGearType) : true)
+              && (this.itemGearCategory ? (gear.category && gear.category === this.itemGearCategory) : true)
               && (this.itemGearState ? (gear.state && gear.state === this.itemGearState) : true)
               && (this.itemGearBrand ? (gear.brand && gear.brand === this.itemGearBrand) : true)
             )

@@ -25,7 +25,7 @@
 
         <x-col text="Purchase" prop="purchase_date" />
 
-        <x-col text="Update" prop="updated_on" />
+        <x-col text="Update" prop="date_updated" />
 
         <x-col text="State" prop="state" />
       </template>

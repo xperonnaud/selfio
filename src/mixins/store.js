@@ -11,6 +11,9 @@ export default {
         }
     },
     computed: {
+        assetUrl() {
+            return this.$store.state.api.baseUrl+'assets/'
+        },
         store: {
             get() {
                 return this.$store.state;
@@ -172,9 +175,9 @@ export default {
                 return '&#8457;'
             },
         },
-        gearTypes: {
+        gearCategories: {
             get() {
-                return this.$store.state.selfio.gearTypes
+                return this.$store.state.selfio.gearCategories
             },
         },
         gearStates: {
@@ -212,9 +215,9 @@ export default {
                 return this.$store.state.selfio.gearStateReferences
             },
         },
-        gearTypeReferences: {
+        gearCategoryReferences: {
             get() {
-                return this.$store.state.selfio.gearTypeReferences
+                return this.$store.state.selfio.gearCategoryReferences
             },
         },
         activityReferences: {
@@ -293,9 +296,9 @@ export default {
                 return (this.brandsList[this.brandReferences[brandId]]);
             return null;
         },
-        xGearType(gearTypeId) {
-            if(gearTypeId, this.gearTypes)
-                return (this.gearTypes[this.gearTypeReferences[gearTypeId]]);
+        xGearCategory(gearCategoryId) {
+            if(gearCategoryId, this.gearCategories)
+                return (this.gearCategories[this.gearCategoryReferences[gearCategoryId]]);
             return null;
         },
         xGearState(gearStateId) {
@@ -334,7 +337,7 @@ export default {
             this.$store.commit("updateUiItemLocation", null);
             this.$store.commit("updateUiItemTag", null);
             this.$store.commit("updateUiItemQuantityOwned", null);
-            this.$store.commit("updateUiItemGearType", null);
+            this.$store.commit("updateUiItemGearCategory", null);
             this.$store.commit("updateUiItemGearState", null);
             this.$store.commit("updateUiItemGearBrand", null);
             this.$store.commit("updateUiItemActivity", null);

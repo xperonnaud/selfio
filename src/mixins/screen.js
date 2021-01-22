@@ -247,10 +247,10 @@ export default {
             return color;
         },
         getVuetifyColor(categoryId) {
-            return this.activityColor(this.vuetifyColors[this.gearTypeReferences[categoryId]]);
+            return this.activityColor(this.vuetifyColors[this.gearCategoryReferences[categoryId]]);
         },
         getReversedVuetifyColor(categoryId) {
-            return this.reversedActivityColor(this.vuetifyColors[this.gearTypeReferences[categoryId]]);
+            return this.reversedActivityColor(this.vuetifyColors[this.gearCategoryReferences[categoryId]]);
         },
         darkColorText(color) {
             if(typeof color == 'undefined' || !color || color === 'black')

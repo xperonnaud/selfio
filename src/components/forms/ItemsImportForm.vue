@@ -85,17 +85,17 @@
 
             <template v-slot:item.brand="{ item }">
               <span
-                v-if="item.brand && xGearType(item.brand)"
+                v-if="item.brand && xGearCategory(item.brand)"
                 v-text="xGearBrand(item.brand).title"
                 size="24"
               ></span>
             </template>
 
-            <template v-slot:item.type="{ item }">
-              <v-avatar v-if="item.type && xGearType(item.type) && xGearType(item.type).icon" size="24" class="x-avatar">
+            <template v-slot:item.category="{ item }">
+              <v-avatar v-if="item.category && xGearCategory(item.category) && xGearCategory(item.category).icon" size="24" class="x-avatar">
                 <x-img
-                  :src="xGearType(item.type).icon.data.full_url"
-                  :tooltipText="xGearType(item.type).title"
+                  :src="xGearCategory(item.category).icon"
+                  :tooltipText="xGearCategory(item.category).title"
                 />
               </v-avatar>
             </template>
@@ -112,7 +112,7 @@
             <template v-slot:item.activity="{ item }">
               <v-chip v-if="item.activity && xActivity(item.activity) && xActivity(item.activity).icon" ripple label>
                 <v-avatar left class="x-avatar">
-                  <v-img :src="xActivity(item.activity).icon.data.full_url" />
+                  <v-img :src="assetUrl+xActivity(item.activity).icon" />
                 </v-avatar>
 
                 {{item.activity.title}}

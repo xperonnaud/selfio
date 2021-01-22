@@ -13,7 +13,7 @@
       <v-col v-bind:class="['pa-0']">
         <div class="d-flex align-center justify-center">
           <v-icon
-            v-if="item.owner === userId"
+            v-if="item.user_created === userId"
             @click.stop="openDeleteDialog(item.id)"
             v-text="'mdi-trash-can-outline'"
           ></v-icon>
@@ -133,7 +133,7 @@
         let brandId = this.selectedBrandId;
         let brandIndex = (typeof brandId == 'number') ? this.brandReferences[brandId] : null;
 
-        if(typeof brandIndex == 'number' && (this.userId === this.brandsList[brandIndex].owner))
+        if(typeof brandIndex == 'number' && (this.userId === this.brandsList[brandIndex].user_created))
           await this.api_remove_brand(brandId, brandIndex);
 
         this.deleteDialog = false;

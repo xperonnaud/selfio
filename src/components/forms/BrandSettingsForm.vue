@@ -52,7 +52,7 @@
 
             <template v-slot:item.actions="{ item }">
               <v-icon
-                v-if="item.owner === userId"
+                v-if="item.user_created === userId"
                 @click="openDeleteDialog(item.id)"
                 v-text="'mdi-trash-can-outline'"
               ></v-icon>
@@ -196,9 +196,7 @@
         let brandId = this.selectedBrandId;
         let brandIndex = (typeof brandId == 'number') ? this.brandReferences[brandId] : null;
 
-        console.log('deleting brand',brandId, brandIndex)
-
-        if(typeof brandIndex == 'number' && (this.userId === this.brandsList[brandIndex].owner))
+        if(typeof brandIndex == 'number' && (this.userId === this.brandsList[brandIndex].user_created))
           await this.api_remove_brand(brandId, brandIndex);
         this.deleteDialog = false;
       },

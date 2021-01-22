@@ -41,7 +41,7 @@
           <div class="text-tiny text-center" v-text="'Duration'" />
         </v-col>
 
-        <x-col text="Update" prop="updated_on" />
+        <x-col text="Update" prop="date_updated" />
       </template>
 
       <v-col class="x-col py-2 col-border-r">

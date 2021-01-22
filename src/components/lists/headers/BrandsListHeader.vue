@@ -14,7 +14,7 @@
         </div>
       </v-col>
 
-      <x-col text="Action" prop="owner" />
+      <x-col text="Action" prop="user_created" />
     </v-row>
   </v-list-item-content>
 

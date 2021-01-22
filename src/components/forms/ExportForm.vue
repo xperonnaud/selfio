@@ -84,26 +84,26 @@
 
             <template v-slot:item.brand="{ item }">
               <span
-                v-if="item.brand && xGearType(item.brand)"
+                v-if="item.brand && xGearCategory(item.brand)"
                 v-text="xGearBrand(item.brand).title"
                 size="24"
               ></span>
             </template>
 
-            <template v-slot:item.type="{ item }">
+            <template v-slot:item.category="{ item }">
               <v-avatar
-                v-if="item.type && xGearType(item.type) && xGearType(item.type).icon"
+                v-if="item.category && xGearCategory(item.category) && xGearCategory(item.category).icon"
                 v-bind:class="[
                   'x-avatar',
                   'py-0',
                    (isMobile ? 'my-0 mr-3' : 'ml-2 mr-5'),
-                   (item.type ? getReversedVuetifyColor(item.type) : ''),
+                   (item.category ? getReversedVuetifyColor(item.category) : ''),
                 ]"
                 size="32"
               >
                 <x-img
-                  :src="xGearType(item.type).icon.data.full_url"
-                  :tooltipText="xGearType(item.type).title"
+                  :src="xGearCategory(item.category).icon"
+                  :tooltipText="xGearCategory(item.category).title"
                 />
               </v-avatar>
             </template>
@@ -120,7 +120,7 @@
             <template v-slot:item.activity="{ item }">
               <v-chip v-if="item.activity && xActivity(item.activity) && xActivity(item.activity).icon" ripple label>
                 <v-avatar left class="x-avatar">
-                  <v-img :src="xActivity(item.activity).icon.data.full_url" />
+                  <v-img :src="assetUrl+xActivity(item.activity).icon" />
                 </v-avatar>
 
                 {{item.activity.title}}

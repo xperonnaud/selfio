@@ -7,10 +7,11 @@ export default new Vuex.Store({
     state: {
         api: {
             authTimer: null,
-            login: 'reivax@gmail.com',
+            login: 'x.peronnaud@gmail.com',
             password: 'poppers78',
             accessToken: null,
-            baseUrl: 'http://localhost:8080/selfio/',
+            refreshToken: null,
+            baseUrl: 'http://localhost:8055/',
             isTokenRefreshed: false
         },
         selfio: {
@@ -24,8 +25,8 @@ export default new Vuex.Store({
             landscapeReferences: {},
             weatherReferences: {},
             gearStateReferences: {},
-            gearTypes: [],
-            gearTypeReferences: {},
+            gearCategories: [],
+            gearCategoryReferences: {},
             activities: [],
             activityReferences: {},
             gear: [],
@@ -49,7 +50,7 @@ export default new Vuex.Store({
             itemTag: null,
             itemLocation: null,
             itemQuantityOwned: null,
-            itemGearType: null,
+            itemGearCategory: null,
             itemGearState: null,
             itemGearBrand: null,
             itemActivity: null,
@@ -206,6 +207,9 @@ export default new Vuex.Store({
         updateApiAccessToken(state, accessToken) {
             state.api.accessToken = accessToken;
         },
+        updateApiRefreshToken(state, refreshToken) {
+            state.api.refreshToken = refreshToken;
+        },
         updateApiIsTokenRefreshed(state, isTokenRefreshed) {
             state.api.isTokenRefreshed = isTokenRefreshed;
         },
@@ -243,11 +247,11 @@ export default new Vuex.Store({
                 Object.assign(state.selfio.landscapeReferences, { [b.id] : (state.selfio.landscapes.length - 1) });
             }
         },
-        updateGearTypes(state, gearTypes) {
-            while(state.selfio.gearTypes.length > 0) state.selfio.gearTypes.pop();
-            for(const gt of gearTypes) {
-                state.selfio.gearTypes.push(gt);
-                Object.assign(state.selfio.gearTypeReferences, { [gt.id] : (state.selfio.gearTypes.length - 1) });
+        updateGearCategories(state, gearCategories) {
+            while(state.selfio.gearCategories.length > 0) state.selfio.gearCategories.pop();
+            for(const gt of gearCategories) {
+                state.selfio.gearCategories.push(gt);
+                Object.assign(state.selfio.gearCategoryReferences, { [gt.id] : (state.selfio.gearCategories.length - 1) });
             }
         },
         updateUser(state, user) {
@@ -328,9 +332,11 @@ export default new Vuex.Store({
                     Object.assign(state.selfio.inventoryGear, { [i.id] : [] });
 
                 while(state.selfio.inventoryGear[i.id].length > 0) state.selfio.inventoryGear[i.id].pop();
-                for(const g of i.inventory_gear) {
-                    state.selfio.inventoryGear[i.id].push(g.gear_id);
-                }
+
+                if(i.inventory_gear)
+                    for(const g of i.inventory_gear) {
+                        state.selfio.inventoryGear[i.id].push(g.gear_id);
+                    }
             }
         },
         addInventory(state, inventory) {
@@ -475,8 +481,8 @@ export default new Vuex.Store({
         updateUiItemOwned(state, itemOwned) {
             state.ui.itemOwned = itemOwned;
         },
-        updateUiItemGearType(state, itemGearType) {
-            state.ui.itemGearType = itemGearType;
+        updateUiItemGearCategory(state, itemGearCategory) {
+            state.ui.itemGearCategory = itemGearCategory;
         },
         updateUiItemTag(state, itemTag) {
             state.ui.itemTag = itemTag;
