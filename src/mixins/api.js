@@ -305,7 +305,7 @@ export default {
 
             await directus.items('activities').read()
             .then(function (response) {
-                self.$store.commit("updateActivities",response.data);
+                self.$store.commit("updateActivities", response.data);
             }).catch(async function (error) {
                 await self.handleResponse('error', error.message, error);
             })
@@ -724,7 +724,6 @@ export default {
             await directus.items('adventures').read()
             .then(function (response) {
                 self.$store.commit("updateAdventures",response.data);
-
             }).catch(async function (error) {
                 await self.handleResponse('error', error.message, error);
             })
@@ -802,7 +801,8 @@ export default {
 
             await directus.items('adventures').create(adventure)
             .then(async function (response) {
-                self.$store.commit("addAdventure",response.data);
+                adventure.id = response.data;
+                self.$store.commit("addAdventure", adventure);
                 await self.handleResponse('success', 'Adventure added');
 
             }).catch(async function (error) {
@@ -821,7 +821,7 @@ export default {
             };
 
             await directus.items('adventures').update(adventure.id, adventure)
-            .then(async function (response) {
+            .then(async function () {
                 self.$store.commit("patchAdventure", payload);
                 await self.handleResponse('success', 'Adventure updated');
 

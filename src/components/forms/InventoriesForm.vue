@@ -1013,7 +1013,7 @@
           this.currentInventoryGear.forEach(function(m2m) {
             self.inventoryGearList.push(m2m.gear_id);
             Object.assign(self.gearInventoryRelations, { [m2m.gear_id] : m2m.id });
-          })
+          });
 
           this.originalGearList = [...this.inventoryGearList];
         }

@@ -421,14 +421,14 @@
                           v-bind:class="[
                             'x-avatar',
                             'my-0 mr-3',
-                            (xGear(gear.gear_id).category ?
+                            (xGear(gear.gear_id) && xGear(gear.gear_id).category ?
                               getReversedVuetifyColor(xGear(gear.gear_id).category)
                               : ''
                             )
                           ]"
                         >
                           <x-img
-                            v-if="xGear(gear.gear_id).category"
+                            v-if="xGear(gear.gear_id) && xGear(gear.gear_id).category"
                             :src="xGearCategory(xGear(gear.gear_id).category).icon"
                             :tooltipText="xGearCategory(xGear(gear.gear_id).category).title"
                             :width="22"
@@ -445,7 +445,7 @@
                         <v-list-item-content>
                           <v-row align="center" justify="center">
                             <v-col :cols="isMobile ? 6 : 4" class="py-0">
-                              <div>
+                              <div v-if="xGear(gear.gear_id)">
                                 <v-list-item-title
                                   v-text="xGear(gear.gear_id).title"
                                   v-bind:class="['mb-1',{'text-body-2' : isMobile}]"
@@ -459,7 +459,7 @@
                             </v-col>
 
                             <v-col class="x-col">
-                              <div v-if="xGear(gear.gear_id).weight">
+                              <div v-if="xGear(gear.gear_id) && xGear(gear.gear_id).weight">
                                 <span class="text-caption">{{ xGear(gear.gear_id).weight | weightUnitFilter(weightUnit) }}</span>
                                 <span class="text-tiny-dimmed" v-text="weightUnit" />
                               </div>
@@ -467,7 +467,7 @@
                             </v-col>
 
                             <v-col v-if="!isMobile" class="x-col">
-                              <div v-if="xGear(gear.gear_id).price" >
+                              <div v-if="xGear(gear.gear_id) && xGear(gear.gear_id).price" >
                                 <span class="text-caption" v-text="xGear(gear.gear_id).price" />
                                 <span class="text-tiny-dimmed" v-text="priceUnit" />
                               </div>
@@ -475,14 +475,14 @@
                             </v-col>
 
                             <v-col v-if="!isMobile" class="x-col">
-                              <div v-if="xGear(gear.gear_id).purchase_date">
+                              <div v-if="xGear(gear.gear_id) && xGear(gear.gear_id).purchase_date">
                                 <span class="text-caption">{{xGear(gear.gear_id).purchase_date | minimalDateFilter(dateFormatPref)}}</span>
                               </div>
                               <empty-data solo v-else />
                             </v-col>
 
                             <v-col v-if="!isMobile" class="x-col">
-                              <v-tooltip v-if="xGear(gear.gear_id).state && xGearState(xGear(gear.gear_id).state)" bottom>
+                              <v-tooltip v-if="xGear(gear.gear_id) && xGear(gear.gear_id).state && xGearState(xGear(gear.gear_id).state)" bottom>
                                 <template v-slot:activator="{ on, attrs }">
                                   <v-icon
                                     :color="xGearState(xGear(gear.gear_id).state).color"
@@ -499,7 +499,7 @@
                             </v-col>
 
                             <v-col class="x-col">
-                              <div>
+                              <div v-if="xGear(gear.gear_id)">
                                 <span class="text-tiny-dimmed" v-html="'&#215;'" />
                                 <span class="text-caption" v-html="xGear(gear.gear_id).quantity_owned ? xGear(gear.gear_id).quantity_owned : 0" />
                               </div>

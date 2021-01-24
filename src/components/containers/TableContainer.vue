@@ -43,29 +43,34 @@
               </template>
 
               <template v-slot:item.category="{ item }">
-                <v-avatar size="24">
+                <v-avatar v-if="item.category.icon" size="24">
                   <img :src="assetUrl+item.category.icon" />
                 </v-avatar>
               </template>
 
               <template v-slot:item.state="{ item }">
-                <v-icon v-if="item.state && item.state.color" :color="item.state.color" v-text="'mdi-'+stateIcon(item.state.title)" size="21" />
+                <v-icon
+                  v-if="item.state && item.state.color"
+                  :color="item.state.color"
+                  v-text="'mdi-'+stateIcon(item.state.title)"
+                  size="21"
+                ></v-icon>
               </template>
 
               <template v-slot:item.color="{ item }">
                 <v-avatar
-                    size="21"
-                    :color="item.color"
+                  size="21"
+                  :color="item.color"
                 ></v-avatar>
               </template>
 
               <template v-slot:item.activity="{ item }">
                 <v-chip
-                    ripple
-                    label
-                    :color="item.activity.color"
+                  ripple
+                  label
+                  :color="item.activity.color"
                 >
-                  <v-avatar left>
+                  <v-avatar v-if="item.activity.icon" left>
                     <v-img :src="assetUrl+item.activity.icon" />
                   </v-avatar>
 
@@ -75,15 +80,15 @@
 
               <template v-slot:item.adventure_inventory="{ item }">
                 <v-dialog
-                    v-model="item.dialog"
-                    persistent
-                    max-width="600px"
+                  v-model="item.dialog"
+                  persistent
+                  max-width="600px"
                 >
                   <template v-slot:activator="{ on, attrs }">
                     <v-btn
-                        dark
-                        v-bind="attrs"
-                        v-on="on"
+                      dark
+                      v-bind="attrs"
+                      v-on="on"
                     >
                       {{ item.adventure_inventory.title }}
                     </v-btn>

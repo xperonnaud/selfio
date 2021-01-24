@@ -9,6 +9,7 @@
     <v-tooltip bottom>
       <template v-slot:activator="{ on, attrs }">
         <v-img
+          v-if="src"
           :src="assetUrl+src"
           :lazy-src="assetUrl+src"
           v-bind:class="[(logo ? '' : 'svg-image')]"
