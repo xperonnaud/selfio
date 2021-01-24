@@ -509,246 +509,244 @@
       </v-expand-transition>
 
       <v-expand-transition>
-        <v-row v-show="isEditing">
-          <v-col cols="12" class="pa-0">
-              <v-card class="mx-auto" flat :color="xBackgroundColor">
+        <div v-show="isEditing">
+          <v-card class="mx-auto" flat :color="xBackgroundColor">
 
-                <v-card-text class="pa-0">
-                  <v-toolbar class="px-3">
-                    <v-btn @click="closeEditor()" icon>
-                      <v-icon v-text="'mdi-arrow-left'" />
-                    </v-btn>
+            <v-card-text class="pa-0">
+              <v-toolbar class="px-3">
+                <v-btn @click="closeEditor()" icon>
+                  <v-icon v-text="'mdi-arrow-left'" />
+                </v-btn>
 
-                    <v-toolbar-title v-text="'Gear'" v-bind:class="[{'pa-0':isMobile}]" />
+                <v-toolbar-title v-text="'Gear'" v-bind:class="[{'pa-0':isMobile}]" />
 
-                    <v-spacer />
+                <v-spacer />
 
-                    <div class="d-flex">
-                      <div>
-                        <span
-                          v-bind:class="[currentColorText]"
-                          v-text="inventoryTotalItems"
-                        ></span>
-                        <span v-text="' item'+(inventoryTotalItems>1?'s':'')" class="text-tiny" />
-                      </div>
+                <div class="d-flex">
+                  <div>
+                    <span
+                      v-bind:class="[currentColorText]"
+                      v-text="inventoryTotalItems"
+                    ></span>
+                    <span v-text="' item'+(inventoryTotalItems>1?'s':'')" class="text-tiny" />
+                  </div>
 
-                      <x-divider />
+                  <x-divider />
 
-                      <div>
-                        <span v-bind:class="[currentColorText]">{{ inventoryTotalWeight | weightUnitFilter(weightUnit) | supWeightUnitFilter(weightUnit) }}</span>
-                        <span v-text="supWeightUnit" class="text-tiny" />
-                      </div>
-                    </div>
+                  <div>
+                    <span v-bind:class="[currentColorText]">{{ inventoryTotalWeight | weightUnitFilter(weightUnit) | supWeightUnitFilter(weightUnit) }}</span>
+                    <span v-text="supWeightUnit" class="text-tiny" />
+                  </div>
+                </div>
 
-                    <v-spacer />
+                <v-spacer />
 
-                    <filter-menu
-                      v-bind:filterMode.sync="gearFilterMode"
-                      :forcedRouteName="'gear'"
-                      class="mr-1"
-                    ></filter-menu>
+                <filter-menu
+                  v-bind:filterMode.sync="gearFilterMode"
+                  :forcedRouteName="'gear'"
+                  class="mr-1"
+                ></filter-menu>
 
-                    <v-btn
-                      @click="closeGearList()"
-                      class="primary-gradient-color-text"
-                      icon
-                    >
-                      <v-icon :size="28" v-text="'mdi-check'" />
-                    </v-btn>
+                <v-btn
+                  @click="closeGearList()"
+                  class="primary-gradient-color-text"
+                  icon
+                >
+                  <v-icon :size="28" v-text="'mdi-check'" />
+                </v-btn>
 
-                    <template v-slot:extension>
-                      <v-list
-                        v-bind:class="['rounded-0 py-0 max-width']"
-                        one-line
-                        flat
-                        dense
-                        color="transparent"
+                <template v-slot:extension>
+                  <v-list
+                    v-bind:class="['rounded-0 py-0 max-width']"
+                    one-line
+                    flat
+                    dense
+                    color="transparent"
+                  >
+                    <v-list-item class="pl-15">
+                      <v-list-item-avatar
+                        v-bind:class="[
+                          'x-avatar',
+                          'my-0 py-0',
+                           (isMobile ? 'mr-3' : 'mr-2'),
+                        ]"
+                        width="40"
+                        height="40"
+                        :style="isMobile ? 'margin-left: -4px;' : ''"
                       >
-                        <v-list-item class="pl-15">
-                          <v-list-item-avatar
-                            v-bind:class="[
-                              'x-avatar',
-                              'my-0 py-0',
-                               (isMobile ? 'mr-3' : 'mr-2'),
-                            ]"
-                            width="40"
-                            height="40"
-                            :style="isMobile ? 'margin-left: -4px;' : ''"
-                          >
-                            <v-col class="x-col py-2 x-primary-btn" @click.stop="sortGear('type')" v-ripple>
-                              <div class="d-flex justify-center">
-                                <x-sort-icon prop="type" />
-                              </div>
-                            </v-col>
-                          </v-list-item-avatar>
+                        <v-col class="x-col py-2 x-primary-btn" @click.stop="sortGear('type')" v-ripple>
+                          <div class="d-flex justify-center">
+                            <x-sort-icon prop="type" />
+                          </div>
+                        </v-col>
+                      </v-list-item-avatar>
 
-                          <v-list-item-content class="py-0">
-                            <v-row align="center" justify="center">
+                      <v-list-item-content class="py-0">
+                        <v-row align="center" justify="center">
 
-                              <v-col :cols="isMobile ? 6 : 4" class="py-2 col-border-r x-primary-btn rounded" @click.stop="sortGear('title')" v-ripple>
-                                <div class="d-flex align-center">
-                                  <div class="text-caption" v-text="'Title / Model'" />
-                                  <x-sort-icon prop="title" />
-                                </div>
-                              </v-col>
+                          <v-col :cols="isMobile ? 6 : 4" class="py-2 col-border-r x-primary-btn rounded" @click.stop="sortGear('title')" v-ripple>
+                            <div class="d-flex align-center">
+                              <div class="text-caption" v-text="'Title / Model'" />
+                              <x-sort-icon prop="title" />
+                            </div>
+                          </v-col>
 
-                              <v-col class="x-col py-2 col-border-r x-primary-btn rounded" @click.stop="sortGear('weight')" v-ripple>
-                                <div class="d-flex justify-center align-center">
-                                  <div v-show="!isMobile" class="text-caption" v-text="'Weight'" />
-                                  <x-sort-icon prop="weight" />
-                                </div>
-                              </v-col>
+                          <v-col class="x-col py-2 col-border-r x-primary-btn rounded" @click.stop="sortGear('weight')" v-ripple>
+                            <div class="d-flex justify-center align-center">
+                              <div v-show="!isMobile" class="text-caption" v-text="'Weight'" />
+                              <x-sort-icon prop="weight" />
+                            </div>
+                          </v-col>
 
-                              <v-col v-if="!isMobile" class="x-col py-2 col-border-r x-primary-btn rounded" @click.stop="sortGear('price')" v-ripple>
-                                <div class="d-flex justify-center align-center">
-                                  <div class="text-caption" v-text="'Price'" />
-                                  <x-sort-icon prop="price" />
-                                </div>
-                              </v-col>
+                          <v-col v-if="!isMobile" class="x-col py-2 col-border-r x-primary-btn rounded" @click.stop="sortGear('price')" v-ripple>
+                            <div class="d-flex justify-center align-center">
+                              <div class="text-caption" v-text="'Price'" />
+                              <x-sort-icon prop="price" />
+                            </div>
+                          </v-col>
 
-                              <v-col v-if="!isMobile" class="x-col py-2 col-border-r x-primary-btn rounded" @click.stop="sortGear('state')" v-ripple>
-                                <div class="d-flex justify-center align-center">
-                                  <div class="text-caption" v-text="'State'" />
-                                  <x-sort-icon prop="state" />
-                                </div>
-                              </v-col>
+                          <v-col v-if="!isMobile" class="x-col py-2 col-border-r x-primary-btn rounded" @click.stop="sortGear('state')" v-ripple>
+                            <div class="d-flex justify-center align-center">
+                              <div class="text-caption" v-text="'State'" />
+                              <x-sort-icon prop="state" />
+                            </div>
+                          </v-col>
 
-                              <v-col class="x-col py-2 col-border-r x-primary-btn rounded" @click.stop="sortGear('quantity_owned')" v-ripple>
-                                <div class="d-flex justify-center align-center">
-                                  <div v-show="!isMobile" class="text-caption ml-1" v-text="'Qty'" />
-                                  <x-sort-icon prop="quantity_owned" />
-                                </div>
-                              </v-col>
-                            </v-row>
-                          </v-list-item-content>
-                        </v-list-item>
-                      </v-list>
-                    </template>
-                  </v-toolbar>
-
-                  <v-list
-                    v-if="gearList.length >= 1"
-                    subheader
-                    two-line
-                    dense
-                  >
-                    <v-responsive
-                      class="overflow-y-auto"
-                      :max-height="isMobile ? (listHeight) : 600"
-                    >
-                      <v-scroll-y-transition group>
-                        <template v-for="(gear, index) in filteredGear">
-                          <v-list-item
-                            @click.stop="gearListItemAction(gear)"
-                            :key="`inventory-gear-${gear.id}-${index}`"
-                            v-bind:class="['x-checklist-item', {'px-7':isMobile}]"
-                          >
-                            <v-list-item-action>
-                              <v-checkbox :input-value="inventoryGearList.includes(gear.id)" :color="currentColor" />
-                            </v-list-item-action>
-
-                            <v-list-item-avatar
-                              v-bind:class="[
-                                'x-avatar',
-                                'my-0 mr-3',
-                                getReversedVuetifyColor(gear.category)
-                              ]"
-                            >
-                              <x-img
-                                v-if="gear.category && xGearCategory(gear.category)"
-                                :src="xGearCategory(gear.category).icon"
-                                :tooltipText="xGearCategory(gear.category).title"
-                                :width="22"
-                                :height="22"
-                                isCategory
-                              ></x-img>
-                            </v-list-item-avatar>
-
-                            <v-list-item-content>
-                              <v-row align="center" justify="center">
-                                <v-col :cols="isMobile ? 6 : 4" class="py-0">
-                                  <div>
-                                    <v-list-item-title
-                                      v-text="gear.title"
-                                      v-bind:class="['mb-1',{'text-body-2' : isMobile}]"
-                                    ></v-list-item-title>
-
-                                    <v-list-item-subtitle
-                                      class="text-caption"
-                                      v-text="gear.brand ? xGearBrand(gear.brand).title : '.'"
-                                    ></v-list-item-subtitle>
-                                  </div>
-                                </v-col>
-
-                                <v-col class="x-col">
-                                  <div v-if="gear.weight">
-                                    <span class="text-caption">{{ gear.weight | weightUnitFilter(weightUnit) }}</span>
-                                    <span class="text-tiny-dimmed" v-text="weightUnit" />
-                                  </div>
-                                  <empty-data solo v-else />
-                                </v-col>
-
-                                <v-col v-show="!isMobile" class="x-col">
-                                  <div v-if="gear.price">
-                                    <span class="text-caption" v-text="gear.price" />
-                                    <span class="text-tiny-dimmed" v-text="priceUnit" />
-                                  </div>
-                                  <empty-data solo v-else />
-                                </v-col>
-
-                                <v-col v-show="!isMobile" class="x-col">
-                                  <v-tooltip v-if="gear.state && xGearState(gear.state)" bottom>
-                                    <template v-slot:activator="{ on, attrs }">
-                                      <v-icon
-                                        :color="xGearState(gear.state).color"
-                                        class="pa-2"
-                                        v-text="'mdi-'+stateIcon(xGearState(gear.state).title)"
-                                        :size="21"
-                                        v-bind="attrs"
-                                        v-on="on"
-                                      ></v-icon>
-                                    </template>
-                                    <span v-text="xGearState(gear.state).title" />
-                                  </v-tooltip>
-                                  <empty-data solo v-else />
-                                </v-col>
-
-                                <v-col class="x-col">
-                                  <div v-bind:class="['ml-1',((!gear.quantity_owned || gear.quantity_owned===0) ? darkColorText('red') : '')]">
-                                    <span class="text-tiny" v-html="'&#215;'" />
-                                    <span v-bind:class="['text-body-2']" v-html="gear.quantity_owned ? gear.quantity_owned : 0" />
-                                  </div>
-                                </v-col>
-                              </v-row>
-                            </v-list-item-content>
-                          </v-list-item>
-
-                          <v-divider
-                            v-if="(index < gearList.length - 1)"
-                            :key="index"
-                          ></v-divider>
-                        </template>
-                      </v-scroll-y-transition>
-                    </v-responsive>
-                  </v-list>
-
-                  <v-list
-                    v-else
-                    subheader
-                    dense
-                  >
-                    <v-subheader v-text="'Gear List'" />
-                    <v-list-item>
-                      <v-list-item-content>
-                        <v-list-item-title v-text="'Empty'" />
+                          <v-col class="x-col py-2 col-border-r x-primary-btn rounded" @click.stop="sortGear('quantity_owned')" v-ripple>
+                            <div class="d-flex justify-center align-center">
+                              <div v-show="!isMobile" class="text-caption ml-1" v-text="'Qty'" />
+                              <x-sort-icon prop="quantity_owned" />
+                            </div>
+                          </v-col>
+                        </v-row>
                       </v-list-item-content>
                     </v-list-item>
                   </v-list>
-                </v-card-text>
+                </template>
+              </v-toolbar>
 
-              </v-card>
-          </v-col>
-        </v-row>
+              <v-list
+                v-if="gearList.length >= 1"
+                subheader
+                two-line
+                dense
+              >
+                <v-responsive
+                  class="overflow-y-auto"
+                  :max-height="isMobile ? (listHeight) : 600"
+                >
+                  <v-scroll-y-transition group>
+                    <template v-for="(gear, index) in filteredGear">
+                      <v-list-item
+                        @click.stop="gearListItemAction(gear)"
+                        :key="`inventory-gear-${gear.id}-${index}`"
+                        v-bind:class="['x-checklist-item', {'px-7':isMobile}]"
+                      >
+                        <v-list-item-action>
+                          <v-checkbox :input-value="inventoryGearList.includes(gear.id)" :color="currentColor" />
+                        </v-list-item-action>
+
+                        <v-list-item-avatar
+                          v-bind:class="[
+                            'x-avatar',
+                            'my-0 mr-3',
+                            getReversedVuetifyColor(gear.category)
+                          ]"
+                        >
+                          <x-img
+                            v-if="gear.category && xGearCategory(gear.category)"
+                            :src="xGearCategory(gear.category).icon"
+                            :tooltipText="xGearCategory(gear.category).title"
+                            :width="22"
+                            :height="22"
+                            isCategory
+                          ></x-img>
+                        </v-list-item-avatar>
+
+                        <v-list-item-content>
+                          <v-row align="center" justify="center">
+                            <v-col :cols="isMobile ? 6 : 4" class="py-0">
+                              <div>
+                                <v-list-item-title
+                                  v-text="gear.title"
+                                  v-bind:class="['mb-1',{'text-body-2' : isMobile}]"
+                                ></v-list-item-title>
+
+                                <v-list-item-subtitle
+                                  class="text-caption"
+                                  v-text="gear.brand ? xGearBrand(gear.brand).title : '.'"
+                                ></v-list-item-subtitle>
+                              </div>
+                            </v-col>
+
+                            <v-col class="x-col">
+                              <div v-if="gear.weight">
+                                <span class="text-caption">{{ gear.weight | weightUnitFilter(weightUnit) }}</span>
+                                <span class="text-tiny-dimmed" v-text="weightUnit" />
+                              </div>
+                              <empty-data solo v-else />
+                            </v-col>
+
+                            <v-col v-show="!isMobile" class="x-col">
+                              <div v-if="gear.price">
+                                <span class="text-caption" v-text="gear.price" />
+                                <span class="text-tiny-dimmed" v-text="priceUnit" />
+                              </div>
+                              <empty-data solo v-else />
+                            </v-col>
+
+                            <v-col v-show="!isMobile" class="x-col">
+                              <v-tooltip v-if="gear.state && xGearState(gear.state)" bottom>
+                                <template v-slot:activator="{ on, attrs }">
+                                  <v-icon
+                                    :color="xGearState(gear.state).color"
+                                    class="pa-2"
+                                    v-text="'mdi-'+stateIcon(xGearState(gear.state).title)"
+                                    :size="21"
+                                    v-bind="attrs"
+                                    v-on="on"
+                                  ></v-icon>
+                                </template>
+                                <span v-text="xGearState(gear.state).title" />
+                              </v-tooltip>
+                              <empty-data solo v-else />
+                            </v-col>
+
+                            <v-col class="x-col">
+                              <div v-bind:class="['ml-1',((!gear.quantity_owned || gear.quantity_owned===0) ? darkColorText('red') : '')]">
+                                <span class="text-tiny" v-html="'&#215;'" />
+                                <span v-bind:class="['text-body-2']" v-html="gear.quantity_owned ? gear.quantity_owned : 0" />
+                              </div>
+                            </v-col>
+                          </v-row>
+                        </v-list-item-content>
+                      </v-list-item>
+
+                      <v-divider
+                        v-if="(index < gearList.length - 1)"
+                        :key="index"
+                      ></v-divider>
+                    </template>
+                  </v-scroll-y-transition>
+                </v-responsive>
+              </v-list>
+
+              <v-list
+                v-else
+                subheader
+                dense
+              >
+                <v-subheader v-text="'Gear List'" />
+                <v-list-item>
+                  <v-list-item-content>
+                    <v-list-item-title v-text="'Empty'" />
+                  </v-list-item-content>
+                </v-list-item>
+              </v-list>
+            </v-card-text>
+
+          </v-card>
+        </div>
       </v-expand-transition>
     </v-container>
   </v-form>
@@ -926,7 +924,7 @@
           this.isLoadingPieData = true;
           let labels = [];
           let colors = [];
-          let data = []
+          let data = [];
 
           for (const [key, value] of Object.entries(gearCategoryStats)) {
             let gearCategory = value.id === 0 ? null : this.xGearCategory(value.id);
@@ -987,12 +985,12 @@
               let gearWeight = self.gearList[gearIndex].weight ? self.gearList[gearIndex].weight : 0;
 
               if(!Object.prototype.hasOwnProperty.call(newGearCategoryStats, gearCategoryIndex) && !newGearCategoryStats[gearCategoryIndex]) {
-                Object.assign(newGearCategoryStats, { [gearCategoryIndex] : {id: gearCategoryIndex, items: 1, weight: (gearWeight * gearQty)} });
+                Object.assign(newGearCategoryStats, { [gearCategoryIndex] : {id: gearCategoryIndex, items: gearQty, weight: (gearWeight * gearQty)} });
 
               } else {
-                let items = newGearCategoryStats[gearCategoryIndex].items + 1;
+                let items = newGearCategoryStats[gearCategoryIndex].items + gearQty;
                 let weight = newGearCategoryStats[gearCategoryIndex].weight + (gearWeight * gearQty);
-                Object.assign(newGearCategoryStats[gearCategoryIndex],  { id: gearCategoryIndex, items: (items * gearQty), weight: weight } );
+                Object.assign(newGearCategoryStats[gearCategoryIndex],  { id: gearCategoryIndex, items: items, weight: weight } );
               }
             }
           }
