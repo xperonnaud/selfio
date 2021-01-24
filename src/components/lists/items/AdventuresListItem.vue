@@ -265,6 +265,9 @@
         if(typeof this.item.adventure_inventory != 'number')
           return null;
         return this.xInventory(this.item.adventure_inventory).title;
+      },
+      adventureInventory() {
+        return this.item.adventure_inventory;
       }
     },
     methods: {
@@ -330,10 +333,14 @@
           this.adventureDaySpan(newVal);
         },
         deep: true
+      },
+      adventureInventory(val) {
+        if(this.isMounted && val)
+          this.initInventoryGear();
       }
     },
     mounted() {
-      this.initInventoryGear(this.item);
+      this.initInventoryGear();
       this.adventureDaySpan(this.item);
 
       this.isMounted = true;

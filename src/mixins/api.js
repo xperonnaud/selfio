@@ -757,7 +757,7 @@ export default {
                     adventure.elevation = Math.round(adventure.elevation / mToFt * 100) / 100;
             }
 
-            if(parseInt(adventure.temp_max) === 50 || adventure.temp_max === '') {
+            if(parseInt(adventure.temp_max) === 50 || adventure.temp_max === '' || isNaN(adventure.temp_max)) {
                 adventure.temp_max = null;
             } else {
                 adventure.temp_max = parseInt(adventure.temp_max);
@@ -766,7 +766,7 @@ export default {
                     adventure.temp_max = (Math.round((adventure.temp_max - 32) * 5/9 * 100) / 100);
             }
 
-            if(parseInt(adventure.temp_min) === -50 || adventure.temp_min === '') {
+            if(parseInt(adventure.temp_min) === -50 || adventure.temp_min === '' || isNaN(adventure.temp_min)) {
                 adventure.temp_min = null;
             } else {
                 adventure.temp_min = parseInt(adventure.temp_min);
@@ -775,7 +775,7 @@ export default {
                     adventure.temp_min = (Math.round((adventure.temp_min - 32) * 5/9 * 100) / 100);
             }
 
-            if(!adventure.humidity || adventure.humidity === '')
+            if(!adventure.humidity || adventure.humidity === '' || isNaN(adventure.humidity))
                 adventure.humidity = 0;
 
             if(adventure.start_time && typeof adventure.start_time != 'undefined') {
