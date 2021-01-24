@@ -63,9 +63,9 @@
         v-if="!isMobile && isConfigurationRoute"
         v-bind:class="['px-2 ml-3 mr-1 elevation-0 primary-gradient-color']"
         @click="brandPostDialog = !brandPostDialog"
-        fab
         :width="48"
         :height="48"
+        fab
       >
         <v-icon v-bind:class="[reversedFontShadeColor]" v-text="'mdi-plus'" />
       </v-btn>
@@ -78,11 +78,7 @@
         :transition="isMobile ? 'slide-x-transition' : 'fade-transition'"
         persistent
       >
-        <v-card
-            v-bind:class="[
-          {'rounded-0': isMobile},
-        ]"
-        >
+        <v-card>
           <v-card-title class="headline">
             <span v-text="'New Brand'" />
           </v-card-title>

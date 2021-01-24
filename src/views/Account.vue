@@ -92,13 +92,12 @@
                 v-bind:class="[
                   'elevation-0',
                   {'max-width':isMobile},
-                  {'primary-gradient-color-text': valid},
+                  {'primary-gradient-color': valid},
                   reversedFontShadeColor
                 ]"
                 :disabled="!valid"
                 @click.stop="updatePassword()"
               >
-                <v-icon v-text="'mdi-check'"/>
                 <span v-text="'Save'" />
               </v-btn>
             </v-col>

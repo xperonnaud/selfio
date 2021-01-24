@@ -85,7 +85,6 @@
                 @click.stop="postFeedback(feedback)"
               >
                 <span v-text="'Send'" />
-                <v-icon small class="mx-1" v-text="'mdi-send'"/>
               </v-btn>
             </v-col>
           </v-row>

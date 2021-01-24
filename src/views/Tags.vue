@@ -57,7 +57,6 @@
             ]"
             @click.stop="updatePreferences()"
           >
-            <v-icon v-text="'mdi-check'"/>
             <span v-text="'Save'" />
           </v-btn>
         </v-col>

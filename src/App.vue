@@ -272,46 +272,46 @@
   }
 
   .primary-gradient-color {
-    background-image: linear-gradient(45deg, #FFA000, #E64A19);
+    background-image: linear-gradient(45deg, #9C27B0, #2196F3, #009688);
   }
 
   .primary-gradient-color-text {
-    background: -webkit-linear-gradient(45deg, #E64A19, #FFA000);
+    background: -webkit-linear-gradient(45deg, #9C27B0, #2196F3, #009688);
     -webkit-background-clip: text !important;
     -webkit-text-fill-color: transparent;
   }
 
-  .gear-gradient-color {
-    background-image: linear-gradient(45deg, #2196F3, #0D47A1);
-  }
+  /*.primary-gradient-color {*/
+  /*  background-image: linear-gradient(45deg, #FFA000, #E64A19);*/
+  /*}*/
 
-  .gear-gradient-color-text {
-    background: -webkit-linear-gradient(45deg, #0D47A1, #2196F3);
-    -webkit-background-clip: text !important;
-    -webkit-text-fill-color: transparent;
-  }
+  /*.primary-gradient-color-text {*/
+  /*  background: -webkit-linear-gradient(45deg, #E64A19, #FFA000);*/
+  /*  -webkit-background-clip: text !important;*/
+  /*  -webkit-text-fill-color: transparent;*/
+  /*}*/
 
   .is-dark {
 
     .primary-gradient-color {
-      background-image: linear-gradient(45deg, #FFC107, #FF5722);
+      background-image: linear-gradient(45deg, #E040FB, #448AFF, #64FFDA);
     }
 
     .primary-gradient-color-text {
-      background: -webkit-linear-gradient(45deg, #FF5722, #FFC107);
+      background: -webkit-linear-gradient(45deg, #E040FB, #448AFF, #64FFDA);
       -webkit-background-clip: text !important;
       -webkit-text-fill-color: transparent;
     }
 
-    .gear-gradient-color {
-      background-image: linear-gradient(45deg, #BBDEFB, #2196F3);
-    }
+    /*.primary-gradient-color {*/
+    /*  background-image: linear-gradient(45deg, #FFC107, #FF5722);*/
+    /*}*/
 
-    .gear-gradient-color-text {
-      background: -webkit-linear-gradient(45deg, #2196F3, #BBDEFB);
-      -webkit-background-clip: text !important;
-      -webkit-text-fill-color: transparent;
-    }
+    /*.primary-gradient-color-text {*/
+    /*  background: -webkit-linear-gradient(45deg, #FF5722, #FFC107);*/
+    /*  -webkit-background-clip: text !important;*/
+    /*  -webkit-text-fill-color: transparent;*/
+    /*}*/
 
     .col-border-r {
       border-color: #292929;

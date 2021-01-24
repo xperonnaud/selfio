@@ -17,11 +17,13 @@
     <v-btn
       v-if="isMobile"
       v-show="isConfigurationRoute"
-      :class="['px-0 floating-button', {'primary-gradient-color-text': validBrand}]"
+      :class="['px-0 floating-button primary-gradient-color']"
+      @click="brandPostDialog = !brandPostDialog"
+      :width="48"
+      :height="48"
       fab
       small
       rounded
-      @click="brandPostDialog = !brandPostDialog"
     >
       <v-icon v-bind:class="[reversedFontShadeColor]" v-text="'mdi-plus'" />
     </v-btn>
@@ -35,11 +37,7 @@
       :transition="isMobile ? 'slide-x-transition' : 'fade-transition'"
       persistent
     >
-      <v-card
-          v-bind:class="[
-          {'rounded-0': isMobile},
-        ]"
-      >
+      <v-card class="rounded-0">
         <v-card-title class="headline">
           <span v-text="'New Brand'" />
         </v-card-title>
@@ -79,7 +77,6 @@
             :disabled="!validBrand"
             depressed
           >
-            <v-icon v-text="'mdi-check'" />
             <span v-text="'Add brand'" />
           </v-btn>
         </v-card-actions>
