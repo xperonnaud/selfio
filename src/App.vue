@@ -46,6 +46,7 @@
     methods: {
       async fetchSelfioItems() {
         this.isAppLoading = true;
+        await this.api_get_user();
         await this.initPreferences();
 
         if(this.preferences && this.preferences.theme)
@@ -63,7 +64,7 @@
         this.isAppLoading = false;
       },
       async initPreferences() {
-        await this.api_get_preferences();
+        await this.api_get_preferences(this.user.id);
       },
     },
     watch: {

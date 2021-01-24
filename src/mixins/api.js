@@ -1,5 +1,15 @@
 
-const axios = require('axios').default
+const axios = require('axios').default;
+import localforage from 'localforage';
+import DirectusSDK from '@directus/sdk-js';
+
+const directus = new DirectusSDK('http://localhost:8055/', {
+    auth: {
+        storage: localforage, // Storage adapter where refresh tokens are stored in JSON mode
+        mode: 'json', // What login mode to use. One of `json`, `cookie`
+        autoRefresh: false, // Whether or not to automatically refresh the access token on login
+    },
+});
 
 const gToKg = 0.001;
 const gToOz = 0.035274;
@@ -83,13 +93,6 @@ export default {
         },
     },
     methods: {
-        async postFeedback(feedback) {
-            if(feedback) {
-                this.isAppLoading = true;
-                await this.api_post_feedback(feedback);
-                this.isAppLoading = false;
-            }
-        },
         async updatePassword() {
             alert('Updating PWD. [method implementation in progress...]');
         },
@@ -121,35 +124,36 @@ export default {
                 await callback(array[index], index, array);
             }
         },
-        async api_auth_refresh(callback, ...args) {
-            let self = this;
-            await axios.post(
-                self.apiBaseUrl+'auth/refresh',
-                { token: self.apiAccessToken }
-            )
-            .then(async function (response) {
-                self.$store.commit('updateApiAccessToken',response.data.data.token);
-                await self.handleResponse('success');
 
-            }).catch(async function (error) {
-                await self.handleResponse('error', error.message, error);
-            })
-        },
-        async api_auth() {
+        async api_login() {
             let self = this;
-            await axios.post(
-                self.apiBaseUrl+'auth/login',
-                {
+            await directus.auth.login({
                     email: self.apiLogin,
                     password: self.apiPassword
                 }
             ).then(async function (response) {
                 if(response && response.data) {
-                    let data = response.data.data;
-                    self.$store.commit('updateUser',data.user);
+                    let data = response.data;
                     self.$store.commit('updateApiAccessToken',data.access_token);
                     self.$store.commit('updateApiRefreshToken',data.refresh_token);
-                    // await self.api_auth_refresh();
+
+                    let user = await directus.users.me.read();
+                    self.$store.commit('updateUser',user.data);
+
+                    await self.handleResponse('success');
+                }
+            }).catch(async function (error) {
+                await self.handleResponse('error', 'Incorrect Username/Password', error);
+            })
+        },
+        async api_get_user() {
+            let self = this;
+
+            await directus.users.me.read()
+            .then(async function (response) {
+                if(response && response.data) {
+                    self.$store.commit('updateUser',response.data)
+
                     await self.handleResponse('success');
                 }
             }).catch(async function (error) {
@@ -173,7 +177,7 @@ export default {
                 self.reset_user_data();
             }).catch(async function (error) {
                 await self.handleResponse('error', error.message, error);
-            })
+            });
 
             this.$store.commit("updateUiIsAppLoading", false);
         },
@@ -185,43 +189,36 @@ export default {
 
             this.$store.commit("updateUiIsAppLoading", true);
 
-            await axios.post(
-                self.apiBaseUrl+'auth/password/reset',
-                {
-                    email: self.apiLogin,
-                }
-            )
+            await directus.auth.password.request(self.apiLogin)
             .then(async function (response) {
                 await self.handleResponse('success', 'Reset Password', response.data);
             }).catch(async function (error) {
                 await self.handleResponse('error', error.message, error);
-            })
+            });
 
             this.$store.commit("updateUiIsAppLoading", false);
         },
-        async api_forgot_password() {
+        async api_forgot_password(newPassword = 'abcde12345') {
             let self = this;
 
             this.$store.commit("updateUiIsAppLoading", true);
 
-            await axios.post(
-                self.apiBaseUrl+'auth/password/request',
-                {
-                    email: self.apiLogin,
-                }
-            )
+            // TODO :: pass in input password
+            await directus.auth.password.reset(self.apiLogin, newPassword)
             .then(async function (response) {
                 await self.handleResponse('success', 'Forgot Password', response.data);
             }).catch(async function (error) {
                 await self.handleResponse('error', error.message, error);
-            })
+            });
 
             this.$store.commit("updateUiIsAppLoading", false);
         },
+
         reset_user_data() {
             this.$store.commit("updateApiPassword", null);
             this.$store.commit("updateApiAccessToken", null);
             this.$store.commit("updateApiRefreshToken", null);
+            this.$store.commit("updateUser", null);
         },
         reset_api_data() {
             this.$store.commit("updateBrands",[]);
@@ -233,34 +230,29 @@ export default {
             this.$store.commit("updateAdventures",[]);
         },
 
+        async postFeedback(feedback) {
+            if(feedback) {
+                this.isAppLoading = true;
+                await this.api_post_feedback(feedback);
+                this.isAppLoading = false;
+            }
+        },
         async api_post_feedback(feedback) {
             let self = this;
 
-            await axios.post(
-                self.apiBaseUrl
-                +'items/feedbacks?access_token='
-                +self.apiAccessToken,
-                feedback
-            )
-                .then(async function () {
-                    await self.handleResponse('success', 'Feedback sent. Thank You!');
-
-                }).catch(async function (error) {
-                    await self.handleResponse('error', error.message, error);
-                })
+            await directus.items('feedbacks').create(feedback)
+            .then(async function () {
+                await self.handleResponse('success', 'Feedback sent. Thank You!');
+            }).catch(async function (error) {
+                await self.handleResponse('error', error.message, error);
+            })
         },
 
         async api_get_brands() {
             let self = this;
-            await axios.get(
-                self.apiBaseUrl
-                +'items/brands?access_token='
-                +self.apiAccessToken
-                +'&fields=*'
-                +'&sort=title',
-            )
+            await directus.items('brands').read()
             .then(function (response) {
-                self.$store.commit("updateBrands",response.data.data);
+                self.$store.commit("updateBrands",response.data);
             }).catch(async function (error) {
                 await self.handleResponse('error', error.message, error);
             })
@@ -268,14 +260,9 @@ export default {
         async api_post_brand(brand) {
             let self = this;
 
-            await axios.post(
-                self.apiBaseUrl
-                +'items/brands?access_token='
-                +self.apiAccessToken,
-                brand
-            )
+            await directus.items('brands').create(brand)
             .then(async function (response) {
-                self.$store.commit("addBrand",response.data.data);
+                self.$store.commit("addBrand",response.data);
                 await self.handleResponse('success', 'Brand added');
 
             }).catch(async function (error) {
@@ -284,13 +271,7 @@ export default {
         },
         async api_remove_brand(brandId, brandIndex) {
             let self = this;
-            await axios.delete(
-                self.apiBaseUrl
-                + 'items/brands/'
-                + brandId
-                + '?access_token='
-                + self.apiAccessToken
-            )
+            await directus.items('brands').delete(brandId)
             .then(async function () {
                 self.$store.commit("removeBrand", brandIndex);
                 await self.handleResponse('success', 'Brand deleted');
@@ -302,45 +283,29 @@ export default {
 
         async api_get_landscapes() {
             let self = this;
-            await axios.get(
-                self.apiBaseUrl
-                +'items/landscapes?access_token='
-                +self.apiAccessToken
-                +'&fields=id,title,icon'
-                +'&sort=title',
-            )
+            await directus.items('landscapes').read()
             .then(function (response) {
-                self.$store.commit("updateLandscapes",response.data.data);
+                self.$store.commit("updateLandscapes",response.data);
             }).catch(async function (error) {
                 await self.handleResponse('error', error.message, error);
             })
         },
         async api_get_gear_categories() {
             let self = this;
-            await axios.get(
-                self.apiBaseUrl
-                +'items/gear_categories?access_token='
-                +self.apiAccessToken
-                +'&fields=id,title,icon'
-                +'&sort=id',
-            )
+
+            await directus.items('gear_categories').read()
             .then(function (response) {
-                self.$store.commit("updateGearCategories",response.data.data);
+                self.$store.commit("updateGearCategories",response.data);
             }).catch(async function (error) {
                 await self.handleResponse('error', error.message, error);
             })
         },
         async api_get_activities() {
             let self = this;
-            await axios.get(
-                self.apiBaseUrl
-                +'items/activities?access_token='
-                +self.apiAccessToken
-                +'&fields=id,title,color,icon'
-                +'&sort=title',
-            )
+
+            await directus.items('activities').read()
             .then(function (response) {
-                self.$store.commit("updateActivities",response.data.data);
+                self.$store.commit("updateActivities",response.data);
             }).catch(async function (error) {
                 await self.handleResponse('error', error.message, error);
             })
@@ -359,17 +324,19 @@ export default {
             }
             return [];
         },
-        async api_get_preferences() {
+        async api_get_preferences(userId) {
             let self = this;
-            await axios.get(
-                self.apiBaseUrl
-                +'items/preferences?access_token='
-                +self.apiAccessToken
-                +'&fields=*'
-            )
+
+            await directus.items('preferences').read({
+                filter: {
+                    user_created: {
+                        _eq: userId,
+                    },
+                },
+            })
             .then(async function (response) {
-                if(response.data.data.length > 0) {
-                    self.$store.commit("updatePreferences",response.data.data[0]);
+                if(response.data.length > 0) {
+                    self.$store.commit("updatePreferences", response.data[0]);
                 } else {
                     await self.api_init_preferences();
                 }
@@ -390,17 +357,11 @@ export default {
                 gear_tags:[],
                 inventory_tags:[],
                 adventure_tags:[],
-            }
+            };
 
-            await axios.post(
-                self.apiBaseUrl
-                +'items/preferences?access_token='
-                +self.apiAccessToken,
-                preferences
-            )
+            await directus.items('preferences').create(preferences)
             .then(function (response) {
-                console.log('api_init_preferences',response.data.data)
-                self.$store.commit("updatePreferences",response.data.data);
+                self.$store.commit("updatePreferences",response.data);
             }).catch(async function (error) {
                 await self.handleResponse('error', error.message, error);
             })
@@ -414,16 +375,9 @@ export default {
             if(preferences.date_updated)
                 delete preferences.date_updated;
 
-            await axios.patch(
-                self.apiBaseUrl
-                +'items/preferences/'
-                +preferences.id
-                +'?access_token='
-                +self.apiAccessToken,
-                preferences
-            )
+            await directus.items('preferences').update(preferences.id, preferences)
             .then(async function (response) {
-                Object.assign(self.$store.state.selfio.preferences, response.data.data);
+                Object.assign(self.$store.state.selfio.preferences, response.data);
                 await self.handleResponse('success', (!noMessage ? 'Preferences updated' : null));
 
             }).catch(async function (error) {
@@ -441,16 +395,9 @@ export default {
             if(self.$store.state.selfio.preferences.date_updated)
                 delete self.$store.state.selfio.preferences.date_updated;
 
-            await axios.patch(
-                self.apiBaseUrl
-                +'items/preferences/'
-                +self.$store.state.selfio.preferences.id
-                +'?access_token='
-                +self.apiAccessToken,
-                self.$store.state.selfio.preferences
-            )
+            await directus.items('preferences').update(self.$store.state.selfio.preferences.id, self.$store.state.selfio.preferences)
             .then(async function (response) {
-                Object.assign(self.$store.state.selfio.preferences, response.data.data);
+                Object.assign(self.$store.state.selfio.preferences, response.data);
                 await self.handleResponse('success', 'Tags updated');
             }).catch(async function (error) {
                 await self.handleResponse('error', error.message, error);
@@ -459,15 +406,10 @@ export default {
 
         async api_get_gear() {
             let self = this;
-            await axios.get(
-                self.apiBaseUrl
-                +'items/gear?access_token='
-                +self.apiAccessToken
-                +'&fields=*'
-                +'&sort=category,title',
-            )
+
+            await directus.items('gear').read()
             .then(function (response) {
-                self.$store.commit("updateGear",response.data.data);
+                self.$store.commit("updateGear",response.data);
             }).catch(async function (error) {
                 await self.handleResponse('error', error.message, error);
             })
@@ -507,18 +449,13 @@ export default {
 
             gear = this.fixedGear(gear);
 
-            await axios.post(
-                self.apiBaseUrl
-                +'items/gear?access_token='
-                +self.apiAccessToken,
-                gear
-            )
+            await directus.items('gear').create(gear)
             .then(async function (response) {
-                self.$store.commit("addGear",response.data.data);
+                self.$store.commit("addGear",response.data);
                 await self.handleResponse('success', 'Gear added');
 
             }).catch(async function (error) {
-                await self.handleResponse('error', error.message, error, self.api_post_gear, gear);
+                await self.handleResponse('error', error.message, error);
             })
         },
         async api_patch_gear(gear, gearIndex) {
@@ -526,37 +463,25 @@ export default {
 
             gear = this.fixedGear(gear);
 
-            await axios.patch(
-                self.apiBaseUrl
-                +'items/gear/'
-                +gear.id
-                +'?access_token='
-                +self.apiAccessToken,
-                gear
-            )
+            await directus.items('gear').update(gear.id, gear)
             .then(async function (response) {
-                self.$store.commit("patchGear", { index: gearIndex, data: response.data.data });
+                self.$store.commit("patchGear", { index: gearIndex, data: response.data });
                 await self.handleResponse('success', 'Gear updated');
 
             }).catch(async function (error) {
-                await self.handleResponse('error', error.message, error, self.api_patch_gear, gear, gearIndex);
+                await self.handleResponse('error', error.message, error);
             })
         },
         async api_remove_gear(gearId, gearIndex) {
             let self = this;
-            await axios.delete(
-                self.apiBaseUrl
-                + 'items/gear/'
-                + gearId
-                + '?access_token='
-                + self.apiAccessToken
-            )
+
+            await directus.items('gear').delete(gearId)
             .then(async function () {
                 self.$store.commit("removeGear", gearIndex);
                 await self.handleResponse('success', 'Gear deleted');
 
             }).catch(async function (error) {
-                await self.handleResponse('error', error.message, error, self.api_remove_gear, gearId, gearIndex);
+                await self.handleResponse('error', error.message, error);
             })
         },
 
@@ -578,6 +503,8 @@ export default {
         },
         async api_get_inventories() {
             let self = this;
+
+            // await directus.items('inventories').read()
             await axios.get(
                 self.apiBaseUrl
                 +'items/inventories?access_token='
@@ -597,29 +524,24 @@ export default {
 
             inventory = this.fixedInventory(inventory);
 
-            await axios.post(
-                self.apiBaseUrl
-                +'items/inventories?access_token='
-                +self.apiAccessToken,
-                inventory
-            )
+            await directus.items('inventories').create(inventory)
             .then(async function (response) {
                 await self.updateGearList(
-                    response.data.data.id,
-                    self.inventoryReferences[response.data.data.id],
+                    response.data.id,
+                    self.inventoryReferences[response.data.id],
                     originalGearList,
                     gearList,
                     gearInventoryRelations
                 )
                 .then(function () {
-                    self.$store.commit("addInventory", response.data.data);
+                    self.$store.commit("addInventory", response.data);
                     self.$store.commit("resetUiTempInventoryGear");
                 });
 
                 await self.handleResponse('success', 'Inventory added');
 
             }).catch(async function (error) {
-                await self.handleResponse('error', error.message, error, self.api_post_inventory, inventory, originalGearList, gearList, gearInventoryRelations);
+                await self.handleResponse('error', error.message, error);
             })
         },
         async api_patch_inventory(inventory, inventoryIndex, originalGearList, gearList, gearInventoryRelations) {
@@ -627,17 +549,10 @@ export default {
 
             inventory = this.fixedInventory(inventory);
 
-            await axios.patch(
-                self.apiBaseUrl
-                +'items/inventories/'
-                +inventory.id
-                +'?access_token='
-                +self.apiAccessToken,
-                inventory
-            )
+            await directus.items('inventories').update(inventory.id, inventory)
             .then(async function (response) {
                 await self.updateGearList(
-                    response.data.data.id,
+                    response.data.id,
                     inventoryIndex,
                     originalGearList,
                     gearList,
@@ -645,7 +560,7 @@ export default {
                 )
                 .then(function () {
                     let patched_inventory = {};
-                    Object.assign(patched_inventory, response.data.data);
+                    Object.assign(patched_inventory, response.data);
 
                     if(self.tempInventoryGear && self.tempInventoryGear.length > 0) {
                         if(!patched_inventory.inventory_gear)
@@ -663,18 +578,13 @@ export default {
                 await self.handleResponse('success', 'Inventory updated');
 
             }).catch(async function (error) {
-                await self.handleResponse('error', error.message, error, self.api_patch_inventory, inventory, inventoryIndex, originalGearList, gearList, gearInventoryRelations);
+                await self.handleResponse('error', error.message, error);
             })
         },
         async api_remove_inventory(inventoryId, inventoryIndex, originalGearList, gearInventoryRelations) {
             let self = this;
-            await axios.delete(
-                self.apiBaseUrl
-                + 'items/inventories/'
-                + inventoryId
-                + '?access_token='
-                + self.apiAccessToken
-            )
+
+            await directus.items('inventories').delete(inventoryId)
             .then(async function () {
                 await self.updateGearList(
                     inventoryId,
@@ -692,7 +602,7 @@ export default {
                 await self.handleResponse('success', 'Inventory deleted');
 
             }).catch(async function (error) {
-                await self.handleResponse('error', error.message, error, self.api_remove_inventory, inventoryId, inventoryIndex, originalGearList, gearInventoryRelations);
+                await self.handleResponse('error', error.message, error);
             })
         },
 
@@ -711,28 +621,29 @@ export default {
             await this.asyncForEach(sameGear, async (gearId) => {
                 let relationId = gearInventoryRelations[gearId];
                 await self.api_keep_inventory_gear(inventoryId, gearId, relationId);
-            })
+            });
 
             await this.asyncForEach(addedGear, async (gearId) => {
                 await self.api_add_inventory_gear(inventoryId, gearId, inventoryIndex);
-            })
+            });
 
             await this.asyncForEach(removedGear, async (gearId) => {
                 let relationId = gearInventoryRelations[gearId];
                 await self.api_remove_inventory_gear(relationId);
-            })
+            });
         },
         async api_get_gear_inventories(gearId) {
             let self = this;
-            await axios.get(
-                self.apiBaseUrl
-                +'items/inventory_gear?access_token='
-                +self.apiAccessToken
-                +'&filter[gear_id][_eq]='+gearId
-                +'&fields=inventory_id',
-            )
+            await directus.items('inventory_gear').read({
+                filter: {
+                    gear_id: {
+                        _eq: gearId,
+                    },
+                },
+                fields: ['inventory_id']
+            })
             .then(function (response) {
-                self.$store.commit("updateUiTempGearInventories",response.data.data);
+                self.$store.commit("updateUiTempGearInventories",response.data);
 
             }).catch(async function (error) {
                 await self.handleResponse('error', error.message, error);
@@ -740,15 +651,16 @@ export default {
         },
         async api_get_inventory_gear(inventoryId) {
             let self = this;
-            await axios.get(
-                self.apiBaseUrl
-                +'items/inventory_gear?access_token='
-                +self.apiAccessToken
-                +'&filter[inventory_id][_eq]='+inventoryId
-                +'&fields=gear_id',
-            )
+            await directus.items('inventory_gear').read({
+                filter: {
+                    inventory_id: {
+                        _eq: inventoryId,
+                    },
+                },
+                fields: ['gear_id']
+            })
             .then(function (response) {
-                self.$store.commit("initInventoryGear",response.data.data);
+                self.$store.commit("initInventoryGear",response.data);
 
             }).catch(async function (error) {
                 await self.handleResponse('error', error.message, error);
@@ -766,53 +678,38 @@ export default {
         },
         async api_add_inventory_gear(inventoryId, gearId) {//, inventoryRef
             let self = this;
-            await axios.post(
-                self.apiBaseUrl
-                +'items/inventory_gear?access_token='
-                +self.apiAccessToken,
-                {
-                    inventory_id: inventoryId,
-                    gear_id: gearId
-                }
-            )
+
+            await directus.items('inventory_gear').create({
+                inventory_id: inventoryId,
+                gear_id: gearId
+            })
             .then(function (response) {
                 let inventory_gear = {
                     inventory_id: inventoryId,
                     gear_id: gearId,
-                    id: response.data.data.id
+                    id: response.data.id
                 };
                 self.$store.commit("updateUiTempInventoryGear",inventory_gear);
 
             }).catch(async function (error) {
-                await self.handleResponse('error', error.message, error, self.api_add_inventory_gear, inventoryId, gearId);
+                await self.handleResponse('error', error.message, error);
             })
         },
         async api_remove_inventory_gear(relationId) {
             let self = this;
-            await axios.delete(
-                self.apiBaseUrl
-                +'items/inventory_gear/'
-                + relationId
-                +'?access_token='
-                +self.apiAccessToken
-            )
+
+            await directus.items('inventory_gear').delete(relationId)
             .then(async function () {
                 await self.handleResponse('success', 'Gear deleted');
 
             }).catch(async function (error) {
-                await self.handleResponse('error', error.message, error, self.api_remove_inventory_gear, relationId);
+                await self.handleResponse('error', error.message, error);
             })
         },
         async api_patch_inventory_gear(inventory_gear) {
             let self = this;
-            await axios.patch(
-                self.apiBaseUrl
-                +'items/inventory_gear/'
-                + inventory_gear.id
-                +'?access_token='
-                +self.apiAccessToken,
-                inventory_gear
-            )
+
+            await directus.items('inventory_gear').update(inventory_gear.id, inventory_gear)
             .then(async function () {
                 self.updateSnackbar('success', 'Gear packed');
             }).catch(function (error) {
@@ -823,15 +720,10 @@ export default {
 
         async api_get_adventures() {
             let self = this;
-            await axios.get(
-                self.apiBaseUrl
-                +'items/adventures?access_token='
-                +self.apiAccessToken
-                +'&fields=*'
-                +'&sort=start_date,start_time,title',
-            )
+
+            await directus.items('adventures').read()
             .then(function (response) {
-                self.$store.commit("updateAdventures",response.data.data);
+                self.$store.commit("updateAdventures",response.data);
 
             }).catch(async function (error) {
                 await self.handleResponse('error', error.message, error);
@@ -908,17 +800,13 @@ export default {
 
             adventure = this.fixedAdventure(adventure);
 
-            await axios.post(
-                self.apiBaseUrl
-                +'items/adventures?access_token='
-                +self.apiAccessToken,
-                adventure
-            ).then(async function (response) {
-                self.$store.commit("addAdventure",response.data.data);
+            await directus.items('adventures').create(adventure)
+            .then(async function (response) {
+                self.$store.commit("addAdventure",response.data);
                 await self.handleResponse('success', 'Adventure added');
 
             }).catch(async function (error) {
-                await self.handleResponse('error', error.message, error, self.api_post_adventure, adventure);
+                await self.handleResponse('error', error.message, error);
             })
         },
         async api_patch_adventure(adventure, adventureIndex, oldAdventureInventory) {
@@ -930,16 +818,9 @@ export default {
                 adventure: adventure,
                 adventureIndex: adventureIndex,
                 oldAdventureInventory: oldAdventureInventory,
-            }
+            };
 
-            await axios.patch(
-                self.apiBaseUrl
-                +'items/adventures/'
-                +adventure.id
-                +'?access_token='
-                +self.apiAccessToken,
-                adventure
-            )
+            await directus.items('adventures').update(adventure.id, adventure)
             .then(async function (response) {
                 self.$store.commit("patchAdventure", payload);
                 await self.handleResponse('success', 'Adventure updated');
@@ -950,19 +831,14 @@ export default {
         },
         async api_remove_adventure(adventureId, adventureIndex) {
             let self = this;
-            await axios.delete(
-                self.apiBaseUrl
-                + 'items/adventures/'
-                + adventureId
-                + '?access_token='
-                + self.apiAccessToken
-            )
+
+            await directus.items('adventures').delete(adventureId)
             .then(async function (response) {
                 self.$store.commit("removeAdventure", adventureIndex);
                 await self.handleResponse('success', 'Adventure deleted');
 
             }).catch(async function (error) {
-                await self.handleResponse('error', error.message, error, self.api_remove_adventure, adventureId, adventureIndex);
+                await self.handleResponse('error', error.message, error);
             })
         },
     },

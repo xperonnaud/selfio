@@ -8,10 +8,12 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@directus/sdk-js": "^9.0.0-rc.31",
     "axios": "^0.21.1",
     "chart.js": "^2.9.4",
     "core-js": "^3.6.5",
     "date-fns": "^2.16.1",
+    "localforage": "^1.9.0",
     "lodash": "^4.17.20",
     "moment": "^2.29.1",
     "vue": "^2.6.11",

@@ -114,7 +114,8 @@
     methods: {
       async login() {
         this.isLoading = true;
-        await this.api_auth();
+        // await this.api_auth();
+        await this.api_login();
         this.isLoading = false;
       },
       async forgotPassword() {
