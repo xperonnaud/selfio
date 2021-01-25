@@ -17,7 +17,7 @@
 
         <v-col class="x-col">
           <div v-if="item.inventory_gear" class="ml-1 text-caption">
-            <span v-bind:class="['text-body-2', nullOrZeroColorText(item.inventory_gear.length)]" v-text="item.inventory_gear.length" />
+            <span class="text-body-2">{{ sumInventoryQuantityOwned(item.inventory_gear) }}</span>
           </div>
           <empty-data solo v-else />
         </v-col>

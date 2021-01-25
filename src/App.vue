@@ -313,6 +313,10 @@
     /*  -webkit-text-fill-color: transparent;*/
     /*}*/
 
+    .x-input {
+      background: rgba(255, 255, 255, 0.08) !important;
+    }
+
     .col-border-r {
       border-color: #292929;
     }

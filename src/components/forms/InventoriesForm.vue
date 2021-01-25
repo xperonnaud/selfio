@@ -185,11 +185,11 @@
                                       </div>
 
                                       <v-progress-linear
-                                          :value="gearCategoryStat.weight | percentageFilter(inventoryGearList, inventoryTotalWeight)"
-                                          :color="getVuetifyColor((gearCategoryStat.id ? gearCategoryStat.id : 0))"
-                                          :height="3"
-                                          :background-color="xProgressColor"
-                                          class="rounded"
+                                        :value="gearCategoryStat.weight | percentageFilter(inventoryGearList, inventoryTotalWeight)"
+                                        :color="getVuetifyColor((gearCategoryStat.id ? gearCategoryStat.id : 0))"
+                                        :height="3"
+                                        :background-color="xProgressColor"
+                                        class="rounded"
                                       ></v-progress-linear>
                                     </v-list-item-title>
                                   </v-list-item>
@@ -266,19 +266,19 @@
                           <v-toolbar-title class="text-body-1" v-text="'Gear List'" />
 
                           <div
-                              v-show="currentInventoryGear.length <= 0"
-                              class="mx-1 text-tiny-dimmed"
-                              v-text="'(empty)'"
+                            v-show="currentInventoryGear.length <= 0"
+                            class="mx-1 text-tiny-dimmed"
+                            v-text="'(empty)'"
                           />
 
                           <v-spacer />
 
                           <div v-if="item" class="d-flex">
                             <div>
-                        <span
-                            v-bind:class="[currentColorText]"
-                            v-text="inventoryTotalItems"
-                        ></span>
+                              <span
+                                  v-bind:class="[currentColorText]"
+                                  v-text="inventoryTotalItems"
+                              ></span>
                               <span v-text="' Item'+(inventoryTotalItems>1?'s':'')" />
                             </div>
 
@@ -358,8 +358,8 @@
                                   one-line
                                   dense
                                 >
-                                  <template v-for="(gearCategoryStat, gearCategoryId) in gearCategoryStats">
-                                    <v-list-item :key="`gear-type-stat-${gearCategoryId}`" class="pa-0" style="min-height: 36px;">
+                                  <template v-for="(gearCategoryStat) in sortedGearCategoryStats">
+                                    <v-list-item :key="`gear-type-stat-${gearCategoryStat.id}`" class="pa-0" style="min-height: 36px;">
                                       <v-list-item-avatar
                                         width="30"
                                         min-width="30"
@@ -367,13 +367,13 @@
                                         v-bind:class="[
                                           'x-avatar',
                                           'my-0 ml-3 mr-1',
-                                          getReversedVuetifyColor(gearCategoryId)
+                                          getReversedVuetifyColor(gearCategoryStat.id)
                                         ]"
                                       >
                                         <x-img
-                                          v-if="gearCategoryId && xGearCategory(gearCategoryId) && objFilter(gearCategories, 'id', parseInt(gearCategoryId))[0]"
-                                          :src="objFilter(gearCategories, 'id', parseInt(gearCategoryId))[0].icon"
-                                          :tooltipText="xGearCategory(gearCategoryId).title"
+                                          v-if="gearCategoryStat.id && xGearCategory(gearCategoryStat.id) && objFilter(gearCategories, 'id', parseInt(gearCategoryStat.id))[0]"
+                                          :src="objFilter(gearCategories, 'id', parseInt(gearCategoryStat.id))[0].icon"
+                                          :tooltipText="xGearCategory(gearCategoryStat.id).title"
                                           isCategory
                                         />
                                         <v-icon
@@ -386,8 +386,9 @@
                                         <div class="d-flex">
                                           <div class="text-caption" style="width: 80px;">
                                             <div
-                                                v-if="gearCategoryId && objFilter(gearCategories, 'id', parseInt(gearCategoryId))[0]"
-                                            >{{ objFilter(gearCategories, 'id', parseInt(gearCategoryId))[0].title }}</div>
+                                                v-if="gearCategoryStat.id && objFilter(gearCategories, 'id', parseInt(gearCategoryStat.id))[0]"
+                                            >{{ objFilter(gearCategories, 'id', parseInt(gearCategoryStat.id))[0].title }}</div>
+
                                             <div
                                                 v-else
                                                 v-text="'unknown'"
@@ -422,7 +423,7 @@
 
                                         <v-progress-linear
                                             :value="gearCategoryStat.weight | percentageFilter(inventoryGearList, inventoryTotalWeight)"
-                                            :color="getVuetifyColor((gearCategoryId ? gearCategoryId : 0))"
+                                            :color="getVuetifyColor((gearCategoryStat.id ? gearCategoryStat.id : 0))"
                                             :height="6"
                                             :background-color="xProgressColor"
                                             class="rounded"
@@ -1044,7 +1045,6 @@
         return sum;
       },
       initInventoryStats() {
-        // this.inventoryTotalItems = this.inventoryGearList ? this.inventoryGearList.length : 0;
         this.inventoryTotalItems = this.sumCheckedGearProperty('quantity_owned');
         this.inventoryTotalWeight = this.sumCheckedGearProperty('weight');
         this.inventoryTotalPrice = this.sumCheckedGearProperty('price');

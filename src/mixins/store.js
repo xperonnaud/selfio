@@ -386,8 +386,13 @@ export default {
                 if(self.gearList[gearIndex]
                     && (typeof self.gearList[gearIndex][prop] === 'number')
                     && (self.gearList[gearIndex]['quantity_owned'] > 0)
-                )
-                    sum += (self.gearList[gearIndex][prop] * self.gearList[gearIndex]['quantity_owned']);
+                ) {
+                    if(prop !== 'quantity_owned') {
+                        sum += (self.gearList[gearIndex][prop] * self.gearList[gearIndex]['quantity_owned']);
+                    } else {
+                        sum += (self.gearList[gearIndex]['quantity_owned'] > 0 ? 1 : 0);
+                    }
+                }
             });
 
             return sum;
@@ -398,6 +403,9 @@ export default {
         sumInventoryWeight(inventoryGear) {
             let sum = this.sumInventoryProperty(inventoryGear, 'weight')
             return this.supWeightUnitConverter(sum);
+        },
+        sumInventoryQuantityOwned(inventoryGear) {
+            return this.sumInventoryProperty(inventoryGear, 'quantity_owned');
         },
         randomId(length = 16) {
             let result = '';
