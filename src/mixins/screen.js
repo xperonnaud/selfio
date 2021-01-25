@@ -298,11 +298,11 @@ export default {
                 (d !== 0 ? '<span class="text-tiny '+this.fontShadeColor+'">'+d+'</span>' : '')
                 + (d !== 0 ? '<span class="text-tiny-dimmed">d</span> ' : '')
 
-                + (h !== 0 ? '<span class="text-tiny '+this.fontShadeColor+'">'+h+'</span>' : '')
+                + (h !== 0 ? '<span class="text-tiny '+this.fontShadeColor+'">'+(d === 0 && m > 29 ? h : h+1)+'</span>' : '')
                 + (h !== 0 ? '<span class="text-tiny-dimmed">h</span> ' : '')
 
-                + (m !== 0 ? '<span class="text-tiny '+this.fontShadeColor+'">'+m+'</span>' : '')
-                + (m !== 0 ? '<span class="text-tiny-dimmed">m</span>' : '')
+                + (d === 0 && m !== 0 ? '<span class="text-tiny '+this.fontShadeColor+'">'+m+'</span>' : '')
+                + (d === 0 && m !== 0 ? '<span class="text-tiny-dimmed">m</span>' : '')
             );
         },
         initScreenHeight() {

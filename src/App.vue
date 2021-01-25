@@ -296,8 +296,11 @@
       }
 
       .v-list-item__content {
-        @extend .primary-gradient-color-text;
-        background-size: 90px 30px;
+        .v-list-item__title {
+          span {
+            @extend .primary-gradient-color-text;
+          }
+        }
       }
     }
   }
@@ -306,12 +309,12 @@
 
     .primary-gradient-color {
       background-image: linear-gradient(45deg, #E040FB, #448AFF, #64FFDA);
-      /*  background-image: linear-gradient(45deg, #FFC107, #FF5722);*/
+        /*background-image: linear-gradient(45deg, #FFC107, #FF5722);*/
     }
 
     .primary-gradient-color-text {
       background: -webkit-linear-gradient(45deg, #E040FB, #448AFF, #64FFDA);
-      /*  background: -webkit-linear-gradient(45deg, #FF5722, #FFC107);*/
+        /*background: -webkit-linear-gradient(45deg, #FF5722, #FFC107);*/
       -webkit-background-clip: text !important;
       -webkit-text-fill-color: transparent;
     }

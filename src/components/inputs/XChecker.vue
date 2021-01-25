@@ -1,30 +1,21 @@
 <template>
 
-  <v-card
-    class="x-checkbox elevation-0 x-input d-flex x-primary-btn"
-    @click="pickerValue = !pickerValue"
-  >
-    <x-checker
-      v-bind:value.sync="pickerValue"
-      :class="['pa-0 ma-0']"
-    ></x-checker>
-
-    <span class="text-body-2 my-auto" v-text="label" />
-  </v-card>
+  <v-checkbox
+    :input-value="pickerValue"
+    :class="[pickerValue ? 'primary-gradient-color-text' : fontShadeColor]"
+    :off-icon="'mdi-checkbox-blank-outline'"
+    :on-icon="'mdi-checkbox-marked-outline'"
+    filled
+    hide-details
+  ></v-checkbox>
 
 </template>
 
 <script>
 
-  import XChecker from "@/components/inputs/XChecker";
-
   export default {
-    name: 'x-checkbox',
-    components: {
-      XChecker
-    },
+    name: 'x-checker',
     props: {
-      label: String,
       value: {
         type: Boolean,
         default: false,

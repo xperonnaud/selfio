@@ -60,15 +60,15 @@
 
               <v-col cols="12" class="py-0">
                 <v-btn
+                  class="mt-2 mb-1 elevation-0"
+                  @click="forgotPassword()"
+                  :disabled="isLoading"
                   block
                   text
                   small
-                  class="mt-2 mb-1 elevation-0"
-                  @click="forgotPassword()"
-                  :disabled="!valid || isLoading"
                 >
                   <span
-                    :class="['text-tiny', {'primary-gradient-color-text': !(!valid || isLoading)}]"
+                    :class="['text-tiny-dimmed']"
                     v-text="'Forgot password ?'"
                   ></span>
                 </v-btn>

@@ -335,7 +335,7 @@
           }
 
           if(typeof this.item.quantity_owned == 'undefined' || !this.item.quantity_owned)
-            Vue.set(this.updatedItem, 'quantity_owned', 1);
+            Vue.set(this.updatedItem, 'quantity_owned', 0);
         }
       }
     },

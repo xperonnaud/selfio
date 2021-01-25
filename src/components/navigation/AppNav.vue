@@ -68,7 +68,9 @@
         </v-list-item-icon>
 
         <v-list-item-content>
-          <v-list-item-title v-text="navigationItems[item].title" />
+          <v-list-item-title>
+            <span v-text="navigationItems[item].title" />
+          </v-list-item-title>
         </v-list-item-content>
       </v-list-item>
     </template>

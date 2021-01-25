@@ -385,14 +385,10 @@
                                       <v-list-item-title class="mb-1">
                                         <div class="d-flex">
                                           <div class="text-caption" style="width: 80px;">
-                                            <div
-                                                v-if="gearCategoryStat.id && objFilter(gearCategories, 'id', parseInt(gearCategoryStat.id))[0]"
+                                            <div v-if="gearCategoryStat.id && objFilter(gearCategories, 'id', parseInt(gearCategoryStat.id))[0]"
                                             >{{ objFilter(gearCategories, 'id', parseInt(gearCategoryStat.id))[0].title }}</div>
 
-                                            <div
-                                                v-else
-                                                v-text="'unknown'"
-                                            ></div>
+                                            <div v-else v-text="'unknown'" />
                                           </div>
 
                                           <div class="d-flex font-weight-regular text-caption">
@@ -514,12 +510,12 @@
           <v-card class="mx-auto" flat :color="xBackgroundColor">
 
             <v-card-text class="pa-0">
-              <v-toolbar class="px-3">
+              <v-toolbar :class="[(isMobile ? 'px-0' : 'px-3')]">
                 <v-btn @click="closeEditor()" icon>
                   <v-icon v-text="'mdi-arrow-left'" />
                 </v-btn>
 
-                <v-toolbar-title v-text="'Gear'" v-bind:class="[{'pa-0':isMobile}]" />
+                <v-toolbar-title v-text="'Gear'" v-bind:class="['pl-1']" />
 
                 <v-spacer />
 
@@ -564,7 +560,7 @@
                     dense
                     color="transparent"
                   >
-                    <v-list-item class="pl-15">
+                    <v-list-item :class="[(isMobile ? 'pl-14 pr-3' : 'pl-15')]">
                       <v-list-item-avatar
                         v-bind:class="[
                           'x-avatar',
@@ -641,10 +637,10 @@
                       <v-list-item
                         @click.stop="gearListItemAction(gear)"
                         :key="`inventory-gear-${gear.id}-${index}`"
-                        v-bind:class="['x-checklist-item', {'px-7':isMobile}]"
+                        v-bind:class="['x-checklist-item', {'px-3':isMobile}]"
                       >
-                        <v-list-item-action>
-                          <v-checkbox :input-value="inventoryGearList.includes(gear.id)" :color="currentColor" />
+                        <v-list-item-action class="ml-1 mr-4">
+                          <x-checker :value="inventoryGearList.includes(gear.id)" />
                         </v-list-item-action>
 
                         <v-list-item-avatar
@@ -758,6 +754,7 @@
 
   const _ = require('lodash');
 
+  import XChecker from "@/components/inputs/XChecker";
   import XSortIcon from "@/components/elements/XSortIcon";
   import XDivider from "@/components/elements/XDivider";
   import EmptyList from "@/components/elements/EmptyList";
@@ -769,6 +766,7 @@
   export default {
     name: 'inventories-form',
     components: {
+      XChecker,
       XSortIcon,
       XPieChart: () => import('@/components/charts/XPieChart'),
       XCombobox,

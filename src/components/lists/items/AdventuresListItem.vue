@@ -68,14 +68,13 @@
                 <template v-slot:activator="{ on, attrs }">
                   <div
                     class="list-icon-wrapper"
-                    style="margin-top: 2px"
                     v-bind="attrs"
                     v-on="on"
                   >
                     <x-img
                       :src="xLandscape(item.landscape).icon"
-                      :width="isMobile ? 35 : 37"
-                      :height="isMobile ? 35 : 37"
+                      :width="35"
+                      :height="35"
                       :tooltipText="xLandscape(item.landscape).title"
                       logo
                     ></x-img>

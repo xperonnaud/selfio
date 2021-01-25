@@ -408,13 +408,10 @@
                       <v-list-item
                         :key="`adventure-gear-${gear.gear_id}-${index}`"
                         @click.stop="packGear(gear.gear_id)"
-                        class="x-checklist-item"
+                        v-bind:class="['x-checklist-item', {'px-3':isMobile}]"
                       >
-                        <v-list-item-action>
-                          <v-checkbox
-                            :input-value="isGearPacked(gear.gear_id)"
-                            :color="currentColor"
-                          ></v-checkbox>
+                        <v-list-item-action class="ml-1 mr-4">
+                          <x-checker :value="isGearPacked(gear.gear_id)" />
                         </v-list-item-action>
 
                         <v-list-item-avatar
@@ -532,6 +529,7 @@
 
   import Vue from 'vue'
 
+  import XChecker from "@/components/inputs/XChecker";
   import XDivider from "@/components/elements/XDivider";
   import EmptyData from "@/components/elements/Stepper/EmptyData";
   import XImg from "@/components/elements/XImg";
@@ -548,6 +546,7 @@
   export default {
     name: 'adventures-form',
     components: {
+      XChecker,
       XCombobox,
       XDivider,
       EmptyData,

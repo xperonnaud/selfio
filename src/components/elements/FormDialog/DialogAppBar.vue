@@ -4,6 +4,7 @@
       v-if="isMounted"
       :color="editMode ? 'secondary' : xTabsColor"
       :dense="editMode"
+      :class="[(isMobile ? 'px-0' : 'px-3')]"
     >
       <v-btn
         @click="leftArrowAction()"
@@ -123,7 +124,7 @@
 
       <v-btn
         @click="formDialogAction()"
-        v-bind:class="[{'mr-1':!isMobile}, {'primary-gradient-color-text': !(editMode || !isFormValid || !isFormMounted)}]"
+        v-bind:class="[{'primary-gradient-color-text': !(editMode || !isFormValid || !isFormMounted)}]"
         :disabled="editMode || !isFormValid || !isFormMounted"
         icon
       >
