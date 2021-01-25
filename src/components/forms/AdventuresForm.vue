@@ -346,7 +346,7 @@
           <v-card class="mx-auto" flat :color="xBackgroundColor">
 
             <v-card-text class="pa-0">
-              <v-toolbar>
+              <v-toolbar class="edition-toolbar">
                 <v-btn @click="closeEditor()" icon>
                   <v-icon v-text="'mdi-arrow-left'" />
                 </v-btn>

@@ -510,7 +510,7 @@
           <v-card class="mx-auto" flat :color="xBackgroundColor">
 
             <v-card-text class="pa-0">
-              <v-toolbar :class="[(isMobile ? 'px-0' : 'px-3')]">
+              <v-toolbar :class="['edition-toolbar', (isMobile ? 'px-0' : 'px-3')]">
                 <v-btn @click="closeEditor()" icon>
                   <v-icon v-text="'mdi-arrow-left'" />
                 </v-btn>
@@ -560,16 +560,14 @@
                     dense
                     color="transparent"
                   >
-                    <v-list-item :class="[(isMobile ? 'pl-14 pr-3' : 'pl-15')]">
+                    <v-list-item :class="[(isMobile ? 'pl-14 pr-3' : 'pl-12')]">
                       <v-list-item-avatar
                         v-bind:class="[
                           'x-avatar',
-                          'my-0 py-0',
-                           (isMobile ? 'mr-3' : 'mr-2'),
+                          'my-0 py-0 mr-2',
                         ]"
                         width="40"
                         height="40"
-                        :style="isMobile ? 'margin-left: -4px;' : ''"
                       >
                         <v-col class="x-col py-2 x-primary-btn" @click.stop="sortGear('type')" v-ripple>
                           <div class="d-flex justify-center">
@@ -617,6 +615,8 @@
                           </v-col>
                         </v-row>
                       </v-list-item-content>
+
+                      <v-list-item-action class="mx-3" />
                     </v-list-item>
                   </v-list>
                 </template>
@@ -719,10 +719,10 @@
 
                         <v-list-item-action style="margin-right: 0 !important;">
                           <v-btn
-                            icon
                             :class="[{'primary-gradient-color-text':inventoryGearList.includes(gear.id)}]"
                             :disabled="!inventoryGearList.includes(gear.id)"
                             @click.stop="inventoryGearList.includes(gear.id) ? selectInventoryGear(index) : null"
+                            icon
                           >
                             <v-icon v-text="'mdi-dots-vertical'" />
                           </v-btn>
@@ -824,6 +824,7 @@
 
 <script>
 
+  import Vue from 'vue'
   const _ = require('lodash');
 
   import XIncrement from "@/components/inputs/XIncrement";
@@ -1053,12 +1054,27 @@
         }
       },
       addGear(gear) {
-        if(!this.inventoryGearList.includes(gear.id))
-          this.inventoryGearList.push(gear.id)
+        if(!this.inventoryGearList.includes(gear.id)) {
+          this.inventoryGearList.push(gear.id);
+
+          let newInventoryGear = {
+            inventory_id: this.updatedItem.id,
+            gear_id: gear.id,
+            gear_quantity_packed: gear.quantity_owned,
+            gear_worn: false,
+          };
+
+          if(!this.updatedItem.inventory_gear)
+            this.updatedItem.inventory_gear = [];
+
+          let len = this.updatedItem.inventory_gear.length;
+          Vue.set(this.updatedItem.inventory_gear, len, newInventoryGear);
+        }
       },
       removeGear(gear) {
         let index = this.inventoryGearList.indexOf(gear.id);
         this.inventoryGearList.splice(index, 1);
+        this.updatedItem.inventory_gear.splice(index, 1);
       },
       async initGearCategoryStats() {
         let self = this;

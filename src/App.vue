@@ -104,6 +104,13 @@
 
 <style lang="scss">
 
+  .edition-toolbar {
+    .v-toolbar__content {
+      padding-top: 0 !important;
+      padding-bottom: 0 !important;
+    }
+  }
+
   .x-input {
     background: rgba(0, 0, 0, 0.06) !important;
     border-radius: 4px 4px 0 0;
