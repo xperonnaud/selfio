@@ -717,10 +717,12 @@
                           </v-row>
                         </v-list-item-content>
 
-                        <v-list-item-action>
+                        <v-list-item-action style="margin-right: 0 !important;">
                           <v-btn
                             icon
-                            @click.stop="selectInventoryGear(index)"
+                            :class="[{'primary-gradient-color-text':inventoryGearList.includes(gear.id)}]"
+                            :disabled="!inventoryGearList.includes(gear.id)"
+                            @click.stop="inventoryGearList.includes(gear.id) ? selectInventoryGear(index) : null"
                           >
                             <v-icon v-text="'mdi-dots-vertical'" />
                           </v-btn>
