@@ -1,13 +1,23 @@
 
 const axios = require('axios').default;
-import localforage from 'localforage';
 import DirectusSDK from '@directus/sdk-js';
+
+class MemoryStore {
+    constructor() {
+        this.values = {};
+    }
+    getItem(key) {
+        return this.values[key];
+    }
+    setItem(key, value) {
+        return this.values[key] = value;
+    }
+}
 
 const directus = new DirectusSDK('http://localhost:8055/', {
     auth: {
-        storage: localforage, // Storage adapter where refresh tokens are stored in JSON mode
+        storage: new MemoryStore(), // Storage adapter where refresh tokens are stored in JSON mode
         mode: 'json', // What login mode to use. One of `json`, `cookie`
-        autoRefresh: false, // Whether or not to automatically refresh the access token on login
     },
 });
 
@@ -127,6 +137,9 @@ export default {
 
         async api_login() {
             let self = this;
+            directus.auth; // let the constructor run
+            directus.auth.autoRefresh = true; // enable autoRefresh again
+
             await directus.auth.login({
                     email: self.apiLogin,
                     password: self.apiPassword
@@ -143,7 +156,7 @@ export default {
                     await self.handleResponse('success');
                 }
             }).catch(async function (error) {
-                await self.handleResponse('error', 'Incorrect Username/Password', error);
+                await self.handleResponse('error', 'Incorrect credentials', error);
             })
         },
         async api_get_user() {

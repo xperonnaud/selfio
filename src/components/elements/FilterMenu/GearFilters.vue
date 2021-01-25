@@ -3,9 +3,9 @@
   <v-list>
     <v-list-item class="mb-3">
       <x-picker
-          label="Category"
-          :list="typesList"
-          v-bind:value.sync="itemGearCategory"
+        label="Category"
+        :list="typesList"
+        v-bind:value.sync="itemGearCategory"
       ></x-picker>
     </v-list-item>
 

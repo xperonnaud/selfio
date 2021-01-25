@@ -1,7 +1,7 @@
 <template>
 
   <v-card
-    class="x-checkbox elevation-0 x-input d-flex x-primary-btn"
+    class="x-checkbox elevation-0 x-input d-flex x-primary-btn max-width"
     @click="pickerValue = !pickerValue"
   >
     <x-checker

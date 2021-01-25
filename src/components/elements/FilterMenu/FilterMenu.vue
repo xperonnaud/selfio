@@ -30,7 +30,7 @@
               @click="closeFilterMenu()"
               icon
             >
-              <v-icon v-text="'mdi-minus'" />
+              <v-icon v-text="'mdi-close'" />
             </v-btn>
 
           </v-list-item>

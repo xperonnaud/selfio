@@ -697,7 +697,6 @@
                                 <template v-slot:activator="{ on, attrs }">
                                   <v-icon
                                     :color="xGearState(gear.state).color"
-                                    class="pa-2"
                                     v-text="'mdi-'+stateIcon(xGearState(gear.state).title)"
                                     :size="21"
                                     v-bind="attrs"
@@ -717,6 +716,15 @@
                             </v-col>
                           </v-row>
                         </v-list-item-content>
+
+                        <v-list-item-action>
+                          <v-btn
+                            icon
+                            @click.stop="selectInventoryGear(index)"
+                          >
+                            <v-icon v-text="'mdi-dots-vertical'" />
+                          </v-btn>
+                        </v-list-item-action>
                       </v-list-item>
 
                       <v-divider
@@ -743,6 +751,68 @@
             </v-card-text>
 
           </v-card>
+
+          <v-dialog
+            v-model="inventoryGearMenu"
+            transition="dialog-right-transition"
+            max-width="350"
+          >
+            <v-card v-if="typeof selectedInventoryGearIndex == 'number' && selectedInventoryGear">
+              <v-list class="py-1">
+                <v-list-item>
+                  <v-list-item-title v-text="'Packing options'" />
+
+                  <v-spacer />
+
+                  <v-btn
+                    @click.stop="unSelectInventoryGear()"
+                    icon
+                  >
+                    <v-icon v-text="'mdi-close'" />
+                  </v-btn>
+
+                </v-list-item>
+              </v-list>
+
+              <v-divider />
+
+              <v-list>
+                <v-list-item class="mb-3">
+                  <x-increment
+                    label="Quantity packed"
+                    v-bind:value.sync="selectedInventoryGear['gear_quantity_packed']"
+                    :rules="xRules.decimal"
+                    :color="currentColor"
+                    :max="100"
+                    :min="0"
+                  ></x-increment>
+                </v-list-item>
+
+                <v-list-item>
+                  <x-checkbox
+                    label="Worn"
+                    v-bind:value.sync="selectedInventoryGear['gear_worn']"
+                  ></x-checkbox>
+                </v-list-item>
+              </v-list>
+
+              <v-divider />
+
+              <v-card-actions>
+
+                <v-spacer />
+
+                <v-btn
+                  @click.stop="unSelectInventoryGear()"
+                  icon
+                  class="primary-gradient-color-text"
+                >
+                  <v-icon v-text="'mdi-check'" />
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+
+          </v-dialog>
         </div>
       </v-expand-transition>
     </v-container>
@@ -754,6 +824,8 @@
 
   const _ = require('lodash');
 
+  import XIncrement from "@/components/inputs/XIncrement";
+  import XCheckbox from "@/components/inputs/XCheckbox";
   import XChecker from "@/components/inputs/XChecker";
   import XSortIcon from "@/components/elements/XSortIcon";
   import XDivider from "@/components/elements/XDivider";
@@ -766,6 +838,8 @@
   export default {
     name: 'inventories-form',
     components: {
+      XIncrement,
+      XCheckbox,
       XChecker,
       XSortIcon,
       XPieChart: () => import('@/components/charts/XPieChart'),
@@ -832,6 +906,9 @@
       inventoryTotalPrice: 0,
       originalGearList: [],
 
+      inventoryGearMenu: false,
+      selectedInventoryGearIndex: null,
+
       gearInventoryRelations: {},
       gearCategoryStats: {},
       gearFilterMode: false,
@@ -846,6 +923,11 @@
       gearOrderOption: 'desc',
     }),
     computed: {
+      selectedInventoryGear() {
+        if(typeof this.selectedInventoryGearIndex != 'number' || !this.updatedItem.inventory_gear)
+          return null;
+        return (this.updatedItem.inventory_gear[this.selectedInventoryGearIndex]);
+      },
       desktopMaxHeight() {
         return (this.currentWindowHeight < 660 ? this.currentWindowHeight : 1000);
       },
@@ -946,6 +1028,14 @@
       async closeEditor() {
         await this.initGearList();
         this.isEditing = false
+      },
+      selectInventoryGear(gearIndex) {
+        this.selectedInventoryGearIndex = gearIndex;
+        this.inventoryGearMenu = true;
+      },
+      unSelectInventoryGear() {
+        this.selectedInventoryGearIndex = null;
+        this.inventoryGearMenu = false;
       },
       closeGearList() {
         this.isEditing = false
