@@ -26,14 +26,14 @@
                 'x-avatar',
                 'py-0',
                  (isMobile ? 'my-0 mr-3' : 'ml-2 mr-5'),
-                 (item.category ? getReversedVuetifyColor(item.category) : ''),
               ]"
+              :style="item.category ? 'border: 1px solid '+hexColor(getVuetifyColor(item.category))+' !important;' : ''"
             >
               <x-img
                 v-if="item.category && xGearCategory(item.category)"
                 :src="xGearCategory(item.category).icon"
-                :width="22"
-                :height="22"
+                :width="21"
+                :height="21"
                 :tooltipText="xGearCategory(item.category).title"
                 isCategory
               ></x-img>

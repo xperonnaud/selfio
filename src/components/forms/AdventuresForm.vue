@@ -423,13 +423,14 @@
                               : ''
                             )
                           ]"
+                          :style="xGear(gear.gear_id).category ? 'border: 1px solid '+hexColor(getVuetifyColor(xGear(gear.gear_id).category))+' !important;' : ''"
                         >
                           <x-img
                             v-if="xGear(gear.gear_id) && xGear(gear.gear_id).category"
                             :src="xGearCategory(xGear(gear.gear_id).category).icon"
                             :tooltipText="xGearCategory(xGear(gear.gear_id).category).title"
-                            :width="22"
-                            :height="22"
+                            :width="21"
+                            :height="21"
                             isCategory
                           ></x-img>
 

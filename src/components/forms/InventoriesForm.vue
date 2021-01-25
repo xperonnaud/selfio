@@ -133,15 +133,17 @@
                                         min-width="30"
                                         height="30"
                                         v-bind:class="[
-                                        'x-avatar',
-                                        'my-0 ml-3 mr-1',
-                                        getReversedVuetifyColor(gearCategoryStat.id)
-                                      ]"
+                                          'x-avatar',
+                                          'my-0 ml-3 mr-1',
+                                        ]"
+                                        :style="gearCategoryStat.id ? 'border: 1px solid '+hexColor(getVuetifyColor(gearCategoryStat.id))+' !important;' : ''"
                                     >
                                       <x-img
                                         v-if="gearCategoryStat.id && xGearCategory(gearCategoryStat.id) && objFilter(gearCategories, 'id', parseInt(gearCategoryStat.id))[0]"
                                         :src="objFilter(gearCategories, 'id', parseInt(gearCategoryStat.id))[0].icon"
                                         :tooltipText="xGearCategory(gearCategoryStat.id).title"
+                                        :width="15"
+                                        :height="15"
                                         isCategory
                                       ></x-img>
 
@@ -367,13 +369,15 @@
                                         v-bind:class="[
                                           'x-avatar',
                                           'my-0 ml-3 mr-1',
-                                          getReversedVuetifyColor(gearCategoryStat.id)
                                         ]"
+                                        :style="gearCategoryStat.id ? 'border: 1px solid '+hexColor(getVuetifyColor(gearCategoryStat.id))+' !important;' : ''"
                                       >
                                         <x-img
                                           v-if="gearCategoryStat.id && xGearCategory(gearCategoryStat.id) && objFilter(gearCategories, 'id', parseInt(gearCategoryStat.id))[0]"
                                           :src="objFilter(gearCategories, 'id', parseInt(gearCategoryStat.id))[0].icon"
                                           :tooltipText="xGearCategory(gearCategoryStat.id).title"
+                                          :width="15"
+                                          :height="15"
                                           isCategory
                                         />
                                         <v-icon
@@ -418,11 +422,11 @@
                                         </div>
 
                                         <v-progress-linear
-                                            :value="gearCategoryStat.weight | percentageFilter(inventoryGearList, inventoryTotalWeight)"
-                                            :color="getVuetifyColor((gearCategoryStat.id ? gearCategoryStat.id : 0))"
-                                            :height="6"
-                                            :background-color="xProgressColor"
-                                            class="rounded"
+                                          :value="gearCategoryStat.weight | percentageFilter(inventoryGearList, inventoryTotalWeight)"
+                                          :color="getVuetifyColor((gearCategoryStat.id ? gearCategoryStat.id : 0))"
+                                          :height="6"
+                                          :background-color="xProgressColor"
+                                          class="rounded"
                                         ></v-progress-linear>
                                       </v-list-item-title>
                                     </v-list-item>
@@ -449,23 +453,23 @@
                     <v-row>
                       <v-col cols="12">
                         <x-combobox
-                            label="Tags"
-                            v-bind:value.sync="updatedItem.tags"
-                            v-bind:items="preferences.inventory_tags"
-                            v-bind:route="'inventories'"
+                          label="Tags"
+                          v-bind:value.sync="updatedItem.tags"
+                          v-bind:items="preferences.inventory_tags"
+                          v-bind:route="'inventories'"
                         ></x-combobox>
                       </v-col>
 
                       <v-col cols="12">
                         <v-textarea
-                            label="Description"
-                            v-model="updatedItem.description"
-                            :color="currentColor"
-                            filled
-                            dense
-                            hide-details="auto"
-                            auto-grow
-                            rows="1"
+                          label="Description"
+                          v-model="updatedItem.description"
+                          :color="currentColor"
+                          filled
+                          dense
+                          hide-details="auto"
+                          auto-grow
+                          rows="1"
                         ></v-textarea>
                       </v-col>
                     </v-row>
@@ -477,10 +481,10 @@
                     <v-row>
                       <v-col cols="12">
                         <x-combobox
-                            label="Tags"
-                            v-bind:value.sync="updatedItem.tags"
-                            v-bind:items="preferences.inventory_tags"
-                            v-bind:route="'inventories'"
+                          label="Tags"
+                          v-bind:value.sync="updatedItem.tags"
+                          v-bind:items="preferences.inventory_tags"
+                          v-bind:route="'inventories'"
                         ></x-combobox>
                       </v-col>
 
@@ -647,15 +651,15 @@
                           v-bind:class="[
                             'x-avatar',
                             'my-0 mr-3',
-                            getReversedVuetifyColor(gear.category)
                           ]"
+                          :style="'border: 1px solid '+hexColor(getVuetifyColor(gear.category))+' !important;'"
                         >
                           <x-img
                             v-if="gear.category && xGearCategory(gear.category)"
                             :src="xGearCategory(gear.category).icon"
                             :tooltipText="xGearCategory(gear.category).title"
-                            :width="22"
-                            :height="22"
+                            :width="21"
+                            :height="21"
                             isCategory
                           ></x-img>
                         </v-list-item-avatar>
@@ -1014,7 +1018,7 @@
             let gearCategory = value.id === 0 ? null : this.xGearCategory(value.id);
             let percentage = this.$options.filters.percentageFilter(value.weight, this.inventoryGearList, this.inventoryTotalWeight);
             let chartLabel = (gearCategory && gearCategory.title ? gearCategory.title : 'Unknown') + `, ${percentage}%, weight(${this.supWeightUnit})`;
-            let color = this.hexColor(this.getVuetifyColor(gearCategory && gearCategory.id ? gearCategory.id : 0))
+            let color = this.hexColor(this.getVuetifyColor(gearCategory && gearCategory.id ? gearCategory.id : 0));
             let displayedWeight = this.supWeightUnitConverter(value.weight);
 
             labels.push(chartLabel);
