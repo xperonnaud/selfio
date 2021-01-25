@@ -58,12 +58,13 @@
             || (navigationItems[item].type === 'account')"
           :key="navigationItems[item].title"
           :to="{ name: item }"
-          active-class="primary-gradient-color-text"
+          class="app-nav-list-item"
           link
           dense
       >
         <v-list-item-icon>
-          <v-icon size="23" v-text="navigationItems[item].icon+(currentRouteTitle!==navigationItems[item].title ? '-outline' : '')" />
+          <v-icon v-if="navigationItems[item].icon!=='mdi-database'" size="23" v-text="navigationItems[item].icon+(currentRouteTitle!==navigationItems[item].title ? '' : '-outline')" />
+          <v-icon v-else size="23" v-text="'mdi-database'+(currentIcon==='mdi-database' ? '-outline' : '')" />
         </v-list-item-icon>
 
         <v-list-item-content>
