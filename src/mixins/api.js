@@ -542,7 +542,7 @@ export default {
 
             }).catch(async function (error) {
                 await self.handleResponse('error', error.message, error);
-            })
+            });
         },
         async api_patch_inventory(inventory, inventoryIndex, originalGearList, gearList, gearInventoryRelations) {
             let self = this;
@@ -551,6 +551,7 @@ export default {
 
             await directus.items('inventories').update(inventory.id, inventory)
             .then(async function (response) {
+
                 await self.updateGearList(
                     response.data.id,
                     inventoryIndex,
@@ -560,11 +561,11 @@ export default {
                 )
                 .then(function () {
                     let patched_inventory = {};
+
                     Object.assign(patched_inventory, response.data);
 
                     if(self.tempInventoryGear && self.tempInventoryGear.length > 0) {
-                        if(!patched_inventory.inventory_gear)
-                            Object.assign(patched_inventory, { 'inventory_gear' : [] });
+                        Object.assign(patched_inventory, { 'inventory_gear' : [] });
 
                         self.tempInventoryGear.forEach(function(inventoryGearItem) {
                             patched_inventory.inventory_gear.push(inventoryGearItem)
@@ -626,6 +627,12 @@ export default {
             await this.asyncForEach(addedGear, async (gearId) => {
                 await self.api_add_inventory_gear(inventoryId, gearId, inventoryIndex);
             });
+
+            // let relationsToDelete = [];
+            // removedGear.forEach((gearId) => {
+            //     relationsToDelete.push(gearInventoryRelations[gearId]);
+            // });
+            // await self.api_remove_inventory_gear_list(relationsToDelete);
 
             await this.asyncForEach(removedGear, async (gearId) => {
                 let relationId = gearInventoryRelations[gearId];
@@ -701,6 +708,17 @@ export default {
             await directus.items('inventory_gear').delete(relationId)
             .then(async function () {
                 await self.handleResponse('success', 'Gear deleted');
+
+            }).catch(async function (error) {
+                await self.handleResponse('error', error.message, error);
+            })
+        },
+        async api_remove_inventory_gear_list(gear_list) {
+            let self = this;
+
+            await directus.items('inventory_gear').delete(gear_list)
+            .then(async function () {
+                await self.handleResponse('success', 'Gear unpacked');
 
             }).catch(async function (error) {
                 await self.handleResponse('error', error.message, error);

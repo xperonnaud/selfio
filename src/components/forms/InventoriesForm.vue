@@ -87,14 +87,14 @@
                           <v-spacer />
 
                           <v-btn
-                              v-bind:class="[reversedFontShadeColor, 'elevation-0', 'primary-gradient-color']"
-                              @click.stop="editInventory()"
-                              small
+                            v-bind:class="[reversedFontShadeColor, 'elevation-0', 'primary-gradient-color']"
+                            @click.stop="editInventory()"
+                            small
                           >
                             <v-icon
-                                size="18"
-                                v-text="'mdi-pencil'"
-                                class="mr-1"
+                              size="18"
+                              v-text="'mdi-pencil'"
+                              class="mr-1"
                             />
                             <span v-text="'edit'" />
                           </v-btn>
@@ -103,10 +103,10 @@
                         <v-divider />
 
                         <v-tabs
-                            :color="currentColor"
-                            :background-color="xTabsColor"
-                            fixed-tabs
-                            dense
+                          :color="currentColor"
+                          :background-color="xTabsColor"
+                          fixed-tabs
+                          dense
                         >
                           <v-tab>
                             <v-icon small v-text="'mdi-chart-bar'" />
@@ -121,10 +121,10 @@
                                 :height="300"
                             >
                               <v-list
-                                  v-if="currentInventoryGear.length > 0"
-                                  class="py-2 px-0"
-                                  one-line
-                                  dense
+                                v-if="inventoryGearList.length > 0"
+                                class="py-2 px-0"
+                                one-line
+                                dense
                               >
                                 <template v-for="(gearCategoryStat) in sortedGearCategoryStats">
                                   <v-list-item :key="`gear-type-stat-${gearCategoryStat.id}`" class="pa-0">
@@ -197,10 +197,10 @@
                               </v-list>
 
                               <empty-list
-                                  v-else
-                                  label="Add Gear"
-                                  icon="mdi-pickaxe"
-                                  :color="navItemColor('gear')"
+                                v-else
+                                label="Add Gear"
+                                icon="mdi-pickaxe"
+                                :color="navItemColor('gear')"
                               ></empty-list>
                             </v-responsive>
                           </v-tab-item>
@@ -211,7 +211,7 @@
                                 :height="300"
                             >
                               <empty-list
-                                  v-if="currentInventoryGear.length <= 0"
+                                  v-if="inventoryGearList.length <= 0"
                                   label="Add Gear"
                                   icon="mdi-pickaxe"
                                   :color="navItemColor('gear')"
@@ -294,7 +294,7 @@
 
                             <div>
                               <span v-if="item.inventory_gear" v-bind:class="[currentColorText]">{{ inventoryTotalPrice | thousandthFilter }}</span>
-                              <span v-else v-bind:class="[currentColorText]">0</span>
+                              <span v-else v-bind:class="[currentColorText]" v-text="'0'" />
                               <span v-text="' k'+priceUnit" />
                             </div>
                           </div>
@@ -302,14 +302,14 @@
                           <v-spacer />
 
                           <v-btn
-                              small
                               v-bind:class="[reversedFontShadeColor, 'elevation-0', 'primary-gradient-color']"
                               @click.stop="editInventory()"
+                              small
                           >
                             <v-icon
-                                size="18"
-                                v-text="'mdi-pencil'"
-                                class="mr-1"
+                              size="18"
+                              v-text="'mdi-pencil'"
+                              class="mr-1"
                             />
                             <span v-text="'edit'" />
                           </v-btn>
@@ -319,10 +319,10 @@
 
                         <v-sheet class="elevation-0">
                           <empty-list
-                              v-show="currentInventoryGear.length <= 0"
-                              label="Add Gear"
-                              icon="mdi-pickaxe"
-                              :color="navItemColor('gear')"
+                            v-show="inventoryGearList.length <= 0"
+                            label="Add Gear"
+                            icon="mdi-pickaxe"
+                            :color="navItemColor('gear')"
                           ></empty-list>
 
                           <v-row v-show="inventoryGearList.length > 0">
@@ -985,10 +985,10 @@
               let gearWeight = self.gearList[gearIndex].weight ? self.gearList[gearIndex].weight : 0;
 
               if(!Object.prototype.hasOwnProperty.call(newGearCategoryStats, gearCategoryIndex) && !newGearCategoryStats[gearCategoryIndex]) {
-                Object.assign(newGearCategoryStats, { [gearCategoryIndex] : {id: gearCategoryIndex, items: gearQty, weight: (gearWeight * gearQty)} });
+                Object.assign(newGearCategoryStats, { [gearCategoryIndex] : {id: gearCategoryIndex, items: 1, weight: (gearWeight * gearQty)} });
 
               } else {
-                let items = newGearCategoryStats[gearCategoryIndex].items + gearQty;
+                let items = newGearCategoryStats[gearCategoryIndex].items + 1;
                 let weight = newGearCategoryStats[gearCategoryIndex].weight + (gearWeight * gearQty);
                 Object.assign(newGearCategoryStats[gearCategoryIndex],  { id: gearCategoryIndex, items: items, weight: weight } );
               }
@@ -1028,17 +1028,24 @@
 
         this.inventoryGearList.forEach(function(gear) {
           let gearIndex = self.gearReferences[gear];
+
           if(self.gearList[gearIndex]
               && (typeof self.gearList[gearIndex][prop] === 'number')
               && (self.gearList[gearIndex]['quantity_owned'] > 0)
-          )
-            sum += (self.gearList[gearIndex][prop] * self.gearList[gearIndex]['quantity_owned']);
+          ) {
+            if(prop !== 'quantity_owned') {
+              sum += (self.gearList[gearIndex][prop] * self.gearList[gearIndex]['quantity_owned']);
+            } else {
+              sum += (self.gearList[gearIndex]['quantity_owned'] > 0 ? 1 : 0);
+            }
+          }
         });
 
         return sum;
       },
       initInventoryStats() {
-        this.inventoryTotalItems = this.inventoryGearList ? this.inventoryGearList.length : 0;
+        // this.inventoryTotalItems = this.inventoryGearList ? this.inventoryGearList.length : 0;
+        this.inventoryTotalItems = this.sumCheckedGearProperty('quantity_owned');
         this.inventoryTotalWeight = this.sumCheckedGearProperty('weight');
         this.inventoryTotalPrice = this.sumCheckedGearProperty('price');
       }
