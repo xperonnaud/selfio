@@ -3,7 +3,7 @@
   <v-sheet
     class="mt-1"
     style="border-radius: 32px;"
-    dark
+    color="transparent"
   >
     <v-tooltip bottom>
       <template v-slot:activator="{ on, attrs }">

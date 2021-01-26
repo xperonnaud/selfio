@@ -770,6 +770,9 @@ export default {
             if(adventure.tags === null || adventure.tags === '')
                 adventure.tags = [];
 
+            if(typeof adventure.adventure_inventory != 'number')
+                adventure.packed_gear = [];
+
             if(!adventure.distance || adventure.distance === '') {
                 adventure.distance = null;
             } else {

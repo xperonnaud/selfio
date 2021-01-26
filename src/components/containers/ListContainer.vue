@@ -27,7 +27,7 @@
                 'py-0',
                  (isMobile ? 'my-0 mr-3' : 'ml-2 mr-5'),
               ]"
-              :style="item.category ? 'border: 1px solid '+hexColor(getVuetifyColor(item.category))+' !important;' : ''"
+              :style="item.category ? 'border: 2px solid '+hexColor(getVuetifyColor(item.category))+' !important;' : ''"
             >
               <x-img
                 v-if="item.category && xGearCategory(item.category)"

@@ -407,30 +407,29 @@
                     <template v-for="(gear, index) in filteredGear">
                       <v-list-item
                         :key="`adventure-gear-${gear.gear_id}-${index}`"
-                        @click.stop="packGear(gear.gear_id)"
                         v-bind:class="['x-checklist-item', {'px-3':isMobile}]"
+                        @click.stop="packGear(gear.gear_id)"
                       >
-                        <v-list-item-action class="ml-1 mr-4">
+                        <v-list-item-action :class="['ml-1',(isMobile ? 'mr-0' : ' mr-4')]">
                           <x-checker :value="isGearPacked(gear.gear_id)" />
                         </v-list-item-action>
 
                         <v-list-item-avatar
                           v-bind:class="[
                             'x-avatar',
-                            'my-0 mr-3',
-                            (xGear(gear.gear_id) && xGear(gear.gear_id).category ?
-                              getReversedVuetifyColor(xGear(gear.gear_id).category)
-                              : ''
-                            )
+                            'my-0 mr-2',
                           ]"
-                          :style="xGear(gear.gear_id).category ? 'border: 1px solid '+hexColor(getVuetifyColor(xGear(gear.gear_id).category))+' !important;' : ''"
+                          width="32"
+                          min-width="32"
+                          height="32"
+                          :style="xGear(gear.gear_id).category ? 'border: 2px solid '+hexColor(getVuetifyColor(xGear(gear.gear_id).category))+' !important;' : ''"
                         >
                           <x-img
                             v-if="xGear(gear.gear_id) && xGear(gear.gear_id).category"
                             :src="xGearCategory(xGear(gear.gear_id).category).icon"
                             :tooltipText="xGearCategory(xGear(gear.gear_id).category).title"
-                            :width="21"
-                            :height="21"
+                            :width="16"
+                            :height="16"
                             isCategory
                           ></x-img>
 

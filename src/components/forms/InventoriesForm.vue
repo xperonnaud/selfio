@@ -639,34 +639,37 @@
                   <v-scroll-y-transition group>
                     <template v-for="(gear, index) in filteredGear">
                       <v-list-item
-                        @click.stop="gearListItemAction(gear)"
                         :key="`inventory-gear-${gear.id}-${index}`"
                         v-bind:class="['x-checklist-item', {'px-3':isMobile}]"
+                        @click.stop="gearListItemAction(gear)"
                       >
-                        <v-list-item-action class="ml-1 mr-4">
+                        <v-list-item-action :class="['ml-1',(isMobile ? 'mr-0' : ' mr-4')]">
                           <x-checker :value="inventoryGearList.includes(gear.id)" />
                         </v-list-item-action>
 
                         <v-list-item-avatar
                           v-bind:class="[
                             'x-avatar',
-                            'my-0 mr-3',
+                            'my-0 mr-2',
                           ]"
-                          :style="'border: 1px solid '+hexColor(getVuetifyColor(gear.category))+' !important;'"
+                          width="32"
+                          min-width="32"
+                          height="32"
+                          :style="'border: 2px solid '+hexColor(getVuetifyColor(gear.category))+' !important;'"
                         >
                           <x-img
                             v-if="gear.category && xGearCategory(gear.category)"
                             :src="xGearCategory(gear.category).icon"
                             :tooltipText="xGearCategory(gear.category).title"
-                            :width="21"
-                            :height="21"
+                            :width="16"
+                            :height="16"
                             isCategory
                           ></x-img>
                         </v-list-item-avatar>
 
                         <v-list-item-content>
                           <v-row align="center" justify="center">
-                            <v-col :cols="isMobile ? 6 : 4" class="py-0">
+                            <v-col :cols="isMobile ? 5 : 4" class="py-0">
                               <div>
                                 <v-list-item-title
                                   v-text="gear.title"
@@ -713,9 +716,32 @@
                             </v-col>
 
                             <v-col class="x-col">
-                              <div v-bind:class="['ml-1',((!gear.quantity_owned || gear.quantity_owned===0) ? darkColorText('red') : '')]">
-                                <span class="text-tiny" v-html="'&#215;'" />
-                                <span v-bind:class="['text-body-2']" v-html="gear.quantity_owned ? gear.quantity_owned : 0" />
+                              <div
+                                v-if="inventoryGearItem(gear.id)"
+                                :key="`gear_worn-${gear.id}-${inventoryGearItem(gear.id).gear_worn}`"
+                              >
+                                <v-icon
+                                  v-if="inventoryGearItem(gear.id).gear_worn === true"
+                                  v-text="'mdi-tshirt-crew'"
+                                  class="primary-gradient-color-text"
+                                  style="margin-bottom: 3px;"
+                                  small
+                                ></v-icon>
+                              </div>
+                              <empty-data solo v-else />
+                            </v-col>
+
+                            <v-col class="x-col">
+                              <div v-bind:class="['ml-1']">
+                                <span
+                                  v-if="inventoryGearItem(gear.id)"
+                                  :key="`gear_quantity_packed-${gear.id}-${inventoryGearItem(gear.id).gear_quantity_packed}`"
+                                  class="text-body-2"
+                                  v-html="inventoryGearItem(gear.id).gear_quantity_packed || 0"
+                                ></span>
+                                <span v-else class="text-body-2" v-text="'0'" />
+
+<!--                                <span v-bind:class="['text-tiny-dimmed']" v-html="'/'+(gear.quantity_owned || 0)" />-->
                               </div>
                             </v-col>
                           </v-row>
@@ -725,7 +751,7 @@
                           <v-btn
                             :class="[{'primary-gradient-color-text':inventoryGearList.includes(gear.id)}]"
                             :disabled="!inventoryGearList.includes(gear.id)"
-                            @click.stop="inventoryGearList.includes(gear.id) ? selectInventoryGear(index) : null"
+                            @click.stop="inventoryGearList.includes(gear.id) ? selectInventoryGear(gear) : null"
                             icon
                           >
                             <v-icon v-text="'mdi-dots-vertical'" />
@@ -789,7 +815,7 @@
                     v-bind:value.sync="selectedInventoryGear['gear_quantity_packed']"
                     :rules="xRules.decimal"
                     :color="currentColor"
-                    :max="100"
+                    :max="selectedInventoryGearMaxQuantity"
                     :min="0"
                   ></x-increment>
                 </v-list-item>
@@ -915,6 +941,7 @@
 
       inventoryGearMenu: false,
       selectedInventoryGearIndex: null,
+      selectedInventoryGearMaxQuantity: null,
 
       gearInventoryRelations: {},
       gearCategoryStats: {},
@@ -995,6 +1022,10 @@
       }
     },
     methods: {
+      inventoryGearItem(gearId) {
+        let index = this.inventoryGearList.indexOf(gearId);
+        return ((index >=0 ) ? this.updatedItem.inventory_gear[index] : null);
+      },
       sortGear(by, option = "asc") {
         if (this.gearOrderBy == by) {
           if (this.gearOrderOption == "asc") {
@@ -1036,8 +1067,10 @@
         await this.initGearList();
         this.isEditing = false
       },
-      selectInventoryGear(gearIndex) {
+      selectInventoryGear(gear) {
+        let gearIndex = this.inventoryGearList.indexOf(gear.id);
         this.selectedInventoryGearIndex = gearIndex;
+        this.selectedInventoryGearMaxQuantity = gear.quantity_owned;
         this.inventoryGearMenu = true;
       },
       unSelectInventoryGear() {
