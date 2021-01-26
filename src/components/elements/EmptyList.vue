@@ -9,7 +9,7 @@
               v-if="icon"
               :color="color"
               v-text="icon"
-              size="36"
+              size="30"
               class="mx-auto"
             ></v-icon>
           </div>
@@ -21,12 +21,12 @@
             outlined
             @click="openPostFormDialog()"
           >
-            <span v-bind:class="['text-body-1',fontShadeColor]" v-text="label" />
+            <span v-bind:class="['text-body-2',fontShadeColor]" v-text="label" />
           </v-btn>
 
           <div
             v-else-if="label"
-            class="text-body-1"
+            class="text-body-2"
             v-text="label"
           />
         </div>

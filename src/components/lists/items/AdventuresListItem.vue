@@ -76,6 +76,7 @@
                       :width="35"
                       :height="35"
                       :tooltipText="xLandscape(item.landscape).title"
+                      noMargin
                       logo
                     ></x-img>
                   </div>

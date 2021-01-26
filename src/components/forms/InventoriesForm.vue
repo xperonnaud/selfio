@@ -51,9 +51,9 @@
                           <v-toolbar-title class="text-body-2" v-text="'Gear List'" />
 
                           <div
-                              v-show="currentInventoryGear.length <= 0"
-                              class="mx-1 text-tiny-dimmed"
-                              v-text="'(empty)'"
+                            v-show="currentInventoryGear.length <= 0"
+                            class="mx-1 text-tiny-dimmed"
+                            v-text="'(empty)'"
                           />
 
                           <v-spacer />
@@ -117,8 +117,8 @@
 
                           <v-tab-item>
                             <v-responsive
-                                class="overflow-y-auto pr-3 "
-                                :height="300"
+                              class="overflow-y-auto pr-3 "
+                              :height="300"
                             >
                               <v-list
                                 v-if="inventoryGearList.length > 0"
@@ -198,26 +198,64 @@
                                 </template>
                               </v-list>
 
-                              <empty-list
-                                v-else
-                                label="Add Gear"
-                                icon="mdi-pickaxe"
-                                :color="navItemColor('gear')"
-                              ></empty-list>
+                              <v-row>
+                                <v-col cols="12">
+                                  <div class="d-flex text-center align-center justify-center">
+                                    <div class="pa-12">
+                                      <div class="d-flex justify-center">
+                                        <v-icon
+                                          :color="navItemColor('gear')"
+                                          v-text="'mdi-pickaxe'"
+                                          size="30"
+                                          class="mx-auto"
+                                        ></v-icon>
+                                      </div>
+
+                                      <v-btn
+                                        :color="navItemColor('gear')"
+                                        class="my-3"
+                                        outlined
+                                        @click.stop="editInventory()"
+                                      >
+                                        <span v-bind:class="['text-body-2',fontShadeColor]" v-text="'Add Gear'" />
+                                      </v-btn>
+                                    </div>
+                                  </div>
+                                </v-col>
+                              </v-row>
                             </v-responsive>
                           </v-tab-item>
 
                           <v-tab-item>
                             <v-responsive
-                                class="overflow-y-auto pr-3 "
-                                :height="300"
+                              class="overflow-y-auto pr-3 "
+                              :height="300"
                             >
-                              <empty-list
-                                  v-if="inventoryGearList.length <= 0"
-                                  label="Add Gear"
-                                  icon="mdi-pickaxe"
-                                  :color="navItemColor('gear')"
-                              ></empty-list>
+                              <v-row v-if="inventoryGearList.length <= 0">
+                                <v-col cols="12">
+                                  <div class="d-flex text-center align-center justify-center">
+                                    <div class="pa-12">
+                                      <div class="d-flex justify-center">
+                                        <v-icon
+                                          :color="navItemColor('gear')"
+                                          v-text="'mdi-pickaxe'"
+                                          size="30"
+                                          class="mx-auto"
+                                        ></v-icon>
+                                      </div>
+
+                                      <v-btn
+                                        :color="navItemColor('gear')"
+                                        class="my-3"
+                                        outlined
+                                        @click.stop="editInventory()"
+                                      >
+                                        <span v-bind:class="['text-body-2',fontShadeColor]" v-text="'Add Gear'" />
+                                      </v-btn>
+                                    </div>
+                                  </div>
+                                </v-col>
+                              </v-row>
 
                               <x-pie-chart
                                   v-else-if="isMounted && !isLoadingPieData && !isEditing  && pieChart.labels.length > 0 && pieChart.datasets.length > 0"
@@ -304,9 +342,9 @@
                           <v-spacer />
 
                           <v-btn
-                              v-bind:class="[reversedFontShadeColor, 'elevation-0', 'primary-gradient-color']"
-                              @click.stop="editInventory()"
-                              small
+                            v-bind:class="[reversedFontShadeColor, 'elevation-0', 'primary-gradient-color']"
+                            @click.stop="editInventory()"
+                            small
                           >
                             <v-icon
                               size="18"
@@ -320,12 +358,31 @@
                         <v-divider />
 
                         <v-sheet class="elevation-0">
-                          <empty-list
-                            v-show="inventoryGearList.length <= 0"
-                            label="Add Gear"
-                            icon="mdi-pickaxe"
-                            :color="navItemColor('gear')"
-                          ></empty-list>
+                          <v-row v-show="inventoryGearList.length <= 0">
+                            <v-col cols="12">
+                              <div class="d-flex text-center align-center justify-center">
+                                <div class="pa-12">
+                                  <div class="d-flex justify-center">
+                                    <v-icon
+                                      :color="navItemColor('gear')"
+                                      v-text="'mdi-pickaxe'"
+                                      size="30"
+                                      class="mx-auto"
+                                    ></v-icon>
+                                  </div>
+
+                                  <v-btn
+                                    :color="navItemColor('gear')"
+                                    class="my-3"
+                                    outlined
+                                    @click.stop="editInventory()"
+                                  >
+                                    <span v-bind:class="['text-body-2',fontShadeColor]" v-text="'Add Gear'" />
+                                  </v-btn>
+                                </div>
+                              </div>
+                            </v-col>
+                          </v-row>
 
                           <v-row v-show="inventoryGearList.length > 0">
                             <v-col cols="5">
@@ -512,7 +569,6 @@
       <v-expand-transition>
         <div v-show="isEditing">
           <v-card class="mx-auto" flat :color="xBackgroundColor">
-
             <v-card-text class="pa-0">
               <v-toolbar :class="['edition-toolbar', (isMobile ? 'px-0' : 'px-3')]">
                 <v-btn @click="closeEditor()" icon>
@@ -564,7 +620,7 @@
                     dense
                     color="transparent"
                   >
-                    <v-list-item :class="[(isMobile ? 'pl-14 pr-3' : 'pl-12')]">
+                    <v-list-item :class="[(isMobile ? 'pl-13 pr-3' : 'pl-11')]">
                       <v-list-item-avatar
                         v-bind:class="[
                           'x-avatar',
@@ -583,44 +639,52 @@
                       <v-list-item-content class="py-0">
                         <v-row align="center" justify="center">
 
-                          <v-col :cols="isMobile ? 6 : 4" class="py-2 col-border-r x-primary-btn rounded" @click.stop="sortGear('title')" v-ripple>
+                          <v-col :cols="isMobile ? 5 : 4" class="py-2 col-border-r x-primary-btn rounded" @click.stop="sortGear('title')" v-ripple>
                             <div class="d-flex align-center">
-                              <div class="text-caption" v-text="'Title / Model'" />
+                              <div class="text-tiny" v-text="'Title / Model'" />
                               <x-sort-icon prop="title" />
                             </div>
                           </v-col>
 
-                          <v-col class="x-col py-2 col-border-r x-primary-btn rounded" @click.stop="sortGear('weight')" v-ripple>
+                          <v-col class="x-col px-0 py-2 col-border-r x-primary-btn rounded" @click.stop="sortGear('weight')" v-ripple>
                             <div class="d-flex justify-center align-center">
-                              <div v-show="!isMobile" class="text-caption" v-text="'Weight'" />
+                              <div v-show="!isMobile" class="text-tiny" v-text="'Weight'" />
                               <x-sort-icon prop="weight" />
                             </div>
                           </v-col>
 
-                          <v-col v-if="!isMobile" class="x-col py-2 col-border-r x-primary-btn rounded" @click.stop="sortGear('price')" v-ripple>
+                          <v-col v-if="!isMobile" class="x-col px-0 py-2 col-border-r x-primary-btn rounded" @click.stop="sortGear('price')" v-ripple>
                             <div class="d-flex justify-center align-center">
-                              <div class="text-caption" v-text="'Price'" />
+                              <div class="text-tiny" v-text="'Price'" />
                               <x-sort-icon prop="price" />
                             </div>
                           </v-col>
 
-                          <v-col v-if="!isMobile" class="x-col py-2 col-border-r x-primary-btn rounded" @click.stop="sortGear('state')" v-ripple>
+                          <v-col v-if="!isMobile" class="x-col px-0 py-2 col-border-r x-primary-btn rounded" @click.stop="sortGear('state')" v-ripple>
                             <div class="d-flex justify-center align-center">
-                              <div class="text-caption" v-text="'State'" />
+                              <div class="text-tiny" v-text="'State'" />
                               <x-sort-icon prop="state" />
                             </div>
                           </v-col>
 
-                          <v-col class="x-col py-2 col-border-r x-primary-btn rounded" @click.stop="sortGear('quantity_owned')" v-ripple>
-                            <div class="d-flex justify-center align-center">
-                              <div v-show="!isMobile" class="text-caption ml-1" v-text="'Qty'" />
-                              <x-sort-icon prop="quantity_owned" />
-                            </div>
+                          <v-col class="x-col px-0 py-2 col-border-r">
+                            <div class="text-tiny text-center" v-text="'Worn'" />
                           </v-col>
+
+                          <v-col class="x-col px-0 py-2 col-border-r">
+                            <div class="text-tiny text-center" v-text="'Qty'" />
+                          </v-col>
+
+<!--                          <v-col class="x-col py-2 col-border-r x-primary-btn rounded" @click.stop="sortGear('quantity_owned')" v-ripple>-->
+<!--                            <div class="d-flex justify-center align-center">-->
+<!--                              <div v-show="!isMobile" class="text-tiny ml-1" v-text="'Qty'" />-->
+<!--                              <x-sort-icon prop="quantity_owned" />-->
+<!--                            </div>-->
+<!--                          </v-col>-->
                         </v-row>
                       </v-list-item-content>
 
-                      <v-list-item-action class="mx-3" />
+                      <v-list-item-action style="width: 36px !important;" class="ma-0" />
                     </v-list-item>
                   </v-list>
                 </template>
@@ -781,7 +845,6 @@
                 </v-list-item>
               </v-list>
             </v-card-text>
-
           </v-card>
 
           <v-dialog
@@ -862,7 +925,6 @@
   import XChecker from "@/components/inputs/XChecker";
   import XSortIcon from "@/components/elements/XSortIcon";
   import XDivider from "@/components/elements/XDivider";
-  import EmptyList from "@/components/elements/EmptyList";
   import EmptyData from "@/components/elements/Stepper/EmptyData";
   import FilterMenu from "@/components/elements/FilterMenu/FilterMenu";
   import XImg from "@/components/elements/XImg";
@@ -878,7 +940,6 @@
       XPieChart: () => import('@/components/charts/XPieChart'),
       XCombobox,
       XDivider,
-      EmptyList,
       EmptyData,
       FilterMenu,
       XImg

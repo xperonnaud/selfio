@@ -790,16 +790,15 @@
       },
       async inventoryGear(val) {
         if(this.isMounted) {
-          if(this.item && this.item.packed_gear) {
-            Vue.set(this.updatedItem, 'packed_gear', this.item.packed_gear);
+
+          if(this.item && this.item.adventure_inventory === val) {
+            this.updatedItem.packed_gear = [...this.item.packed_gear];
           } else {
-            Vue.set(this.updatedItem, 'packed_gear', []);
+            this.updatedItem.packed_gear = [];
           }
 
-
-          if(val !== null) {
+          if(val !== null)
             await this.initInventoryGear();
-          }
         }
       },
       async postItem(val) {

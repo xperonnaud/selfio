@@ -1,7 +1,7 @@
 <template>
 
   <v-sheet
-    class="mt-1"
+    :class="[{'mt-1':!noMargin}]"
     style="border-radius: 32px;"
     color="transparent"
   >
@@ -38,6 +38,10 @@
       tooltipText: {
         type: String,
         default: null,
+      },
+      noMargin: {
+        type: Boolean,
+        default: false,
       },
       logo: {
         type: Boolean,
