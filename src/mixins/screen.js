@@ -23,6 +23,9 @@ export default {
         xTabsColor() {
             return ('grey '+(this.isDark ? 'darken-4' : 'lighten-5'));
         },
+        xFieldsColor() {
+            return (this.isDark ? 'darken-4' : 'lighten-5');
+        },
         xCardColor() {
             return (this.isDark ? 'grey darken-4' : 'white');
         },

@@ -248,6 +248,37 @@
   .x-check-form {
     border-radius: 4px;
 
+    .v-subheader {
+      font-size: 12px;
+      height: 24px !important;
+      padding: 0 !important;
+    }
+
+    .v-list--dense .v-subheader {
+      height: 18px !important;
+    }
+
+    .selector-card {
+
+      &.selected {
+        border: 1px solid #000 !important;
+
+        &.is-dark {
+          border: 1px solid #FFF !important;
+        }
+      }
+
+      &:before {
+        opacity: 0.1;
+      }
+    }
+
+    &.is-in-filter {
+      .v-text-field--filled > .v-input__control > .v-input__slot {
+        background: unset;
+      }
+    }
+
     .v-list {
       padding: 0;
     }

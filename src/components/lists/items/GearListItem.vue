@@ -87,6 +87,7 @@
 
 <script>
 
+  import XUpdateCol from "@/components/xcols/XUpdateCol";
   import XWeightCol from "@/components/xcols/XWeightCol";
   import EmptyData from "@/components/elements/EmptyData";
   import EditIcon from "@/components/elements/EditIcon";
@@ -94,6 +95,7 @@
   export default {
     name: 'gear-list-item',
     components: {
+      XUpdateCol,
       XWeightCol,
       EmptyData,
       EditIcon,

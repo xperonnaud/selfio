@@ -1,6 +1,6 @@
 <template>
 
-  <v-sheet v-if="isMounted" class="x-check-form" :color="xTabsColor">
+  <v-sheet v-if="isMounted" :class="['x-check-form max-width',{'is-in-filter':isInFilter}]" :color="xTabsColor">
     <div v-if="isEditing" class="d-flex align-content-space-between">
       <v-subheader class="mt-2 ml-2" v-text="label" />
 
@@ -29,7 +29,7 @@
           >
             <v-text-field
               :label="label"
-              :value="listedPickedValue ? (list[listReferences[pickerValue]].title) : $options.filters.capitalizeFilter(label)"
+              :value="listedPickedValue ? (list[listReferences[pickerValue]].title) : null"
               :color="currentColor"
               hide-details="auto"
               append-icon="mdi-menu-down"
@@ -140,7 +140,11 @@
       isCategory: {
         type: Boolean,
         default: false
-      }
+      },
+      isInFilter: {
+        type: Boolean,
+        default: false
+      },
     },
     data: () => ({
       isMounted: false,
@@ -188,36 +192,3 @@
     }
   }
 </script>
-
-<style lang="scss">
-
-.x-check-form {
-    .v-subheader {
-      font-size: 12px;
-      height: 24px !important;
-      padding: 0 !important;
-    }
-
-    .v-list--dense .v-subheader {
-      height: 18px !important;
-    }
-
-    .selector-card {
-
-      &.selected {
-        border: 1px solid #000 !important;
-
-        &.is-dark {
-          border: 1px solid #FFF !important;
-        }
-      }
-
-      &:before {
-        opacity: 0.1;
-      }
-    }
-  }
-
-
-
-</style>

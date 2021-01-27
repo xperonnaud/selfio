@@ -1182,8 +1182,9 @@
                 Object.assign(newGearCategoryStats, { [gearCategoryIndex] : {id: gearCategoryIndex, items: 1, weight: (gearWeight * gearQty)} });
 
               } else {
-                let items = newGearCategoryStats[gearCategoryIndex].items + 1;
-                let weight = newGearCategoryStats[gearCategoryIndex].weight + (gearWeight * gearQty);
+                let item = newGearCategoryStats[gearCategoryIndex];
+                let items = item.items + 1;
+                let weight = item.weight + (gearWeight * gearQty);
                 Object.assign(newGearCategoryStats[gearCategoryIndex],  { id: gearCategoryIndex, items: items, weight: weight } );
               }
             }
