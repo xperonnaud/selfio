@@ -1,35 +1,39 @@
 <template>
 
-  <v-menu
-    v-if="isMounted"
-    v-model="dateMenu"
-    :close-on-content-click="false"
-    max-width="290"
+  <div
+    @click.stop="dateMenu = !dateMenu"
+    class="x-primary-btn"
   >
-    <template v-slot:activator="{ on, attrs }">
-      <v-text-field
-        :label="label"
-        :value="pickerValue"
-        :color="currentColor"
-        :rules="xRules.date"
-        v-bind="attrs"
-        v-on="on"
-        prepend-inner-icon="mdi-calendar"
-        clearable
-        readonly
-        hide-details
-        filled
-        dense
-        @click:clear="resetValue()"
-      ></v-text-field>
-    </template>
-    <v-date-picker
-      v-model="pickerValue"
-      :color="currentRawColor"
-      @change="dateMenu = false"
-      :min="minDate"
-    ></v-date-picker>
-  </v-menu>
+    <v-text-field
+      :label="label"
+      :value="pickerValue"
+      :color="currentColor"
+      :rules="xRules.date"
+      prepend-inner-icon="mdi-calendar"
+      clearable
+      readonly
+      hide-details
+      filled
+      dense
+      @click:clear="resetValue()"
+    ></v-text-field>
+
+    <v-dialog
+      v-if="isMounted"
+      v-model="dateMenu"
+      class="x-date-picker"
+      :close-on-content-click="false"
+      max-width="290"
+      min-width="290px"
+    >
+      <v-date-picker
+        v-model="pickerValue"
+        :color="currentRawColor"
+        @change="dateMenu = false"
+        :min="minDate"
+      ></v-date-picker>
+    </v-dialog>
+  </div>
 
 </template>
 

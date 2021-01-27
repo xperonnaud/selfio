@@ -1,6 +1,24 @@
 <template>
 
-  <v-menu
+  <div
+    @click.stop="timeMenu = !timeMenu"
+    class="x-primary-btn"
+  >
+    <v-text-field
+      :label="label"
+      v-model="pickerValue"
+      :color="currentColor"
+      :rules="xRules.time"
+      prepend-inner-icon="mdi-clock-time-four-outline"
+      readonly
+      filled
+      dense
+      clearable
+      hide-details
+      @click:clear="resetValue()"
+    ></v-text-field>
+
+    <v-dialog
       v-if="isMounted"
       :ref="pickerId"
       v-model="timeMenu"
@@ -9,34 +27,18 @@
       transition="scale-transition"
       max-width="290px"
       min-width="290px"
-  >
-    <template v-slot:activator="{ on, attrs }">
-      <v-text-field
-        :label="label"
+      class="pa-auto"
+    >
+      <v-time-picker
+        v-if="timeMenu"
         v-model="pickerValue"
-        :color="currentColor"
-        :rules="xRules.time"
-        v-bind="attrs"
-        v-on="on"
-        prepend-inner-icon="mdi-clock-time-four-outline"
-        readonly
-        filled
-        dense
-        clearable
-        hide-details
-        @click:clear="resetValue()"
-      ></v-text-field>
-    </template>
-
-    <v-time-picker
-      v-if="timeMenu"
-      v-model="pickerValue"
-      :color="currentRawColor"
-      scrollable
-      format="24hr"
-      @click:minute="$refs[pickerId].save(pickerValue)"
-    ></v-time-picker>
-  </v-menu>
+        :color="currentRawColor"
+        scrollable
+        format="24hr"
+        @click:minute="$refs[pickerId].save(pickerValue)"
+      ></v-time-picker>
+    </v-dialog>
+  </div>
 
 </template>
 

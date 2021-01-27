@@ -455,7 +455,7 @@
                               </div>
                             </v-col>
 
-                            <x-weight-col :hasGear="xGear(gear.gear_id)" :weight="xGear(gear.gear_id).weight" />
+                            <x-weight-col :hasGear="typeof xGear(gear.gear_id) == 'object'" :weight="xGear(gear.gear_id).weight" />
 
                             <v-col v-if="!isMobile" class="x-col">
                               <div v-if="xGear(gear.gear_id) && xGear(gear.gear_id).price" >
