@@ -273,10 +273,18 @@
     }
 
     &.is-in-filter {
-      .v-text-field--filled > .v-input__control > .v-input__slot {
-        background: unset;
+      &.x-state-selector {
+        .v-text-field--filled > .v-input__control > .v-input__slot {
+
+        }
+      }
+      &:not(.x-state-selector) {
+        .v-text-field--filled > .v-input__control > .v-input__slot {
+          background: unset;
+        }
       }
     }
+
 
     .v-list {
       padding: 0;

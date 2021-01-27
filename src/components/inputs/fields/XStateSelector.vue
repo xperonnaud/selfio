@@ -1,6 +1,6 @@
 <template>
 
-    <v-sheet v-if="isMounted" :class="['x-check-form max-width',{'is-in-filter':isInFilter}]" :color="xFieldsColor">
+    <v-sheet v-if="isMounted" :class="['x-state-selector x-check-form max-width']" :color="xTabsColor">
         <div v-if="isEditing" class="d-flex align-content-space-between">
             <v-subheader class="mt-2 ml-2" v-text="'State'" />
 
@@ -24,7 +24,7 @@
                         'elevation-0',
                         {'is-dark':isDark}
                     ]"
-                    :color="xBackgroundColor"
+                    :color="isInFilter ? null : xBackgroundColor"
                     @click.stop="toggleEditor()"
                 >
                     <v-text-field
