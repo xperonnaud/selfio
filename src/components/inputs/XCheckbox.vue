@@ -1,7 +1,7 @@
 <template>
 
   <v-card
-    class="x-checkbox elevation-0 x-input d-flex x-primary-btn max-width"
+    :class="['x-checkbox elevation-0 x-input d-flex x-primary-btn max-width', {'is-dark':isDark}]"
     @click="pickerValue = !pickerValue"
   >
     <x-checker
@@ -9,7 +9,7 @@
       :class="['pa-0 ma-0']"
     ></x-checker>
 
-    <span class="text-body-2 my-auto" v-text="label" />
+    <span class="x-checkbox-label text-body-2 my-auto" v-text="label" />
   </v-card>
 
 </template>
@@ -54,6 +54,21 @@
 <style lang="scss">
 
   .x-checkbox {
+    border-radius: 4px 4px 0 0 !important;
+    border-bottom: 1px solid #757575 !important;
+
+    .x-checkbox-label {
+      font-size: 16px !important;
+      opacity: 0.7 !important;
+    }
+
+    &.is-dark {
+      border-bottom: 1px solid #BDBDBD !important;
+
+      .x-checkbox-label {
+        opacity: 0.6 !important;
+      }
+    }
 
     .v-input__slot {
       padding: 14px 0 !important;

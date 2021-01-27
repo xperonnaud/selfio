@@ -14,7 +14,6 @@
     filled
     dense
     clearable
-    hide-no-data
     hide-details="auto"
   ></v-autocomplete>
 
