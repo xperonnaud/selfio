@@ -205,7 +205,6 @@
     async mounted() {
       let self = this;
       this.isLoading = true;
-      this.initScreenHeight();
 
       if(this.isItemRoute)
         self.componentLoad();

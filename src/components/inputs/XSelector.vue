@@ -41,8 +41,8 @@
                   v-if="list[listReferences[pickerValue]] && list[listReferences[pickerValue]].icon"
                   :src="list[listReferences[pickerValue]].icon"
                   :tooltipText="list[listReferences[pickerValue]].title"
-                  :width="iconSize"
-                  :height="iconSize"
+                  :width="avatarSize ? avatarSize : iconSize"
+                  :height="avatarSize ? avatarSize : iconSize"
                   :logo="logo"
                 ></x-img>
               </template>
@@ -132,6 +132,10 @@
       iconSize: {
         type: String,
         default: '48'
+      },
+      avatarSize: {
+        type: String,
+        default: null
       },
       logo: {
         type: Boolean,

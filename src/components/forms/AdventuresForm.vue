@@ -33,7 +33,8 @@
           <v-tab-item :key="'adventure-general'">
             <v-responsive
               class="overflow-y-auto"
-              :height="maxDialogContentHeight"
+              :min-height="dialogContentHeight"
+              :max-height="maxDialogContentHeight"
             >
               <v-card flat :color="xBackgroundColor">
                 <v-card-text>
@@ -180,7 +181,8 @@
           <v-tab-item :key="'adventure-calendar'">
             <v-responsive
               class="overflow-y-auto"
-              :height="maxDialogContentHeight"
+              :min-height="dialogContentHeight"
+              :max-height="maxDialogContentHeight"
             >
               <v-card flat :color="xBackgroundColor">
                 <v-card-text>
@@ -222,7 +224,8 @@
           <v-tab-item :key="'adventure-location'">
             <v-responsive
               class="overflow-y-auto"
-              :height="maxDialogContentHeight"
+              :min-height="dialogContentHeight"
+              :max-height="maxDialogContentHeight"
             >
               <v-card flat :color="xBackgroundColor">
                 <v-card-text>
@@ -233,7 +236,8 @@
                         :list="landscapesList"
                         :listReferences="landscapeReferences"
                         v-bind:value.sync="updatedItem.landscape"
-                        :iconSize="'26'"
+                        :iconSize="'36'"
+                        :avatarSize="'26'"
                         logo
                       ></x-selector>
                     </v-col>
@@ -264,14 +268,14 @@
 
                     <v-col cols="12">
                       <v-text-field
-                          label="Distance"
-                          v-model="updatedItem.distance"
-                          :rules="xRules.decimal"
-                          :color="currentColor"
-                          filled
-                          dense
-                          hide-details="auto"
-                          :suffix="distanceUnit"
+                        label="Distance"
+                        v-model="updatedItem.distance"
+                        :rules="xRules.decimal"
+                        :color="currentColor"
+                        filled
+                        dense
+                        hide-details="auto"
+                        :suffix="distanceUnit"
                       ></v-text-field>
                     </v-col>
                   </v-row>
@@ -283,7 +287,8 @@
           <v-tab-item :key="'adventure-weather'">
             <v-responsive
               class="overflow-y-auto"
-              :height="maxDialogContentHeight"
+              :min-height="dialogContentHeight"
+              :max-height="maxDialogContentHeight"
             >
               <v-card flat :color="xBackgroundColor">
                 <v-card-text>

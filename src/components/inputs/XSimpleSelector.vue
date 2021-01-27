@@ -28,19 +28,19 @@
             @click.stop="toggleEditor()"
           >
             <v-text-field
-                :label="label"
-                :value="pickerValue ? pickerValue : $options.filters.capitalizeFilter($options.filters.noDashFilter(label))"
-                :color="currentColor"
-                hide-details="auto"
-                append-icon="mdi-menu-down"
-                dense
-                filled
+              :label="label"
+              :value="pickerValue ? pickerValue : null"
+              :color="currentColor"
+              hide-details="auto"
+              append-icon="mdi-menu-down"
+              dense
+              filled
             >
               <template v-if="(typeof pickerValue != 'undefined') && hasIcon" v-slot:prepend-inner style="margin-top: 0">
                 <v-icon
-                    :width="iconSize"
-                    :height="iconSize"
-                    v-text="`mdi-weather-${pickerValue}`"
+                  :width="iconSize"
+                  :height="iconSize"
+                  v-text="`mdi-weather-${pickerValue}`"
                 ></v-icon>
               </template>
             </v-text-field>
