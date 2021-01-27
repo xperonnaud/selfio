@@ -207,7 +207,7 @@ export default {
             return (this.isMobile ? '100%' : (typeof size == 'number' ? size : 600));
         },
         nullOrZeroColorText(prop) {
-            return ((!prop || prop===0) ? this.darkColorText('red') : '');
+            return ((!prop || prop===0) ? this.darkColorText('error') : '');
         },
         hexColor(colorStr) {
             const [nameFamily, nameModifier] = colorStr.split(' ')

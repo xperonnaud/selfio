@@ -686,7 +686,6 @@
               <v-list
                 v-if="gearList.length >= 1"
                 subheader
-                subheader
                 two-line
                 dense
               >
@@ -741,14 +740,7 @@
                               </div>
                             </v-col>
 
-                            <v-col class="x-col">
-                              <div v-if="gear.weight">
-                                <span v-if="gear.weight < 1000" class="text-caption">{{ gear.weight | weightUnitFilter(weightUnit) }}</span>
-                                <span v-else class="text-caption">{{ gear.weight | weightUnitFilter(weightUnit) | supWeightUnitFilter(weightUnit) }}</span>
-                                <span class="text-tiny-dimmed" v-text="gear.weight < 1000 ? weightUnit : supWeightUnit" />
-                              </div>
-                              <empty-data solo v-else />
-                            </v-col>
+                            <x-weight-col :weight="gear.weight" />
 
                             <v-col v-show="!isMobile" class="x-col">
                               <div v-if="gear.price">
@@ -800,7 +792,7 @@
                                 <span v-else :class="['text-body-2']" v-text="'0'" />
 
                                 <span v-bind:class="['text-tiny-dimmed']" v-text="'/'" />
-                                <span v-bind:class="['text-tiny-dimmed',{'error--text':!gear.quantity_owned || gear.quantity_owned===0}]" v-text="(gear.quantity_owned || 0)" />
+                                <span v-bind:class="['text-tiny-dimmed', nullOrZeroColorText(gear.quantity_owned)]" v-text="(gear.quantity_owned || 0)" />
                               </div>
                             </v-col>
                           </v-row>
@@ -915,12 +907,13 @@
   import Vue from 'vue'
   const _ = require('lodash');
 
+  import XWeightCol from "@/components/xcols/XWeightCol";
   import XIncrement from "@/components/inputs/XIncrement";
   import XCheckbox from "@/components/inputs/XCheckbox";
   import XChecker from "@/components/inputs/XChecker";
   import XSortIcon from "@/components/elements/XSortIcon";
   import XDivider from "@/components/elements/XDivider";
-  import EmptyData from "@/components/elements/Stepper/EmptyData";
+  import EmptyData from "@/components/elements/EmptyData";
   import FilterMenu from "@/components/elements/FilterMenu/FilterMenu";
   import XImg from "@/components/elements/XImg";
   import XCombobox from "@/components/inputs/XCombobox";
@@ -928,6 +921,7 @@
   export default {
     name: 'inventories-form',
     components: {
+      XWeightCol,
       XIncrement,
       XCheckbox,
       XChecker,

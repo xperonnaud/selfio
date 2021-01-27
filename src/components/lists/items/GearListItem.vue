@@ -17,28 +17,12 @@
         </div>
       </v-col>
 
-      <v-col v-if="isMobile" class="x-col">
-        <div v-if="item.weight">
-          <span v-if="item.weight < 1000" class="text-caption">{{ item.weight | weightUnitFilter(weightUnit) }}</span>
-          <span v-else class="text-caption">{{ item.weight | weightUnitFilter(weightUnit) | supWeightUnitFilter(weightUnit) }}</span>
-          <span class="text-tiny-dimmed" v-text="item.weight < 1000 ? weightUnit : supWeightUnit" />
-        </div>
-        <empty-data solo v-else />
-      </v-col>
+      <x-weight-col :weight="item.weight" />
 
-      <template v-else>
-        <v-col class="x-col">
-          <div v-if="item.weight">
-            <span v-if="item.weight < 1000" class="text-body-2">{{ item.weight | weightUnitFilter(weightUnit) }}</span>
-            <span v-else class="text-body-2">{{ item.weight | weightUnitFilter(weightUnit) | supWeightUnitFilter(weightUnit) }}</span>
-            <span class="text-tiny-dimmed" v-text="weightUnit" />
-          </div>
-          <empty-data solo v-else />
-        </v-col>
-
+      <template v-if="!isMobile">
         <v-col class="x-col">
           <div v-if="item.price">
-            <span class="text-body-2" v-text="item.price" />
+            <span class="text-caption" v-text="item.price" />
             <span class="text-tiny-dimmed" v-text="priceUnit" />
           </div>
           <empty-data solo v-else />
@@ -51,13 +35,7 @@
           <empty-data solo v-else />
         </v-col>
 
-        <v-col class="x-col">
-          <div v-if="item.date_updated || item.date_created">
-            <span v-if="item.date_updated" class="text-caption">{{item.date_updated | minimalDateFilter(dateFormatPref)}}</span>
-            <span v-else class="text-caption">{{item.date_created | minimalDateFilter(dateFormatPref)}}</span>
-          </div>
-          <empty-data solo v-else />
-        </v-col>
+        <x-update-col :item="item" />
 
         <v-col class="x-col">
           <v-tooltip v-if="item.state && xGearState(item.state)" bottom>
@@ -89,9 +67,8 @@
 
       <v-col class="x-col">
         <div v-bind:class="['ml-1', nullOrZeroColorText(item.quantity_owned)]">
-          <span class="text-tiny" v-html="'&#215;'" />
           <span
-            v-bind:class="[isMobile ? 'text-caption' : 'text-body-2']"
+            v-bind:class="['text-caption']"
             v-html="item.quantity_owned ? item.quantity_owned : 0"
           ></span>
         </div>
@@ -110,12 +87,14 @@
 
 <script>
 
-  import EmptyData from "@/components/elements/Stepper/EmptyData";
+  import XWeightCol from "@/components/xcols/XWeightCol";
+  import EmptyData from "@/components/elements/EmptyData";
   import EditIcon from "@/components/elements/EditIcon";
 
   export default {
     name: 'gear-list-item',
     components: {
+      XWeightCol,
       EmptyData,
       EditIcon,
     },

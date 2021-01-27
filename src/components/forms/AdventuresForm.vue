@@ -455,14 +455,7 @@
                               </div>
                             </v-col>
 
-                            <v-col class="x-col">
-                              <div v-if="xGear(gear.gear_id) && xGear(gear.gear_id).weight">
-                                <span v-if="xGear(gear.gear_id).weight < 1000" class="text-caption">{{ xGear(gear.gear_id).weight | weightUnitFilter(weightUnit) }}</span>
-                                <span v-else class="text-caption">{{ xGear(gear.gear_id).weight | weightUnitFilter(weightUnit) | supWeightUnitFilter(weightUnit) }}</span>
-                                <span class="text-tiny-dimmed" v-text="xGear(gear.gear_id).weight < 1000 ? weightUnit : supWeightUnit" />
-                              </div>
-                              <empty-data solo v-else />
-                            </v-col>
+                            <x-weight-col :hasGear="xGear(gear.gear_id)" :weight="xGear(gear.gear_id).weight" />
 
                             <v-col v-if="!isMobile" class="x-col">
                               <div v-if="xGear(gear.gear_id) && xGear(gear.gear_id).price" >
@@ -530,9 +523,10 @@
 
   import Vue from 'vue'
 
+  import XWeightCol from "@/components/xcols/XWeightCol";
   import XChecker from "@/components/inputs/XChecker";
   import XDivider from "@/components/elements/XDivider";
-  import EmptyData from "@/components/elements/Stepper/EmptyData";
+  import EmptyData from "@/components/elements/EmptyData";
   import XImg from "@/components/elements/XImg";
   import XIncrement from "@/components/inputs/XIncrement";
   import FilterMenu from "@/components/elements/FilterMenu/FilterMenu";
@@ -547,6 +541,7 @@
   export default {
     name: 'adventures-form',
     components: {
+      XWeightCol,
       XChecker,
       XCombobox,
       XDivider,

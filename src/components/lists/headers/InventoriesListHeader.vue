@@ -45,7 +45,7 @@
 
 <script>
 
-  import XCol from "@/components/containers/XCol";
+  import XCol from "@/components/xcols/XCol";
   import XSortIcon from "@/components/elements/XSortIcon";
 
   export default {

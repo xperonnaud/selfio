@@ -427,7 +427,7 @@ export default {
                 await self.handleResponse('error', error.message, error);
             })
         },
-        fixedGear(gear) {
+        fixGear(gear) {
 
             if(gear.date_created)
                 delete gear.date_created;
@@ -438,29 +438,29 @@ export default {
             if(typeof gear.state == 'undefined')
                 gear.state = null;
 
-            if(gear.price === '')
-                gear.price = null;
+            if(!gear.price || gear.price === '')
+                gear.price = 0;
 
             if(gear.tags === null || gear.tags === '')
                 gear.tags = [];
 
             if(!gear.weight || gear.weight === '') {
-                gear.weight = null;
+                gear.weight = 0;
 
             } else {
                 if(this.weightUnit === 'oz')
                     gear.weight = (Math.round(gear.weight / gToOz * 10) / 10)
             }
 
-            if(gear.quantity_owned === '')
-                gear.quantity_owned = null;
+            if(!gear.quantity_owned || gear.quantity_owned === '')
+                gear.quantity_owned = 0;
 
             return gear;
         },
         async api_post_gear(gear) {
             let self = this;
 
-            gear = this.fixedGear(gear);
+            gear = this.fixGear(gear);
 
             await directus.items('gear').create(gear)
             .then(async function (response) {
@@ -474,7 +474,7 @@ export default {
         async api_patch_gear(gear, gearIndex) {
             let self = this;
 
-            gear = this.fixedGear(gear);
+            gear = this.fixGear(gear);
 
             await directus.items('gear').update(gear.id, gear)
             .then(async function (response) {
@@ -498,7 +498,7 @@ export default {
             })
         },
 
-        fixedInventory(inventory) {
+        fixInventory(inventory) {
 
             if(inventory.date_created)
                 delete inventory.date_created;
@@ -535,7 +535,7 @@ export default {
         async api_post_inventory(inventory, originalGearList, gearList, gearInventoryRelations) {
             let self = this;
 
-            inventory = this.fixedInventory(inventory);
+            inventory = this.fixInventory(inventory);
 
             await directus.items('inventories').create(inventory)
             .then(async function (response) {
@@ -560,7 +560,7 @@ export default {
         async api_patch_inventory(inventory, inventoryIndex, originalGearList, gearList, gearInventoryRelations) {
             let self = this;
 
-            inventory = this.fixedInventory(inventory);
+            inventory = this.fixInventory(inventory);
 
             await directus.items('inventories').update(inventory.id, inventory)
             .then(async function (response) {
@@ -759,7 +759,7 @@ export default {
                 await self.handleResponse('error', error.message, error);
             })
         },
-        fixedAdventure(adventure) {
+        fixAdventure(adventure) {
 
             if(adventure.date_created)
                 delete adventure.date_created;
@@ -831,7 +831,7 @@ export default {
         async api_post_adventure(adventure) {
             let self = this;
 
-            adventure = this.fixedAdventure(adventure);
+            adventure = this.fixAdventure(adventure);
 
             await directus.items('adventures').create(adventure)
             .then(async function (response) {
@@ -846,7 +846,7 @@ export default {
         async api_patch_adventure(adventure, adventureIndex, oldAdventureInventory) {
             let self = this;
 
-            adventure = this.fixedAdventure(adventure);
+            adventure = this.fixAdventure(adventure);
 
             let payload = {
                 adventure: adventure,
