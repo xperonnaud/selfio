@@ -3,7 +3,7 @@
   <v-list-item-content>
     <v-row align="center" justify="center">
 
-      <v-col :cols="isMobile ? 6 : 3" class="py-0">
+      <v-col :cols="isMobile ? 4 : 3" class="py-0">
         <div>
           <v-list-item-title
             v-text="item.title"
@@ -19,8 +19,9 @@
 
       <v-col v-if="isMobile" class="x-col">
         <div v-if="item.weight">
-          <span class="text-caption">{{ item.weight | weightUnitFilter(weightUnit) }}</span>
-          <span class="text-tiny-dimmed" v-text="weightUnit" />
+          <span v-if="item.weight < 1000" class="text-caption">{{ item.weight | weightUnitFilter(weightUnit) }}</span>
+          <span v-else class="text-caption">{{ item.weight | weightUnitFilter(weightUnit) | supWeightUnitFilter(weightUnit) }}</span>
+          <span class="text-tiny-dimmed" v-text="item.weight < 1000 ? weightUnit : supWeightUnit" />
         </div>
         <empty-data solo v-else />
       </v-col>
@@ -28,7 +29,8 @@
       <template v-else>
         <v-col class="x-col">
           <div v-if="item.weight">
-            <span class="text-body-2">{{ item.weight | weightUnitFilter(weightUnit) }}</span>
+            <span v-if="item.weight < 1000" class="text-body-2">{{ item.weight | weightUnitFilter(weightUnit) }}</span>
+            <span v-else class="text-body-2">{{ item.weight | weightUnitFilter(weightUnit) | supWeightUnitFilter(weightUnit) }}</span>
             <span class="text-tiny-dimmed" v-text="weightUnit" />
           </div>
           <empty-data solo v-else />

@@ -4,7 +4,7 @@
     <v-row align="center" justify="center">
 
       <v-col
-        :cols="isMobile ? 6 : 3"
+        :cols="isMobile ? 4 : 3"
         class="py-1 col-border-r x-primary-btn rounded"
         @click.stop="sortItems('title')"
         v-ripple

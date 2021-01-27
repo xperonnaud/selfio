@@ -153,8 +153,8 @@
   }
 
   .x-col {
-    padding: 0 4px;
-    text-align: center;
+    padding: 0 4px !important;
+    text-align: center !important;
   }
 
   .ghost-btn {

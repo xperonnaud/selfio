@@ -5,6 +5,7 @@
     :class="[pickerValue ? 'primary-gradient-color-text' : fontShadeColor]"
     :off-icon="'mdi-checkbox-blank-outline'"
     :on-icon="'mdi-checkbox-marked-outline'"
+    :disabled="disabled"
     filled
     hide-details
   ></v-checkbox>
@@ -17,6 +18,10 @@
     name: 'x-checker',
     props: {
       value: {
+        type: Boolean,
+        default: false,
+      },
+      disabled: {
         type: Boolean,
         default: false,
       },

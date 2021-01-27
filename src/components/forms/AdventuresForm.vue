@@ -457,8 +457,9 @@
 
                             <v-col class="x-col">
                               <div v-if="xGear(gear.gear_id) && xGear(gear.gear_id).weight">
-                                <span class="text-caption">{{ xGear(gear.gear_id).weight | weightUnitFilter(weightUnit) }}</span>
-                                <span class="text-tiny-dimmed" v-text="weightUnit" />
+                                <span v-if="xGear(gear.gear_id).weight < 1000" class="text-caption">{{ xGear(gear.gear_id).weight | weightUnitFilter(weightUnit) }}</span>
+                                <span v-else class="text-caption">{{ xGear(gear.gear_id).weight | weightUnitFilter(weightUnit) | supWeightUnitFilter(weightUnit) }}</span>
+                                <span class="text-tiny-dimmed" v-text="xGear(gear.gear_id).weight < 1000 ? weightUnit : supWeightUnit" />
                               </div>
                               <empty-data solo v-else />
                             </v-col>

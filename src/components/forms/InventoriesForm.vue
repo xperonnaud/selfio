@@ -198,7 +198,7 @@
                                 </template>
                               </v-list>
 
-                              <v-row>
+                              <v-row v-else>
                                 <v-col cols="12">
                                   <div class="d-flex text-center align-center justify-center">
                                     <div class="pa-12">
@@ -624,7 +624,7 @@
                       <v-list-item-avatar
                         v-bind:class="[
                           'x-avatar',
-                          'my-0 py-0 mr-2',
+                          'my-0 py-0 mr-1',
                         ]"
                         width="40"
                         height="40"
@@ -674,17 +674,10 @@
                           <v-col class="x-col px-0 py-2 col-border-r">
                             <div class="text-tiny text-center" v-text="'Qty'" />
                           </v-col>
-
-<!--                          <v-col class="x-col py-2 col-border-r x-primary-btn rounded" @click.stop="sortGear('quantity_owned')" v-ripple>-->
-<!--                            <div class="d-flex justify-center align-center">-->
-<!--                              <div v-show="!isMobile" class="text-tiny ml-1" v-text="'Qty'" />-->
-<!--                              <x-sort-icon prop="quantity_owned" />-->
-<!--                            </div>-->
-<!--                          </v-col>-->
                         </v-row>
                       </v-list-item-content>
 
-                      <v-list-item-action style="width: 36px !important;" class="ma-0" />
+                      <v-list-item-action class="ma-0" :style="'width: 36px !important; margin-left: '+(isMobile ? '13' : '20')+'px !important;'" />
                     </v-list-item>
                   </v-list>
                 </template>
@@ -692,6 +685,7 @@
 
               <v-list
                 v-if="gearList.length >= 1"
+                subheader
                 subheader
                 two-line
                 dense
@@ -705,10 +699,10 @@
                       <v-list-item
                         :key="`inventory-gear-${gear.id}-${index}`"
                         v-bind:class="['x-checklist-item', {'px-3':isMobile}]"
-                        @click.stop="gearListItemAction(gear)"
+                        @click.stop="gear.quantity_owned > 0 ? gearListItemAction(gear) : null"
                       >
                         <v-list-item-action :class="['ml-1',(isMobile ? 'mr-0' : ' mr-4')]">
-                          <x-checker :value="inventoryGearList.includes(gear.id)" />
+                          <x-checker :value="inventoryGearList.includes(gear.id)" :disabled="gear.quantity_owned === 0" />
                         </v-list-item-action>
 
                         <v-list-item-avatar
@@ -749,8 +743,9 @@
 
                             <v-col class="x-col">
                               <div v-if="gear.weight">
-                                <span class="text-caption">{{ gear.weight | weightUnitFilter(weightUnit) }}</span>
-                                <span class="text-tiny-dimmed" v-text="weightUnit" />
+                                <span v-if="gear.weight < 1000" class="text-caption">{{ gear.weight | weightUnitFilter(weightUnit) }}</span>
+                                <span v-else class="text-caption">{{ gear.weight | weightUnitFilter(weightUnit) | supWeightUnitFilter(weightUnit) }}</span>
+                                <span class="text-tiny-dimmed" v-text="gear.weight < 1000 ? weightUnit : supWeightUnit" />
                               </div>
                               <empty-data solo v-else />
                             </v-col>
@@ -781,11 +776,10 @@
 
                             <v-col class="x-col">
                               <div
-                                v-if="inventoryGearItem(gear.id)"
+                                v-if="inventoryGearItem(gear.id) && inventoryGearItem(gear.id).gear_worn === true"
                                 :key="`gear_worn-${gear.id}-${inventoryGearItem(gear.id).gear_worn}`"
                               >
                                 <v-icon
-                                  v-if="inventoryGearItem(gear.id).gear_worn === true"
                                   v-text="'mdi-tshirt-crew'"
                                   class="primary-gradient-color-text"
                                   style="margin-bottom: 3px;"
@@ -803,9 +797,10 @@
                                   class="text-body-2"
                                   v-html="inventoryGearItem(gear.id).gear_quantity_packed || 0"
                                 ></span>
-                                <span v-else class="text-body-2" v-text="'0'" />
+                                <span v-else :class="['text-body-2']" v-text="'0'" />
 
-<!--                                <span v-bind:class="['text-tiny-dimmed']" v-html="'/'+(gear.quantity_owned || 0)" />-->
+                                <span v-bind:class="['text-tiny-dimmed']" v-text="'/'" />
+                                <span v-bind:class="['text-tiny-dimmed',{'error--text':!gear.quantity_owned || gear.quantity_owned===0}]" v-text="(gear.quantity_owned || 0)" />
                               </div>
                             </v-col>
                           </v-row>
@@ -1152,7 +1147,7 @@
         }
       },
       addGear(gear) {
-        if(!this.inventoryGearList.includes(gear.id)) {
+        if(gear.quantity_owned > 0 && !this.inventoryGearList.includes(gear.id)) {
           this.inventoryGearList.push(gear.id);
 
           let newInventoryGear = {
