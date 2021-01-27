@@ -325,7 +325,7 @@ export default {
             if(object) {
                 let result = object.filter(obj => {
                     return obj[prop] === value
-                })
+                });
                 return result;
             } else {
                 return null
@@ -337,6 +337,7 @@ export default {
             this.$store.commit("updateUiItemLocation", null);
             this.$store.commit("updateUiItemTag", null);
             this.$store.commit("updateUiItemQuantityOwned", null);
+            this.$store.commit("updateUiItemConsumable", null);
             this.$store.commit("updateUiItemGearCategory", null);
             this.$store.commit("updateUiItemGearState", null);
             this.$store.commit("updateUiItemGearBrand", null);

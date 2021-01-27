@@ -35,6 +35,8 @@
               append-icon="mdi-menu-down"
               dense
               filled
+              clearable
+              @click:clear="resetValue()"
             >
               <template v-slot:prepend-inner style="margin-top: 0">
                 <x-img
@@ -165,6 +167,10 @@
     methods: {
       toggleEditor() {
         this.isEditing = !this.isEditing;
+      },
+      clearValue() {
+        this.toggleEditor();
+        this.assignValue(null);
       },
       resetValue() {
         this.pickerValue = null;

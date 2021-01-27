@@ -50,6 +50,7 @@ export default new Vuex.Store({
             itemTag: null,
             itemLocation: null,
             itemQuantityOwned: null,
+            itemConsumable: null,
             itemGearCategory: null,
             itemGearState: null,
             itemGearBrand: null,
@@ -492,6 +493,9 @@ export default new Vuex.Store({
         },
         updateUiItemQuantityOwned(state, itemQuantityOwned) {
             state.ui.itemQuantityOwned = itemQuantityOwned;
+        },
+        updateUiItemConsumable(state, itemConsumable) {
+            state.ui.itemConsumable = itemConsumable;
         },
         updateUiItemGearState(state, itemGearState) {
             state.ui.itemGearState = itemGearState;

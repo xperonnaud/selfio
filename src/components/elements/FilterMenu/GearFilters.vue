@@ -32,6 +32,13 @@
     </v-list-item>
 
     <v-list-item class="mb-3">
+      <x-checkbox
+        label="Consumable"
+        v-bind:value.sync="itemConsumable"
+      ></x-checkbox>
+    </v-list-item>
+
+    <v-list-item class="mb-3">
       <x-increment
         label="Quantity owned"
         v-bind:value.sync="itemQuantityOwned"
@@ -47,6 +54,7 @@
 
 <script>
 
+  import XCheckbox from "@/components/inputs/XCheckbox";
   import XBrandSelector from "@/components/inputs/fields/XBrandSelector";
   import XStateSelector from "@/components/inputs/fields/XStateSelector";
   import XIncrement from "@/components/inputs/XIncrement";
@@ -55,6 +63,7 @@
   export default {
     name: 'gear-filter',
     components: {
+      XCheckbox,
       XBrandSelector,
       XStateSelector,
       XIncrement,
@@ -98,6 +107,14 @@
         },
         set(value) {
           this.$store.commit("updateUiItemGearState", value)
+        }
+      },
+      itemConsumable: {
+        get() {
+          return this.$store.state.ui.itemConsumable
+        },
+        set(value) {
+          this.$store.commit("updateUiItemConsumable", value)
         }
       },
       itemGearBrand: {

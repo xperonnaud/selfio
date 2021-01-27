@@ -66,6 +66,7 @@
           v-bind:value.sync="itemWeather"
           :iconSize="'26'"
           hasIcon
+          isInFilter
       ></x-simple-selector>
     </v-list-item>
   </v-list>

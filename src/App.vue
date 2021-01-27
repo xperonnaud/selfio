@@ -273,18 +273,12 @@
     }
 
     &.is-in-filter {
-      &.x-state-selector {
-        .v-text-field--filled > .v-input__control > .v-input__slot {
-
-        }
-      }
-      &:not(.x-state-selector) {
+      &:not(.x-state-selector), &:not(.x-simple-selector) {
         .v-text-field--filled > .v-input__control > .v-input__slot {
           background: unset;
         }
       }
     }
-
 
     .v-list {
       padding: 0;

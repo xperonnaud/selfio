@@ -1,6 +1,6 @@
 <template>
 
-  <v-sheet v-if="isMounted" class="x-check-form" :color="xTabsColor">
+  <v-sheet v-if="isMounted" class="x-simple-selector x-check-form max-width" :color="xTabsColor">
     <div v-if="isEditing" class="d-flex align-content-space-between">
       <v-subheader class="mt-2 ml-2" v-text="label" />
 
@@ -24,7 +24,7 @@
               'elevation-0',
               {'is-dark':isDark}
             ]"
-            :color="xBackgroundColor"
+            :color="isInFilter ? null : xBackgroundColor"
             @click.stop="toggleEditor()"
           >
             <v-text-field
@@ -35,6 +35,8 @@
               append-icon="mdi-menu-down"
               dense
               filled
+              clearable
+              @click:clear="resetValue()"
             >
               <template v-if="(typeof pickerValue != 'undefined') && hasIcon" v-slot:prepend-inner style="margin-top: 0">
                 <v-icon
@@ -117,7 +119,11 @@
       hasIcon: {
         type: Boolean,
         default: false
-      }
+      },
+      isInFilter: {
+        type: Boolean,
+        default: false
+      },
     },
     data: () => ({
       isMounted: false,
