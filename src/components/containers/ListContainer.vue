@@ -27,10 +27,13 @@
                 'py-0',
                  (isMobile ? 'my-0 mr-3' : 'ml-2 mr-5'),
               ]"
-              :style="item.category ? 'border: 2px solid '+hexColor(getVuetifyColor(item.category))+' !important;' : ''"
+              :style="currentRouteTitle === 'Gear' ? (
+                item.category ? 'border: 2px solid '+hexColor(getVuetifyColor(item.category))+' !important;'
+                  : 'border: 1px solid '+hexColor(getVuetifyColor(14))+' !important;'
+                ): ''"
             >
               <x-img
-                v-if="item.category && xGearCategory(item.category)"
+                v-if="currentRouteTitle === 'Gear' && item.category && xGearCategory(item.category)"
                 :src="xGearCategory(item.category).icon"
                 :width="21"
                 :height="21"
@@ -38,8 +41,19 @@
                 isCategory
               ></x-img>
 
+              <v-tooltip v-else-if="currentRouteTitle === 'Gear'" bottom>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon
+                    v-text="'mdi-help-circle-outline'"
+                    v-bind="attrs"
+                    v-on="on"
+                  />
+                </template>
+                <span v-text="'Unknown'" />
+              </v-tooltip>
+
               <x-img
-                v-if="item.activity && xActivity(item.activity)"
+                v-else-if="item.activity && xActivity(item.activity)"
                 :src="xActivity(item.activity).icon"
                 :width="24"
                 :height="24"

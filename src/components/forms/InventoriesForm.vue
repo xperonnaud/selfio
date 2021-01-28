@@ -136,7 +136,8 @@
                                           'x-avatar',
                                           'my-0 ml-3 mr-1',
                                         ]"
-                                        :style="gearCategoryStat.id ? 'border: 1px solid '+hexColor(getVuetifyColor(gearCategoryStat.id))+' !important;' : ''"
+                                        :style="gearCategoryStat.id ? 'border: 1px solid '+hexColor(getVuetifyColor(gearCategoryStat.id))+' !important;'
+                                            : 'border: 1px solid '+hexColor(getVuetifyColor(14))+' !important;'"
                                     >
                                       <x-img
                                         v-if="gearCategoryStat.id && xGearCategory(gearCategoryStat.id) && objFilter(gearCategories, 'id', parseInt(gearCategoryStat.id))[0]"
@@ -147,10 +148,16 @@
                                         isCategory
                                       ></x-img>
 
-                                      <v-icon
-                                          v-else
-                                          v-text="'mdi-help-rhombus'"
-                                      ></v-icon>
+                                      <v-tooltip v-else bottom>
+                                        <template v-slot:activator="{ on, attrs }">
+                                          <v-icon
+                                            v-text="'mdi-help-circle-outline'"
+                                            v-bind="attrs"
+                                            v-on="on"
+                                          />
+                                        </template>
+                                        <span v-text="'Unknown'" />
+                                      </v-tooltip>
                                     </v-list-item-avatar>
 
                                     <v-list-item-title class="mb-1">
@@ -427,7 +434,8 @@
                                           'x-avatar',
                                           'my-0 ml-3 mr-1',
                                         ]"
-                                        :style="gearCategoryStat.id ? 'border: 1px solid '+hexColor(getVuetifyColor(gearCategoryStat.id))+' !important;' : ''"
+                                        :style="gearCategoryStat.id ? 'border: 2px solid '+hexColor(getVuetifyColor(gearCategoryStat.id))+' !important;'
+                                            : 'border: 1px solid '+hexColor(getVuetifyColor(14))+' !important;'"
                                       >
                                         <x-img
                                           v-if="gearCategoryStat.id && xGearCategory(gearCategoryStat.id) && objFilter(gearCategories, 'id', parseInt(gearCategoryStat.id))[0]"
@@ -437,10 +445,17 @@
                                           :height="15"
                                           isCategory
                                         />
-                                        <v-icon
-                                          v-else
-                                          v-text="'mdi-help-rhombus'"
-                                        />
+
+                                        <v-tooltip v-else bottom>
+                                          <template v-slot:activator="{ on, attrs }">
+                                            <v-icon
+                                              v-text="'mdi-help-circle-outline'"
+                                              v-bind="attrs"
+                                              v-on="on"
+                                            />
+                                          </template>
+                                          <span v-text="'Unknown'" />
+                                        </v-tooltip>
                                       </v-list-item-avatar>
 
                                       <v-list-item-title class="mb-1">
@@ -820,7 +835,8 @@
                           width="32"
                           min-width="32"
                           height="32"
-                          :style="'border: 2px solid '+hexColor(getVuetifyColor(gear.category))+' !important;'"
+                          :style="gear.category ? 'border: 2px solid '+hexColor(getVuetifyColor(gear.category))+' !important;'
+                            : 'border: 1px solid '+hexColor(getVuetifyColor(14))+' !important;'"
                         >
                           <x-img
                             v-if="gear.category && xGearCategory(gear.category)"
@@ -830,6 +846,18 @@
                             :height="16"
                             isCategory
                           ></x-img>
+
+                          <v-tooltip v-else bottom>
+                            <template v-slot:activator="{ on, attrs }">
+                              <v-icon
+                                v-text="'mdi-help-circle-outline'"
+                                v-bind="attrs"
+                                v-on="on"
+                                size="18"
+                              />
+                            </template>
+                            <span v-text="'Unknown'" />
+                          </v-tooltip>
                         </v-list-item-avatar>
 
                         <v-list-item-content>

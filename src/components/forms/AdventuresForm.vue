@@ -605,7 +605,8 @@
                           width="32"
                           min-width="32"
                           height="32"
-                          :style="xGear(gear.gear_id).category ? 'border: 2px solid '+hexColor(getVuetifyColor(xGear(gear.gear_id).category))+' !important;' : ''"
+                          :style="xGear(gear.gear_id).category ? 'border: 2px solid '+hexColor(getVuetifyColor(xGear(gear.gear_id).category))+' !important;'
+                            : 'border: 1px solid '+hexColor(getVuetifyColor(14))+' !important;'"
                         >
                           <x-img
                             v-if="xGear(gear.gear_id) && xGear(gear.gear_id).category"
@@ -616,10 +617,17 @@
                             isCategory
                           ></x-img>
 
-                          <v-icon
-                            v-else
-                            v-text="'mdi-help-rhombus'"
-                          />
+                          <v-tooltip v-else bottom>
+                            <template v-slot:activator="{ on, attrs }">
+                              <v-icon
+                                v-text="'mdi-help-circle-outline'"
+                                v-bind="attrs"
+                                v-on="on"
+                                size="18"
+                              />
+                            </template>
+                            <span v-text="'Unknown'" />
+                          </v-tooltip>
                         </v-list-item-avatar>
 
                         <v-list-item-content>
