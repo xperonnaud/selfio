@@ -894,15 +894,18 @@
 
                             <v-col class="x-col">
                               <div v-bind:class="['ml-1']">
-                                <span
-                                  v-if="inventoryGearItem(gear.id) && gear.quantity_owned > 0"
-                                  :key="`gear_quantity_packed-${gear.id}-${inventoryGearItem(gear.id).gear_quantity_packed}`"
-                                  class="text-body-2"
-                                  v-html="inventoryGearItem(gear.id).gear_quantity_packed || 0"
-                                ></span>
-                                <span v-else-if="gear.quantity_owned > 0" :class="['text-body-2']" v-text="'0'" />
+                                <template v-if="gear.quantity_owned > 0">
+                                  <span
+                                    v-if="inventoryGearItem(gear.id)"
+                                    :key="`gear_quantity_packed-${gear.id}-${inventoryGearItem(gear.id).gear_quantity_packed}`"
+                                    class="text-body-2"
+                                    v-html="inventoryGearItem(gear.id).gear_quantity_packed || 0"
+                                  ></span>
+                                  <span v-else :class="['text-body-2']" v-text="'0'" />
 
-                                <span v-if="gear.quantity_owned > 0" v-bind:class="['text-tiny-dimmed']" v-text="'/'" />
+                                  <span v-bind:class="['text-tiny-dimmed']" v-text="'/'" />
+                                </template>
+
                                 <span v-bind:class="['text-tiny-dimmed', nullOrZeroColorText(gear.quantity_owned)]" v-text="(gear.quantity_owned || 0)" />
                               </div>
                             </v-col>
