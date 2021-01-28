@@ -520,18 +520,9 @@
                 class="overflow-y-auto"
                 :height="isMobile ? maxDialogContentHeight : 535"
               >
-                <v-card v-if="isMobile" flat :color="xBackgroundColor">
+                <v-card flat :color="xBackgroundColor">
                   <v-card-text>
                     <v-row>
-                      <v-col cols="12">
-                        <x-combobox
-                          label="Tags"
-                          v-bind:value.sync="updatedItem.tags"
-                          v-bind:items="preferences.inventory_tags"
-                          v-bind:route="'inventories'"
-                        ></x-combobox>
-                      </v-col>
-
                       <v-col cols="12">
                         <v-textarea
                           label="Description"
@@ -544,13 +535,7 @@
                           rows="1"
                         ></v-textarea>
                       </v-col>
-                    </v-row>
-                  </v-card-text>
-                </v-card>
 
-                <v-card v-else flat :color="xBackgroundColor">
-                  <v-card-text>
-                    <v-row>
                       <v-col cols="12">
                         <x-combobox
                           label="Tags"
@@ -558,19 +543,6 @@
                           v-bind:items="preferences.inventory_tags"
                           v-bind:route="'inventories'"
                         ></x-combobox>
-                      </v-col>
-
-                      <v-col cols="12">
-                        <v-textarea
-                          label="Description"
-                          v-model="updatedItem.description"
-                          color="primary"
-                          filled
-                          dense
-                          hide-details="auto"
-                          auto-grow
-                          rows="1"
-                        ></v-textarea>
                       </v-col>
                     </v-row>
                   </v-card-text>
@@ -794,8 +766,11 @@
                             <div class="text-tiny text-center" v-text="'Worn'" />
                           </v-col>
 
-                          <v-col class="x-col px-0 py-2 col-border-r">
-                            <div class="text-tiny text-center" v-text="'Qty'" />
+                          <v-col class="x-col px-0 py-2 col-border-r x-primary-btn rounded" @click.stop="sortGear('quantity_owned')" v-ripple>
+                            <div class="d-flex justify-center align-center">
+                              <div class="text-tiny text-center" v-text="'Qty'" />
+                              <x-sort-icon prop="state" />
+                            </div>
                           </v-col>
                         </v-row>
                       </v-list-item-content>
@@ -861,16 +836,21 @@
                         </v-list-item-avatar>
 
                         <v-list-item-content>
-                          <v-row align="center" justify="center">
+                          <v-row align="center" justify="center" :class="[{'text--disabled':gear.quantity_owned === 0}]">
                             <v-col :cols="isMobile ? 5 : 4" class="py-0">
                               <div>
                                 <v-list-item-title
-                                  v-text="gear.title"
                                   v-bind:class="['mb-1',{'text-body-2' : isMobile}]"
-                                ></v-list-item-title>
+                                >
+                                  {{gear.title}}
+                                  <x-consumable-icon
+                                    v-if="gear.consumable"
+                                    :size="12"
+                                  ></x-consumable-icon>
+                                </v-list-item-title>
 
                                 <v-list-item-subtitle
-                                  class="text-caption"
+                                  v-bind:class="['text-caption']"
                                   v-text="gear.brand ? xGearBrand(gear.brand).title : '.'"
                                 ></v-list-item-subtitle>
                               </div>
@@ -907,12 +887,7 @@
                                 v-if="inventoryGearItem(gear.id) && inventoryGearItem(gear.id).gear_worn === true"
                                 :key="`gear_worn-${gear.id}-${inventoryGearItem(gear.id).gear_worn}`"
                               >
-                                <v-icon
-                                  v-text="'mdi-tshirt-crew'"
-                                  class="primary-gradient-color-text"
-                                  style="margin-bottom: 3px;"
-                                  small
-                                ></v-icon>
+                                <x-worn-icon css="margin-bottom: 3px;" small />
                               </div>
                               <empty-data solo v-else />
                             </v-col>
@@ -920,14 +895,14 @@
                             <v-col class="x-col">
                               <div v-bind:class="['ml-1']">
                                 <span
-                                  v-if="inventoryGearItem(gear.id)"
+                                  v-if="inventoryGearItem(gear.id) && gear.quantity_owned > 0"
                                   :key="`gear_quantity_packed-${gear.id}-${inventoryGearItem(gear.id).gear_quantity_packed}`"
                                   class="text-body-2"
                                   v-html="inventoryGearItem(gear.id).gear_quantity_packed || 0"
                                 ></span>
-                                <span v-else :class="['text-body-2']" v-text="'0'" />
+                                <span v-else-if="gear.quantity_owned > 0" :class="['text-body-2']" v-text="'0'" />
 
-                                <span v-bind:class="['text-tiny-dimmed']" v-text="'/'" />
+                                <span v-if="gear.quantity_owned > 0" v-bind:class="['text-tiny-dimmed']" v-text="'/'" />
                                 <span v-bind:class="['text-tiny-dimmed', nullOrZeroColorText(gear.quantity_owned)]" v-text="(gear.quantity_owned || 0)" />
                               </div>
                             </v-col>
@@ -1043,6 +1018,8 @@
   import Vue from 'vue'
   const _ = require('lodash');
 
+  import XWornIcon from "@/components/elements/XWornIcon";
+  import XConsumableIcon from "@/components/elements/XConsumableIcon";
   import XPicker from "@/components/inputs/XPicker";
   import XBrandSelector from "@/components/inputs/fields/XBrandSelector";
   import XStateSelector from "@/components/inputs/fields/XStateSelector";
@@ -1059,6 +1036,8 @@
   export default {
     name: 'inventories-form',
     components: {
+      XWornIcon,
+      XConsumableIcon,
       XBrandSelector,
       XStateSelector,
       XPicker,

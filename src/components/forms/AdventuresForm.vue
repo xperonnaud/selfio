@@ -679,11 +679,7 @@
 
                             <v-col v-if="!isMobile" class="x-col">
                               <div v-if="xGear(gear.gear_id).consumable">
-                                <v-icon
-                                  v-text="'mdi-apple'"
-                                  class="primary-gradient-color-text"
-                                  small
-                                ></v-icon>
+                                <x-consumable-icon small />
                               </div>
                               <empty-data solo v-else />
                             </v-col>
@@ -732,6 +728,7 @@
 
   import Vue from 'vue'
 
+  import XConsumableIcon from "@/components/elements/XConsumableIcon";
   import XCheckbox from "@/components/inputs/XCheckbox";
   import XBrandSelector from "@/components/inputs/fields/XBrandSelector";
   import XStateSelector from "@/components/inputs/fields/XStateSelector";
@@ -753,6 +750,7 @@
   export default {
     name: 'adventures-form',
     components: {
+      XConsumableIcon,
       XCheckbox,
       XBrandSelector,
       XStateSelector,

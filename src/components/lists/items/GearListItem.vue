@@ -55,13 +55,11 @@
       </template>
 
       <v-col class="x-col">
-        <v-icon
+        <x-consumable-icon
           v-if="item.consumable"
-          v-text="'mdi-apple'"
-          class="primary-gradient-color-text"
-          style="margin-bottom: 3px;"
+          css="margin-bottom: 3px;"
           small
-        ></v-icon>
+        ></x-consumable-icon>
         <empty-data solo v-else />
       </v-col>
 
@@ -87,6 +85,7 @@
 
 <script>
 
+  import XConsumableIcon from "@/components/elements/XConsumableIcon";
   import XUpdateCol from "@/components/xcols/XUpdateCol";
   import XWeightCol from "@/components/xcols/XWeightCol";
   import EmptyData from "@/components/elements/EmptyData";
@@ -95,6 +94,7 @@
   export default {
     name: 'gear-list-item',
     components: {
+      XConsumableIcon,
       XUpdateCol,
       XWeightCol,
       EmptyData,
