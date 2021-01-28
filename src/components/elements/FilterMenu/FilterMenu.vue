@@ -32,7 +32,6 @@
             >
               <v-icon v-text="'mdi-close'" />
             </v-btn>
-
           </v-list-item>
         </v-list>
 

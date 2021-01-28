@@ -9,21 +9,19 @@
           v-bind:class="[{'text-body-2' : isMobile}]"
         ></v-list-item-title>
 
-        <v-list-item-subtitle v-if="isMobile">
-          <span v-if="item.start_date" class="text-caption">
-            <span>{{item.start_date | dayMonthFilter}}</span>
-          </span>
-
-          <span v-else v-text="'.'" class="text-tiny-dimmed" />
+        <v-list-item-subtitle
+          v-if="isMobile"
+          v-bind:class="[(item.start_date ? 'text-caption' : 'text-tiny-dimmed')]"
+        >
+          <span v-if="item.start_date">{{item.start_date | dayMonthFilter}}</span>
+          <span v-else v-text="'.'" />
         </v-list-item-subtitle>
 
-        <v-list-item-subtitle v-else>
-          <span v-if="item.location" class="text-caption">
-            <span>{{ item.location }}</span>
-          </span>
-
-          <span v-else v-text="'.'" class="text-tiny-dimmed" />
-        </v-list-item-subtitle>
+        <v-list-item-subtitle
+          v-else
+          v-bind:class="[(item.location ? 'text-caption' : 'text-tiny-dimmed')]"
+          v-text="item.location ? item.location : '.'"
+        ></v-list-item-subtitle>
       </v-col>
 
       <v-col class="py-0 px-1">

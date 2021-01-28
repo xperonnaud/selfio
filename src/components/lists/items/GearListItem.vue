@@ -11,7 +11,7 @@
           ></v-list-item-title>
 
           <v-list-item-subtitle
-            class="text-caption"
+            v-bind:class="[(item.brand && xGearBrand(item.brand).title ? 'text-caption' : 'text-tiny-dimmed')]"
             v-text="item.brand ? xGearBrand(item.brand).title : '.'"
           ></v-list-item-subtitle>
         </div>

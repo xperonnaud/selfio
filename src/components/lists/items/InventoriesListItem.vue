@@ -16,15 +16,15 @@
       </v-col>
 
         <v-col class="x-col">
-          <div v-if="item.inventory_gear" class="ml-1 text-caption">
-            <span class="text-body-2">{{ sumInventoryQuantityOwned(item.inventory_gear) }}</span>
+          <div v-if="item.inventory_gear" class="ml-1">
+            <span class="text-caption">{{ sumInventoryQuantityOwned(item.inventory_gear) }}</span>
           </div>
           <empty-data solo v-else />
         </v-col>
 
         <v-col class="x-col">
           <div v-if="item.inventory_gear">
-            <span class="text-body-2">{{ sumInventoryWeight(item.inventory_gear) }}</span>
+            <span class="text-caption">{{ sumInventoryWeight(item.inventory_gear) }}</span>
             <span class="text-tiny-dimmed" v-text="supWeightUnit" />
           </div>
           <empty-data solo v-else />
@@ -33,7 +33,7 @@
         <template v-if="!isMobile">
           <v-col class="x-col">
             <div v-if="item.inventory_gear">
-              <span class="text-body-2">{{ sumInventoryPrice(item.inventory_gear) | thousandthFilter }}</span>
+              <span class="text-caption">{{ sumInventoryPrice(item.inventory_gear) | thousandthFilter }}</span>
               <span class="text-tiny-dimmed" v-text="'k'+priceUnit" />
             </div>
             <empty-data solo v-else />

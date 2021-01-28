@@ -190,27 +190,27 @@ export default {
     },
     methods: {
         supWeightUnitConverter(weight) {
-            if(!weight)
+            if(!weight || !this.weightUnit)
                 return null;
             return parseFloat(this.$options.filters.supWeightUnitFilter(this.weightUnitConverter(weight), this.weightUnit));
         },
         weightUnitConverter(weight) {
-            if(!weight)
+            if(!weight || !this.weightUnit)
                 return null;
             return parseFloat(this.$options.filters.weightUnitFilter(weight, this.weightUnit));
         },
         distanceUnitConverter(distance) {
-            if(!distance)
+            if(!distance || !this.distanceUnit)
                 return null;
             return parseFloat(this.$options.filters.distanceUnitFilter(distance, this.distanceUnit));
         },
         elevationUnitConverter(elevation) {
-            if(!elevation)
+            if(!elevation || !this.elevationUnit)
                 return null;
             return parseFloat(this.$options.filters.elevationUnitFilter(elevation, this.elevationUnit));
         },
         temperatureUnitConverter(temperature) {
-            if(!temperature)
+            if(!temperature || !this.temperatureUnit)
                 return null;
             return parseInt(this.$options.filters.temperatureUnitFilter(temperature, this.temperatureUnit));
         },

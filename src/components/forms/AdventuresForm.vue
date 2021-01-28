@@ -1048,13 +1048,12 @@
         if(this.valid===true && val===true
             && (this.item !== this.updatedItem)
         ) {
-          console.log('patching 3',this.updatedItem);
           this.isLoading = true;
           let finalArray = this.initPreferenceTagArray(this.updatedItem.tags, 'adventure');
 
           if(finalArray)
             await this.api_patch_preference_tag(finalArray, 'adventure');
-console.log('patching 4',this.updatedItem);
+
           await this.api_patch_adventure(this.updatedItem, this.itemIndex, this.item.adventure_inventory);
           this.isLoading = false;
         }

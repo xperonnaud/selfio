@@ -438,13 +438,13 @@ export default {
             if(typeof gear.state == 'undefined')
                 gear.state = null;
 
-            if(!gear.price || gear.price === '')
+            if(!this.propExists(gear.price))
                 gear.price = 0;
 
-            if(gear.tags === null || gear.tags === '')
+            if(!this.propExists(gear.tags))
                 gear.tags = [];
 
-            if(!gear.weight || gear.weight === '') {
+            if(!this.propExists(gear.weight)) {
                 gear.weight = 0;
 
             } else {
@@ -452,7 +452,7 @@ export default {
                     gear.weight = (Math.round(gear.weight / gToOz * 10) / 10)
             }
 
-            if(!gear.quantity_owned || gear.quantity_owned === '')
+            if(!this.propExists(gear.quantity_owned))
                 gear.quantity_owned = 0;
 
             return gear;
@@ -506,11 +506,11 @@ export default {
             if(inventory.date_updated)
                 delete inventory.date_updated;
 
-            if(inventory.tags === null || inventory.tags === '')
-                inventory.tags = [];
-
             if(inventory.inventory_gear)
                 delete inventory.inventory_gear;
+
+            if(!this.propExists(inventory.tags))
+                inventory.tags = [];
 
             return inventory;
         },
@@ -759,6 +759,9 @@ export default {
                 await self.handleResponse('error', error.message, error);
             })
         },
+        propExists(prop) {
+            return (prop && typeof prop == 'undefined' || prop === '')
+        },
         fixAdventure(adventure) {
 
             if(adventure.date_created)
@@ -773,7 +776,7 @@ export default {
             if(typeof adventure.adventure_inventory != 'number')
                 adventure.packed_gear = [];
 
-            if(!adventure.distance || adventure.distance === '') {
+            if(!this.propExists(adventure.distance)) {
                 adventure.distance = null;
             } else {
                 adventure.distance = parseFloat(adventure.distance);
@@ -782,7 +785,7 @@ export default {
                     adventure.distance = Math.round(adventure.distance / kmToMi * 100) / 100;
             }
 
-            if(!adventure.elevation || adventure.elevation === '') {
+            if(!this.propExists(adventure.elevation)) {
                 adventure.elevation = null;
             } else {
                 adventure.elevation = parseFloat(adventure.elevation);
@@ -791,7 +794,7 @@ export default {
                     adventure.elevation = Math.round(adventure.elevation / mToFt * 100) / 100;
             }
 
-            if(parseInt(adventure.temp_max) === 50 || adventure.temp_max === '' || isNaN(adventure.temp_max)) {
+            if(!this.propExists(adventure.temp_max)) {
                 adventure.temp_max = null;
             } else {
                 adventure.temp_max = parseInt(adventure.temp_max);
@@ -800,7 +803,7 @@ export default {
                     adventure.temp_max = (Math.round((adventure.temp_max - 32) * 5/9 * 100) / 100);
             }
 
-            if(parseInt(adventure.temp_min) === -50 || adventure.temp_min === '' || isNaN(adventure.temp_min)) {
+            if(!this.propExists(adventure.temp_min)) {
                 adventure.temp_min = null;
             } else {
                 adventure.temp_min = parseInt(adventure.temp_min);
@@ -809,7 +812,7 @@ export default {
                     adventure.temp_min = (Math.round((adventure.temp_min - 32) * 5/9 * 100) / 100);
             }
 
-            if(!adventure.humidity || adventure.humidity === '' || isNaN(adventure.humidity))
+            if(!this.propExists(adventure.humidity))
                 adventure.humidity = 0;
 
             if(adventure.start_time && typeof adventure.start_time != 'undefined') {
