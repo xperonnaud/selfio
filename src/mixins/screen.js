@@ -149,7 +149,7 @@ export default {
                     v => (v === '')
                         || (v === null)
                         || /^([0-9]+(\.[0-9][0-9]?)?)*$/.test(v)
-                        || 'integers && decimals only'
+                        || 'decimals only'
                 ],
                 date: [
                     v => (v === '')
@@ -190,18 +190,28 @@ export default {
     },
     methods: {
         supWeightUnitConverter(weight) {
+            if(!weight)
+                return null;
             return parseFloat(this.$options.filters.supWeightUnitFilter(this.weightUnitConverter(weight), this.weightUnit));
         },
         weightUnitConverter(weight) {
+            if(!weight)
+                return null;
             return parseFloat(this.$options.filters.weightUnitFilter(weight, this.weightUnit));
         },
         distanceUnitConverter(distance) {
+            if(!distance)
+                return null;
             return parseFloat(this.$options.filters.distanceUnitFilter(distance, this.distanceUnit));
         },
         elevationUnitConverter(elevation) {
+            if(!elevation)
+                return null;
             return parseFloat(this.$options.filters.elevationUnitFilter(elevation, this.elevationUnit));
         },
         temperatureUnitConverter(temperature) {
+            if(!temperature)
+                return null;
             return parseInt(this.$options.filters.temperatureUnitFilter(temperature, this.temperatureUnit));
         },
         cardSize(size) {
@@ -211,16 +221,16 @@ export default {
             return ((!prop || prop===0) ? this.darkColorText('error') : '');
         },
         hexColor(colorStr) {
-            const [nameFamily, nameModifier] = colorStr.split(' ')
+            const [nameFamily, nameModifier] = colorStr.split(' ');
 
-            const [firstWord, secondWord] = nameFamily.split('-')
+            const [firstWord, secondWord] = nameFamily.split('-');
             let family = `${ firstWord }${ secondWord
                 ? secondWord.charAt(0).toUpperCase() + secondWord.slice(1)
-                : '' }`
+                : '' }`;
 
             let modifier = nameModifier
                 ? nameModifier.replace('-', '')
-                : 'base'
+                : 'base';
 
             return vuetifyColors[family][modifier]
         },

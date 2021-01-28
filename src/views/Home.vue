@@ -103,7 +103,7 @@
             totalWeight += (gear.weight * gear.quantity_owned);
         });
 
-        this.totalPrice = totalPrice;
+        this.totalPrice = totalPrice.toFixed(2);
         this.totalWeight = totalWeight;
       },
       async initAdventureTotals() {

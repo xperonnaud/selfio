@@ -97,17 +97,17 @@
     },
     watch: {
       value(val) {
-        if(this.isMounted)
+        if(this.isMounted && typeof val=='number')
           this.pickerValue = parseFloat(val);
       },
       pickerValue(val) {
-        if(this.isMounted)
+        if(this.isMounted && typeof val=='number')
           this.$emit('update:value',parseFloat(val));
       },
     },
     mounted() {
       this.isMounted = true;
-      this.pickerValue = (typeof this.value == 'number') ? parseFloat(this.value) : 0 ;
+      this.pickerValue = (typeof this.value == 'number') ? parseFloat(this.value) : null ;
     }
   }
 </script>

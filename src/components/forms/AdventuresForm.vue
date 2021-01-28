@@ -309,7 +309,7 @@
                       v-bind:value.sync="updatedItem.temp_max"
                       :rules="xRules.temperature"
                       :color="currentColor"
-                      :min="updatedItem.temp_min"
+                      :min="updatedItem.temp_min || null"
                       :max="50"
                       :append="temperatureUnit"
                       ></x-increment>
@@ -322,7 +322,7 @@
                         :rules="xRules.temperature"
                         :color="currentColor"
                         :min="-50"
-                        :max="updatedItem.temp_max"
+                        :max="updatedItem.temp_max || null"
                         :append="temperatureUnit"
                       ></x-increment>
                     </v-col>
@@ -384,11 +384,119 @@
 
                 <v-spacer />
 
-                <filter-menu
-                  v-bind:filterMode.sync="gearFilterMode"
-                  :forcedRouteName="'gear'"
-                  class="mr-1"
-                ></filter-menu>
+                <div class="mr-1 text-center">
+                  <v-menu
+                    v-model="gearFilterModeOn"
+                    :close-on-content-click="false"
+                    :nudge-width="200"
+                    left
+                  >
+                    <template v-slot:activator="{ on, attrs }">
+                      <v-btn
+                        @click="gearFilterModeOn = !gearFilterModeOn"
+                        v-bind="attrs"
+                        v-on="on"
+                        icon
+                      >
+                        <v-icon v-text="gearFilterModeOn?'mdi-filter-variant-minus':'mdi-filter-variant'" />
+                      </v-btn>
+                    </template>
+
+                    <v-card>
+                      <v-list class="py-1">
+                        <v-list-item>
+                          <v-list-item-title v-text="'Filters'" />
+
+                          <v-spacer />
+
+                          <v-btn
+                            @click="closeGearFilterMenu()"
+                            icon
+                          >
+                            <v-icon v-text="'mdi-close'" />
+                          </v-btn>
+
+                        </v-list-item>
+                      </v-list>
+
+                      <v-divider />
+
+                      <v-list>
+                        <v-list-item class="mb-3">
+                          <x-picker
+                            label="Category"
+                            :list="typesList"
+                            v-bind:value.sync="gearCategoryFilter"
+                          ></x-picker>
+                        </v-list-item>
+
+                        <v-list-item class="mb-3">
+                          <v-autocomplete
+                            v-if="gearFilterModeOn"
+                            label="Tags"
+                            v-model="gearTagsFilter"
+                            :items="preferences.gear_tags"
+                            :color="currentColor"
+                            filled
+                            dense
+                            clearable
+                            hide-details="auto"
+                          ></v-autocomplete>
+                        </v-list-item>
+
+                        <v-list-item class="mb-3">
+                          <x-brand-selector v-bind:value.sync="gearBrandFilter" isInFilter />
+                        </v-list-item>
+
+                        <v-list-item class="mb-3">
+                          <x-state-selector v-bind:value.sync="gearStateFilter" isInFilter />
+                        </v-list-item>
+
+                        <v-list-item class="mb-3">
+                          <x-checkbox
+                            label="Consumable"
+                            v-bind:value.sync="gearConsumableFilter"
+                          ></x-checkbox>
+                        </v-list-item>
+
+                        <v-list-item class="mb-3">
+                          <x-increment
+                            label="Quantity owned"
+                            v-bind:value.sync="gearQuantityOwnedFilter"
+                            :rules="xRules.decimal"
+                            :color="currentColor"
+                            :max="100"
+                            :min="0"
+                          ></x-increment>
+                        </v-list-item>
+                      </v-list>
+
+                      <v-divider />
+
+                      <v-card-actions>
+                        <v-btn
+                          @click="clearMenuFilters()"
+                          :color="darkColor('red')"
+                          text
+                        >
+                          <v-icon v-text="'mdi-filter-off'" />
+                          <span v-text="'Reset'" />
+                        </v-btn>
+
+                        <v-spacer />
+
+                        <v-btn
+                          @click="closeGearFilterMenu()"
+                          text
+                          class="primary-gradient-color-text"
+                          icon
+                        >
+                          <v-icon v-text="'mdi-check'" />
+                        </v-btn>
+                      </v-card-actions>
+                    </v-card>
+                  </v-menu>
+                </div>
 
                 <v-btn
                   @click="closeGearList()"
@@ -397,6 +505,76 @@
                 >
                   <v-icon :size="28" v-text="'mdi-check'" />
                 </v-btn>
+
+                <template v-slot:extension>
+                  <v-list
+                    v-bind:class="['rounded-0 py-0 max-width']"
+                    one-line
+                    flat
+                    dense
+                    color="transparent"
+                  >
+                    <v-list-item :class="[(isMobile ? 'pl-13' : 'pl-11')]">
+                      <v-list-item-avatar
+                        v-bind:class="[
+                          'x-avatar',
+                          'my-0 py-0 mr-1',
+                        ]"
+                        width="40"
+                        height="40"
+                      >
+                        <v-col class="x-col py-2">
+                          <div class="d-flex justify-center">
+
+                          </div>
+                        </v-col>
+                      </v-list-item-avatar>
+
+                      <v-list-item-content class="py-0">
+                        <v-row align="center" justify="center">
+
+                          <v-col :cols="isMobile ? 6 : 4" :class="['py-2 col-border-r',{'ml-3':!isMobile}]">
+                            <div class="d-flex align-center">
+                              <div class="text-tiny" v-text="'Title / Model'" />
+                            </div>
+                          </v-col>
+
+                          <v-col v-if="!isMobile" class="x-col px-0 py-2 col-border-r">
+                            <div class="d-flex justify-center align-center">
+                              <div class="text-tiny" v-text="'Weight'" />
+                            </div>
+                          </v-col>
+
+                          <v-col v-if="!isMobile" class="x-col px-0 py-2 col-border-r">
+                            <div class="d-flex justify-center align-center">
+                              <div class="text-tiny" v-text="'Price'" />
+                            </div>
+                          </v-col>
+
+                          <v-col v-if="!isMobile" class="x-col px-0 py-2 col-border-r">
+                            <div class="d-flex justify-center align-center">
+                              <div class="text-tiny" v-text="'State'" />
+                            </div>
+                          </v-col>
+
+                          <v-col v-if="!isMobile" class="x-col px-0 py-2 col-border-r">
+                            <div class="text-tiny text-center" v-text="'Cons.'" />
+                          </v-col>
+
+                          <v-col class="x-col px-0 py-2 col-border-r x-primary-btn rounded" @click.stop="sortGear('gear_worn')" v-ripple>
+                            <div class="text-tiny text-center" v-text="'Worn'" />
+                            <x-sort-icon prop="gear_worn" />
+                          </v-col>
+
+                          <v-col class="x-col px-0 py-2 col-border-r x-primary-btn rounded" @click.stop="sortGear('gear_quantity_packed')" v-ripple>
+                            <div class="text-tiny text-center" v-text="'Qty'" />
+                            <x-sort-icon prop="gear_quantity_packed" />
+                          </v-col>
+                        </v-row>
+                      </v-list-item-content>
+                    </v-list-item>
+                  </v-list>
+                </template>
               </v-toolbar>
 
               <v-list
@@ -460,19 +638,16 @@
                               </div>
                             </v-col>
 
-                            <x-weight-col :hasGear="typeof xGear(gear.gear_id) == 'object'" :weight="xGear(gear.gear_id).weight" />
+                            <x-weight-col
+                              v-if="!isMobile"
+                              :hasGear="typeof xGear(gear.gear_id) == 'object'"
+                              :weight="xGear(gear.gear_id).weight"
+                            />
 
                             <v-col v-if="!isMobile" class="x-col">
                               <div v-if="xGear(gear.gear_id) && xGear(gear.gear_id).price" >
                                 <span class="text-caption" v-text="xGear(gear.gear_id).price" />
                                 <span class="text-tiny-dimmed" v-text="priceUnit" />
-                              </div>
-                              <empty-data solo v-else />
-                            </v-col>
-
-                            <v-col v-if="!isMobile" class="x-col">
-                              <div v-if="xGear(gear.gear_id) && xGear(gear.gear_id).purchase_date">
-                                <span class="text-caption">{{xGear(gear.gear_id).purchase_date | minimalDateFilter(dateFormatPref)}}</span>
                               </div>
                               <empty-data solo v-else />
                             </v-col>
@@ -494,10 +669,31 @@
                               <empty-data solo v-else />
                             </v-col>
 
+                            <v-col v-if="!isMobile" class="x-col">
+                              <div v-if="xGear(gear.gear_id).consumable">
+                                <v-icon
+                                  v-text="'mdi-apple'"
+                                  class="primary-gradient-color-text"
+                                  small
+                                ></v-icon>
+                              </div>
+                              <empty-data solo v-else />
+                            </v-col>
+
                             <v-col class="x-col">
-                              <div v-if="xGear(gear.gear_id)">
-                                <span class="text-tiny-dimmed" v-html="'&#215;'" />
-                                <span class="text-caption" v-html="xGear(gear.gear_id).quantity_owned ? xGear(gear.gear_id).quantity_owned : 0" />
+                              <div v-if="gear.gear_worn">
+                                <v-icon
+                                  v-text="'mdi-tshirt-crew'"
+                                  class="primary-gradient-color-text"
+                                  small
+                                ></v-icon>
+                              </div>
+                              <empty-data solo v-else />
+                            </v-col>
+
+                            <v-col class="x-col">
+                              <div>
+                                <span class="text-caption" v-html="gear.gear_quantity_packed ? gear.gear_quantity_packed : 0" />
                               </div>
                             </v-col>
                           </v-row>
@@ -528,13 +724,16 @@
 
   import Vue from 'vue'
 
+  import XCheckbox from "@/components/inputs/XCheckbox";
+  import XBrandSelector from "@/components/inputs/fields/XBrandSelector";
+  import XStateSelector from "@/components/inputs/fields/XStateSelector";
+  import XSortIcon from "@/components/elements/XSortIcon";
   import XWeightCol from "@/components/xcols/XWeightCol";
   import XChecker from "@/components/inputs/XChecker";
   import XDivider from "@/components/elements/XDivider";
   import EmptyData from "@/components/elements/EmptyData";
   import XImg from "@/components/elements/XImg";
   import XIncrement from "@/components/inputs/XIncrement";
-  import FilterMenu from "@/components/elements/FilterMenu/FilterMenu";
   import EditIcon from "@/components/elements/EditIcon";
   import XPicker from "@/components/inputs/XPicker";
   import XTimePicker from "@/components/inputs/XTimePicker";
@@ -546,6 +745,10 @@
   export default {
     name: 'adventures-form',
     components: {
+      XCheckbox,
+      XBrandSelector,
+      XStateSelector,
+      XSortIcon,
       XWeightCol,
       XChecker,
       XCombobox,
@@ -553,7 +756,6 @@
       EmptyData,
       XIncrement,
       XImg,
-      FilterMenu,
       EditIcon,
       XTimePicker,
       XDatePicker,
@@ -606,24 +808,19 @@
       updatedItem: {},
 
       originalInventoryGear: [],
-      gearFilterMode: false,
+
+      gearOrderBy: 'type',
+      gearOrderOption: 'desc',
+
+      gearFilterModeOn: false,
+      gearCategoryFilter: null,
+      gearTagsFilter: null,
+      gearStateFilter: null,
+      gearBrandFilter: null,
+      gearConsumableFilter: null,
+      gearQuantityOwnedFilter: null,
     }),
     computed: {
-      itemGearCategory: {
-        get() {
-          return this.$store.state.ui.itemGearCategory
-        }
-      },
-      itemGearState: {
-        get() {
-          return this.$store.state.ui.itemGearState
-        }
-      },
-      itemGearBrand: {
-        get() {
-          return this.$store.state.ui.itemGearBrand
-        }
-      },
       nbUnpackedItems() {
         if(this.isMounted && this.updatedItem.packed_gear && this.updatedItem.packed_gear.length)
           return (this.originalInventoryGear.length - this.updatedItem.packed_gear.length);
@@ -656,27 +853,59 @@
       },
       filteredGear() {
         if(this.isMounted)
-          return (this.originalInventoryGear.filter(item => {
+          return (this.sortedGear.filter(item => {
             let gear = this.xGear(item.gear_id);
             if(
               !this.itemSearch
-              && !this.itemGearCategory
-              && !this.itemGearState
-              && !this.itemGearBrand
+              && !this.gearCategoryFilter
+              && !this.gearStateFilter
+              && !this.gearTagsFilter
+              && !this.gearBrandFilter
+              && !this.gearConsumableFilter
+              && !this.gearQuantityOwnedFilter
             ) return this.originalInventoryGear;
 
             return (
               (this.itemSearch ? (gear.title && gear.title.toLowerCase().includes(this.itemSearch.toLowerCase())) : true)
-              && (this.itemGearCategory ? (gear.category && gear.category === this.itemGearCategory) : true)
-              && (this.itemGearState ? (gear.state && gear.state === this.itemGearState) : true)
-              && (this.itemGearBrand ? (gear.brand && gear.brand === this.itemGearBrand) : true)
+              && (this.gearCategoryFilter ? (item.category && item.category === this.gearCategoryFilter) : true)
+              && (this.gearStateFilter ? (item.state && item.state === this.gearStateFilter) : true)
+              && (this.gearBrandFilter ? (item.brand && item.brand === this.gearBrandFilter) : true)
+              && (this.gearConsumableFilter ? (item.consumable === true) : true)
+              && (this.gearTagsFilter ? (item.tags.includes(this.gearTagsFilter)) : true)
+              && (this.gearQuantityOwnedFilter ? (parseFloat(item.quantity_owned) === parseFloat(this.gearQuantityOwnedFilter)) : true)
             )
           }));
 
-        return this.originalInventoryGear;
+        return this.sortedGear;
+      },
+      sortedGear() {
+        return _.orderBy(this.originalInventoryGear, this.gearOrderBy, this.gearOrderOption);
       },
     },
     methods: {
+      clearMenuFilters() {
+        this.gearCategoryFilter = null;
+        this.gearTagsFilter = null;
+        this.gearStateFilter = null;
+        this.gearBrandFilter = null;
+        this.gearConsumableFilter = null;
+        this.gearQuantityOwnedFilter = null;
+      },
+      closeGearFilterMenu() {
+        this.gearFilterModeOn = false;
+      },
+      sortGear(by, option = "asc") {
+        if (this.gearOrderBy == by) {
+          if (this.gearOrderOption == "asc") {
+            this.gearOrderOption = "desc";
+          } else if (this.gearOrderOption == "desc") {
+            this.gearOrderOption = "asc";
+          }
+        } else {
+          this.gearOrderOption = option;
+          this.gearOrderBy = by;
+        }
+      },
       ratioFilter(ratio) {
         if(ratio)
           return this.$options.filters.roundIntFilter(ratio);
@@ -726,7 +955,7 @@
       async initUpdatedItem() {
         let self = this;
         for (const [key, value] of Object.entries(self.item)) {
-            Vue.set(self.updatedItem, key, value);
+          Vue.set(self.updatedItem, key, value);
         }
       },
       async fixUpdatedItem() {
@@ -740,31 +969,31 @@
 
           } else {
             if(typeof this.item.temp_max == 'undefined' || !this.item.temp_max || isNaN(this.item.temp_max)) {
-              Vue.set(this.updatedItem, 'temp_max', null);
+              this.updatedItem.temp_max = null;
             } else {
-              Vue.set(this.updatedItem, 'temp_max', this.temperatureUnitConverter(this.item.temp_max));
+              this.updatedItem.temp_max = this.temperatureUnitConverter(this.item.temp_max);
             }
 
             if(typeof this.item.temp_min == 'undefined' || !this.item.temp_min || isNaN(this.item.temp_min)) {
-              Vue.set(this.updatedItem, 'temp_min', null);
+              this.updatedItem.temp_min = null;
             } else {
-              Vue.set(this.updatedItem, 'temp_min', this.temperatureUnitConverter(this.item.temp_min));
+              this.updatedItem.temp_min = this.temperatureUnitConverter(this.item.temp_min);
             }
 
             if(typeof this.item.elevation == 'undefined' || !this.item.elevation || isNaN(this.item.elevation)) {
-              Vue.set(this.updatedItem, 'elevation', null);
+              this.updatedItem.elevation = null;
             } else {
-              Vue.set(this.updatedItem, 'elevation', this.elevationUnitConverter(this.item.elevation));
+              this.updatedItem.elevation = this.elevationUnitConverter(this.item.elevation);
             }
 
             if(typeof this.item.distance == 'undefined' || !this.item.distance || isNaN(this.item.distance)) {
-              Vue.set(this.updatedItem, 'distance', null);
+              this.updatedItem.distance = null;
             } else {
-              Vue.set(this.updatedItem, 'distance', this.distanceUnitConverter(this.item.distance));
+              this.updatedItem.distance = this.distanceUnitConverter(this.item.distance);
             }
 
             if(typeof this.item.humidity == 'undefined' || !this.item.humidity || isNaN(this.item.humidity)) {
-              Vue.set(this.updatedItem, 'humidity', null);
+              this.updatedItem.humidity = null;
             }
           }
 
@@ -819,12 +1048,13 @@
         if(this.valid===true && val===true
             && (this.item !== this.updatedItem)
         ) {
+          console.log('patching 3',this.updatedItem);
           this.isLoading = true;
           let finalArray = this.initPreferenceTagArray(this.updatedItem.tags, 'adventure');
 
           if(finalArray)
             await this.api_patch_preference_tag(finalArray, 'adventure');
-
+console.log('patching 4',this.updatedItem);
           await this.api_patch_adventure(this.updatedItem, this.itemIndex, this.item.adventure_inventory);
           this.isLoading = false;
         }
