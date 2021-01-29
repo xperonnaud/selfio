@@ -620,22 +620,26 @@ export default {
             let self = this;
 
             let sameGear = inventoryGear.filter(x => originalGearList.includes(x.gear_id));
+            let mappedSameGear = sameGear.filter(inv_gear => (inv_gear.id && typeof inv_gear.id == 'number'));
 
+            let mappedAddedGear_1 = sameGear.filter(inv_gear => (!inv_gear.id || typeof inv_gear.id == 'undefined'));
             let addedGear = inventoryGear.filter(x => !originalGearList.includes(x.gear_id));
-            let mappedAddedGear = addedGear.map((inv_gear) => {
+            let mappedAddedGear_2 = addedGear.map((inv_gear) => {
                 if(!inv_gear.inventory_id || typeof inv_gear.inventory_id == 'undefined')
                     inv_gear['inventory_id'] = inventoryId;
-
                 return inv_gear;
             });
+            let mappedAddedGear = mappedAddedGear_1.concat(mappedAddedGear_2);
 
-            let removedGear = originalGearList.filter(x => !gearList.includes(x));
+            let removedGear_1 = originalGearList.filter(x => !gearList.includes(x));
+            let removedGear_2 = sameGear.filter(x => !mappedSameGear.includes(x)).map((inv_gear) => { return inv_gear.gear_id; });
+            let removedGear = removedGear_1.concat(removedGear_2);
             let mappedRemovedGear = removedGear.map((gearId) => {
                 return gearInventoryRelations[gearId];
             });
 
-            if(sameGear.length > 0)
-                await self.api_update_inventory_gear(sameGear);
+            if(mappedSameGear.length > 0)
+                await self.api_update_inventory_gear(mappedSameGear);
 
             if(mappedAddedGear.length > 0)
                 await self.api_create_inventory_gear(mappedAddedGear);
@@ -655,23 +659,6 @@ export default {
             })
             .then(function (response) {
                 self.$store.commit("updateUiTempGearInventories",response.data);
-
-            }).catch(async function (error) {
-                await self.handleResponse('error', error.message, error);
-            })
-        },
-        async api_get_inventory_gear(inventoryId) {
-            let self = this;
-            await directus.items('inventory_gear').read({
-                filter: {
-                    inventory_id: {
-                        _eq: inventoryId,
-                    },
-                },
-                fields: ['gear_id']
-            })
-            .then(function (response) {
-                self.$store.commit("initInventoryGear",response.data);
 
             }).catch(async function (error) {
                 await self.handleResponse('error', error.message, error);

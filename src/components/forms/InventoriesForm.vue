@@ -1123,8 +1123,8 @@
         return (this.currentInventoryGear && this.currentInventoryGear.length >= 1);
       },
       currentInventoryGear() {
-        if(this.isMounted && this.item && this.item.inventory_gear)
-          return this.item.inventory_gear;
+        if(this.isMounted && this.updatedItem && this.updatedItem.inventory_gear)
+          return this.updatedItem.inventory_gear;
 
         return [];
       },
@@ -1305,8 +1305,10 @@
           Object.assign(self.gearInventoryRelations, {});
 
           this.currentInventoryGear.forEach(function(m2m) {
-            self.inventoryGearList.push(m2m.gear_id);
-            Object.assign(self.gearInventoryRelations, { [m2m.gear_id] : m2m.id });
+            if(typeof m2m.id == 'number') {
+              self.inventoryGearList.push(m2m.gear_id);
+              Object.assign(self.gearInventoryRelations, { [m2m.gear_id] : m2m.id });
+            }
           });
         }
       },
