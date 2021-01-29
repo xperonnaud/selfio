@@ -19,7 +19,7 @@
 
 <script>
 
-  import XSortIcon from "@/components/elements/XSortIcon";
+  import XSortIcon from "@/components/elements/Icons/XSortIcon";
 
   export default {
     name: 'x-col',

@@ -58,7 +58,7 @@
 
                           <v-spacer />
 
-                          <div v-if="item" class="d-flex text-caption">
+                          <div v-if="updatedItem" class="d-flex text-caption">
                             <div>
                               <span
                                   v-bind:class="[currentColorText]"
@@ -70,7 +70,7 @@
                             <x-divider />
 
                             <div>
-                              <span v-if="item.inventory_gear" v-bind:class="[currentColorText]">{{ inventoryTotalWeight | weightUnitFilter(weightUnit) | supWeightUnitFilter(weightUnit) }}</span>
+                              <span v-if="updatedItem.inventory_gear" v-bind:class="[currentColorText]">{{ inventoryTotalWeight | weightUnitFilter(weightUnit) | supWeightUnitFilter(weightUnit) }}</span>
                               <span v-else v-bind:class="[currentColorText]" v-text="'0'" />
                               <span v-text="supWeightUnit" />
                             </div>
@@ -78,7 +78,7 @@
                             <x-divider />
 
                             <div>
-                              <span v-if="item.inventory_gear" v-bind:class="[currentColorText]">{{ inventoryTotalPrice | thousandthFilter }}</span>
+                              <span v-if="updatedItem.inventory_gear" v-bind:class="[currentColorText]">{{ inventoryTotalPrice | thousandthFilter }}</span>
                               <span v-else v-bind:class="[currentColorText]" v-text="'0'" />
                               <span v-text="'k'+priceUnit" />
                             </div>
@@ -148,16 +148,7 @@
                                         isCategory
                                       ></x-img>
 
-                                      <v-tooltip v-else bottom>
-                                        <template v-slot:activator="{ on, attrs }">
-                                          <v-icon
-                                            v-text="'mdi-help-circle-outline'"
-                                            v-bind="attrs"
-                                            v-on="on"
-                                          />
-                                        </template>
-                                        <span v-text="'Unknown'" />
-                                      </v-tooltip>
+                                      <x-unknown-category-icon v-else />
                                     </v-list-item-avatar>
 
                                     <v-list-item-title class="mb-1">
@@ -320,7 +311,7 @@
 
                           <v-spacer />
 
-                          <div v-if="item" class="d-flex">
+                          <div v-if="updatedItem" class="d-flex">
                             <div>
                               <span
                                   v-bind:class="[currentColorText]"
@@ -332,7 +323,7 @@
                             <x-divider />
 
                             <div>
-                              <span v-if="item.inventory_gear" v-bind:class="[currentColorText]">{{ inventoryTotalWeight | weightUnitFilter(weightUnit) | supWeightUnitFilter(weightUnit) }}</span>
+                              <span v-if="updatedItem.inventory_gear" v-bind:class="[currentColorText]">{{ inventoryTotalWeight | weightUnitFilter(weightUnit) | supWeightUnitFilter(weightUnit) }}</span>
                               <span v-else v-bind:class="[currentColorText]" v-text="'0'" />
                               <span v-text="' '+supWeightUnit" />
                             </div>
@@ -340,7 +331,7 @@
                             <x-divider />
 
                             <div>
-                              <span v-if="item.inventory_gear" v-bind:class="[currentColorText]">{{ inventoryTotalPrice | thousandthFilter }}</span>
+                              <span v-if="updatedItem.inventory_gear" v-bind:class="[currentColorText]">{{ inventoryTotalPrice | thousandthFilter }}</span>
                               <span v-else v-bind:class="[currentColorText]" v-text="'0'" />
                               <span v-text="' k'+priceUnit" />
                             </div>
@@ -446,16 +437,7 @@
                                           isCategory
                                         />
 
-                                        <v-tooltip v-else bottom>
-                                          <template v-slot:activator="{ on, attrs }">
-                                            <v-icon
-                                              v-text="'mdi-help-circle-outline'"
-                                              v-bind="attrs"
-                                              v-on="on"
-                                            />
-                                          </template>
-                                          <span v-text="'Unknown'" />
-                                        </v-tooltip>
+                                        <x-unknown-category-icon v-else />
                                       </v-list-item-avatar>
 
                                       <v-list-item-title class="mb-1">
@@ -822,17 +804,7 @@
                             isCategory
                           ></x-img>
 
-                          <v-tooltip v-else bottom>
-                            <template v-slot:activator="{ on, attrs }">
-                              <v-icon
-                                v-text="'mdi-help-circle-outline'"
-                                v-bind="attrs"
-                                v-on="on"
-                                size="18"
-                              />
-                            </template>
-                            <span v-text="'Unknown'" />
-                          </v-tooltip>
+                          <x-unknown-category-icon v-else :size="18" />
                         </v-list-item-avatar>
 
                         <v-list-item-content>
@@ -906,7 +878,10 @@
                                   <span v-bind:class="['text-tiny-dimmed']" v-text="'/'" />
                                 </template>
 
-                                <span v-bind:class="['text-tiny-dimmed', nullOrZeroColorText(gear.quantity_owned)]" v-text="(gear.quantity_owned || 0)" />
+                                <span
+                                  v-bind:class="[(gear.quantity_owned > 0 ? 'text-tiny-dimmed' : 'text-body-2'), nullOrZeroColorText(gear.quantity_owned)]"
+                                  v-text="(gear.quantity_owned || 0)"
+                                ></span>
                               </div>
                             </v-col>
                           </v-row>
@@ -1021,8 +996,8 @@
   import Vue from 'vue'
   const _ = require('lodash');
 
-  import XWornIcon from "@/components/elements/XWornIcon";
-  import XConsumableIcon from "@/components/elements/XConsumableIcon";
+  import XWornIcon from "@/components/elements/Icons/XWornIcon";
+  import XConsumableIcon from "@/components/elements/Icons/XConsumableIcon";
   import XPicker from "@/components/inputs/XPicker";
   import XBrandSelector from "@/components/inputs/fields/XBrandSelector";
   import XStateSelector from "@/components/inputs/fields/XStateSelector";
@@ -1030,15 +1005,17 @@
   import XIncrement from "@/components/inputs/XIncrement";
   import XCheckbox from "@/components/inputs/XCheckbox";
   import XChecker from "@/components/inputs/XChecker";
-  import XSortIcon from "@/components/elements/XSortIcon";
+  import XSortIcon from "@/components/elements/Icons/XSortIcon";
   import XDivider from "@/components/elements/XDivider";
   import EmptyData from "@/components/elements/EmptyData";
   import XImg from "@/components/elements/XImg";
   import XCombobox from "@/components/inputs/XCombobox";
+  import XUnknownCategoryIcon from "@/components/elements/Icons/XUnknownCategoryIcon";
 
   export default {
     name: 'inventories-form',
     components: {
+      XUnknownCategoryIcon,
       XWornIcon,
       XConsumableIcon,
       XBrandSelector,
@@ -1106,6 +1083,7 @@
       updatedItem: {},
 
       inventoryGearList: [],
+      inventoryGearReferenceList: [],
       inventoryTotalItems: 0,
       inventoryTotalWeight: 0,
       inventoryTotalPrice: 0,
@@ -1143,11 +1121,6 @@
       },
       hasInventoryGear() {
         return (this.currentInventoryGear && this.currentInventoryGear.length >= 1);
-      },
-      gearListDifferences() {
-        let addedGear = this.inventoryGearList.filter(x => !this.originalGearList.includes(x));
-        let removedGear = this.originalGearList.filter(x => !this.inventoryGearList.includes(x));
-        return (addedGear.length + removedGear.length);
       },
       currentInventoryGear() {
         if(this.isMounted && this.item && this.item.inventory_gear)
@@ -1202,7 +1175,7 @@
       },
       inventoryGearItem(gearId) {
         let index = this.inventoryGearList.indexOf(gearId);
-        return ((index >=0 ) ? this.updatedItem.inventory_gear[index] : null);
+        return ((index >= 0 && this.updatedItem.inventory_gear) ? this.updatedItem.inventory_gear[index] : null);
       },
       sortGear(by, option = "asc") {
         if (this.gearOrderBy == by) {
@@ -1273,7 +1246,7 @@
           this.inventoryGearList.push(gear.id);
 
           let newInventoryGear = {
-            inventory_id: this.updatedItem.id,
+            inventory_id: (this.updatedItem.id || null),
             gear_id: gear.id,
             gear_quantity_packed: gear.quantity_owned,
             gear_worn: false,
@@ -1335,8 +1308,6 @@
             self.inventoryGearList.push(m2m.gear_id);
             Object.assign(self.gearInventoryRelations, { [m2m.gear_id] : m2m.id });
           });
-
-          this.originalGearList = [...this.inventoryGearList];
         }
       },
       initWindowHeight() {
@@ -1464,6 +1435,8 @@
 
       await this.initGearList();
       await this.initGearCategoryStats();
+
+      this.originalGearList = [...this.inventoryGearList];
 
       this.isMounted = true;
     }

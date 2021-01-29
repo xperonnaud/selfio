@@ -147,6 +147,7 @@ export default new Vuex.Store({
             },
 
             tempInventoryGear: [],
+
             tempGearInventories: [],
 
             weathers: [
@@ -290,35 +291,15 @@ export default new Vuex.Store({
                 state.selfio.inventoryGear.push(g.gear_id);
             }
         },
-        updateInventoryGear(state, inventoryId, inventoryGear) {
-            if(!state.selfio.inventoryGear[inventoryId])
-                Object.assign(state.selfio.inventoryGear, { [inventoryId] : [] });
-
-            while(state.selfio.inventoryGear[inventoryId].length > 0) state.selfio.inventoryGear[inventoryId].pop();
-            for(const g of inventoryGear) {
-                state.selfio.inventoryGear[inventoryId].push(g.gear_id);
-            }
-        },
-        addInventoryGear(state, inventoryId, inventoryGear) {
-            if(!state.selfio.inventoryGear[inventoryId])
-                Object.assign(state.selfio.inventoryGear, { [inventoryId] : [] });
-
-            let len = state.selfio.inventoryGear[inventoryId].length;
-            if (inventoryGear !== state.selfio.inventoryGear[inventoryId]) {
-                Vue.set(state.selfio.inventoryGear[inventoryId], len, inventoryGear);
+        updateInventoryGear(state, inventoryIndex) {
+            if(typeof inventoryIndex == 'number' && state.selfio.inventories[inventoryIndex]) {
+                while(state.selfio.inventories[inventoryIndex]['inventory_gear'].length > 0) state.selfio.inventories[inventoryIndex]['inventory_gear'].pop();
+                Object.assign(state.selfio.inventories[inventoryIndex]['inventory_gear'], state.ui.tempInventoryGear);
             }
         },
         removeInventoryGear(state, inventoryId) {
             if(state.selfio.inventoryGear[inventoryId])
                 delete state.selfio.inventoryGear[inventoryId];
-        },
-        resetInventoryGear(state, payload) {
-            if(state.selfio.inventoryGear[payload.inventoryId])
-                while(state.selfio.inventoryGear[payload.inventoryId].length > 0) state.selfio.inventoryGear[payload.inventoryId].pop();
-
-            if(state.selfio.inventories[payload.inventoryIndex] && state.selfio.inventories[payload.inventoryIndex].inventory_gear)
-                while(state.selfio.inventories[payload.inventoryIndex].inventory_gear.length > 0)
-                    state.selfio.inventories[payload.inventoryIndex].inventory_gear.pop();
         },
 
         updateInventories(state, inventories) {
@@ -347,8 +328,8 @@ export default new Vuex.Store({
                 if(!inventory.inventory_gear)
                     Object.assign(inventory, { 'inventory_gear' : [] });
 
-                if(state.ui.tempInventoryGear && state.ui.tempInventoryGear.length > 0)
-                    Object.assign(inventory.inventory_gear, state.ui.tempInventoryGear);
+                // if(state.ui.tempInventoryGear && state.ui.tempInventoryGear.length > 0)
+                //     Object.assign(inventory.inventory_gear, state.ui.tempInventoryGear);
 
                 Vue.set(state.selfio.inventories, len, inventory);
 
@@ -541,6 +522,21 @@ export default new Vuex.Store({
         },
         updateUiIsItemRoute(state, isItemRoute) {
             state.ui.isItemRoute = isItemRoute;
+        },
+        addTempInventoryGear(state, tempInventoryGear) {
+            if (tempInventoryGear)
+                if(tempInventoryGear.length) {
+                    for(const i of tempInventoryGear) {
+                        let len = state.ui.tempInventoryGear.length;
+                        Vue.set(state.ui.tempInventoryGear, len, i);
+                    }
+                } else {
+                    let len = state.ui.tempInventoryGear.length;
+                    Vue.set(state.ui.tempInventoryGear, len, tempInventoryGear);
+                }
+        },
+        resetTempInventoryGear(state) {
+            while(state.ui.tempInventoryGear.length > 0) state.ui.tempInventoryGear.pop();
         },
         updateUiTempGearInventories(state, tempGearInventories) {
             if (tempGearInventories) {

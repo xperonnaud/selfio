@@ -229,7 +229,7 @@
 
   import XUpdateCol from "@/components/xcols/XUpdateCol";
   import EmptyData from "@/components/elements/EmptyData";
-  import EditIcon from "@/components/elements/EditIcon";
+  import EditIcon from "@/components/elements/Icons/EditIcon";
   import XImg from "@/components/elements/XImg";
 
   export default {

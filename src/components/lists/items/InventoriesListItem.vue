@@ -57,7 +57,7 @@
 
   import XUpdateCol from "@/components/xcols/XUpdateCol";
   import EmptyData from "@/components/elements/EmptyData";
-  import EditIcon from "@/components/elements/EditIcon";
+  import EditIcon from "@/components/elements/Icons/EditIcon";
 
   export default {
     name: 'inventories-list-item',

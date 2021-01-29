@@ -41,16 +41,7 @@
                 isCategory
               ></x-img>
 
-              <v-tooltip v-else-if="currentRouteTitle === 'Gear'" bottom>
-                <template v-slot:activator="{ on, attrs }">
-                  <v-icon
-                    v-text="'mdi-help-circle-outline'"
-                    v-bind="attrs"
-                    v-on="on"
-                  />
-                </template>
-                <span v-text="'Unknown'" />
-              </v-tooltip>
+              <x-unknown-category-icon v-else-if="currentRouteTitle === 'Gear'" />
 
               <x-img
                 v-else-if="item.activity && xActivity(item.activity)"
@@ -193,12 +184,14 @@
 
   const _ = require('lodash');
 
+  import XUnknownCategoryIcon from "@/components/elements/Icons/XUnknownCategoryIcon";
   import EmptyList from "@/components/elements/EmptyList";
   import XImg from "@/components/elements/XImg";
 
   export default {
     name: "list-container",
     components: {
+      XUnknownCategoryIcon,
       EmptyList,
       XImg
     },

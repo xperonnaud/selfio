@@ -535,6 +535,7 @@ export default {
         async api_post_inventory(inventory, originalGearList, gearList, gearInventoryRelations) {
             let self = this;
 
+            let inventoryGear = inventory.inventory_gear;
             inventory = this.fixInventory(inventory);
 
             await directus.items('inventories').create(inventory)
@@ -544,11 +545,14 @@ export default {
                     self.inventoryReferences[response.data.id],
                     originalGearList,
                     gearList,
+                    inventoryGear,
                     gearInventoryRelations
                 )
                 .then(function () {
-                    self.$store.commit("addInventory", response.data);
-                    self.$store.commit("resetUiTempInventoryGear");
+                    let inventory = response.data;
+                    self.$store.commit("addInventory", inventory);
+                    self.$store.commit("updateInventoryGear", self.inventoryReferences[response.data.id]);
+                    self.$store.commit("resetTempInventoryGear");
                 });
 
                 await self.handleResponse('success', 'Inventory added');
@@ -560,33 +564,25 @@ export default {
         async api_patch_inventory(inventory, inventoryIndex, originalGearList, gearList, gearInventoryRelations) {
             let self = this;
 
+            let inventoryGear = inventory.inventory_gear;
             inventory = this.fixInventory(inventory);
 
             await directus.items('inventories').update(inventory.id, inventory)
             .then(async function (response) {
-
                 await self.updateGearList(
                     response.data.id,
                     inventoryIndex,
                     originalGearList,
                     gearList,
+                    inventoryGear,
                     gearInventoryRelations
                 )
                 .then(function () {
                     let patched_inventory = {};
-
                     Object.assign(patched_inventory, response.data);
-
-                    if(self.tempInventoryGear && self.tempInventoryGear.length > 0) {
-                        Object.assign(patched_inventory, { 'inventory_gear' : [] });
-
-                        self.tempInventoryGear.forEach(function(inventoryGearItem) {
-                            patched_inventory.inventory_gear.push(inventoryGearItem)
-                        })
-                    }
-
                     self.$store.commit("updateInventory",{ inventoryIndex: inventoryIndex, inventory: patched_inventory });
-                    self.$store.commit("resetUiTempInventoryGear");
+                    self.$store.commit("updateInventoryGear", self.inventoryReferences[response.data.id]);
+                    self.$store.commit("resetTempInventoryGear");
                 });
 
                 await self.handleResponse('success', 'Inventory updated');
@@ -620,37 +616,32 @@ export default {
             })
         },
 
-        async updateGearList(inventoryId, inventoryIndex, originalGearList, gearList, gearInventoryRelations) {
+        async updateGearList(inventoryId, inventoryIndex, originalGearList, gearList, inventoryGear, gearInventoryRelations) {
             let self = this;
 
-            let sameGear = gearList.filter(x => originalGearList.includes(x));
-            let addedGear = gearList.filter(x => !originalGearList.includes(x));
+            let sameGear = inventoryGear.filter(x => originalGearList.includes(x.gear_id));
+
+            let addedGear = inventoryGear.filter(x => !originalGearList.includes(x.gear_id));
+            let mappedAddedGear = addedGear.map((inv_gear) => {
+                if(!inv_gear.inventory_id || typeof inv_gear.inventory_id == 'undefined')
+                    inv_gear['inventory_id'] = inventoryId;
+
+                return inv_gear;
+            });
+
             let removedGear = originalGearList.filter(x => !gearList.includes(x));
-
-            self.$store.commit("resetInventoryGear", {
-                inventoryId: inventoryId,
-                inventoryIndex: inventoryIndex
+            let mappedRemovedGear = removedGear.map((gearId) => {
+                return gearInventoryRelations[gearId];
             });
 
-            await this.asyncForEach(sameGear, async (gearId) => {
-                let relationId = gearInventoryRelations[gearId];
-                await self.api_keep_inventory_gear(inventoryId, gearId, relationId);
-            });
+            if(sameGear.length > 0)
+                await self.api_update_inventory_gear(sameGear);
 
-            await this.asyncForEach(addedGear, async (gearId) => {
-                await self.api_add_inventory_gear(inventoryId, gearId, inventoryIndex);
-            });
+            if(mappedAddedGear.length > 0)
+                await self.api_create_inventory_gear(mappedAddedGear);
 
-            // let relationsToDelete = [];
-            // removedGear.forEach((gearId) => {
-            //     relationsToDelete.push(gearInventoryRelations[gearId]);
-            // });
-            // await self.api_remove_inventory_gear_list(relationsToDelete);
-
-            await this.asyncForEach(removedGear, async (gearId) => {
-                let relationId = gearInventoryRelations[gearId];
-                await self.api_remove_inventory_gear(relationId);
-            });
+            if(mappedRemovedGear.length > 0)
+                await self.api_delete_inventory_gear(mappedRemovedGear);
         },
         async api_get_gear_inventories(gearId) {
             let self = this;
@@ -686,67 +677,37 @@ export default {
                 await self.handleResponse('error', error.message, error);
             })
         },
-        async api_keep_inventory_gear(inventoryId, gearId, relationId) {
-            let inventory_gear = {
-                inventory_id: inventoryId,
-                gear_id: gearId,
-                id: relationId
-            };
-
-            this.$store.commit("updateUiTempInventoryGear",inventory_gear);
-            this.$store.commit("addInventoryGear", gearId);
-        },
-        async api_add_inventory_gear(inventoryId, gearId) {//, inventoryRef
+        async api_create_inventory_gear(inventoryGear) {
             let self = this;
 
-            await directus.items('inventory_gear').create({
-                inventory_id: inventoryId,
-                gear_id: gearId
-            })
-            .then(function (response) {
-                let inventory_gear = {
-                    inventory_id: inventoryId,
-                    gear_id: gearId,
-                    id: response.data.id
-                };
-                self.$store.commit("updateUiTempInventoryGear",inventory_gear);
+            await directus.items('inventory_gear').create(inventoryGear)
+                .then(async function (response) {
+                    self.$store.commit("addTempInventoryGear", response.data);
 
-            }).catch(async function (error) {
-                await self.handleResponse('error', error.message, error);
-            })
+                }).catch(async function (error) {
+                    await self.handleResponse('error', error.message, error);
+                });
         },
-        async api_remove_inventory_gear(relationId) {
+        async api_update_inventory_gear(inventoryGear) {
             let self = this;
 
-            await directus.items('inventory_gear').delete(relationId)
-            .then(async function () {
-                await self.handleResponse('success', 'Gear deleted');
+            await directus.items('inventory_gear').update(inventoryGear)
+                .then(async function (response) {
+                    self.$store.commit("addTempInventoryGear", response.data);
 
-            }).catch(async function (error) {
-                await self.handleResponse('error', error.message, error);
-            })
+                }).catch(async function (error) {
+                    await self.handleResponse('error', error.message, error);
+                });
         },
-        async api_remove_inventory_gear_list(gear_list) {
+        async api_delete_inventory_gear(inventoryGear) {
             let self = this;
 
-            await directus.items('inventory_gear').delete(gear_list)
-            .then(async function () {
-                await self.handleResponse('success', 'Gear unpacked');
+            await directus.items('inventory_gear').delete(inventoryGear)
+                .then(async function () {
 
-            }).catch(async function (error) {
-                await self.handleResponse('error', error.message, error);
-            })
-        },
-        async api_patch_inventory_gear(inventory_gear) {
-            let self = this;
-
-            await directus.items('inventory_gear').update(inventory_gear.id, inventory_gear)
-            .then(async function () {
-                self.updateSnackbar('success', 'Gear packed');
-            }).catch(function (error) {
-                console.log('ERROR api_patch_inventory_gear',error);
-                self.updateSnackbar('error', error.message);
-            })
+                }).catch(async function (error) {
+                    await self.handleResponse('error', error.message, error);
+                });
         },
 
         async api_get_adventures() {

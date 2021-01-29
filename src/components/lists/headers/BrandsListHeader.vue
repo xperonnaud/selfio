@@ -23,7 +23,7 @@
 <script>
 
   import XCol from "@/components/xcols/XCol";
-  import XSortIcon from "@/components/elements/XSortIcon";
+  import XSortIcon from "@/components/elements/Icons/XSortIcon";
 
   export default {
     name: 'brand-list-header',

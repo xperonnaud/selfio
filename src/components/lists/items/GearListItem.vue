@@ -85,11 +85,11 @@
 
 <script>
 
-  import XConsumableIcon from "@/components/elements/XConsumableIcon";
+  import XConsumableIcon from "@/components/elements/Icons/XConsumableIcon";
   import XUpdateCol from "@/components/xcols/XUpdateCol";
   import XWeightCol from "@/components/xcols/XWeightCol";
   import EmptyData from "@/components/elements/EmptyData";
-  import EditIcon from "@/components/elements/EditIcon";
+  import EditIcon from "@/components/elements/Icons/EditIcon";
 
   export default {
     name: 'gear-list-item',

@@ -617,17 +617,7 @@
                             isCategory
                           ></x-img>
 
-                          <v-tooltip v-else bottom>
-                            <template v-slot:activator="{ on, attrs }">
-                              <v-icon
-                                v-text="'mdi-help-circle-outline'"
-                                v-bind="attrs"
-                                v-on="on"
-                                size="18"
-                              />
-                            </template>
-                            <span v-text="'Unknown'" />
-                          </v-tooltip>
+                          <x-unknown-category-icon v-else :size="18" />
                         </v-list-item-avatar>
 
                         <v-list-item-content>
@@ -728,18 +718,19 @@
 
   import Vue from 'vue'
 
-  import XConsumableIcon from "@/components/elements/XConsumableIcon";
+  import XUnknownCategoryIcon from "@/components/elements/Icons/XUnknownCategoryIcon";
+  import XConsumableIcon from "@/components/elements/Icons/XConsumableIcon";
   import XCheckbox from "@/components/inputs/XCheckbox";
   import XBrandSelector from "@/components/inputs/fields/XBrandSelector";
   import XStateSelector from "@/components/inputs/fields/XStateSelector";
-  import XSortIcon from "@/components/elements/XSortIcon";
+  import XSortIcon from "@/components/elements/Icons/XSortIcon";
   import XWeightCol from "@/components/xcols/XWeightCol";
   import XChecker from "@/components/inputs/XChecker";
   import XDivider from "@/components/elements/XDivider";
   import EmptyData from "@/components/elements/EmptyData";
   import XImg from "@/components/elements/XImg";
   import XIncrement from "@/components/inputs/XIncrement";
-  import EditIcon from "@/components/elements/EditIcon";
+  import EditIcon from "@/components/elements/Icons/EditIcon";
   import XPicker from "@/components/inputs/XPicker";
   import XTimePicker from "@/components/inputs/XTimePicker";
   import XDatePicker from "@/components/inputs/XDatePicker";
@@ -750,6 +741,7 @@
   export default {
     name: 'adventures-form',
     components: {
+      XUnknownCategoryIcon,
       XConsumableIcon,
       XCheckbox,
       XBrandSelector,
