@@ -58,7 +58,7 @@
                         :list="activitiesList"
                         :listReferences="activityReferences"
                         v-bind:value.sync="updatedItem.activity"
-                        :iconSize="'26'"
+                        :iconSize="'32'"
                       ></x-selector>
                     </v-col>
 
