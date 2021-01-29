@@ -19,7 +19,7 @@
           contain
         ></v-img>
       </template>
-      <span v-if="tooltipText" v-text="tooltipText" />
+      <span class="ma-0 pa-0" v-if="tooltipText" v-html="tooltipText" />
     </v-tooltip>
   </v-sheet>
 

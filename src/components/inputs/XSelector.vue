@@ -83,15 +83,18 @@
                     <v-avatar
                       v-bind:class="[
                         'x-avatar',
-                        (isCategory ? getReversedVuetifyColor(item.id) : ''),
                       ]"
+                      :style="isCategory ? (
+                        item.title!=='Unknown' ? 'border: 2px solid '+hexColor(getVuetifyColor(item.id))+' !important;'
+                          : 'border: 1px solid '+hexColor(getVuetifyColor(14))+' !important;'
+                        ): ''"
                     >
                       <x-img
                         v-if="item.icon"
                         :src="item.icon"
                         :width="iconSize"
                         :height="iconSize"
-                        :tooltipText="item.description ? item.description : item.title"
+                        :tooltipText="`<strong>${item.title}</strong>`+(item.description ? '<br>'+item.description : '')"
                         :logo="logo"
                         :isCategory="isCategory"
                       ></x-img>

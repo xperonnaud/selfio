@@ -594,7 +594,10 @@
                         @click.stop="packGear(gear.gear_id)"
                       >
                         <v-list-item-action :class="['ml-1',(isMobile ? 'mr-0' : ' mr-4')]">
-                          <x-checker :value="isGearPacked(gear.gear_id)" />
+                          <x-checker
+                            :key="`gear-packed-checker-${gear.gear_id}-${updatedItem.packed_gear.length}`"
+                            :value="(updatedItem.packed_gear && updatedItem.packed_gear.includes(gear.gear_id))"
+                          />
                         </v-list-item-action>
 
                         <v-list-item-avatar
@@ -910,9 +913,10 @@
         return null;
       },
       isGearPacked(gearId) {
+        console.log('isGearPacked',gearId,this.updatedItem.packed_gear.indexOf(gearId));
         if(!this.updatedItem.packed_gear)
           return null;
-        return (this.updatedItem.packed_gear.indexOf(gearId+'') !== -1);
+        return (this.updatedItem.packed_gear.indexOf(gearId) !== -1);
       },
       async closeEditor() {
         this.isEditing = false;
@@ -932,13 +936,11 @@
         this.isEditing = true;
       },
       packGear(gearId) {
-        let index = this.updatedItem.packed_gear.indexOf(gearId+'');
+        let index = this.updatedItem.packed_gear.indexOf(gearId);
         if(index !== -1) {
           this.updatedItem.packed_gear.splice(index, 1);
-
         } else {
-          let len = this.updatedItem.packed_gear.length;
-          Vue.set(this.updatedItem.packed_gear, len, gearId+'');
+          this.updatedItem.packed_gear.push(gearId);
         }
       },
       increment(property) {
@@ -1022,10 +1024,10 @@
           if(this.item && this.item.adventure_inventory === val) {
             this.updatedItem.packed_gear = [...this.item.packed_gear];
           } else {
-            this.updatedItem.packed_gear = [];
+            Vue.set(this.updatedItem, 'packed_gear', []);
           }
 
-          if(val !== null)
+          if(typeof val == 'number')
             await this.initInventoryGear();
         }
       },
