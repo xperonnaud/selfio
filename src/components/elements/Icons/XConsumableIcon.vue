@@ -4,7 +4,7 @@
       <template v-slot:activator="{ on, attrs }">
         <v-icon
           v-text="'mdi-apple'"
-          class="primary-gradient-color-text"
+          :color="darkColor('light-green')"
           :style="css"
           :small="small"
           :size="size"

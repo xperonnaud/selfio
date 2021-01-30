@@ -4,7 +4,7 @@
       <template v-slot:activator="{ on, attrs }">
           <v-icon
               v-text="'mdi-tshirt-crew'"
-              class="primary-gradient-color-text"
+              :color="darkColor('indigo')"
               :style="css"
               :small="small"
               :size="size"

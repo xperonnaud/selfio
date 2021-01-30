@@ -310,18 +310,6 @@
     color: white !important;
   }
 
-  .primary-gradient-color {
-    background-image: linear-gradient(45deg, #9C27B0, #2196F3, #009688);
-    /*  background-image: linear-gradient(45deg, #FFA000, #E64A19);*/
-  }
-
-  .primary-gradient-color-text {
-    background: -webkit-linear-gradient(45deg, #9C27B0, #2196F3, #009688);
-    /*  background: -webkit-linear-gradient(45deg, #E64A19, #FFA000);*/
-    -webkit-background-clip: text !important;
-    -webkit-text-fill-color: transparent;
-  }
-
   .app-nav-list-item {
     &.v-list-item--active {
       background: white;
@@ -344,18 +332,24 @@
     }
   }
 
+  .primary-gradient-color {
+    background-image: linear-gradient(45deg, #9C27B0, #2196F3, #009688);
+  }
+
+  .primary-gradient-color-text {
+    background: -webkit-linear-gradient(45deg, #9C27B0, #2196F3, #009688);
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent;
+  }
+
   .is-dark {
 
     .primary-gradient-color {
       background-image: linear-gradient(45deg, #E040FB, #448AFF, #64FFDA);
-        /*background-image: linear-gradient(45deg, #FFC107, #FF5722);*/
     }
 
     .primary-gradient-color-text {
       background: -webkit-linear-gradient(45deg, #E040FB, #448AFF, #64FFDA);
-        /*background: -webkit-linear-gradient(45deg, #FF5722, #FFC107);*/
-      -webkit-background-clip: text !important;
-      -webkit-text-fill-color: transparent;
     }
 
     .app-nav-list-item {

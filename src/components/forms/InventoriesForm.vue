@@ -708,7 +708,7 @@
                       >
                         <v-col class="x-col py-2 x-primary-btn" @click.stop="sortGear('category')" v-ripple>
                           <div class="d-flex justify-center">
-                            <x-sort-icon prop="type" />
+                            <x-sort-icon prop="category" />
                           </div>
                         </v-col>
                       </v-list-item-avatar>
@@ -792,8 +792,7 @@
                           width="32"
                           min-width="32"
                           height="32"
-                          :style="gear.category ? 'border: 2px solid '+hexColor(getVuetifyColor(gear.category))+' !important;'
-                            : 'border: 1px solid '+hexColor(getVuetifyColor(14))+' !important;'"
+                          :style="'border: 2px solid '+(gear.quantity_owned === 0 ? xInputColor : hexColor(getVuetifyColor(gear.category || 14)))+' !important;'"
                         >
                           <x-img
                             v-if="gear.category && xGearCategory(gear.category)"
@@ -822,7 +821,7 @@
                                 </v-list-item-title>
 
                                 <v-list-item-subtitle
-                                  v-bind:class="['text-caption']"
+                                  v-bind:class="[(gear.quantity_owned === 0 ? 'text--disabled' : 'text-caption')]"
                                   v-text="gear.brand ? xGearBrand(gear.brand).title : '.'"
                                 ></v-list-item-subtitle>
                               </div>
