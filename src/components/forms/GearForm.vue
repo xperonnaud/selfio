@@ -277,7 +277,7 @@
 
           if(finalArray)
             await this.api_patch_preference_tag(finalArray, 'gear');
-
+console.log('postItem',this.updatedItem);
           await this.api_post_gear(this.updatedItem);
           Object.assign(this.updatedItem, {});
           this.isLoading = false;

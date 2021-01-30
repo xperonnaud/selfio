@@ -810,10 +810,8 @@
                           <v-row align="center" justify="center" :class="[{'text--disabled':gear.quantity_owned === 0}]">
                             <v-col :cols="isMobile ? 5 : 4" class="py-0">
                               <div>
-                                <v-list-item-title
-                                  v-bind:class="['mb-1',{'text-body-2' : isMobile}]"
-                                >
-                                  {{gear.title}}
+                                <v-list-item-title v-bind:class="['mb-1',{'text-body-2' : isMobile}]">
+                                  {{gear.title}}g
                                   <x-consumable-icon
                                     v-if="gear.consumable"
                                     :size="12"
