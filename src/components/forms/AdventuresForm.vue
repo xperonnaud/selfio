@@ -595,7 +595,7 @@
                       >
                         <v-list-item-action :class="['ml-1',(isMobile ? 'mr-0' : ' mr-4')]">
                           <x-checker
-                            :key="`gear-packed-checker-${gear.gear_id}-${updatedItem.packed_gear.length}`"
+                            :key="`gear-packed-checker-${gear.gear_id}-${updatedItem.packed_gear ? updatedItem.packed_gear.length : 0}`"
                             :value="(updatedItem.packed_gear && updatedItem.packed_gear.includes(gear.gear_id))"
                           />
                         </v-list-item-action>
@@ -995,7 +995,6 @@
         return null;
       },
       isGearPacked(gearId) {
-        console.log('isGearPacked',gearId,this.updatedItem.packed_gear.indexOf(gearId));
         if(!this.updatedItem.packed_gear)
           return null;
         return (this.updatedItem.packed_gear.indexOf(gearId) !== -1);

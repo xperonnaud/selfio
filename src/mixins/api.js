@@ -707,7 +707,7 @@ export default {
             })
         },
         propExists(prop) {
-            return (prop && typeof prop != 'undefined' && prop !== '')
+            return (typeof prop != 'undefined')
         },
         fixAdventure(adventure) {
 
