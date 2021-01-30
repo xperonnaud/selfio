@@ -1020,11 +1020,10 @@
       },
       async inventoryGear(val) {
         if(this.isMounted) {
+          Vue.set(this.updatedItem, 'packed_gear', []);
 
           if(this.item && this.item.adventure_inventory === val) {
             this.updatedItem.packed_gear = [...this.item.packed_gear];
-          } else {
-            Vue.set(this.updatedItem, 'packed_gear', []);
           }
 
           if(typeof val == 'number')

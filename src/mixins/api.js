@@ -549,8 +549,7 @@ export default {
                     gearInventoryRelations
                 )
                 .then(function () {
-                    let inventory = response.data;
-                    self.$store.commit("addInventory", inventory);
+                    self.$store.commit("addInventory", response.data);
                     self.$store.commit("updateInventoryGear", self.inventoryReferences[response.data.id]);
                     self.$store.commit("resetTempInventoryGear");
                 });
@@ -786,8 +785,7 @@ export default {
 
             await directus.items('adventures').create(adventure)
             .then(async function (response) {
-                adventure.id = response.data;
-                self.$store.commit("addAdventure", adventure);
+                self.$store.commit("addAdventure", response.data);
                 await self.handleResponse('success', 'Adventure added');
 
             }).catch(async function (error) {
