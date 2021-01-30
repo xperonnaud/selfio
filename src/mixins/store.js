@@ -398,16 +398,14 @@ export default {
             let sum = 0;
 
             inventoryGear.forEach(function(gear) {
-                let gearIndex = self.gearReferences[gear.gear_id];
-
-                if(self.gearList[gearIndex]
-                    && (typeof self.gearList[gearIndex][prop] === 'number')
-                    && (self.gearList[gearIndex]['quantity_owned'] > 0)
-                ) {
-                    if(prop !== 'quantity_owned') {
-                        sum += (self.gearList[gearIndex][prop] * self.gearList[gearIndex]['quantity_owned']);
+                if(typeof gear.gear_quantity_packed == 'number' && gear.gear_quantity_packed > 0) {
+                    if(prop === 'quantity_packed') {
+                        sum += 1;
                     } else {
-                        sum += (self.gearList[gearIndex]['quantity_owned'] > 0 ? 1 : 0);
+                        let gearIndex = self.gearReferences[gear.gear_id];
+
+                        if(self.gearList[gearIndex] && (typeof self.gearList[gearIndex][prop] == 'number'))
+                            sum += (self.gearList[gearIndex][prop] * gear.gear_quantity_packed);
                     }
                 }
             });
@@ -418,11 +416,10 @@ export default {
             return this.sumInventoryProperty(inventoryGear, 'price').toFixed(2);
         },
         sumInventoryWeight(inventoryGear) {
-            let sum = this.sumInventoryProperty(inventoryGear, 'weight')
-            return this.supWeightUnitConverter(sum);
+            return this.sumInventoryProperty(inventoryGear, 'weight');
         },
-        sumInventoryQuantityOwned(inventoryGear) {
-            return this.sumInventoryProperty(inventoryGear, 'quantity_owned');
+        sumInventoryQuantityPacked(inventoryGear) {
+            return this.sumInventoryProperty(inventoryGear, 'quantity_packed');
         },
         randomId(length = 16) {
             let result = '';

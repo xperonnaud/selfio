@@ -17,15 +17,15 @@
 
         <v-col class="x-col">
           <div v-if="item.inventory_gear" class="ml-1">
-            <span class="text-caption">{{ sumInventoryQuantityOwned(item.inventory_gear) }}</span>
+            <span class="text-caption">{{ sumInventoryQuantityPacked(item.inventory_gear) }}</span>
           </div>
           <empty-data solo v-else />
         </v-col>
 
         <v-col class="x-col">
           <div v-if="item.inventory_gear">
-            <span class="text-caption">{{ sumInventoryWeight(item.inventory_gear) }}</span>
-            <span class="text-tiny-dimmed" v-text="supWeightUnit" />
+            <span class="text-caption">{{ sumInventoryWeight(item.inventory_gear) | weightUnitFilter(weightUnit) }}</span>
+            <span class="text-tiny-dimmed" v-text="dynamicWeightUnit(sumInventoryWeight(item.inventory_gear))" />
           </div>
           <empty-data solo v-else />
         </v-col>
