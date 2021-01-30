@@ -2,9 +2,8 @@
 
   <v-col class="x-col">
     <div v-if="hasGear && weight">
-      <span v-if="weight < 1000" :class="['text-caption']">{{ weight | weightUnitFilter(weightUnit) }}</span>
-      <span v-else :class="['text-caption']">{{ weight | weightUnitFilter(weightUnit) | supWeightUnitFilter(weightUnit) }}</span>
-      <span class="text-tiny-dimmed" v-text="weight < 1000 ? weightUnit : supWeightUnit" />
+      <span :class="['text-caption']">{{ weight | weightUnitFilter(weightUnit) }}</span>
+      <span class="text-tiny-dimmed" v-text="dynamicWeightUnit(weight)" :key="`dynamic-weight-unit-${weight}-${randomId()}`" />
     </div>
     <empty-data solo v-else />
   </v-col>

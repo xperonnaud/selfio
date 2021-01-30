@@ -171,8 +171,8 @@
                                           <x-divider />
 
                                           <div>
-                                            <span class="text-tiny">{{ gearCategoryStat.weight | weightUnitFilter(weightUnit) | supWeightUnitFilter(weightUnit) }}</span>
-                                            <span class="text-tiny-dimmed" v-text="supWeightUnit" />
+                                            <span class="text-tiny">{{ gearCategoryStat.weight | weightUnitFilter(weightUnit) }}</span>
+                                            <span class="text-tiny-dimmed" v-text="dynamicWeightUnit(gearCategoryStat.weight)" :key="`weight-unit-${randomId()}-${gearCategoryStat.weight}`" />
                                           </div>
                                         </div>
 
@@ -323,9 +323,9 @@
                             <x-divider />
 
                             <div>
-                              <span v-if="updatedItem.inventory_gear" v-bind:class="[currentColorText]">{{ inventoryTotalWeight | weightUnitFilter(weightUnit) | supWeightUnitFilter(weightUnit) }}</span>
+                              <span v-if="updatedItem.inventory_gear" v-bind:class="[currentColorText]">{{ inventoryTotalWeight | weightUnitFilter(weightUnit) }}</span>
                               <span v-else v-bind:class="[currentColorText]" v-text="'0'" />
-                              <span v-text="' '+supWeightUnit" />
+                              <span v-text="' '+dynamicWeightUnit(inventoryTotalWeight)" :key="`weight-unit-${randomId()}-${inventoryTotalWeight}`" />
                             </div>
 
                             <x-divider />
@@ -462,8 +462,8 @@
                                             <x-divider />
 
                                             <div>
-                                              <span class="text-tiny">{{ gearCategoryStat.weight | weightUnitFilter(weightUnit) | supWeightUnitFilter(weightUnit) }}</span>
-                                              <span class="text-tiny-dimmed" v-text="supWeightUnit" />
+                                              <span class="text-tiny">{{ gearCategoryStat.weight | weightUnitFilter(weightUnit) }}</span>
+                                              <span class="text-tiny-dimmed" v-text="dynamicWeightUnit(gearCategoryStat.weight)" :key="`weight-unit-${randomId()}-${gearCategoryStat.weight}`" />
                                             </div>
                                           </div>
 
@@ -560,8 +560,8 @@
                   <x-divider />
 
                   <div>
-                    <span v-bind:class="[currentColorText]">{{ inventoryTotalWeight | weightUnitFilter(weightUnit) | supWeightUnitFilter(weightUnit) }}</span>
-                    <span v-text="supWeightUnit" class="text-tiny" />
+                    <span v-bind:class="[currentColorText]">{{ inventoryTotalWeight | weightUnitFilter(weightUnit) }}</span>
+                    <span v-text="dynamicWeightUnit(inventoryTotalWeight)" :key="`weight-unit-${randomId()}-${inventoryTotalWeight}`" class="text-tiny" />
                   </div>
                 </div>
 

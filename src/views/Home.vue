@@ -37,8 +37,8 @@
                   <v-list-item-action v-if="navigationItems[item].title !== 'Inventories'">
                     <v-list-item-action-text v-if="countersInitialized" class="text-subtitle-2">
                       <template v-if="navigationItems[item].title === 'Gear'">
-                        <span class="text-subtitle-2">{{ totalWeight | weightUnitFilter(weightUnit) | supWeightUnitFilter(weightUnit) }}</span>
-                        <span class="ml-1 text-caption" v-text="supWeightUnit" />
+                        <span class="text-subtitle-2">{{ totalWeight | weightUnitFilter(weightUnit) }}</span>
+                        <span class="ml-1 text-caption" v-text="dynamicWeightUnit(totalWeight)" :key="`weight-unit-${randomId()}-${totalWeight}`" />
                       </template>
 
                       <template v-if="navigationItems[item].title === 'Adventures'">

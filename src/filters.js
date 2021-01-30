@@ -12,11 +12,22 @@
  Vue.filter("weightUnitFilter", function (value, unit = 'g') {
      if (!value) return '0';
 
-     if(unit === 'g')
-         return Math.round(value);
+     let convertedWeight = null;
 
-     if(unit === 'oz')
-         return (Math.round(value * gToOz * 10) / 10);
+     if (unit === 'g') {
+         convertedWeight = Math.round(value);
+
+         if(convertedWeight >= 1000)
+             convertedWeight = (Math.round(convertedWeight * gToKg * 10) / 10);
+
+     } else if (unit === 'oz') {
+         convertedWeight = (Math.round(value * gToOz * 10) / 10);
+
+         if(convertedWeight >= 96)
+             convertedWeight = (Math.round(convertedWeight * ozToLb * 10) / 10);
+    }
+
+     return convertedWeight;
  });
 
  Vue.filter("supWeightUnitFilter", function (value, unit = 'g') {

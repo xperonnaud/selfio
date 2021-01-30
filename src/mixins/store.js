@@ -1,4 +1,8 @@
 
+const gToKg = 0.001;
+const gToOz = 0.035274;
+const ozToLb = 0.0625;
+
 export default {
     data () {
         return {
@@ -138,13 +142,13 @@ export default {
         supWeightUnit() {
             switch(this.weightUnit) {
                 case 'g':
-                    return 'kg'
+                    return 'kg';
 
                 case 'oz':
-                    return 'lb'
+                    return 'lb';
 
                 default:
-                    return 'g'
+                    return 'g';
             }
         },
         priceUnit: {
@@ -274,6 +278,18 @@ export default {
         },
     },
     methods: {
+        dynamicWeightUnit(weight) {
+            switch(this.weightUnit) {
+                case 'g':
+                    return (weight >= 1000 ? 'kg' : this.weightUnit);
+
+                case 'oz':
+                    return (((Math.round(weight * gToOz * 10) / 10) >= 96) ? 'lb' : this.weightUnit);
+
+                default:
+                    return this.weightUnit;
+            }
+        },
         sortItems(by, option = "asc") {
             if (this.itemOrderBy == by) {
                 if (this.itemOrderOption == "asc") {
