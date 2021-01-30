@@ -907,23 +907,6 @@
           this.gearOrderBy = by;
         }
       },
-      ratioFilter(ratio) {
-        if(ratio)
-          return this.$options.filters.roundIntFilter(ratio);
-        return null;
-      },
-      isGearPacked(gearId) {
-        console.log('isGearPacked',gearId,this.updatedItem.packed_gear.indexOf(gearId));
-        if(!this.updatedItem.packed_gear)
-          return null;
-        return (this.updatedItem.packed_gear.indexOf(gearId) !== -1);
-      },
-      async closeEditor() {
-        this.isEditing = false;
-      },
-      closeGearList() {
-        this.isEditing = false
-      },
       async initInventoryGear() {
         if(typeof this.updatedItem.adventure_inventory == 'number'
             && this.xInventory(this.updatedItem.adventure_inventory)
@@ -999,9 +982,45 @@
 
           this.isUpdatedItemFixed = true;
         }
-      }
+      },
+      async closeEditor() {
+        this.isEditing = false;
+      },
+      closeGearList() {
+        this.isEditing = false
+      },
+      ratioFilter(ratio) {
+        if(ratio)
+          return this.$options.filters.roundIntFilter(ratio);
+        return null;
+      },
+      isGearPacked(gearId) {
+        console.log('isGearPacked',gearId,this.updatedItem.packed_gear.indexOf(gearId));
+        if(!this.updatedItem.packed_gear)
+          return null;
+        return (this.updatedItem.packed_gear.indexOf(gearId) !== -1);
+      },
     },
     watch: {
+      async inventoryGear(val) {
+        if(this.isMounted) {
+          let self = this;
+          if(typeof val == 'number')
+            await this.initInventoryGear();
+
+          Vue.set(this.updatedItem, 'packed_gear', []);
+
+          if(this.item && this.item.adventure_inventory === val) {
+            this.item.packed_gear.forEach(function(gearId) {
+              let invGear = self.originalInventoryGear.filter( invGear => invGear['gear_id'] === gearId );
+              if(invGear && invGear.length === 1) {
+                let len = self.updatedItem.packed_gear.length;
+                Vue.set(self.updatedItem.packed_gear, len, gearId);
+              }
+            });
+          }
+        }
+      },
       valid(val) {
         if(this.isMounted)
           this.$emit('update:isFormValid',val);
@@ -1017,18 +1036,6 @@
       isFormLoading(val) {
         if(this.isMounted)
           this.isLoading = val;
-      },
-      async inventoryGear(val) {
-        if(this.isMounted) {
-          Vue.set(this.updatedItem, 'packed_gear', []);
-
-          if(this.item && this.item.adventure_inventory === val) {
-            this.updatedItem.packed_gear = [...this.item.packed_gear];
-          }
-
-          if(typeof val == 'number')
-            await this.initInventoryGear();
-        }
       },
       async postItem(val) {
         if(this.valid===true && val===true) {

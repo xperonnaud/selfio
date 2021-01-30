@@ -706,7 +706,7 @@
                         width="40"
                         height="40"
                       >
-                        <v-col class="x-col py-2 x-primary-btn" @click.stop="sortGear('type')" v-ripple>
+                        <v-col class="x-col py-2 x-primary-btn" @click.stop="sortGear('category')" v-ripple>
                           <div class="d-flex justify-center">
                             <x-sort-icon prop="type" />
                           </div>
