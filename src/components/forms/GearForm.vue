@@ -32,16 +32,10 @@
                 <v-card-text>
                   <v-row>
                     <v-col cols="12">
-                      <v-text-field
+                      <x-title-field
                         label="Title / Model"
-                        v-model="updatedItem.title"
-                        :rules="xRules.text"
-                        :color="currentColor"
-                        hide-details="auto"
-                        required
-                        dense
-                        filled
-                      ></v-text-field>
+                        v-bind:value.sync="updatedItem.title"
+                      ></x-title-field>
                     </v-col>
 
                     <v-col cols="12">
@@ -176,6 +170,7 @@
 
   import Vue from 'vue'
 
+  import XTitleField from "@/components/inputs/fields/XTitleField";
   import XBrandSelector from "@/components/inputs/fields/XBrandSelector";
   import XStateSelector from "@/components/inputs/fields/XStateSelector";
   import XIncrement from "@/components/inputs/XIncrement";
@@ -187,6 +182,7 @@
   export default {
     name: 'gear-form',
     components: {
+      XTitleField,
       XStateSelector,
       XBrandSelector,
       XCheckbox,

@@ -54,8 +54,8 @@
 
         <v-card :style="'border-top: 2px solid '+errorColor+' !important;'">
           <div class="max-width d-flex align-center justify-center">
-            <v-avatar :size="36" :color="darkColor('red')" style="position: absolute; top: -14px;">
-              <v-icon :size="20" :color="reversedShadeColor" v-text="'mdi-alert'" style="margin-top: 9px;" />
+            <v-avatar :size="48" :color="darkColor('red')" style="position: absolute; top: -26px;">
+              <v-icon :size="20" :color="reversedShadeColor" v-text="'mdi-alert'" style="margin-top: 20px;" />
             </v-avatar>
           </div>
 
@@ -100,16 +100,18 @@
             </v-responsive>
 
             <div v-else>
-              <div v-text="'This action is irreversible.'" />
-              <div v-bind:class="[fontShadeColor]" v-text="'Are you sure your wish to go forward with this?'" />
+              <div v-text="'Are you sure your wish to go forward with this?'" />
+              <div v-bind:class="[fontShadeColor]"  v-text="'This action is irreversible.'" />
             </div>
-
           </v-card-text>
+
+          <v-divider />
 
           <v-card-actions>
             <v-btn
               @click="deleteDialog = false"
               depressed
+              text
               v-text="'Cancel'"
             ></v-btn>
 

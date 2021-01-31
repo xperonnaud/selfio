@@ -73,7 +73,7 @@
 
                 <v-col class="pa-0 pt-3">
                   <v-skeleton-loader
-                    width="60"
+                    width="40"
                     type="text"
                   ></v-skeleton-loader>
                 </v-col>
@@ -82,17 +82,28 @@
 
                 <v-col class="pa-0 pt-3">
                   <v-skeleton-loader
-                    width="60"
+                    width="40"
                     type="text"
                   ></v-skeleton-loader>
                 </v-col>
+
+                <template v-if="currentRouteName === 'gear'">
+                  <v-col class="pa-0" />
+
+                  <v-col class="pa-0 pt-3">
+                    <v-skeleton-loader
+                      width="40"
+                      type="text"
+                    ></v-skeleton-loader>
+                  </v-col>
+                </template>
 
                 <template v-if="!isMobile">
                   <v-col class="pa-0" />
 
                   <v-col class="pa-0 pt-3">
                     <v-skeleton-loader
-                      width="60"
+                      width="40"
                       type="text"
                     ></v-skeleton-loader>
                   </v-col>
@@ -101,7 +112,7 @@
 
                   <v-col class="pa-0 pt-3">
                     <v-skeleton-loader
-                      width="60"
+                      width="40"
                       type="text"
                     ></v-skeleton-loader>
                   </v-col>
@@ -110,7 +121,7 @@
 
                   <v-col class="pa-0 pt-3">
                     <v-skeleton-loader
-                      width="60"
+                      width="40"
                       type="text"
                     ></v-skeleton-loader>
                   </v-col>
@@ -120,7 +131,7 @@
 
                     <v-col class="pa-0 pt-3">
                       <v-skeleton-loader
-                        width="60"
+                        width="40"
                         type="text"
                       ></v-skeleton-loader>
                     </v-col>
@@ -129,7 +140,7 @@
 
                     <v-col class="pa-0 pt-3">
                       <v-skeleton-loader
-                        width="60"
+                        width="40"
                         type="text"
                       ></v-skeleton-loader>
                     </v-col>
@@ -138,7 +149,7 @@
 
                     <v-col class="pa-0 pt-3">
                       <v-skeleton-loader
-                        width="60"
+                        width="40"
                         type="text"
                       ></v-skeleton-loader>
                     </v-col>

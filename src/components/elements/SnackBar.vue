@@ -13,20 +13,6 @@
     bottom
     outlined
   >
-    <v-icon
-      v-show="snackbarType === 'success'"
-      v-text="'mdi-checkbox-marked-circle'"
-      :color="darkColor(snackColor)"
-      class="mr-2"
-    />
-
-    <v-icon
-      v-show="snackbarType === 'error'"
-      v-text="'mdi-alert'"
-      :color="darkColor(snackColor)"
-      class="mr-2"
-    />
-
     <span v-text="snackbarText" />
 
     <template v-slot:action="{ attrs }">
