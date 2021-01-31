@@ -192,7 +192,7 @@ export default {
         supWeightUnitConverter(weight) {
             if(!weight || !this.weightUnit)
                 return null;
-            return parseFloat(this.$options.filters.supWeightUnitFilter(this.weightUnitConverter(weight), this.weightUnit));
+            return parseFloat(this.weightUnitConverter(weight, this.weightUnit));
         },
         weightUnitConverter(weight) {
             if(!weight || !this.weightUnit)

@@ -1196,8 +1196,11 @@
           for (const [key, value] of Object.entries(gearCategoryStats)) {
             let gearCategory = value.id === 0 ? null : this.xGearCategory(value.id);
             let percentage = this.$options.filters.percentageFilter(value.weight, this.inventoryGearList, this.inventoryTotalWeight);
-            let chartLabel = (gearCategory && gearCategory.title ? gearCategory.title : 'Unknown') + `, ${percentage}%, weight(${this.supWeightUnit})`;
+
+            let chartLabel = (gearCategory && gearCategory.title ? gearCategory.title : 'Unknown') + `, ${percentage}%, weight(${this.dynamicWeightUnit(value.weight)})`;
+
             let color = this.hexColor(this.getVuetifyColor(gearCategory && gearCategory.id ? gearCategory.id : 0));
+
             let displayedWeight = this.supWeightUnitConverter(value.weight);
 
             labels.push(chartLabel);

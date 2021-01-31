@@ -150,6 +150,8 @@ export default {
                     self.$store.commit('updateApiAccessToken',data.access_token);
                     self.$store.commit('updateApiRefreshToken',data.refresh_token);
 
+                    await directus.auth.refresh();
+
                     let user = await directus.users.me.read();
                     self.$store.commit('updateUser',user.data);
 
