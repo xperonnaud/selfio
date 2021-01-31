@@ -31,7 +31,7 @@
 
         <x-col text="Weather" prop="weather" />
 
-        <x-col text="Temp." prop="temperature_min" />
+        <x-col text="Temp." prop="temp_min" />
 
         <x-col text="Hum." prop="humidity" />
 
@@ -44,9 +44,7 @@
         <x-col text="Update" prop="date_updated" />
       </template>
 
-      <v-col class="x-col py-2 col-border-r">
-        <div class="text-tiny text-center" v-text="'Status'" />
-      </v-col>
+      <x-col text="Status" prop="start_date" />
 
       <v-col cols="1" class="pa-0">
         <div class="text-tiny" v-text="''" />

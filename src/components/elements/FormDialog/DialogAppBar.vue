@@ -38,8 +38,7 @@
       <v-dialog
         v-if="formDialogType === 'update'"
         v-model="deleteDialog"
-        :max-width="isMobile ? '290' : '450'"
-        :fullscreen="isMobile"
+        :max-width="isMobile ? '300' : '450'"
       >
         <template v-slot:activator="{ on, attrs }">
           <v-btn
@@ -53,10 +52,18 @@
           </v-btn>
         </template>
 
-        <v-card>
-          <v-card-title class="headline">
-            <span v-if="hasItemRelations" v-text="'Delete is not allowed.'" />
-            <span v-else v-text="'You are about to delete an item.'" />
+        <v-card :style="'border-top: 2px solid '+errorColor+' !important;'">
+          <div class="max-width d-flex align-center justify-center">
+            <v-avatar :size="36" :color="darkColor('red')" style="position: absolute; top: -14px;">
+              <v-icon :size="20" :color="reversedShadeColor" v-text="'mdi-alert'" style="margin-top: 9px;" />
+            </v-avatar>
+          </div>
+
+          <v-card-title class="headline mt-3">
+            <span v-text="`Deleting ${currentRouteTitle}:`" />
+            <span v-html="'&nbsp;'" />
+            <span v-if="hasItemRelations" v-text="' Not Allowed.'" />
+            <span v-else v-text="item.title" />
           </v-card-title>
 
           <v-card-subtitle v-if="hasItemRelations">
@@ -94,28 +101,26 @@
 
             <div v-else>
               <div v-text="'This action is irreversible.'" />
-              <div v-bind:class="[reversedFontShadeColor]" v-text="'Are you sure your wish to go forward with this?'" />
+              <div v-bind:class="[fontShadeColor]" v-text="'Are you sure your wish to go forward with this?'" />
             </div>
 
           </v-card-text>
 
           <v-card-actions>
+            <v-btn
+              @click="deleteDialog = false"
+              depressed
+              v-text="'Cancel'"
+            ></v-btn>
 
             <v-spacer />
 
             <v-btn
-              @click="deleteDialog = false"
-              text
-              v-text="'Cancel'"
-            ></v-btn>
-
-            <v-btn
-              :color="darkColor('red')"
+              :color="darkColor('error')"
               @click="deleteAction()"
               :disabled="hasItemRelations"
               depressed
             >
-              <v-icon left small :color="(isDark ? 'black' : 'white')" v-text="'mdi-alert'" />
               <span v-bind:class="[reversedFontShadeColor]" v-text="'Delete'" />
             </v-btn>
           </v-card-actions>

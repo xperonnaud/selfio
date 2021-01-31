@@ -33,8 +33,14 @@ export default {
         xInputColor() {
             return (this.isDark ? '#141414' : '#E0E0E0');
         },
+        errorColor() {
+            return (this.isDark ? '#ff5252' : '#E53935');
+        },
         shadeColor() {
             return (this.isDark ? 'white' : 'black');
+        },
+        reversedShadeColor() {
+            return (this.isDark ? 'black' : 'white');
         },
         fontShadeColor() {
             return (this.isDark ? 'white--text' : 'black--text');

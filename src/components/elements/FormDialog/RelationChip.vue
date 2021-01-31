@@ -5,14 +5,15 @@
     && selectedItemRelations[relationType]
     && selectedItemRelations[relationType].length > 0"
   >
-    <div>{{ navigationItems[relationType].title }} relation(s):</div>
+    <div><strong>{{ navigationItems[relationType].title }}</strong> relation(s):</div>
 
     <template v-for="itemId in selectedItemRelations[relationType]">
       <v-chip
         v-if="objFilter(list, 'id', itemId)[0]"
         :key="`${navigationItems[relationType].title}-relation-${itemId}`"
-        :color="navigationItems[relationType].color"
+        :color="darkColor(navigationItems[relationType].color)"
         class="ma-1"
+        outlined
         label
         small
         dark
