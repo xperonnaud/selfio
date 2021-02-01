@@ -7,8 +7,8 @@ export default new Vuex.Store({
     state: {
         api: {
             authTimer: null,
-            login: 'reivax@gmail.com',
-            password: 'poppers78',
+            login: '',
+            password: '',
             accessToken: null,
             refreshToken: null,
             baseUrl: 'http://localhost:8055/',
