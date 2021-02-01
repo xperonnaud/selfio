@@ -7,11 +7,11 @@ export default new Vuex.Store({
     state: {
         api: {
             authTimer: null,
-            login: 'reivax@gmail.com',
-            password: 'poppers78',
+            login: '',
+            password: '',
             accessToken: null,
             refreshToken: null,
-            baseUrl: 'http://172.17.0.17:8055',
+            baseUrl: 'http://172.17.0.17:8055/',
             isTokenRefreshed: false
         },
         selfio: {
