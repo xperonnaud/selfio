@@ -1,14 +1,14 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
 export default new Vuex.Store({
     state: {
         api: {
             authTimer: null,
-            login: '',
-            password: '',
+            login: 'reivax@gmail.com',
+            password: 'poppers78',
             accessToken: null,
             refreshToken: null,
             baseUrl: 'http://localhost:8055/',
