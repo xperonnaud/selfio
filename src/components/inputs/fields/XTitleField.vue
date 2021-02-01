@@ -1,17 +1,17 @@
 <template>
 
   <v-text-field
-      :label="label"
-      v-model="value"
-      :rules="xRules.text"
-      :color="color || currentColor"
-      hide-details="auto"
-      required
-      dense
-      filled
+    :label="label"
+    v-model="value"
+    :rules="xRules.text"
+    :color="color || currentColor"
+    hide-details="auto"
+    required
+    dense
+    filled
   >
     <template v-slot:append>
-        <v-icon class="my-1" size="12" :color="errorColor" v-text="'mdi-asterisk'" />
+        <v-icon size="12" :color="errorColor" v-text="'mdi-asterisk'" />
     </template>
   </v-text-field>
 
@@ -24,7 +24,7 @@
     props: {
       list: Array,
       label: String,
-      value: Number,
+      value: String,
       color: String,
     },
     data: () => ({
