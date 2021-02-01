@@ -35,8 +35,8 @@
                     <v-row>
                       <v-col cols="12">
                         <x-title-field
-                            label="Title"
-                            v-bind:value.sync="updatedItem.title"
+                          label="Title"
+                          v-bind:value.sync="updatedItem.title"
                         ></x-title-field>
                       </v-col>
 
@@ -631,14 +631,17 @@
                         </v-list-item>
 
                         <v-list-item class="mb-3">
-                          <x-increment
-                            label="Quantity owned"
+                          <x-checkbox
+                            label="Packed"
+                            v-bind:value.sync="gearIsPackedFilter"
+                          ></x-checkbox>
+                        </v-list-item>
+
+                        <v-list-item class="mb-3">
+                          <x-checkbox
+                            label="Quantity owned > 0"
                             v-bind:value.sync="gearQuantityOwnedFilter"
-                            :rules="xRules.decimal"
-                            :color="currentColor"
-                            :max="100"
-                            :min="0"
-                          ></x-increment>
+                          ></x-checkbox>
                         </v-list-item>
                       </v-list>
 
@@ -1094,6 +1097,7 @@
 
       gearFilterModeOn: false,
       gearCategoryFilter: null,
+      gearIsPackedFilter: null,
       gearTagsFilter: null,
       gearStateFilter: null,
       gearBrandFilter: null,
@@ -1124,6 +1128,7 @@
               && !this.gearStateFilter
               && !this.gearTagsFilter
               && !this.gearBrandFilter
+              && !this.gearIsPackedFilter
               && !this.gearConsumableFilter
               && !this.gearQuantityOwnedFilter
             ) return this.gearList;
@@ -1135,9 +1140,10 @@
                 && (this.gearBrandFilter ? (item.brand && item.brand === this.gearBrandFilter) : true)
                 && (this.gearConsumableFilter ? (item.consumable === true) : true)
                 && (this.gearTagsFilter ? (item.tags.includes(this.gearTagsFilter)) : true)
-                && (this.gearQuantityOwnedFilter ? (parseFloat(item.quantity_owned) === parseFloat(this.gearQuantityOwnedFilter)) : true)
+                && (this.gearIsPackedFilter ? (this.inventoryGearList.includes(item.id)) : true)
+                && (this.gearQuantityOwnedFilter ? (item.quantity_owned > 0) : true)
             )
-          }));
+          }));inventoryGearList.includes(gear.id)
 
         return this.sortedGear;
       },
@@ -1155,6 +1161,7 @@
         this.gearStateFilter = null;
         this.gearBrandFilter = null;
         this.gearConsumableFilter = null;
+        this.gearIsPackedFilter = null;
         this.gearQuantityOwnedFilter = null;
       },
       closeGearFilterMenu() {
