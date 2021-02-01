@@ -40,16 +40,10 @@
                 <v-card-text>
                   <v-row>
                     <v-col cols="12">
-                      <v-text-field
+                      <x-title-field
                         label="Title"
-                        hide-details
-                        v-model="updatedItem.title"
-                        :rules="xRules.text"
-                        :color="currentColor"
-                        filled
-                        dense
-                        required
-                      ></v-text-field>
+                        v-bind:value.sync="updatedItem.title"
+                      ></x-title-field>
                     </v-col>
 
                     <v-col cols="12">
@@ -721,6 +715,7 @@
 
   import Vue from 'vue'
 
+  import XTitleField from "@/components/inputs/fields/XTitleField";
   import XUnknownCategoryIcon from "@/components/elements/Icons/XUnknownCategoryIcon";
   import XConsumableIcon from "@/components/elements/Icons/XConsumableIcon";
   import XCheckbox from "@/components/inputs/XCheckbox";
@@ -744,6 +739,7 @@
   export default {
     name: 'adventures-form',
     components: {
+      XTitleField,
       XUnknownCategoryIcon,
       XConsumableIcon,
       XCheckbox,

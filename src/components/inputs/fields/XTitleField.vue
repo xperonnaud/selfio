@@ -2,7 +2,7 @@
 
   <v-text-field
     :label="label"
-    v-model="value"
+    v-model="pickerValue"
     :rules="xRules.text"
     :color="color || currentColor"
     hide-details="auto"

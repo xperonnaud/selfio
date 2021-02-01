@@ -9,7 +9,7 @@
     left
   >
     <template v-slot:prepend>
-      <v-list-item one-line :to="'/'">
+      <v-list-item one-line :to="'/home'">
         <v-list-item-icon v-bind:class="[{'mr-7':!isMobile}]">
           <v-icon
             v-text="'mdi-cogs'"
