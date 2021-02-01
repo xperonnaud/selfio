@@ -1140,10 +1140,10 @@
                 && (this.gearBrandFilter ? (item.brand && item.brand === this.gearBrandFilter) : true)
                 && (this.gearConsumableFilter ? (item.consumable === true) : true)
                 && (this.gearTagsFilter ? (item.tags.includes(this.gearTagsFilter)) : true)
-                && (this.gearIsPackedFilter ? (this.inventoryGearList.includes(item.id)) : true)
+                && (this.gearIsPackedFilter ? (this.inventoryGearList && this.inventoryGearList.includes(item.id)) : true)
                 && (this.gearQuantityOwnedFilter ? (item.quantity_owned > 0) : true)
             )
-          }));inventoryGearList.includes(gear.id)
+          }));
 
         return this.sortedGear;
       },

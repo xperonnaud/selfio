@@ -448,20 +448,23 @@
 
                         <v-list-item class="mb-3">
                           <x-checkbox
-                            label="Consumable"
-                            v-bind:value.sync="gearConsumableFilter"
+                            label="Packed"
+                            v-bind:value.sync="gearIsPackedFilter"
                           ></x-checkbox>
                         </v-list-item>
 
                         <v-list-item class="mb-3">
-                          <x-increment
-                            label="Quantity owned"
-                            v-bind:value.sync="gearQuantityOwnedFilter"
-                            :rules="xRules.decimal"
-                            :color="currentColor"
-                            :max="100"
-                            :min="0"
-                          ></x-increment>
+                          <x-checkbox
+                            label="Worn"
+                            v-bind:value.sync="gearIsWornFilter"
+                          ></x-checkbox>
+                        </v-list-item>
+
+                        <v-list-item class="mb-3">
+                          <x-checkbox
+                            label="Consumable"
+                            v-bind:value.sync="gearConsumableFilter"
+                          ></x-checkbox>
                         </v-list-item>
                       </v-list>
 
@@ -814,8 +817,9 @@
       gearTagsFilter: null,
       gearStateFilter: null,
       gearBrandFilter: null,
+      gearIsWornFilter: null,
+      gearIsPackedFilter: null,
       gearConsumableFilter: null,
-      gearQuantityOwnedFilter: null,
     }),
     computed: {
       nbUnpackedItems() {
@@ -858,18 +862,20 @@
               && !this.gearStateFilter
               && !this.gearTagsFilter
               && !this.gearBrandFilter
+              && !this.gearIsWornFilter
+              && !this.gearIsPackedFilter
               && !this.gearConsumableFilter
-              && !this.gearQuantityOwnedFilter
             ) return this.originalInventoryGear;
 
             return (
               (this.itemSearch ? (gear.title && gear.title.toLowerCase().includes(this.itemSearch.toLowerCase())) : true)
-              && (this.gearCategoryFilter ? (item.category && item.category === this.gearCategoryFilter) : true)
-              && (this.gearStateFilter ? (item.state && item.state === this.gearStateFilter) : true)
-              && (this.gearBrandFilter ? (item.brand && item.brand === this.gearBrandFilter) : true)
-              && (this.gearConsumableFilter ? (item.consumable === true) : true)
-              && (this.gearTagsFilter ? (item.tags.includes(this.gearTagsFilter)) : true)
-              && (this.gearQuantityOwnedFilter ? (parseFloat(item.quantity_owned) === parseFloat(this.gearQuantityOwnedFilter)) : true)
+              && (this.gearCategoryFilter ? (gear.category && gear.category === this.gearCategoryFilter) : true)
+              && (this.gearStateFilter ? (gear.state && gear.state === this.gearStateFilter) : true)
+              && (this.gearBrandFilter ? (gear.brand && gear.brand === this.gearBrandFilter) : true)
+              && (this.gearConsumableFilter ? (gear.consumable === true) : true)
+              && (this.gearTagsFilter ? (gear.tags.includes(this.gearTagsFilter)) : true)
+              && (this.gearIsWornFilter ? (item.gear_worn === true) : true)
+              && (this.gearIsPackedFilter ? (this.updatedItem && this.updatedItem.packed_gear && this.updatedItem.packed_gear.includes(item.gear_id)) : true)
             )
           }));
 
@@ -885,8 +891,9 @@
         this.gearTagsFilter = null;
         this.gearStateFilter = null;
         this.gearBrandFilter = null;
+        this.gearIsPackedFilter = null;
+        this.gearIsWornFilter = null;
         this.gearConsumableFilter = null;
-        this.gearQuantityOwnedFilter = null;
       },
       closeGearFilterMenu() {
         this.gearFilterModeOn = false;
