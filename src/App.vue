@@ -92,9 +92,6 @@
       },
     },
     mounted() {
-      if(this.$router.currentRoute.path !== '/home')
-        this.$router.push('home');
-
       this.isMounted = true;
     }
   };
