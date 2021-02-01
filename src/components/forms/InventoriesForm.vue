@@ -34,16 +34,10 @@
                   <v-card-text>
                     <v-row>
                       <v-col cols="12">
-                        <v-text-field
-                          label="Title"
-                          v-model="updatedItem.title"
-                          color="primary"
-                          :rules="xRules.text"
-                          filled
-                          dense
-                          hide-details="auto"
-                          required
-                        ></v-text-field>
+                        <x-title-field
+                            label="Title"
+                            v-bind:value.sync="updatedItem.title"
+                        ></x-title-field>
                       </v-col>
 
                       <v-col cols="12" class="py-0 mb-3">
@@ -287,16 +281,10 @@
                   <v-card-text>
                     <v-row>
                       <v-col cols="12">
-                        <v-text-field
-                            label="Title"
-                            v-model="updatedItem.title"
-                            color="primary"
-                            :rules="xRules.text"
-                            filled
-                            dense
-                            hide-details="auto"
-                            required
-                        ></v-text-field>
+                        <x-title-field
+                          label="Title"
+                          v-bind:value.sync="updatedItem.title"
+                        ></x-title-field>
                       </v-col>
 
                       <v-col cols="12">
@@ -993,6 +981,7 @@
   import Vue from 'vue'
   const _ = require('lodash');
 
+  import XTitleField from "@/components/inputs/fields/XTitleField";
   import XWornIcon from "@/components/elements/Icons/XWornIcon";
   import XConsumableIcon from "@/components/elements/Icons/XConsumableIcon";
   import XPicker from "@/components/inputs/XPicker";
@@ -1012,6 +1001,7 @@
   export default {
     name: 'inventories-form',
     components: {
+      XTitleField,
       XUnknownCategoryIcon,
       XWornIcon,
       XConsumableIcon,

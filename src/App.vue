@@ -165,12 +165,12 @@
 
       &.is-small {
         background-size: contain !important;
-        background:linear-gradient(0deg, rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.85)), url(./assets/images/mountain_bgd_mobile.jpg);
+        background:linear-gradient(0deg, rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url(./assets/images/mountain_bgd_mobile.jpg);
       }
 
       &:not(.is-small) {
         background-size: cover !important;
-        background:linear-gradient(0deg, rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.85)), url(./assets/images/mountain_bgd_desktop.jpg);
+        background:linear-gradient(0deg, rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url(./assets/images/mountain_bgd_desktop.jpg);
       }
 
       #inspire {

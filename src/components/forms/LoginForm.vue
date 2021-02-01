@@ -112,8 +112,11 @@
     methods: {
       async login() {
         this.isLoading = true;
-        // await this.api_auth();
         await this.api_login();
+
+        if(this.$router.currentRoute.path !== '/home')
+          this.$router.push('home');
+
         this.isLoading = false;
       },
       async forgotPassword() {

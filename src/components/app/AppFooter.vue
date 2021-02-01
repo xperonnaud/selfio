@@ -46,17 +46,12 @@
           <v-row>
             <v-col cols="12">
               <v-form v-model="validBrand">
-                <v-text-field
+                <x-title-field
                   label="Title"
-                  v-model="defaultBrand.title"
-                  :rules="xRules.text"
+                  v-bind:value.sync="defaultBrand.title"
                   :color="darkColor('primary')"
                   @keyup.enter="postBrand()"
-                  filled
-                  dense
-                  hide-details="auto"
-                  required
-                ></v-text-field>
+                ></x-title-field>
               </v-form>
             </v-col>
           </v-row>
@@ -117,10 +112,13 @@
 
 <script>
 
+  import XTitleField from "@/components/inputs/fields/XTitleField";
+
   export default {
     name: 'app-footer',
     components: {
       FormPostBtn: () => import('@/components/elements/Btns/FormPostBtn'),
+      XTitleField
     },
     data: () => ({
       value: null,
