@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
 export default new Vuex.Store({
     state: {
@@ -11,7 +11,7 @@ export default new Vuex.Store({
             password: '',
             accessToken: null,
             refreshToken: null,
-            baseUrl: 'http://localhost:8055/',
+            baseUrl: 'https://servo-13475.nodechef.com/',
             isTokenRefreshed: false
         },
         selfio: {
