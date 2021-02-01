@@ -472,7 +472,7 @@
 
                       <v-card-actions>
                         <v-btn
-                          @click="clearMenuFilters()"
+                          @click="clearAdventureMenuFilters()"
                           :color="darkColor('red')"
                           text
                         >
@@ -886,7 +886,7 @@
       },
     },
     methods: {
-      clearMenuFilters() {
+      clearAdventureMenuFilters() {
         this.gearCategoryFilter = null;
         this.gearTagsFilter = null;
         this.gearStateFilter = null;
@@ -1085,7 +1085,7 @@
           this.isEditing = val;
 
           if(val === false)
-            this.clearMenuFilters();
+            this.clearAdventureMenuFilters();
         }
       },
     },
