@@ -146,11 +146,12 @@ export default {
                 }
             ).then(async function (response) {
                 if(response && response.data) {
-                    let data = response.data;
-                    self.$store.commit('updateApiAccessToken',data.access_token);
-                    self.$store.commit('updateApiRefreshToken',data.refresh_token);
 
-                    await directus.auth.refresh();
+                    // refresh the App to Update access & refresh tokens & increase life-span
+                    await directus.auth.refresh().then(async function (refreshResponse) {
+                        self.$store.commit('updateApiAccessToken', refreshResponse.data.access_token);
+                        self.$store.commit('updateApiRefreshToken', refreshResponse.data.refresh_token);
+                    });
 
                     let user = await directus.users.me.read();
                     self.$store.commit('updateUser',user.data);
