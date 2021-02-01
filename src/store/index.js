@@ -11,7 +11,7 @@ export default new Vuex.Store({
             password: '',
             accessToken: null,
             refreshToken: null,
-            baseUrl: 'https://servo-13475.nodechef.com/',
+            baseUrl: 'https://servo-13475.nodechef.com:8055/',
             isTokenRefreshed: false
         },
         selfio: {
