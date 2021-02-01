@@ -11,7 +11,18 @@
     filled
   >
     <template v-slot:append>
-        <v-icon size="12" :color="errorColor" v-text="'mdi-asterisk'" />
+        <v-tooltip bottom>
+          <template v-slot:activator="{ on, attrs }">
+            <v-icon
+              size="12"
+              :color="errorColor"
+              v-text="'mdi-asterisk'"
+              v-bind="attrs"
+              v-on="on"
+            />
+          </template>
+          <span v-text="'mandatory field'" />
+        </v-tooltip>
     </template>
   </v-text-field>
 
