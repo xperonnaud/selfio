@@ -14,7 +14,7 @@ class MemoryStore {
     }
 }
 
-const directus = new DirectusSDK('https://servo-13475.nodechef.com/', {
+const directus = new DirectusSDK('http://172.17.0.17:8055/', {
     auth: {
         storage: new MemoryStore(), // Storage adapter where refresh tokens are stored in JSON mode
         mode: 'json', // What login mode to use. One of `json`, `cookie`
