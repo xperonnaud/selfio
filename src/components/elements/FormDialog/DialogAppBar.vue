@@ -24,12 +24,12 @@
               {'grey--text':editMode},
             ]"
           >{{item.title | capitalizeFilter}}</span>
-          <span v-bind:class="['text-tiny-dimmed mx-2 mb-1', currentColorText]" v-text="'('+formDialogType+')'" />
+          <span v-bind:class="['text-tiny-dimmed mx-2 mb-1']" v-text="formDialogType" />
         </template>
 
         <template v-else>
           <span v-bind:class="[{currentColorText : !editMode}]">{{ currentRouteName | singularFilter | capitalizeFilter }}</span>
-          <span v-bind:class="['text-tiny-dimmed mx-2 mb-1', currentColorText]" v-text="'(new)'" />
+          <span v-bind:class="['text-tiny-dimmed mx-2 mb-1']" v-text="'new'" />
         </template>
       </v-toolbar-title>
 
