@@ -195,15 +195,10 @@ export default {
         },
     },
     methods: {
-        supWeightUnitConverter(weight) {
+        weightUnitConverter(weight, sup = true) {
             if(!weight || !this.weightUnit)
                 return null;
-            return parseFloat(this.weightUnitConverter(weight, this.weightUnit));
-        },
-        weightUnitConverter(weight) {
-            if(!weight || !this.weightUnit)
-                return null;
-            return parseFloat(this.$options.filters.weightUnitFilter(weight, this.weightUnit));
+            return parseFloat(this.$options.filters.weightUnitFilter(weight, this.weightUnit, sup));
         },
         distanceUnitConverter(distance) {
             if(!distance || !this.distanceUnit)
