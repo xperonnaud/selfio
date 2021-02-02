@@ -113,8 +113,8 @@
       label: String,
       value: String,
       iconSize: {
-        type: String,
-        default: '48'
+        type: Number,
+        default: 48
       },
       hasIcon: {
         type: Boolean,

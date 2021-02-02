@@ -9,7 +9,7 @@
               v-if="icon"
               :color="color"
               v-text="icon"
-              size="30"
+              :size="LGI"
               class="mx-auto"
             ></v-icon>
           </div>

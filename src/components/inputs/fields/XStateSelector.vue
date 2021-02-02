@@ -43,7 +43,7 @@
                                 <v-icon
                                     :color="gearStates[pickerValue-1].color"
                                     v-text="'mdi-'+stateIcon(gearStates[pickerValue-1].title)"
-                                    size="21"
+                                    :size="MDI"
                                 ></v-icon>
                             </v-avatar>
                         </template>
@@ -82,7 +82,7 @@
                                         <v-icon
                                             :color="item.color"
                                             v-text="'mdi-'+stateIcon(item.title)"
-                                            size="18"
+                                            :size="SMI"
                                             style="padding-bottom: 6px;"
                                         ></v-icon>
                                     </v-avatar>

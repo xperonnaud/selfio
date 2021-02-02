@@ -64,7 +64,7 @@
           label="Weather"
           :list="weathers"
           v-bind:value.sync="itemWeather"
-          :iconSize="'26'"
+          :iconSize="LGI"
           hasIcon
           isInFilter
       ></x-simple-selector>

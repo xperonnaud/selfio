@@ -52,7 +52,7 @@
                         :list="activitiesList"
                         :listReferences="activityReferences"
                         v-bind:value.sync="updatedItem.activity"
-                        :iconSize="'32'"
+                        :iconSize="LGI"
                       ></x-selector>
                     </v-col>
 
@@ -230,8 +230,8 @@
                         :list="landscapesList"
                         :listReferences="landscapeReferences"
                         v-bind:value.sync="updatedItem.landscape"
-                        :iconSize="'36'"
-                        :avatarSize="'26'"
+                        :iconSize="36"
+                        :avatarSize="XLI"
                         logo
                       ></x-selector>
                     </v-col>
@@ -292,7 +292,7 @@
                         label="Weather"
                         :list="weathers"
                         v-bind:value.sync="updatedItem.weather"
-                        :iconSize="'26'"
+                        :iconSize="LGI"
                         hasIcon
                       ></x-simple-selector>
                     </v-col>
@@ -500,7 +500,7 @@
                   class="primary-gradient-color-text"
                   icon
                 >
-                  <v-icon :size="28" v-text="'mdi-check'" />
+                  <v-icon :size="XLI" v-text="'mdi-check'" />
                 </v-btn>
 
                 <template v-slot:extension>
@@ -617,7 +617,7 @@
                             isCategory
                           ></x-img>
 
-                          <x-unknown-category-icon v-else :size="18" />
+                          <x-unknown-category-icon v-else :size="SMI" />
                         </v-list-item-avatar>
 
                         <v-list-item-content>
@@ -657,7 +657,7 @@
                                     :color="xGearState(xGear(gear.gear_id).state).color"
                                     class="pa-2"
                                     v-text="'mdi-'+stateIcon(xGearState(xGear(gear.gear_id).state).title)"
-                                    :size="21"
+                                    :size="MDI"
                                     v-bind="attrs"
                                     v-on="on"
                                   ></v-icon>
@@ -844,7 +844,7 @@
       },
       roundedPackedGearRatio() {
         if(this.packedGearRatio)
-          return this.$options.filters.roundIntFilter(this.packedGearRatio);
+          return this.xFilters.roundIntFilter(this.packedGearRatio);
         return null;
       },
       packedGearRatio() {
@@ -994,7 +994,7 @@
       },
       ratioFilter(ratio) {
         if(ratio)
-          return this.$options.filters.roundIntFilter(ratio);
+          return this.xFilters.roundIntFilter(ratio);
         return null;
       },
       isGearPacked(gearId) {

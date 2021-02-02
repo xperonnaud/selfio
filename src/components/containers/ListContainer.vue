@@ -228,7 +228,7 @@
     computed: {
       loader() {
         let self = this;
-        let listId = this.$options.filters.capitalizeFilter(this.currentRouteName);
+        let listId = this.xFilters.capitalizeFilter(this.currentRouteName);
         self.listComponentCalled = `@/components/lists/items/${listId}ListItem.vue`;
         return () => import(`@/components/lists/items/${listId}ListItem.vue`)
       },

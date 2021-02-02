@@ -87,12 +87,12 @@
               <span
                 v-if="item.brand && xGearCategory(item.brand)"
                 v-text="xGearBrand(item.brand).title"
-                size="24"
+                :size="LGI"
               ></span>
             </template>
 
             <template v-slot:item.category="{ item }">
-              <v-avatar v-if="item.category && xGearCategory(item.category) && xGearCategory(item.category).icon" size="24" class="x-avatar">
+              <v-avatar v-if="item.category && xGearCategory(item.category) && xGearCategory(item.category).icon" :size="LGI" class="x-avatar">
                 <x-img
                   :src="xGearCategory(item.category).icon"
                   :tooltipText="xGearCategory(item.category).title"
@@ -105,7 +105,7 @@
                 v-if="item.state && xGearState(item.state) && xGearState(item.state).color"
                 :color="xGearState(item.state).color"
                 v-text="'mdi-'+stateIcon(xGearState(item.state).title)"
-                size="21"
+                :size="MDI"
               />
             </template>
 

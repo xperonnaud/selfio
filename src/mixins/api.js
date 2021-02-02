@@ -1,6 +1,7 @@
 
 const axios = require('axios').default;
 import DirectusSDK from '@directus/sdk-js';
+import C from '@/constants'
 
 class MemoryStore {
     constructor() {
@@ -20,13 +21,6 @@ const directus = new DirectusSDK('http://localhost:8055/', {
         mode: 'json', // What login mode to use. One of `json`, `cookie`
     },
 });
-
-const gToKg = 0.001;
-const gToOz = 0.035274;
-const ozToLb = 0.0625;
-
-const kmToMi = 0.621371;
-const mToFt = 3.28084;
 
 export default {
     computed: {
@@ -454,7 +448,7 @@ export default {
 
             } else {
                 if(this.weightUnit === 'oz')
-                    gear.weight = (Math.round(gear.weight / gToOz * 10) / 10)
+                    gear.weight = (Math.round(gear.weight / C.G_TO_OZ * 10) / 10)
             }
 
             if(!this.propExists(gear.quantity_owned))
@@ -734,7 +728,7 @@ export default {
                 adventure.distance = parseFloat(adventure.distance);
 
                 if(this.distanceUnit === 'mi')
-                    adventure.distance = Math.round(adventure.distance / kmToMi * 100) / 100;
+                    adventure.distance = Math.round(adventure.distance / C.KM_TO_MI * 100) / 100;
             }
 
             if(!this.propExists(adventure.elevation)) {
@@ -743,7 +737,7 @@ export default {
                 adventure.elevation = parseFloat(adventure.elevation);
 
                 if(this.elevationUnit === 'ft')
-                    adventure.elevation = Math.round(adventure.elevation / mToFt * 100) / 100;
+                    adventure.elevation = Math.round(adventure.elevation / C.M_TO_FT * 100) / 100;
             }
 
             if(!this.propExists(adventure.temp_max)) {

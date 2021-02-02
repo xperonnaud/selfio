@@ -177,7 +177,7 @@
         class="primary-gradient-color-text"
       >
         <v-icon
-          :size="28"
+          :size="XLI"
           v-text="'mdi-check'"
         />
       </v-btn>
@@ -215,7 +215,7 @@
     computed: {
       headerLoader() {
         let self = this;
-        let listId = this.$options.filters.capitalizeFilter(this.currentRouteName);
+        let listId = this.xFilters.capitalizeFilter(this.currentRouteName);
         self.listHeaderComponentCalled = `@/components/lists/headers/${listId}ListHeader.vue`;
         return () => import(`@/components/lists/headers/${listId}ListHeader.vue`)
       },
@@ -239,7 +239,6 @@
       },
       headerComponentLoad() {
         let self = this;
-        // let route = this.$options.filters.removeSlashFilter(this.$router.currentRoute.path);
 
         if(this.isItemRoute || this.isConfigurationRoute)
           this.headerLoader()
