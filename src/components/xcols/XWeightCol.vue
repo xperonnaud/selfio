@@ -2,8 +2,8 @@
 
   <v-col class="x-col">
     <div v-if="hasGear && weight">
-      <span :class="['text-caption']">{{ weight | weightUnitFilter(weightUnit) }}</span>
-      <span class="text-tiny-dimmed" v-text="dynamicWeightUnit(weight)" :key="`dynamic-weight-unit-${weight}-${randomId()}`" />
+      <span :class="['text-caption',{'text--disabled':disabled}]">{{ weight | weightUnitFilter(weightUnit) }}</span>
+      <span :class="['text-tiny-dimmed',{'text--disabled':disabled}]" v-text="dynamicWeightUnit(weight)" :key="`dynamic-weight-unit-${weight}-${randomId()}`" />
     </div>
     <empty-data solo v-else />
   </v-col>
@@ -20,6 +20,10 @@
       EmptyData
     },
     props: {
+      disabled: {
+        type: Boolean,
+        default: false
+      },
       hasGear: {
         type: Boolean,
         default: true

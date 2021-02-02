@@ -473,7 +473,7 @@
                       <v-card-actions>
                         <v-btn
                           @click="clearAdventureMenuFilters()"
-                          :color="darkColor('red')"
+                          :color="errorColor"
                           text
                         >
                           <v-icon v-text="'mdi-filter-off'" />
@@ -605,8 +605,8 @@
                           width="32"
                           min-width="32"
                           height="32"
-                          :style="xGear(gear.gear_id).category ? 'border: 2px solid '+hexColor(getVuetifyColor(xGear(gear.gear_id).category))+' !important;'
-                            : 'border: 1px solid '+hexColor(getVuetifyColor(14))+' !important;'"
+                          :style="xGear(gear.gear_id).category ? 'border: 2px solid '+categoryColor(xGear(gear.gear_id).category)+' !important;'
+                            : 'border: 1px solid '+categoryColor()+' !important;'"
                         >
                           <x-img
                             v-if="xGear(gear.gear_id) && xGear(gear.gear_id).category"

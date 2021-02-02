@@ -276,7 +276,7 @@
       },
       dateStatusColor(startDate) {
         return (moment(startDate).format(this.dateFormatPref) === moment().format(this.dateFormatPref)
-            ? this.darkColor('red')
+            ? this.errorColor
             : (this.isDatePassed(startDate)
                 ? this.darkColor('green')
                 : this.darkColor('deep-orange')));

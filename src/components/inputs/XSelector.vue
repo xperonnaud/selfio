@@ -85,8 +85,8 @@
                         'x-avatar',
                       ]"
                       :style="isCategory ? (
-                        item.title!=='Unknown' ? 'border: 2px solid '+hexColor(getVuetifyColor(item.id))+' !important;'
-                          : 'border: 1px solid '+hexColor(getVuetifyColor(14))+' !important;'
+                        item.title!=='Unknown' ? 'border: 2px solid '+categoryColor(item.id)+' !important;'
+                          : 'border: 1px solid '+categoryColor()+' !important;'
                         ): ''"
                     >
                       <x-img

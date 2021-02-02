@@ -1,7 +1,7 @@
 <template>
 
   <v-btn
-    :color="darkColor('red')"
+    :color="errorColor"
     :disabled="disabled"
     depressed
   >

@@ -4,7 +4,7 @@ import C from '@/constants'
 export default {
     data () {
         return {
-            isMounted: false,
+            isStoreMounted: false,
             itemRoutes: [
                 'gear',
                 'inventories',
@@ -279,12 +279,12 @@ export default {
             }
         },
         currentRouteName() {
-            if(this.isMounted && this.$route)
+            if(this.isStoreMounted && this.$route)
                 return this.$route.name;
             return 'home';
         },
         currentRouteTitle() {
-            if(this.isMounted && this.$router)
+            if(this.isStoreMounted && this.$router)
                 return this.xFilters.capitalizeFilter(this.currentRouteName);
         },
     },
@@ -344,7 +344,7 @@ export default {
             return null;
         },
         xLandscape(landscapeId) {
-            if(landscapeId, this.landscapesList)
+            if(landscapeId && this.landscapesList)
                 return (this.landscapesList[this.landscapeReferences[landscapeId]]);
             return null;
         },
@@ -441,6 +441,6 @@ export default {
 
     },
     mounted() {
-        this.isMounted = true;
+        this.isStoreMounted = true;
     }
 }

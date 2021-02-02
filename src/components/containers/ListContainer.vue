@@ -28,8 +28,8 @@
                  (isMobile ? 'my-0 mr-3' : 'ml-2 mr-5'),
               ]"
               :style="currentRouteTitle === 'Gear' ? (
-                item.category ? 'border: 2px solid '+hexColor(getVuetifyColor(item.category))+' !important;'
-                  : 'border: 1px solid '+hexColor(getVuetifyColor(14))+' !important;'
+                item.category ? 'border: 2px solid '+categoryColor(item.category)+' !important;'
+                  : 'border: 1px solid '+categoryColor()+' !important;'
                 ): ''"
             >
               <x-img
