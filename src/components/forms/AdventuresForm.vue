@@ -19,14 +19,11 @@
         <v-tab :key="'adventure-general'">
           <span v-text="'General'" />
         </v-tab>
-        <v-tab :key="'adventure-calendar'">
-          <span v-text="'Calendar'" />
+        <v-tab :key="'adventure-event'">
+          <span v-text="'Event'" />
         </v-tab>
-        <v-tab :key="'adventure-location'">
-          <span v-text="'Location'" />
-        </v-tab>
-        <v-tab :key="'adventure-weather'">
-          <span v-text="'Weather'" />
+        <v-tab :key="'adventure-details'">
+          <span v-text="'Details'" />
         </v-tab>
 
         <v-tabs-items v-model="tab" :style="xBackgroundStyleColorStr">
@@ -37,7 +34,7 @@
               :max-height="maxDialogContentHeight"
             >
               <v-card flat :color="xBackgroundColor">
-                <v-card-text>
+                <v-card-text :class="{'py-0':isMobile}">
                   <v-row>
                     <v-col cols="12">
                       <x-title-field
@@ -171,15 +168,38 @@
             </v-responsive>
           </v-tab-item>
 
-          <v-tab-item :key="'adventure-calendar'">
+          <v-tab-item :key="'adventure-event'">
             <v-responsive
               class="overflow-y-auto"
               :min-height="dialogContentHeight"
               :max-height="maxDialogContentHeight"
             >
               <v-card flat :color="xBackgroundColor">
-                <v-card-text>
+                <v-card-text :class="{'py-0':isMobile}">
                   <v-row>
+                    <v-col cols="12">
+                      <x-selector
+                        label="Landscape"
+                        :list="landscapesList"
+                        :listReferences="landscapeReferences"
+                        v-bind:value.sync="updatedItem.landscape"
+                        :iconSize="36"
+                        :avatarSize="XLI"
+                        logo
+                      ></x-selector>
+                    </v-col>
+
+                    <v-col cols="12">
+                      <v-text-field
+                        label="Location"
+                        v-model="updatedItem.location"
+                        :color="currentColor"
+                        filled
+                        dense
+                        hide-details="auto"
+                      ></v-text-field>
+                    </v-col>
+
                     <v-col cols="12">
                       <x-date-picker
                         label="Start Date"
@@ -214,38 +234,15 @@
             </v-responsive>
           </v-tab-item>
 
-          <v-tab-item :key="'adventure-location'">
+          <v-tab-item :key="'adventure-conditions'">
             <v-responsive
               class="overflow-y-auto"
               :min-height="dialogContentHeight"
               :max-height="maxDialogContentHeight"
             >
               <v-card flat :color="xBackgroundColor">
-                <v-card-text>
+                <v-card-text :class="{'py-0':isMobile}">
                   <v-row>
-                    <v-col cols="12">
-                      <x-selector
-                        label="Landscape"
-                        :list="landscapesList"
-                        :listReferences="landscapeReferences"
-                        v-bind:value.sync="updatedItem.landscape"
-                        :iconSize="36"
-                        :avatarSize="XLI"
-                        logo
-                      ></x-selector>
-                    </v-col>
-
-                    <v-col cols="12">
-                      <v-text-field
-                        label="Location"
-                        v-model="updatedItem.location"
-                        :color="currentColor"
-                        filled
-                        dense
-                        hide-details="auto"
-                      ></v-text-field>
-                    </v-col>
-
                     <v-col cols="12">
                       <v-text-field
                         label="Elevation"
@@ -271,21 +268,7 @@
                         :suffix="distanceUnit"
                       ></v-text-field>
                     </v-col>
-                  </v-row>
-                </v-card-text>
-              </v-card>
-            </v-responsive>
-          </v-tab-item>
 
-          <v-tab-item :key="'adventure-weather'">
-            <v-responsive
-              class="overflow-y-auto"
-              :min-height="dialogContentHeight"
-              :max-height="maxDialogContentHeight"
-            >
-              <v-card flat :color="xBackgroundColor">
-                <v-card-text>
-                  <v-row>
                     <v-col cols="12">
                       <x-simple-selector
                         label="Weather"
@@ -298,13 +281,13 @@
 
                     <v-col cols="12">
                       <x-increment
-                      label="Max Temperature"
-                      v-bind:value.sync="updatedItem.temp_max"
-                      :rules="xRules.temperature"
-                      :color="currentColor"
-                      :min="updatedItem.temp_min || null"
-                      :max="50"
-                      :append="temperatureUnit"
+                        label="Max Temperature"
+                        v-bind:value.sync="updatedItem.temp_max"
+                        :rules="xRules.temperature"
+                        :color="currentColor"
+                        :min="updatedItem.temp_min || null"
+                        :max="50"
+                        :append="temperatureUnit"
                       ></x-increment>
                     </v-col>
 
@@ -342,8 +325,7 @@
       <v-expand-transition>
         <div v-show="isEditing">
           <v-card class="mx-auto" flat :color="xBackgroundColor">
-
-            <v-card-text class="pa-0">
+            <v-card-text :class="['pa-0']">
               <v-toolbar class="edition-toolbar">
                 <v-btn @click="closeEditor()" icon>
                   <v-icon v-text="'mdi-arrow-left'" />
@@ -600,7 +582,6 @@
                 </v-responsive>
               </v-list>
             </v-card-text>
-
           </v-card>
         </div>
       </v-expand-transition>
@@ -621,10 +602,7 @@
   import XBrandSelector from "@/components/inputs/fields/XBrandSelector";
   import XStateSelector from "@/components/inputs/fields/XStateSelector";
   import XSortIcon from "@/components/elements/Icons/XSortIcon";
-  import XWeightCol from "@/components/xcols/XWeightCol";
-  import XChecker from "@/components/inputs/XChecker";
   import XDivider from "@/components/elements/XDivider";
-  import XImg from "@/components/elements/XImg";
   import XIncrement from "@/components/inputs/XIncrement";
   import EditIcon from "@/components/elements/Icons/EditIcon";
   import XPicker from "@/components/inputs/XPicker";
@@ -643,12 +621,9 @@
       XBrandSelector,
       XStateSelector,
       XSortIcon,
-      XWeightCol,
-      XChecker,
       XCombobox,
       XDivider,
       XIncrement,
-      XImg,
       EditIcon,
       XTimePicker,
       XDatePicker,
@@ -696,7 +671,7 @@
 
       isEditing: false,
       isLoading: false,
-      listHeight: 150,
+      listHeight: 160,
 
       isUpdatedItemFixed: false,
       updatedItem: {},
@@ -830,7 +805,7 @@
         this.updatedItem[property]--;
       },
       initWindowHeight() {
-        this.listHeight = (window.innerHeight - 122);
+        this.listHeight = (window.innerHeight - 160);
       },
       async initUpdatedItem() {
         let self = this;
