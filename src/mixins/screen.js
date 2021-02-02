@@ -1,13 +1,23 @@
 
+import C from '@/constants'
 import vuetifyColors from 'vuetify/lib/util/colors'
 
 export default {
     computed: {
+        SMI() {
+            return C.SMI;
+        },
+        MDI() {
+            return C.MDI;
+        },
+        LGI() {
+            return C.LGI;
+        },
+        XLI() {
+            return C.XLI;
+        },
         currentWindowHeight() {
             return (window.innerHeight - 92);
-        },
-        imgSize() {
-            return (this.isMobile ? 22 : 22);
         },
         xOverlayColor() {
             return ('grey '+(this.isDark ? 'darken-1' : 'lighten-1'));
@@ -17,9 +27,6 @@ export default {
         },
         xTabsColor() {
             return ('grey '+(this.isDark ? 'darken-4' : 'lighten-5'));
-        },
-        xFieldsColor() {
-            return (this.isDark ? 'darken-4' : 'lighten-5');
         },
         xCardColor() {
             return (this.isDark ? 'grey darken-4' : 'white');
@@ -31,7 +38,7 @@ export default {
             return (this.isDark ? 'black' : 'grey lighten-3');
         },
         xInputColor() {
-            return (this.isDark ? '#141414' : '#E0E0E0');
+            return (this.isDark ? 'input' : '#E0E0E0');
         },
         errorColor() {
             return (this.isDark ? '#ff5252' : '#E53935');
@@ -198,22 +205,22 @@ export default {
         weightUnitConverter(weight, sup = true) {
             if(!weight || !this.weightUnit)
                 return null;
-            return parseFloat(this.$options.filters.weightUnitFilter(weight, this.weightUnit, sup));
+            return parseFloat(this.xFilters.weightUnitFilter(weight, this.weightUnit, sup));
         },
         distanceUnitConverter(distance) {
             if(!distance || !this.distanceUnit)
                 return null;
-            return parseFloat(this.$options.filters.distanceUnitFilter(distance, this.distanceUnit));
+            return parseFloat(this.xFilters.distanceUnitFilter(distance, this.distanceUnit));
         },
         elevationUnitConverter(elevation) {
             if(!elevation || !this.elevationUnit)
                 return null;
-            return parseFloat(this.$options.filters.elevationUnitFilter(elevation, this.elevationUnit));
+            return parseFloat(this.xFilters.elevationUnitFilter(elevation, this.elevationUnit));
         },
         temperatureUnitConverter(temperature) {
             if(!temperature || !this.temperatureUnit)
                 return null;
-            return parseInt(this.$options.filters.temperatureUnitFilter(temperature, this.temperatureUnit));
+            return parseInt(this.xFilters.temperatureUnitFilter(temperature, this.temperatureUnit));
         },
         cardSize(size) {
             return (this.isMobile ? '100%' : (typeof size == 'number' ? size : 600));

@@ -20,7 +20,7 @@
     <v-card :style="'border-top: 2px solid '+errorColor+' !important;'">
       <div class="max-width d-flex align-center justify-center">
         <v-avatar :size="48" :color="darkColor('red')" style="position: absolute; top: -26px;">
-          <v-icon :size="20" :color="reversedShadeColor" v-text="'mdi-trash-can-outline'" style="margin-top: 20px;" />
+          <v-icon :size="MDI" :color="reversedShadeColor" v-text="'mdi-trash-can-outline'" style="margin-top: 20px;" />
         </v-avatar>
       </div>
 

@@ -44,7 +44,7 @@
                         :list="typesList"
                         :listReferences="gearCategoryReferences"
                         v-bind:value.sync="updatedItem.category"
-                        :iconSize="'26'"
+                        :iconSize="LGI"
                         isCategory
                       ></x-selector>
                     </v-col>

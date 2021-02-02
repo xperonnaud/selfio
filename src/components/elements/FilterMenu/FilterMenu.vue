@@ -97,7 +97,7 @@
       loader() {
         let self = this;
         let listName = self.forcedRouteName ? self.forcedRouteName : this.currentRouteName;
-        let listId = this.$options.filters.capitalizeFilter(listName);
+        let listId = this.xFilters.capitalizeFilter(listName);
         self.filterComponentCalled = `./${listId}Filters.vue`;
         return () => import(`./${listId}Filters.vue`)
       },

@@ -5,7 +5,7 @@
     icon
     :disabled="disabled"
   >
-    <v-icon :size="28" v-text="'mdi-check'" />
+    <v-icon :size="XLI" v-text="'mdi-check'" />
   </v-btn>
 
 </template>

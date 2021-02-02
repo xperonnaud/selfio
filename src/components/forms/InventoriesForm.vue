@@ -81,7 +81,7 @@
                             small
                           >
                             <v-icon
-                              size="18"
+                              :size="SMI"
                               v-text="'mdi-pencil'"
                               class="mr-1"
                             />
@@ -193,7 +193,7 @@
                                         <v-icon
                                           :color="navItemColor('gear')"
                                           v-text="'mdi-pickaxe'"
-                                          size="30"
+                                          :size="XLI"
                                           class="mx-auto"
                                         ></v-icon>
                                       </div>
@@ -226,7 +226,7 @@
                                         <v-icon
                                           :color="navItemColor('gear')"
                                           v-text="'mdi-pickaxe'"
-                                          size="30"
+                                          :size="XLI"
                                           class="mx-auto"
                                         ></v-icon>
                                       </div>
@@ -328,7 +328,7 @@
                             small
                           >
                             <v-icon
-                              size="18"
+                              :size="SMI"
                               v-text="'mdi-pencil'"
                               class="mr-1"
                             />
@@ -347,7 +347,7 @@
                                     <v-icon
                                       :color="navItemColor('gear')"
                                       v-text="'mdi-pickaxe'"
-                                      size="30"
+                                      :size="XLI"
                                       class="mx-auto"
                                     ></v-icon>
                                   </div>
@@ -605,7 +605,7 @@
                                         <v-icon
                                           :color="navItemColor('gear')"
                                           v-text="'mdi-pickaxe'"
-                                          size="30"
+                                          :size="XLI"
                                           class="mx-auto"
                                         ></v-icon>
                                       </div>
@@ -904,7 +904,7 @@
                   class="primary-gradient-color-text"
                   icon
                 >
-                  <v-icon :size="28" v-text="'mdi-check'" />
+                  <v-icon :size="XLI" v-text="'mdi-check'" />
                 </v-btn>
 
                 <template v-slot:extension>
@@ -1021,7 +1021,7 @@
                             isCategory
                           ></x-img>
 
-                          <x-unknown-category-icon v-else :size="18" />
+                          <x-unknown-category-icon v-else :size="SMI" />
                         </v-list-item-avatar>
 
                         <v-list-item-content>
@@ -1059,7 +1059,7 @@
                                   <v-icon
                                     :color="xGearState(gear.state).color"
                                     v-text="'mdi-'+stateIcon(xGearState(gear.state).title)"
-                                    :size="21"
+                                    :size="MDI"
                                     v-bind="attrs"
                                     v-on="on"
                                   ></v-icon>
@@ -1426,7 +1426,7 @@
 
           for (const [key, value] of Object.entries(gearCategoryStats)) {
             let gearCategory = value.id === 0 ? null : this.xGearCategory(value.id);
-            let percentage = this.$options.filters.percentageFilter(value.weight, this.inventoryGearList, this.inventoryTotalWeight);
+            let percentage = this.xFilters.percentageFilter(value.weight, this.inventoryGearList, this.inventoryTotalWeight);
 
             let chartLabel = (gearCategory && gearCategory.title ? gearCategory.title : 'Unknown') + `, ${percentage}%, weight(${this.dynamicWeightUnit(value.weight)})`;
             let color = this.hexColor(this.getVuetifyColor(gearCategory && gearCategory.id ? gearCategory.id : 0));

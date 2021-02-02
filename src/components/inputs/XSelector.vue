@@ -135,8 +135,8 @@
       label: String,
       value: Number,
       iconSize: {
-        type: String,
-        default: '48'
+        type: Number,
+        default: 48
       },
       avatarSize: {
         type: String,

@@ -14,7 +14,7 @@
           <v-icon
             v-text="'mdi-cogs'"
             class="primary-gradient-color-text"
-            :size="24"
+            :size="LGI"
           ></v-icon>
         </v-list-item-icon>
 
@@ -63,8 +63,8 @@
           dense
       >
         <v-list-item-icon>
-          <v-icon v-if="navigationItems[item].icon!=='mdi-database'" size="23" v-text="navigationItems[item].icon+(currentRouteTitle!==navigationItems[item].title ? '' : '-outline')" />
-          <v-icon v-else size="23" v-text="'mdi-database'+(currentIcon==='mdi-database' ? '-outline' : '')" />
+          <v-icon v-if="navigationItems[item].icon!=='mdi-database'" :size="LGI" v-text="navigationItems[item].icon+(currentRouteTitle!==navigationItems[item].title ? '' : '-outline')" />
+          <v-icon v-else :size="LGI" v-text="'mdi-database'+(currentIcon==='mdi-database' ? '-outline' : '')" />
         </v-list-item-icon>
 
         <v-list-item-content>
@@ -84,7 +84,7 @@
       @click.stop="toggleTheme()"
     >
       <v-list-item-icon>
-        <v-icon size="22" v-text="'mdi-lightbulb'" />
+        <v-icon :size="LGI" v-text="'mdi-lightbulb'" />
       </v-list-item-icon>
 
       <v-list-item-content>

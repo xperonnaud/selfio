@@ -93,7 +93,7 @@
     computed: {
       loader() {
         let self = this;
-        let formId = this.$options.filters.capitalizeFilter(this.currentRouteName);
+        let formId = this.xFilters.capitalizeFilter(this.currentRouteName);
         self.formComponentCalled = `./${formId}Form.vue`;
         return () => import(`./${formId}Form.vue`)
       },
@@ -117,7 +117,7 @@
       componentLoad() {
         let self = this;
         this.resetUniqueStepRef();
-        let route = this.$options.filters.removeSlashFilter(this.$router.currentRoute.path);
+        let route = this.xFilters.removeSlashFilter(this.$router.currentRoute.path);
 
         if(this.itemRoutes.includes(route))
           this.loader()

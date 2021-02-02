@@ -2,7 +2,7 @@
 
   <v-icon
     v-text="isSelector ? 'mdi-pencil' : 'mdi-chevron-right'"
-    :size="isMobile ? 18 : 21"
+    :size="isMobile ? SMI : MDI"
     style="float:right"
   ></v-icon>
 

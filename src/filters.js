@@ -1,13 +1,7 @@
 
  import Vue from 'vue'
+ import C from '@/constants'
  import moment from "moment";
-
- const gToKg = 0.001;
- const gToOz = 0.035274;
- const ozToLb = 0.0625;
-
- const kmToMi = 0.621371;
- const mToFt = 3.28084;
 
  Vue.filter("weightUnitFilter", function (value, unit = 'g', sup = true) {
      if (!value) return '0';
@@ -18,13 +12,13 @@
          convertedWeight = Math.round(value);
 
          if(convertedWeight >= 1000 && sup)
-             convertedWeight = (Math.round(convertedWeight * gToKg * 10) / 10);
+             convertedWeight = (Math.round(convertedWeight * C.G_TO_KG * 10) / 10);
 
      } else if (unit === 'oz') {
-         convertedWeight = (Math.round(value * gToOz * 10) / 10);
+         convertedWeight = (Math.round(value * C.G_TO_OZ * 10) / 10);
 
          if(convertedWeight >= 96 && sup)
-             convertedWeight = (Math.round(convertedWeight * ozToLb * 10) / 10);
+             convertedWeight = (Math.round(convertedWeight * C.OZ_TO_LB * 10) / 10);
     }
 
      return convertedWeight;
@@ -34,10 +28,10 @@
      if (!value) return '0';
 
      if(unit === 'g')
-         return (Math.round(value * gToKg * 10) / 10);
+         return (Math.round(value * C.G_TO_KG * 10) / 10);
 
      if(unit === 'oz')
-         return (Math.round(value * ozToLb * 10) / 10);
+         return (Math.round(value * C.OZ_TO_LB * 10) / 10);
  });
 
  Vue.filter("distanceUnitFilter", function (value, unit = 'km') {
@@ -47,7 +41,7 @@
          return (Math.round(value * 10) / 10);
 
      if(unit === 'mi')
-         return (Math.round(value * kmToMi * 10) / 10);
+         return (Math.round(value * C.KM_TO_MI * 10) / 10);
  });
 
  Vue.filter("elevationUnitFilter", function (value, unit = 'm') {
@@ -57,7 +51,7 @@
          return Math.round(value);
 
      if(unit === 'ft')
-         return Math.round(value * mToFt);
+         return Math.round(value * C.M_TO_FT);
  });
 
  Vue.filter("temperatureUnitFilter", function (value, unit = '&#8451;') {

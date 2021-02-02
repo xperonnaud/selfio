@@ -1,7 +1,5 @@
 
-const gToKg = 0.001;
-const gToOz = 0.035274;
-const ozToLb = 0.0625;
+import C from '@/constants'
 
 export default {
     data () {
@@ -15,17 +13,30 @@ export default {
         }
     },
     computed: {
-        assetUrl() {
-            return this.$store.state.api.baseUrl+'assets/'
-        },
         store: {
             get() {
                 return this.$store.state;
             }
         },
+        xUi: {
+            get() {
+                return this.store.ui;
+            }
+        },
+        xSelfio: {
+            get() {
+                return this.store.selfio;
+            }
+        },
+        xFilters() {
+            return this.$options.filters
+        },
+        assetUrl() {
+            return this.store.api.baseUrl+'assets/'
+        },
         itemOrderBy: {
             get() {
-                return this.$store.state.ui.itemOrderBy
+                return this.xUi.itemOrderBy
             },
             set(value) {
                 this.$store.commit("updateUiItemOrderBy", value)
@@ -33,7 +44,7 @@ export default {
         },
         itemOrderOption: {
             get() {
-                return this.$store.state.ui.itemOrderOption
+                return this.xUi.itemOrderOption
             },
             set(value) {
                 this.$store.commit("updateUiItemOrderOption", value)
@@ -41,7 +52,7 @@ export default {
         },
         formDialog: {
             get() {
-                return this.$store.state.ui.formDialog
+                return this.xUi.formDialog
             },
             set(value) {
                 this.$store.commit("updateUiFormDialog", value)
@@ -49,7 +60,7 @@ export default {
         },
         formDialogType: {
             get() {
-                return this.$store.state.ui.formDialogType
+                return this.xUi.formDialogType
             },
             set(value) {
                 this.$store.commit("updateUiFormDialogType", value)
@@ -57,7 +68,7 @@ export default {
         },
         selectedItem: {
             get() {
-                return this.$store.state.ui.selectedItem
+                return this.xUi.selectedItem
             },
             set(value) {
                 this.$store.commit("updateUiSelectedItem", value)
@@ -65,7 +76,7 @@ export default {
         },
         selectedItemIndex: {
             get() {
-                return this.$store.state.ui.selectedItemIndex
+                return this.xUi.selectedItemIndex
             },
             set(value) {
                 this.$store.commit("updateUiSelectedItemIndex", value)
@@ -73,7 +84,7 @@ export default {
         },
         snackbarDisplay: {
             get() {
-                return this.$store.state.ui.snackbarDisplay
+                return this.xUi.snackbarDisplay
             },
             set(value) {
                 this.$store.commit("updateUiSnackbarDisplay", value)
@@ -81,7 +92,7 @@ export default {
         },
         snackbarType: {
             get() {
-                return this.$store.state.ui.snackbarType
+                return this.xUi.snackbarType
             },
             set(value) {
                 this.$store.commit("updateUiSnackbarType", value)
@@ -89,7 +100,7 @@ export default {
         },
         snackbarText: {
             get() {
-                return this.$store.state.ui.snackbarText
+                return this.xUi.snackbarText
             },
             set(value) {
                 this.$store.commit("updateUiSnackbarText", value)
@@ -97,7 +108,7 @@ export default {
         },
         navigationCollapse: {
             get() {
-                return this.$store.state.ui.navigationCollapse
+                return this.xUi.navigationCollapse
             },
             set(value) {
                 this.$store.commit("updateUiNavigationCollapse", value)
@@ -105,7 +116,7 @@ export default {
         },
         isAppLoading: {
             get() {
-                return this.$store.state.ui.isAppLoading
+                return this.xUi.isAppLoading
             },
             set(value) {
                 this.$store.commit("updateUiIsAppLoading", value)
@@ -113,12 +124,12 @@ export default {
         },
         weathers: {
             get() {
-                return this.$store.state.ui.weathers
+                return this.xUi.weathers
             },
         },
         user: {
             get() {
-                return this.$store.state.selfio.user
+                return this.xSelfio.user
             },
         },
         userId() {
@@ -126,7 +137,7 @@ export default {
         },
         preferences: {
             get() {
-                return this.$store.state.selfio.preferences
+                return this.xSelfio.preferences
             },
         },
         dateFormatPref() {
@@ -181,87 +192,87 @@ export default {
         },
         gearCategories: {
             get() {
-                return this.$store.state.selfio.gearCategories
+                return this.xSelfio.gearCategories
             },
         },
         gearStates: {
             get() {
-                return this.$store.state.ui.gearStates
+                return this.xUi.gearStates
             },
         },
         gearReferences: {
             get() {
-                return this.$store.state.selfio.gearReferences
+                return this.xSelfio.gearReferences
             },
         },
         adventureReferences: {
             get() {
-                return this.$store.state.selfio.adventureReferences
+                return this.xSelfio.adventureReferences
             },
         },
         brandReferences: {
             get() {
-                return this.$store.state.selfio.brandReferences
+                return this.xSelfio.brandReferences
             },
         },
         landscapeReferences: {
             get() {
-                return this.$store.state.selfio.landscapeReferences
+                return this.xSelfio.landscapeReferences
             },
         },
         weatherReferences: {
             get() {
-                return this.$store.state.selfio.weatherReferences
+                return this.xSelfio.weatherReferences
             },
         },
         gearStateReferences: {
             get() {
-                return this.$store.state.selfio.gearStateReferences
+                return this.xSelfio.gearStateReferences
             },
         },
         gearCategoryReferences: {
             get() {
-                return this.$store.state.selfio.gearCategoryReferences
+                return this.xSelfio.gearCategoryReferences
             },
         },
         activityReferences: {
             get() {
-                return this.$store.state.selfio.activityReferences
+                return this.xSelfio.activityReferences
             },
         },
         inventoryReferences: {
             get() {
-                return this.$store.state.selfio.inventoryReferences
+                return this.xSelfio.inventoryReferences
             },
         },
         navigationRoutes: {
             get() {
-                return this.$store.state.ui.navigationRoutes
+                return this.xUi.navigationRoutes
             },
         },
         navigationItems: {
             get() {
-                return this.$store.state.ui.navigationItems
+                return this.xUi.navigationItems
             },
         },
         tempInventoryGear: {
             get() {
-                return this.$store.state.ui.tempInventoryGear
+                return this.xUi.tempInventoryGear
             },
         },
         selectedItemRelations: {
             get() {
-                return this.$store.state.ui.selectedItemRelations
+                return this.xUi.selectedItemRelations
             },
         },
         vuetifyColors: {
             get() {
-                return this.$store.state.ui.colors
+                return this.xUi.colors
             },
         },
         itemSearch: {
             get() {
-                return this.$store.state.ui.itemSearch
+                return this.xUi.itemSearch
             },
             set(value) {
                 this.$store.commit("updateUiItemSearch", value)
@@ -274,7 +285,7 @@ export default {
         },
         currentRouteTitle() {
             if(this.isMounted && this.$router)
-                return this.$options.filters.capitalizeFilter(this.currentRouteName);
+                return this.xFilters.capitalizeFilter(this.currentRouteName);
         },
     },
     methods: {
@@ -284,7 +295,7 @@ export default {
                     return (weight >= 1000 ? 'kg' : this.weightUnit);
 
                 case 'oz':
-                    return (((Math.round(weight * gToOz * 10) / 10) >= 96) ? 'lb' : this.weightUnit);
+                    return (((Math.round(weight * C.G_TO_OZ * 10) / 10) >= 96) ? 'lb' : this.weightUnit);
 
                 default:
                     return this.weightUnit;
@@ -303,32 +314,32 @@ export default {
             }
         },
         xGear(gearId) {
-            if(gearId, this.gearList)
+            if(gearId && this.gearList)
                 return (this.gearList[this.gearReferences[gearId]]);
             return null;
         },
         xGearBrand(brandId) {
-            if(brandId, this.brandsList)
+            if(brandId && this.brandsList)
                 return (this.brandsList[this.brandReferences[brandId]]);
             return null;
         },
         xGearCategory(gearCategoryId) {
-            if(gearCategoryId, this.gearCategories)
+            if(gearCategoryId && this.gearCategories)
                 return (this.gearCategories[this.gearCategoryReferences[gearCategoryId]]);
             return null;
         },
         xGearState(gearStateId) {
-            if(gearStateId, this.gearStates)
+            if(gearStateId && this.gearStates)
                 return (this.gearStates[gearStateId - 1]);
             return null;
         },
         xInventory(inventoryId) {
-            if(inventoryId, this.inventoriesList)
+            if(inventoryId && this.inventoriesList)
                 return (this.inventoriesList[this.inventoryReferences[inventoryId]]);
             return null;
         },
         xActivity(activityId) {
-            if(activityId, this.activitiesList)
+            if(activityId && this.activitiesList)
                 return (this.activitiesList[this.activityReferences[activityId]]);
             return null;
         },
@@ -366,10 +377,6 @@ export default {
             this.snackbarDisplay = true;
             this.snackbarType = type;
             this.snackbarText = text;
-        },
-        initIsItemRoute() {
-            let route = this.$options.filters.removeSlashFilter(this.$router.currentRoute.path);
-            this.isItemRoute = this.itemRoutes.includes(route);
         },
         stateIcon(title) {
             let icon = 'battery-off';
@@ -431,9 +438,7 @@ export default {
         },
     },
     watch: {
-        currentRoute() {
-            this.initIsItemRoute();
-        },
+
     },
     mounted() {
         this.isMounted = true;

@@ -13,10 +13,10 @@ import ScreenMixin from './mixins/screen'
 
 import './filters'
 
-Vue.use(Vuex)
-Vue.use(VueBlobJsonCsv)
+Vue.use(Vuex);
+Vue.use(VueBlobJsonCsv);
 
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
 
 Vue.mixin(ApiMixin);
 Vue.mixin(StoreMixin);
@@ -31,4 +31,4 @@ new Vue({
   axios,
   VueAxios,
   render: h => h(App)
-}).$mount('#app')
+}).$mount('#app');

@@ -25,7 +25,7 @@
                 v-text="'mdi-lock-outline'"
                 v-bind="attrs"
                 v-on="on"
-                size="18"
+                :size="SMI"
               ></v-icon>
             </template>
             <span v-text="'You may only delete a Private Brand (created by you).'" />

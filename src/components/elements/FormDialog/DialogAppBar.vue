@@ -53,7 +53,7 @@
         icon
       >
         <v-icon
-          :size="editMode ? 24 : 28"
+          :size="editMode ? LGI : XLI"
           v-text="'mdi-check'"
         />
       </v-btn>

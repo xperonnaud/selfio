@@ -86,7 +86,7 @@
               <span
                 v-if="item.brand && xGearCategory(item.brand)"
                 v-text="xGearBrand(item.brand).title"
-                size="24"
+                :size="LGI"
               ></span>
             </template>
 
@@ -113,7 +113,7 @@
                 v-if="item.state && xGearState(item.state) && xGearState(item.state).color"
                 :color="xGearState(item.state).color"
                 v-text="'mdi-'+stateIcon(xGearState(item.state).title)"
-                size="21"
+                :size="MDI"
               />
             </template>
 

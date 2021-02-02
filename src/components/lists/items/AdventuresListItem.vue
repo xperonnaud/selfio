@@ -197,7 +197,7 @@
                 <template v-slot:activator="{ on, attrs }">
                   <v-icon
                     class="pa-2"
-                    :size="21"
+                    :size="MDI"
                     v-text="'mdi-'+dateStatusIcon(item.start_date)"
                     :color="dateStatusColor(item.start_date)"
                     v-bind="attrs"
