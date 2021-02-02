@@ -228,6 +228,9 @@ export default {
         nullOrZeroColorText(prop) {
             return ((!prop || prop===0) ? this.darkColorText('error') : '');
         },
+        categoryColor(categoryId = 14) {
+            return this.hexColor(this.getVuetifyColor(categoryId));
+        },
         hexColor(colorStr) {
             const [nameFamily, nameModifier] = colorStr.split(' ');
 

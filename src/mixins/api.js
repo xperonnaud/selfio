@@ -108,9 +108,16 @@ export default {
             }
         },
         async handleResponse(responseType, message, response, callback, ...args) {
+
+            if(responseType !== 'success')
+                console.log('HARD handleResponse[responseType, message, response]',responseType, message, response);
+
             const ERROR_STR = 'Request failed with status code ';
             let hasError = (responseType === 'error');
             let errorCode = (hasError && message.includes(ERROR_STR)) ? message.replace(ERROR_STR,'') : null;
+
+            if(responseType !== 'success')
+                console.log('errorCode',errorCode);
 
             if(hasError && (typeof errorCode == 'string') && callback) {
                 console.log('handleResponse',response);

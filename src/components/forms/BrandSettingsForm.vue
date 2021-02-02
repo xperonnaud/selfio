@@ -138,7 +138,7 @@
           ></v-btn>
 
           <v-btn
-            :color="darkColor('red')"
+            :color="errorColor"
             :disabled="hasBrandRelations"
             depressed
             @click="deleteBrand()"

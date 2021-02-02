@@ -4,7 +4,7 @@
       <template v-slot:activator="{ on, attrs }">
           <v-icon
               v-text="'mdi-tshirt-crew'"
-              :color="darkColor('indigo')"
+              :color="disabled ? 'grey' : darkColor('light-blue')"
               :style="css"
               :small="small"
               :size="size"
@@ -27,6 +27,10 @@
         default: null
       },
       small: {
+        type: Boolean,
+        default: false
+      },
+      disabled: {
         type: Boolean,
         default: false
       },

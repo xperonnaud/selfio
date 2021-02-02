@@ -50,7 +50,7 @@
         <v-card-actions>
           <v-btn
             @click="clearMenuFilters()"
-            :color="darkColor('red')"
+            :color="errorColor"
             text
           >
             <v-icon v-text="'mdi-filter-off'" />
