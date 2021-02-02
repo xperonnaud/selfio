@@ -72,7 +72,6 @@
                     >
                       <div class="x-check-form">
                           <v-card
-                            v-if="isMounted"
                             v-bind:class="[
                                 'x-check-form-card',
                                 'mx-auto',
@@ -585,114 +584,12 @@
                 >
                   <v-scroll-y-transition group>
                     <template v-for="(gear, index) in filteredGear">
-                      <v-list-item
+                      <adventure-gear-list-item
                         :key="`adventure-gear-${gear.gear_id}-${index}`"
-                        v-bind:class="['x-checklist-item', {'px-3':isMobile}]"
-                        @click.stop="packGear(gear.gear_id)"
-                      >
-                        <v-list-item-action :class="['ml-1',(isMobile ? 'mr-0' : ' mr-4')]">
-                          <x-checker
-                            :key="`gear-packed-checker-${gear.gear_id}-${updatedItem.packed_gear ? updatedItem.packed_gear.length : 0}`"
-                            :value="(updatedItem.packed_gear && updatedItem.packed_gear.includes(gear.gear_id))"
-                          />
-                        </v-list-item-action>
-
-                        <v-list-item-avatar
-                          v-bind:class="[
-                            'x-avatar',
-                            'my-0 mr-2',
-                          ]"
-                          width="32"
-                          min-width="32"
-                          height="32"
-                          :style="xGear(gear.gear_id).category ? 'border: 2px solid '+categoryColor(xGear(gear.gear_id).category)+' !important;'
-                            : 'border: 1px solid '+categoryColor()+' !important;'"
-                        >
-                          <x-img
-                            v-if="xGear(gear.gear_id) && xGear(gear.gear_id).category"
-                            :src="xGearCategory(xGear(gear.gear_id).category).icon"
-                            :tooltipText="xGearCategory(xGear(gear.gear_id).category).title"
-                            :width="16"
-                            :height="16"
-                            isCategory
-                          ></x-img>
-
-                          <x-unknown-category-icon v-else :size="SMI" />
-                        </v-list-item-avatar>
-
-                        <v-list-item-content>
-                          <v-row align="center" justify="center">
-                            <v-col :cols="isMobile ? 6 : 4" class="py-0">
-                              <div v-if="xGear(gear.gear_id)">
-                                <v-list-item-title
-                                  v-text="xGear(gear.gear_id).title"
-                                  v-bind:class="['mb-1',{'text-body-2' : isMobile}]"
-                                ></v-list-item-title>
-
-                                <v-list-item-subtitle
-                                  class="text-caption"
-                                  v-text="xGear(gear.gear_id).brand ? xGearBrand(xGear(gear.gear_id).brand).title : '.'"
-                                ></v-list-item-subtitle>
-                              </div>
-                            </v-col>
-
-                            <x-weight-col
-                              v-if="!isMobile"
-                              :hasGear="typeof xGear(gear.gear_id) == 'object'"
-                              :weight="xGear(gear.gear_id).weight"
-                            />
-
-                            <v-col v-if="!isMobile" class="x-col">
-                              <div v-if="xGear(gear.gear_id) && xGear(gear.gear_id).price" >
-                                <span class="text-caption" v-text="xGear(gear.gear_id).price" />
-                                <span class="text-tiny-dimmed" v-text="priceUnit" />
-                              </div>
-                              <empty-data solo v-else />
-                            </v-col>
-
-                            <v-col v-if="!isMobile" class="x-col">
-                              <v-tooltip v-if="xGear(gear.gear_id) && xGear(gear.gear_id).state && xGearState(xGear(gear.gear_id).state)" bottom>
-                                <template v-slot:activator="{ on, attrs }">
-                                  <v-icon
-                                    :color="xGearState(xGear(gear.gear_id).state).color"
-                                    class="pa-2"
-                                    v-text="'mdi-'+stateIcon(xGearState(xGear(gear.gear_id).state).title)"
-                                    :size="MDI"
-                                    v-bind="attrs"
-                                    v-on="on"
-                                  ></v-icon>
-                                </template>
-                                <span v-text="xGearState(xGear(gear.gear_id).state).title" />
-                              </v-tooltip>
-                              <empty-data solo v-else />
-                            </v-col>
-
-                            <v-col v-if="!isMobile" class="x-col">
-                              <div v-if="xGear(gear.gear_id).consumable">
-                                <x-consumable-icon small />
-                              </div>
-                              <empty-data solo v-else />
-                            </v-col>
-
-                            <v-col class="x-col">
-                              <div v-if="gear.gear_worn">
-                                <v-icon
-                                  v-text="'mdi-tshirt-crew'"
-                                  class="primary-gradient-color-text"
-                                  small
-                                ></v-icon>
-                              </div>
-                              <empty-data solo v-else />
-                            </v-col>
-
-                            <v-col class="x-col">
-                              <div>
-                                <span class="text-caption" v-html="gear.gear_quantity_packed ? gear.gear_quantity_packed : 0" />
-                              </div>
-                            </v-col>
-                          </v-row>
-                        </v-list-item-content>
-                      </v-list-item>
+                        v-on:itemAction="packGear(gear.gear_id)"
+                        :gear.sync="gear"
+                        :updatedItem.sync="updatedItem"
+                      ></adventure-gear-list-item>
 
                       <v-divider
                         v-if="(index < originalInventoryGear.length - 1)"
@@ -718,9 +615,8 @@
 
   import Vue from 'vue'
 
+  import AdventureGearListItem from "@/components/lists/items/AdventureGearListItem";
   import XTitleField from "@/components/inputs/fields/XTitleField";
-  import XUnknownCategoryIcon from "@/components/elements/Icons/XUnknownCategoryIcon";
-  import XConsumableIcon from "@/components/elements/Icons/XConsumableIcon";
   import XCheckbox from "@/components/inputs/XCheckbox";
   import XBrandSelector from "@/components/inputs/fields/XBrandSelector";
   import XStateSelector from "@/components/inputs/fields/XStateSelector";
@@ -728,7 +624,6 @@
   import XWeightCol from "@/components/xcols/XWeightCol";
   import XChecker from "@/components/inputs/XChecker";
   import XDivider from "@/components/elements/XDivider";
-  import EmptyData from "@/components/elements/EmptyData";
   import XImg from "@/components/elements/XImg";
   import XIncrement from "@/components/inputs/XIncrement";
   import EditIcon from "@/components/elements/Icons/EditIcon";
@@ -742,9 +637,8 @@
   export default {
     name: 'adventures-form',
     components: {
+      AdventureGearListItem,
       XTitleField,
-      XUnknownCategoryIcon,
-      XConsumableIcon,
       XCheckbox,
       XBrandSelector,
       XStateSelector,
@@ -753,7 +647,6 @@
       XChecker,
       XCombobox,
       XDivider,
-      EmptyData,
       XIncrement,
       XImg,
       EditIcon,
@@ -796,6 +689,7 @@
       },
     },
     data: () => ({
+      isMounted: false,
       valid: false,
 
       tab: 'adventure-general',
