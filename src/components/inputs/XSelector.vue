@@ -139,7 +139,7 @@
         default: 48
       },
       avatarSize: {
-        type: String,
+        type: Number,
         default: null
       },
       logo: {

@@ -35,7 +35,7 @@
 
     <v-list-item-content>
       <v-row align="center" justify="center" :class="[{'text--disabled':gear.quantity_owned === 0}]">
-        <v-col :cols="isMobile ? 5 : 3" class="py-0">
+        <v-col :cols="isMobile ? 6 : 3" class="py-0">
           <div>
             <v-list-item-title v-bind:class="['mb-1',{'text-body-2' : isMobile}]">
               {{gear.title}}
