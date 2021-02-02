@@ -9,7 +9,7 @@
  const kmToMi = 0.621371;
  const mToFt = 3.28084;
 
- Vue.filter("weightUnitFilter", function (value, unit = 'g') {
+ Vue.filter("weightUnitFilter", function (value, unit = 'g', sup = true) {
      if (!value) return '0';
 
      let convertedWeight = null;
@@ -17,13 +17,13 @@
      if (unit === 'g') {
          convertedWeight = Math.round(value);
 
-         if(convertedWeight >= 1000)
+         if(convertedWeight >= 1000 && sup)
              convertedWeight = (Math.round(convertedWeight * gToKg * 10) / 10);
 
      } else if (unit === 'oz') {
          convertedWeight = (Math.round(value * gToOz * 10) / 10);
 
-         if(convertedWeight >= 96)
+         if(convertedWeight >= 96 && sup)
              convertedWeight = (Math.round(convertedWeight * ozToLb * 10) / 10);
     }
 
