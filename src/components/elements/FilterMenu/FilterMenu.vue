@@ -4,6 +4,7 @@
     <v-menu
       v-model="filterModeOn"
       :close-on-content-click="false"
+      min-width="310"
       :nudge-width="200"
       left
     >
@@ -15,7 +16,7 @@
           v-on="on"
           icon
         >
-          <v-icon v-text="filterMode?'mdi-filter-variant-minus':'mdi-filter-variant'" />
+          <v-icon v-text="`mdi-filter-variant${filterMode?'-minus':''}`" />
         </v-btn>
       </template>
 
@@ -60,8 +61,8 @@
 
           <v-btn
             @click="closeFilterMenu()"
-            text
             class="primary-gradient-color-text"
+            text
             icon
           >
             <v-icon v-text="'mdi-check'" />
