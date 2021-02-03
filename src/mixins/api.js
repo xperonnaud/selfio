@@ -24,9 +24,6 @@ const directus = new DirectusSDK('http://localhost:8055/', {
 
 export default {
     computed: {
-        apiAuthTimer() {
-            return this.$store.state.api.authTimer;
-        },
         apiAccessToken: {
             get() {
                 return this.$store.state.api.accessToken;

@@ -59,7 +59,7 @@
 
               <v-col cols="12" class="py-0">
                 <v-btn
-                  class="my-1 elevation-0"
+                  class="mt-1 elevation-0"
                   @click="forgotPassword()"
                   :disabled="isLoading"
                   block
@@ -68,7 +68,7 @@
                 >
                   <span
                     style="font-size: 10px;"
-                    :class="['text--disabled']"
+                    class="text-tiny-dimmed"
                     v-text="'Forgot password ?'"
                   ></span>
                 </v-btn>

@@ -6,7 +6,6 @@ Vue.use(Vuex);
 export default new Vuex.Store({
     state: {
         api: {
-            authTimer: null,
             login: 'reivax@gmail.com',
             password: 'poppers78',
             accessToken: null,
@@ -198,9 +197,6 @@ export default new Vuex.Store({
     },
     mutations: {
         // Api
-        updateApiAuthTimer(state, authTimer) {
-            state.api.authTimer = authTimer;
-        },
         updateApiLogin(state, login) {
             state.api.login = login;
         },
