@@ -2,7 +2,7 @@
 
     <v-sheet
       color="transparent"
-      :height="isMobile ? 24 : 36"
+      :height="isMobile ? 24 : 30"
       class="d-flex"
     >
         <template v-for="(item, index) in items">

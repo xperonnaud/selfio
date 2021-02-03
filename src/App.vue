@@ -205,7 +205,7 @@
   }
 
   .x-tab {
-    box-shadow: 0px 10px 2px 0px rgba(0,0,0,0.75) !important;
+    box-shadow: 0 10px 2px 0 rgba(0,0,0,0.75) !important;
   }
 
   .x-avatar {

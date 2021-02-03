@@ -25,7 +25,7 @@
       small
       rounded
     >
-      <v-icon v-bind:class="[reversedFontShadeColor]" v-text="'mdi-plus'" />
+      <v-icon v-text="'mdi-plus'" />
     </v-btn>
 
     <v-dialog

@@ -23,6 +23,9 @@
     components: {
       ListContainer
     },
+    data: () => ({
+        isMounted: false,
+    }),
     computed: {
       brandHeaders() {
         return [

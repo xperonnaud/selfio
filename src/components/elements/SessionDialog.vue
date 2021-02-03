@@ -10,7 +10,7 @@
       <v-card>
         <div class="max-width d-flex align-center justify-center">
           <v-avatar :size="48" class="primary-gradient-color" style="position: absolute; top: -26px;">
-            <v-icon :size="MDI" :color="reversedShadeColor" v-text="'mdi-clock'" style="margin-top: 23px;" />
+            <v-icon :size="MDI" v-text="'mdi-alarm'" style="margin-top: 23px;" />
           </v-avatar>
         </div>
 
@@ -25,11 +25,11 @@
           <v-spacer />
 
           <v-btn
-            @click="closeAction()"
+            @click="logout()"
             class="primary-gradient-color"
             depressed
           >
-            <span v-bind:class="[reversedFontShadeColor]" v-text="'Logout'" />
+            <span v-text="'Logout'" />
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -49,14 +49,8 @@
     data: () => ({
       isMounted: false,
     }),
-    methods: {
-      closeAction() {
-        alert('close');
-      }
-    },
     mounted() {
       this.isMounted = true;
-      this.pickerValue = this.value;
     }
   }
 

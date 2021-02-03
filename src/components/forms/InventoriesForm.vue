@@ -152,13 +152,10 @@
                                 <template v-for="(gearCategoryStat) in sortedGearCategoryStats">
                                   <v-list-item :key="`gear-type-stat-${gearCategoryStat.id}`" class="pa-0">
                                     <v-list-item-avatar
+                                      v-bind:class="['x-avatar my-0 ml-3 mr-1 d-flex justify-center']"
                                       width="30"
                                       min-width="30"
                                       height="30"
-                                      v-bind:class="[
-                                        'x-avatar',
-                                        'my-0 ml-3 mr-1',
-                                      ]"
                                       :style="gearCategoryStat.id ? 'border: 1px solid '+categoryColor(gearCategoryStat.id)+' !important;'
                                         : 'border: 1px solid '+categoryColor()+' !important;'"
                                     >
@@ -370,10 +367,7 @@
                                         width="30"
                                         min-width="30"
                                         height="30"
-                                        v-bind:class="[
-                                          'x-avatar',
-                                          'my-0 ml-3 mr-1',
-                                        ]"
+                                        v-bind:class="['x-avatar my-0 ml-3 mr-1 d-flex justify-center']"
                                         :style="gearCategoryStat.id ? 'border: 2px solid '+categoryColor(gearCategoryStat.id)+' !important;'
                                           : 'border: 1px solid '+categoryColor()+' !important;'"
                                       >
@@ -579,7 +573,6 @@
                           :color="errorColor"
                           text
                         >
-                          <v-icon v-text="'mdi-filter-off'" />
                           <span v-text="'Reset'" />
                         </v-btn>
 
@@ -616,10 +609,7 @@
                   >
                     <v-list-item :class="[(isMobile ? 'pl-13 pr-3' : 'pl-11')]">
                       <v-list-item-avatar
-                        v-bind:class="[
-                          'x-avatar',
-                          'my-0 py-0 mr-1',
-                        ]"
+                        v-bind:class="['x-avatar my-0 py-0 mr-1 d-flex justify-center']"
                         width="40"
                         height="40"
                       >
