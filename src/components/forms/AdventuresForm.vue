@@ -457,7 +457,6 @@
                           :color="errorColor"
                           text
                         >
-                          <v-icon v-text="'mdi-filter-off'" />
                           <span v-text="'Reset'" />
                         </v-btn>
 
@@ -494,10 +493,7 @@
                   >
                     <v-list-item :class="[(isMobile ? 'pl-13' : 'pl-11')]">
                       <v-list-item-avatar
-                        v-bind:class="[
-                          'x-avatar',
-                          'my-0 py-0 mr-1',
-                        ]"
+                        v-bind:class="['x-avatar my-0 py-0 mr-1 d-flex justify-center']"
                         width="40"
                         height="40"
                       >

@@ -55,7 +55,6 @@
                         {'theme--light':!isDark},
                         'x-primary-btn',
                         'mr-2',
-                        reversedFontShadeColor,
                         'primary-gradient-color'
                     ]"
                 ></vue-blob-json-csv>
@@ -73,7 +72,6 @@
                         {'theme--dark':isDark},
                         {'theme--light':!isDark},
                         'x-primary-btn',
-                        reversedFontShadeColor,
                         'primary-gradient-color'
                     ]"
                 ></vue-blob-json-csv>

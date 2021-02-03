@@ -53,7 +53,6 @@
             :color="errorColor"
             text
           >
-            <v-icon v-text="'mdi-filter-off'" />
             <span v-text="'Reset'" />
           </v-btn>
 

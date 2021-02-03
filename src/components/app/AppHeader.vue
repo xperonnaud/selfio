@@ -67,7 +67,7 @@
         :height="48"
         fab
       >
-        <v-icon v-bind:class="[reversedFontShadeColor]" v-text="'mdi-plus'" />
+        <v-icon v-text="'mdi-plus'" />
       </v-btn>
 
       <v-dialog
@@ -118,7 +118,6 @@
               depressed
               v-bind:class="[{'primary-gradient-color': validBrand}, reversedFontShadeColor]"
             >
-              <v-icon v-text="'mdi-check'" />
               <span v-text="'Add brand'" />
             </v-btn>
           </v-card-actions>

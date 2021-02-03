@@ -15,10 +15,7 @@
     </v-list-item-action>
 
     <v-list-item-avatar
-      v-bind:class="[
-        'x-avatar',
-        'my-0 mr-2',
-      ]"
+      v-bind:class="['x-avatar my-0 mr-2 d-flex justify-center']"
       width="32"
       min-width="32"
       height="32"

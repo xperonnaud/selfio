@@ -23,8 +23,7 @@
                 || item.category
               )"
               v-bind:class="[
-                'x-avatar',
-                'py-0',
+                'x-avatar py-0 d-flex  justify-center',
                  (isMobile ? 'my-0 mr-3' : 'ml-2 mr-5'),
               ]"
               :style="currentRouteTitle === 'Gear' ? (
@@ -37,6 +36,7 @@
                 :src="xGearCategory(item.category).icon"
                 :width="21"
                 :height="21"
+                style="margin-right: 1px;"
                 :tooltipText="`<strong>${xGearCategory(item.category).title}</strong>`+(xGearCategory(item.category).description ? '<br>'+xGearCategory(item.category).description : '')"
                 isCategory
               ></x-img>

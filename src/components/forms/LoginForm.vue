@@ -50,7 +50,6 @@
                   :disabled="!valid || isLoading"
                   :loading="isLoading"
                 >
-                  <v-icon left v-text="'mdi-login'" />
                   <span
                     v-bind:class="[{'text-disabled': !valid}]"
                     v-text="'Login'"
