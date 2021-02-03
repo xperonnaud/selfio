@@ -17,9 +17,8 @@
                      reversedFontShadeColor,
                      'd-flex align-center justify-center'
                  ]"
-                :style="`border-right: 3px solid black`"
             >
-                <div v-if="item.percentage > 10">
+                <div v-if="item.percentage > toggleLimit">
                     <span :class="['ml-1 font-weight-bold']">{{item.value | weightUnitFilter(weightUnit)}}</span>
                     <span v-text="dynamicWeightUnit(item.value)" :key="`weight-unit-${randomId()}-${item.value}`" />
                 </div>
@@ -34,7 +33,11 @@
   export default {
     name: 'x-stacked-progress-bar',
     props: {
-      items: Object,
+        items: Object,
+        toggleLimit: {
+            type: Number,
+            default: 12
+        }
     },
     data: () => ({
       isMounted: false,

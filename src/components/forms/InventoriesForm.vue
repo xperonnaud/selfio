@@ -129,18 +129,19 @@
                           :background-color="xTabsColor"
                           fixed-tabs
                           dense
+                          class="rounded"
                         >
-                          <v-tab>
+                          <v-tab class="rounded">
                             <v-icon small v-text="'mdi-chart-bar'" />
                           </v-tab>
-                          <v-tab>
+                          <v-tab class="rounded">
                             <v-icon small v-text="'mdi-chart-donut'" :rotate="-90" />
                           </v-tab>
 
                           <v-tab-item>
                             <v-responsive
                               class="overflow-y-auto pr-3 "
-                              :height="300"
+                              :height="550"
                             >
                               <v-list
                                 v-if="inventoryGearList && inventoryGearList.length > 0"
@@ -337,7 +338,7 @@
                                 :key="`pie-chart-${updatedItem.title}-${gearCategoryStats.length}`"
                                 :labels="pieChart.labels"
                                 :datasets="pieChart.datasets"
-                                style="max-height: 230px !important; margin-top: 46px !important;"
+                                style="max-height: 230px !important; margin-top: 18px !important;"
                               ></x-pie-chart>
 
                               <v-card
