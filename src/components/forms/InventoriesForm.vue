@@ -81,7 +81,7 @@
                           :color="xCardColor"
                         >
                           <v-list class="py-0">
-                            <v-list-item one-line>
+                            <v-list-item one-line @click.stop="editInventory()" v-ripple>
                               <v-list-item-content class="no-wrap">
                                 <v-list-item-title>
                                   <div class="d-flex">
@@ -105,7 +105,6 @@
                               <v-list-item-action class="d-flex no-wrap align-center justify-center ma-0">
                                 <v-btn
                                   v-bind:class="[reversedFontShadeColor, 'elevation-0', 'primary-gradient-color']"
-                                  @click.stop="editInventory()"
                                   x-small
                                   fab
                                   depressed
@@ -119,9 +118,9 @@
                       </v-col>
 
                       <v-col cols="12" class="py-0 mb-3">
-                        <x-stacked-progress
+                        <x-stacked-progress-card
                           :items.sync="balance"
-                        ></x-stacked-progress>
+                        ></x-stacked-progress-card>
                       </v-col>
 
                       <v-col v-if="isMobile" cols="12" class="py-0 mb-3">
@@ -303,26 +302,26 @@
                         </v-tabs>
                       </v-col>
 
-                      <v-col v-else-if="inventoryGearList" cols="12">
-                        <v-sheet class="elevation-0">
+                      <v-col v-else-if="inventoryGearList" cols="12" class="py-0 rounded">
+                        <v-sheet class="elevation-0 rounded">
                           <v-row v-show="inventoryGearList.length <= 0">
                             <v-col cols="12">
                               <div class="d-flex text-center align-center justify-center">
                                 <div class="pa-12">
                                   <div class="d-flex justify-center">
                                     <v-icon
-                                            :color="navItemColor('gear')"
-                                            v-text="'mdi-pickaxe'"
-                                            :size="XLI"
-                                            class="mx-auto"
+                                      :color="navItemColor('gear')"
+                                      v-text="'mdi-pickaxe'"
+                                      :size="XLI"
+                                      class="mx-auto"
                                     ></v-icon>
                                   </div>
 
                                   <v-btn
-                                          :color="navItemColor('gear')"
-                                          class="my-3"
-                                          outlined
-                                          @click.stop="editInventory()"
+                                    :color="navItemColor('gear')"
+                                    class="my-3"
+                                    outlined
+                                    @click.stop="editInventory()"
                                   >
                                     <span v-bind:class="['text-body-2',fontShadeColor]" v-text="'Add Gear'" />
                                   </v-btn>
@@ -357,7 +356,7 @@
                             <v-col cols="7">
                               <v-responsive
                                 class="overflow-y-auto pr-3 "
-                                :height="330"
+                                :height="300"
                               >
                                 <v-list
                                   class="pa-0"
@@ -808,7 +807,7 @@
   import Vue from 'vue'
   const _ = require('lodash');
 
-  import XStackedProgress from "@/components/elements/XStackedProgress";
+  import XStackedProgressCard from "@/components/elements/StackedProgressCard/XStackedProgressCard";
   import XTitleField from "@/components/inputs/fields/XTitleField";
   import XPicker from "@/components/inputs/XPicker";
   import XBrandSelector from "@/components/inputs/fields/XBrandSelector";
@@ -825,7 +824,7 @@
   export default {
     name: 'inventories-form',
     components: {
-      XStackedProgress,
+      XStackedProgressCard,
       InventoryGearListItem,
       XTitleField,
       XUnknownCategoryIcon,
