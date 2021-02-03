@@ -6,9 +6,9 @@
         :color="xTabsColor"
         class="pt-1 pb-2 px-2 rounded"
     >
-        <x-stacked-progress-legend :items.sync="items" />
+        <x-stacked-progress-legend :items.sync="items" :toggleLimit="displayToggleLimit" />
 
-        <x-stacked-progress-bar :items.sync="items" />
+        <x-stacked-progress-bar :items.sync="items" :toggleLimit="displayToggleLimit" />
     </v-sheet>
 
 </template>
@@ -28,7 +28,8 @@
       items: Object,
     },
     data: () => ({
-      isMounted: false,
+        isMounted: false,
+        displayToggleLimit: 12,
     }),
     mounted() {
       this.isMounted = true;

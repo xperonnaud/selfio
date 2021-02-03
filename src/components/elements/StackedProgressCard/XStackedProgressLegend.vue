@@ -36,7 +36,7 @@
                     />
                 </template>
 
-                <template v-if="item.percentage <= 10">
+                <template v-if="item.percentage <= toggleLimit">
                     <span :class="[fontShadeColor]">{{item.value | weightUnitFilter(weightUnit)}}</span>
                     <span :class="fontShadeColor" v-text="dynamicWeightUnit(item.value)" :key="`weight-unit-${randomId()}-${item.value}`" />
                 </template>
@@ -51,7 +51,11 @@
   export default {
     name: 'x-stacked-progress-legend',
     props: {
-      items: Object,
+        items: Object,
+        toggleLimit: {
+            type: Number,
+            default: 12
+        }
     },
     data: () => ({
       isMounted: false,
