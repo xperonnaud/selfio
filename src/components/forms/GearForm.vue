@@ -29,7 +29,7 @@
               :max-height="maxDialogContentHeight"
             >
               <v-card flat :color="xBackgroundColor">
-                <v-card-text>
+                <v-card-text :class="{'py-1':isMobile}">
                   <v-row>
                     <v-col cols="12">
                       <x-title-field
@@ -101,7 +101,7 @@
               :max-height="maxDialogContentHeight"
             >
               <v-card flat :color="xBackgroundColor">
-                <v-card-text>
+                <v-card-text :class="{'py-1':isMobile}">
                   <v-row>
                     <v-col cols="12">
                       <x-brand-selector v-bind:value.sync="updatedItem.brand" />
@@ -126,8 +126,8 @@
 
                     <v-col cols="12">
                       <x-date-picker
-                          label="Purchase date"
-                          v-bind:value.sync="updatedItem.purchase_date"
+                        label="Purchase date"
+                        v-bind:value.sync="updatedItem.purchase_date"
                       ></x-date-picker>
                     </v-col>
 
