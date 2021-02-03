@@ -1,5 +1,7 @@
 <template>
-  <div v-bind:class="[
+  <div
+    v-if="isMounted"
+    v-bind:class="[
       'back',
       {'is-logged-in':apiAccessToken},
       {'is-small':isMobile},
@@ -80,16 +82,14 @@
     },
     watch: {
       currentRouteName(val) {
-        if(this.isMounted && val) {
-          if(this.navigationCollapse===true && this.isMobile) {
+        if(val) {
+          if(this.navigationCollapse===true && this.isMobile)
             this.navigationCollapse = !this.navigationCollapse;
-          }
         }
       },
       async apiAccessToken(value) {
-        if(this.isMounted && value && (typeof value === 'string')) {
+        if(value && (typeof value === 'string'))
           await this.fetchSelfioItems();
-        }
       },
       formDialog(val) {
         if(this.isMounted && (val === false)) {

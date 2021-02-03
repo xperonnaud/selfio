@@ -68,7 +68,7 @@ export default new Vuex.Store({
 
             isAppLoading: false,
             isConfigurationReady: false,
-            navigationCollapse: true,
+            navigationCollapse: false,
 
             isItemRoute: false,
 

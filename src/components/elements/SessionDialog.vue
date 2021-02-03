@@ -10,26 +10,32 @@
       <v-card>
         <div class="max-width d-flex align-center justify-center">
           <v-avatar :size="48" class="primary-gradient-color" style="position: absolute; top: -26px;">
-            <v-icon :size="MDI" v-text="'mdi-alarm'" style="margin-top: 23px;" />
+            <v-icon :size="MDI" v-text="'mdi-history'" style="margin-top: 23px;" />
           </v-avatar>
         </div>
 
         <v-card-title class="headline mt-3" v-text="'Your session has expired.'" />
 
-        <v-card-subtitle v-text="'Please log back in.'" />
+        <v-card-subtitle v-text="'Please log in again.'" />
 
         <v-divider />
 
         <v-card-actions>
+          <v-btn
+            @click="logout()"
+            depressed
+            text
+            v-text="'Leave'"
+          ></v-btn>
 
           <v-spacer />
 
           <v-btn
-            @click="logout()"
+            @click="api_login()"
             class="primary-gradient-color"
             depressed
           >
-            <span v-text="'Logout'" />
+            <span v-text="'Log back in'" />
           </v-btn>
         </v-card-actions>
       </v-card>

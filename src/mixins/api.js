@@ -140,7 +140,7 @@ export default {
                     });
 
                     let user = await directus.users.me.read();
-                    self.$store.commit('updateUser',user.data);
+                    self.$store.commit('updateUser', user.data);
 
                     await self.handleResponse('success');
                 }
@@ -154,7 +154,7 @@ export default {
             await directus.users.me.read()
             .then(async function (response) {
                 if(response && response.data) {
-                    self.$store.commit('updateUser',response.data)
+                    self.$store.commit('updateUser',response.data);
 
                     await self.handleResponse('success');
                 }
@@ -194,7 +194,7 @@ export default {
 
             await directus.auth.password.request(self.apiLogin)
             .then(async function (response) {
-                await self.handleResponse('success', 'Reset Password', response.data);
+                await self.handleResponse('success', 'Reset Password', response);
             }).catch(async function (error) {
                 await self.handleResponse('error', error.message, error);
             });
@@ -209,7 +209,7 @@ export default {
             // TODO :: pass in input password
             await directus.auth.password.reset(self.apiLogin, newPassword)
             .then(async function (response) {
-                await self.handleResponse('success', 'Forgot Password', response.data);
+                await self.handleResponse('success', 'Forgot Password', response);
             }).catch(async function (error) {
                 await self.handleResponse('error', error.message, error);
             });
