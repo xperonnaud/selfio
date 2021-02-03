@@ -71,7 +71,7 @@
                 :color="xGearState(xGear(gear.gear_id).state).color"
                 class="pa-2"
                 v-text="'mdi-'+stateIcon(xGearState(xGear(gear.gear_id).state).title)"
-                :size="MDI"
+                :size="SMI"
                 v-bind="attrs"
                 v-on="on"
               ></v-icon>

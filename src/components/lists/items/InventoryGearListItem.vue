@@ -79,11 +79,11 @@
           <v-tooltip v-if="gear.state && xGearState(gear.state)" bottom>
             <template v-slot:activator="{ on, attrs }">
               <v-icon
-                      :color="xGearState(gear.state).color"
-                      v-text="'mdi-'+stateIcon(xGearState(gear.state).title)"
-                      :size="MDI"
-                      v-bind="attrs"
-                      v-on="on"
+                :color="xGearState(gear.state).color"
+                v-text="'mdi-'+stateIcon(xGearState(gear.state).title)"
+                :size="SMI"
+                v-bind="attrs"
+                v-on="on"
               ></v-icon>
             </template>
             <span v-text="xGearState(gear.state).title" />

@@ -1,8 +1,7 @@
 <template>
 
-  <v-list-item-content>
+  <v-list-item-content class="pl-1">
     <v-row align="center" justify="center">
-
       <v-col :cols="isMobile ? 7 : 6" class="py-0">
         <v-list-item-title
           v-text="item.title"

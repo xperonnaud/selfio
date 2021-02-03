@@ -43,7 +43,7 @@
               <v-icon
                 :color="xGearState(item.state).color"
                 v-text="'mdi-'+stateIcon(xGearState(item.state).title)"
-                :size="MDI"
+                :size="SMI"
                 v-bind="attrs"
                 v-on="on"
               ></v-icon>
