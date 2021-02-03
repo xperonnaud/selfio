@@ -7,7 +7,7 @@
   >
     <v-card dark flat max-width="369" class="login-card mx-2">
       <v-card-title>
-        <span class="title font-weight-light" v-text="'Authentication'" />
+        <span v-text="'PackHub.io'" class="primary-gradient-color-text" />
       </v-card-title>
 
       <v-card-text>
@@ -59,7 +59,7 @@
 
               <v-col cols="12" class="py-0">
                 <v-btn
-                  class="mt-2 mb-1 elevation-0"
+                  class="my-1 elevation-0"
                   @click="forgotPassword()"
                   :disabled="isLoading"
                   block
@@ -67,7 +67,8 @@
                   small
                 >
                   <span
-                    :class="['text-tiny-dimmed']"
+                    style="font-size: 10px;"
+                    :class="['text--disabled']"
                     v-text="'Forgot password ?'"
                   ></span>
                 </v-btn>
