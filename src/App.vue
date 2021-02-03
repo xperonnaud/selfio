@@ -352,13 +352,14 @@
 
   .is-dark {
 
-    /*.primary-gradient-color {*/
-    /*  background-image: linear-gradient(45deg, #E040FB, #448AFF, #64FFDA);*/
-    /*}*/
+    .primary-gradient-color {
+      color: white !important;
+      /*background-image: linear-gradient(45deg, #E040FB, #448AFF, #64FFDA);*/
+    }
 
-    /*.primary-gradient-color-text {*/
-    /*  background: -webkit-linear-gradient(45deg, #E040FB, #448AFF, #64FFDA);*/
-    /*}*/
+    .primary-gradient-color-text {
+      background: -webkit-linear-gradient(45deg, #E040FB, #448AFF, #64FFDA);
+    }
 
     .app-nav-list-item {
       &.v-list-item--active {
