@@ -623,26 +623,41 @@ export default {
 
         async updateGearList(inventoryId, inventoryIndex, originalGearList, gearList, inventoryGear, gearInventoryRelations) {
             let self = this;
-
+console.log('originalGearList',originalGearList);
             let sameGear = inventoryGear.filter(x => originalGearList.includes(x.gear_id));
-            let mappedSameGear = sameGear.filter(inv_gear => (inv_gear.id && typeof inv_gear.id == 'number'));
+            console.log('sameGear',sameGear);
+            let mappedSameGear = sameGear
+            .filter(inv_gear => (inv_gear.id && typeof inv_gear.id == 'number'))
+            .map((inv_gear) => {
+                if(inv_gear.user_created)
+                    delete inv_gear.user_created;
+                return inv_gear;
+            });
+            console.log('mappedSameGear',mappedSameGear);
 
-            let mappedAddedGear_1 = sameGear.filter(inv_gear => (!inv_gear.id || typeof inv_gear.id == 'undefined'));
+            let mappedAddedGear_1 = sameGear.filter(inv_gear => (typeof inv_gear.id == 'undefined'));
             let addedGear = inventoryGear.filter(x => !originalGearList.includes(x.gear_id));
             let mappedAddedGear_2 = addedGear.map((inv_gear) => {
                 if(!inv_gear.inventory_id || typeof inv_gear.inventory_id == 'undefined')
                     inv_gear['inventory_id'] = inventoryId;
+
+                if(inv_gear.user_created)
+                    delete inv_gear.user_created;
+
                 return inv_gear;
             });
-            let mappedAddedGear = mappedAddedGear_1.concat(mappedAddedGear_2);
+            let mappedAddedGear = self.arrayUnique([...mappedAddedGear_1, ...mappedAddedGear_2]);
 
             let removedGear_1 = originalGearList.filter(x => !gearList.includes(x));
             let removedGear_2 = sameGear.filter(x => !mappedSameGear.includes(x)).map((inv_gear) => { return inv_gear.gear_id; });
-            let removedGear = removedGear_1.concat(removedGear_2);
+            let removedGear = self.arrayUnique([...removedGear_1, ...removedGear_2]);
             let mappedRemovedGear = removedGear.map((gearId) => {
                 return gearInventoryRelations[gearId];
             });
 
+            console.log('mappedSameGear',mappedSameGear);
+            console.log('mappedAddedGear',mappedAddedGear);
+            console.log('mappedRemovedGear',mappedRemovedGear);
             if(mappedSameGear.length > 0)
                 await self.api_update_inventory_gear(mappedSameGear);
 
