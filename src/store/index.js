@@ -39,6 +39,7 @@ export default new Vuex.Store({
             adventureReferences: {},
         },
         ui: {
+            isSessionExpired: false,
             formDialog: false,
             formDialogType: null,
             selectedItemRelations: {},
@@ -438,6 +439,9 @@ export default new Vuex.Store({
             }
         },
         // Ui
+        updateUiIsSessionExpired(state, isSessionExpired) {
+            state.ui.isSessionExpired = isSessionExpired;
+        },
         updateUiFormDialog(state, formDialog) {
             state.ui.formDialog = formDialog;
         },
