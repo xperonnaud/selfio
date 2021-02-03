@@ -107,25 +107,13 @@ export default {
                 this.isAppLoading = false;
             }
         },
-        async handleResponse(responseType, message, response, callback, ...args) {
-
-            if(responseType !== 'success')
-                console.log('HARD handleResponse[responseType, message, response]',responseType, message, response);
-
+        async handleResponse(responseType, message, response) {
             const ERROR_STR = 'Request failed with status code ';
             let hasError = (responseType === 'error');
             let errorCode = (hasError && message.includes(ERROR_STR)) ? message.replace(ERROR_STR,'') : null;
 
-            if(responseType !== 'success')
-                console.log('errorCode',errorCode);
-
-            if(hasError && (typeof errorCode == 'string') && callback) {
-                console.log('handleResponse',response);
-
-                if(errorCode === '403') {
-                    await callback(...args);
-                }
-            }
+            if(responseType !== 'success' && (errorCode === '401' || errorCode === 401))
+                this.$store.commit("updateUiIsSessionExpired", true);
 
             if(message)
                 this.updateSnackbar(responseType, message);
@@ -202,6 +190,7 @@ export default {
         },
         async logout() {
             await this.api_logout();
+            this.$store.commit("updateUiIsSessionExpired", false);
         },
         async api_reset_password() {
             let self = this;
@@ -623,9 +612,9 @@ export default {
 
         async updateGearList(inventoryId, inventoryIndex, originalGearList, gearList, inventoryGear, gearInventoryRelations) {
             let self = this;
-console.log('originalGearList',originalGearList);
+
             let sameGear = inventoryGear.filter(x => originalGearList.includes(x.gear_id));
-            console.log('sameGear',sameGear);
+
             let mappedSameGear = sameGear
             .filter(inv_gear => (inv_gear.id && typeof inv_gear.id == 'number'))
             .map((inv_gear) => {
@@ -633,7 +622,6 @@ console.log('originalGearList',originalGearList);
                     delete inv_gear.user_created;
                 return inv_gear;
             });
-            console.log('mappedSameGear',mappedSameGear);
 
             let mappedAddedGear_1 = sameGear.filter(inv_gear => (typeof inv_gear.id == 'undefined'));
             let addedGear = inventoryGear.filter(x => !originalGearList.includes(x.gear_id));
@@ -655,9 +643,6 @@ console.log('originalGearList',originalGearList);
                 return gearInventoryRelations[gearId];
             });
 
-            console.log('mappedSameGear',mappedSameGear);
-            console.log('mappedAddedGear',mappedAddedGear);
-            console.log('mappedRemovedGear',mappedRemovedGear);
             if(mappedSameGear.length > 0)
                 await self.api_update_inventory_gear(mappedSameGear);
 

@@ -23,12 +23,15 @@
       </v-overlay>
 
       <snack-bar />
+
+      <session-dialog v-if="apiAccessToken" :dialog.sync="isSessionExpired" />
     </v-app>
   </div>
 </template>
 
 <script>
 
+  import SessionDialog from "@/components/elements/SessionDialog";
   import SnackBar from "@/components/elements/SnackBar";
 
   export default {
@@ -39,10 +42,18 @@
       AppBody: () => import('@/components/app/AppBody'),
       AppFooter: () => import('@/components/app/AppFooter'),
       SnackBar,
+      SessionDialog
     },
     data: () => ({
       isMounted: false,
     }),
+    computed: {
+      isSessionExpired: {
+        get() {
+          return this.xUi.isSessionExpired
+        },
+      }
+    },
     methods: {
       async fetchSelfioItems() {
         this.isAppLoading = true;
@@ -341,13 +352,13 @@
 
   .is-dark {
 
-    .primary-gradient-color {
-      background-image: linear-gradient(45deg, #E040FB, #448AFF, #64FFDA);
-    }
+    /*.primary-gradient-color {*/
+    /*  background-image: linear-gradient(45deg, #E040FB, #448AFF, #64FFDA);*/
+    /*}*/
 
-    .primary-gradient-color-text {
-      background: -webkit-linear-gradient(45deg, #E040FB, #448AFF, #64FFDA);
-    }
+    /*.primary-gradient-color-text {*/
+    /*  background: -webkit-linear-gradient(45deg, #E040FB, #448AFF, #64FFDA);*/
+    /*}*/
 
     .app-nav-list-item {
       &.v-list-item--active {
