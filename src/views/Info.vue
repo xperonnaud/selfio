@@ -88,7 +88,7 @@
             'Gear data is used to fuel your many upcoming adventures !'
           ],
           color: 'purple',
-          icon: 'mdi-pickaxe',
+          icon: 'mdi-knife-military',
         },
         {
           title: 'Create an Inventory',

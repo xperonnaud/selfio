@@ -4,6 +4,9 @@ import vuetifyColors from 'vuetify/lib/util/colors'
 
 export default {
     computed: {
+        XSI() {
+            return C.XSI;
+        },
         SMI() {
             return C.SMI;
         },
@@ -15,6 +18,9 @@ export default {
         },
         XLI() {
             return C.XLI;
+        },
+        XXLI() {
+            return C.XXLI;
         },
         currentWindowHeight() {
             return (window.innerHeight - 92);

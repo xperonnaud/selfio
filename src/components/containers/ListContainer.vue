@@ -34,9 +34,9 @@
               <x-img
                 v-if="currentRouteTitle === 'Gear' && item.category && xGearCategory(item.category)"
                 :src="xGearCategory(item.category).icon"
-                :width="21"
-                :height="21"
-                style="margin-right: 1px;"
+                :width="SMI"
+                :height="SMI"
+                style="margin-right: 2px;"
                 :tooltipText="`<strong>${xGearCategory(item.category).title}</strong>`+(xGearCategory(item.category).description ? '<br>'+xGearCategory(item.category).description : '')"
                 isCategory
               ></x-img>
@@ -46,8 +46,8 @@
               <x-img
                 v-else-if="item.activity && xActivity(item.activity)"
                 :src="xActivity(item.activity).icon"
-                :width="24"
-                :height="24"
+                :width="LGI"
+                :height="LGI"
                 :tooltipText="xActivity(item.activity).title"
               ></x-img>
             </v-list-item-avatar>
@@ -166,7 +166,10 @@
           ></v-divider>
         </template>
 
-        <v-list-item v-show="(items.length <= 0)" :key="`empty-list-${currentRouteName}`">
+        <v-list-item
+          v-show="(items.length <= 0)"
+          :key="`empty-list-${currentRouteName}`"
+        >
           <v-list-item-content>
             <empty-list
               :label="`Add ${currentRouteName}`"
@@ -177,7 +180,10 @@
           </v-list-item-content>
         </v-list-item>
 
-        <v-list-item v-show="(filteredItems.length <= 0) && !(items.length <= 0)" :key="`no-results-list-${currentRouteName}`">
+        <v-list-item
+          v-show="(filteredItems.length <= 0) && !(items.length <= 0)"
+          :key="`no-results-list-${currentRouteName}`"
+        >
           <v-list-item-content>
             <empty-list
               label="No results"

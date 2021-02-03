@@ -129,19 +129,19 @@
                           :background-color="xTabsColor"
                           fixed-tabs
                           dense
-                          class="rounded"
+                          style="border-radius: 4px 4px 0 0"
                         >
-                          <v-tab class="rounded">
+                          <v-tab>
                             <v-icon small v-text="'mdi-chart-bar'" />
                           </v-tab>
-                          <v-tab class="rounded">
+                          <v-tab>
                             <v-icon small v-text="'mdi-chart-donut'" :rotate="-90" />
                           </v-tab>
 
                           <v-tab-item>
                             <v-responsive
                               class="overflow-y-auto pr-3 "
-                              :height="550"
+                              :height="currentWindowHeight - 212"
                             >
                               <v-list
                                 v-if="inventoryGearList && inventoryGearList.length > 0"
@@ -153,9 +153,9 @@
                                   <v-list-item :key="`gear-type-stat-${gearCategoryStat.id}`" class="pa-0">
                                     <v-list-item-avatar
                                       v-bind:class="['x-avatar my-0 ml-3 mr-1 d-flex justify-center']"
-                                      width="30"
-                                      min-width="30"
-                                      height="30"
+                                      :width="XXLI"
+                                      :min-width="XXLI"
+                                      :height="XXLI"
                                       :style="gearCategoryStat.id ? 'border: 1px solid '+categoryColor(gearCategoryStat.id)+' !important;'
                                         : 'border: 1px solid '+categoryColor()+' !important;'"
                                     >
@@ -163,8 +163,8 @@
                                         v-if="gearCategoryStat.id && xGearCategory(gearCategoryStat.id) && objFilter(gearCategories, 'id', parseInt(gearCategoryStat.id))[0]"
                                         :src="objFilter(gearCategories, 'id', parseInt(gearCategoryStat.id))[0].icon"
                                         :tooltipText="xGearCategory(gearCategoryStat.id).title"
-                                        :width="15"
-                                        :height="15"
+                                        :width="XSI"
+                                        :height="XSI"
                                         isCategory
                                       ></x-img>
 
@@ -223,7 +223,7 @@
                                       <div class="d-flex justify-center">
                                         <v-icon
                                           :color="navItemColor('gear')"
-                                          v-text="'mdi-pickaxe'"
+                                          v-text="'mdi-knife-military'"
                                           :size="XLI"
                                           class="mx-auto"
                                         ></v-icon>
@@ -244,10 +244,10 @@
                             </v-responsive>
                           </v-tab-item>
 
-                          <v-tab-item>
+                          <v-tab-item class="rounded">
                             <v-responsive
-                                    class="overflow-y-auto pr-3 "
-                                    :height="300"
+                              class="overflow-y-auto"
+                              :height="currentWindowHeight - 212"
                             >
                               <v-row v-if="inventoryGearList.length <= 0">
                                 <v-col cols="12">
@@ -255,18 +255,18 @@
                                     <div class="pa-12">
                                       <div class="d-flex justify-center">
                                         <v-icon
-                                                :color="navItemColor('gear')"
-                                                v-text="'mdi-pickaxe'"
-                                                :size="XLI"
-                                                class="mx-auto"
+                                          :color="navItemColor('gear')"
+                                          v-text="'mdi-knife-military'"
+                                          :size="XLI"
+                                          class="mx-auto"
                                         ></v-icon>
                                       </div>
 
                                       <v-btn
-                                              :color="navItemColor('gear')"
-                                              class="my-3"
-                                              outlined
-                                              @click.stop="editInventory()"
+                                        :color="navItemColor('gear')"
+                                        class="my-3"
+                                        outlined
+                                        @click.stop="editInventory()"
                                       >
                                         <span v-bind:class="['text-body-2',fontShadeColor]" v-text="'Add Gear'" />
                                       </v-btn>
@@ -276,23 +276,23 @@
                               </v-row>
 
                               <x-pie-chart
-                                      v-else-if="isMounted && !isLoadingPieData && !isEditing  && pieChart.labels.length > 0 && pieChart.datasets.length > 0"
-                                      :key="`pie-chart-${updatedItem.title}-${gearCategoryStats.length}`"
-                                      class="mx-3 my-6"
-                                      :labels="pieChart.labels"
-                                      :datasets="pieChart.datasets"
-                                      style="max-height: 203px !important"
+                                v-else-if="isMounted && !isLoadingPieData && !isEditing  && pieChart.labels.length > 0 && pieChart.datasets.length > 0"
+                                :key="`pie-chart-${updatedItem.title}-${gearCategoryStats.length}`"
+                                class="mx-3 my-6"
+                                :labels="pieChart.labels"
+                                :datasets="pieChart.datasets"
+                                style="max-height: 203px !important"
                               ></x-pie-chart>
 
                               <v-card
-                                      v-else
-                                      class="pa-6 my-8 d-flex justify-center align-center elevation-0"
-                                      style="max-height: 203px !important"
+                                v-else
+                                class="pa-6 my-8 d-flex justify-center align-center elevation-0"
+                                style="max-height: 203px !important"
                               >
                                 <v-progress-circular
-                                        indeterminate
-                                        size="48"
-                                        :color="currentColor"
+                                  indeterminate
+                                  size="48"
+                                  :color="currentColor"
                                 ></v-progress-circular>
                               </v-card>
                             </v-responsive>
@@ -309,7 +309,7 @@
                                   <div class="d-flex justify-center">
                                     <v-icon
                                       :color="navItemColor('gear')"
-                                      v-text="'mdi-pickaxe'"
+                                      v-text="'mdi-knife-military'"
                                       :size="XLI"
                                       class="mx-auto"
                                     ></v-icon>
@@ -364,9 +364,9 @@
                                   <template v-for="(gearCategoryStat) in sortedGearCategoryStats">
                                     <v-list-item :key="`gear-type-stat-${gearCategoryStat.id}`" class="pa-0" style="min-height: 36px;">
                                       <v-list-item-avatar
-                                        width="30"
-                                        min-width="30"
-                                        height="30"
+                                        :width="XXLI"
+                                        :min-width="XXLI"
+                                        :height="XXLI"
                                         v-bind:class="['x-avatar my-0 ml-3 mr-1 d-flex justify-center']"
                                         :style="gearCategoryStat.id ? 'border: 2px solid '+categoryColor(gearCategoryStat.id)+' !important;'
                                           : 'border: 1px solid '+categoryColor()+' !important;'"
@@ -375,8 +375,8 @@
                                           v-if="gearCategoryStat.id && xGearCategory(gearCategoryStat.id) && objFilter(gearCategories, 'id', parseInt(gearCategoryStat.id))[0]"
                                           :src="objFilter(gearCategories, 'id', parseInt(gearCategoryStat.id))[0].icon"
                                           :tooltipText="xGearCategory(gearCategoryStat.id).title"
-                                          :width="15"
-                                          :height="15"
+                                          :width="XSI"
+                                          :height="XSI"
                                           isCategory
                                         />
 

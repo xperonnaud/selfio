@@ -16,18 +16,18 @@
 
     <v-list-item-avatar
       v-bind:class="['x-avatar my-0 mr-2 d-flex justify-center']"
-      width="32"
-      min-width="32"
-      height="32"
+      :width="XXLI"
+      :min-width="XXLI"
+      :height="XXLI"
       :style="xGear(gear.gear_id).category ? 'border: 2px solid '+categoryColor(xGear(gear.gear_id).category)+' !important;'
-                : 'border: 1px solid '+categoryColor()+' !important;'"
+        : 'border: 1px solid '+categoryColor()+' !important;'"
     >
       <x-img
         v-if="xGear(gear.gear_id) && xGear(gear.gear_id).category"
         :src="xGearCategory(xGear(gear.gear_id).category).icon"
         :tooltipText="xGearCategory(xGear(gear.gear_id).category).title"
-        :width="16"
-        :height="16"
+        :width="XSI"
+        :height="XSI"
         isCategory
       ></x-img>
 
