@@ -24,7 +24,6 @@
         :tooltipText="xGearCategory(gear.category).title"
         :width="XSI"
         :height="XSI"
-        style="margin-right: 1px;"
         isCategory
       ></x-img>
 

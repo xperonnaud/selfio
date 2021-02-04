@@ -331,31 +331,37 @@
                   <v-icon v-text="'mdi-arrow-left'" />
                 </v-btn>
 
-                <v-toolbar-title v-text="'Gear'" v-bind:class="[{'pa-0':isMobile}]" />
+                <v-toolbar-title v-bind:class="[{'pa-0':isMobile}]">
+                  <v-list-item two-line>
+                    <v-list-item-content class="pa-0">
+                      <v-list-item-title v-text="'Gear checklist'" />
 
-                <v-spacer />
+                      <v-list-item-subtitle>
+                        <div class="d-flex">
+                          <div>
+                            <span class="font-weight-regular">
+                              <span v-bind:class="[navItemColorText('inventories')]" v-text="updatedItem.packed_gear ? updatedItem.packed_gear.length : 0" />
+                              <span v-text="' / '" />
+                              <span v-bind:class="[navItemColorText('inventories')]" v-text="originalInventoryGear.length" />
+                              <span v-text="' packed'" />
+                            </span>
+                          </div>
 
-                <div class="d-flex">
-                  <div>
-                    <span class="font-weight-regular">
-                      <span v-bind:class="['text-body-1',navItemColorText('inventories')]" v-text="updatedItem.packed_gear ? updatedItem.packed_gear.length : 0" />
-                      <span class="text-tiny-dimmed" v-text="' / '" />
-                      <span v-bind:class="['text-body-1',navItemColorText('inventories')]" v-text="originalInventoryGear.length" />
-                      <span class="text-body-1" v-text="' packed'" />
-                    </span>
-                  </div>
-
-                  <div class="ml-1">
-                    <v-slide-x-transition>
-                      <v-icon
-                        v-show="packedGearRatio && packedGearRatio===100"
-                        v-text="'mdi-check'"
-                        :color="navItemColor('inventories')"
-                        small
-                      />
-                    </v-slide-x-transition>
-                  </div>
-                </div>
+                          <div class="ml-1">
+                            <v-slide-x-transition>
+                              <v-icon
+                                v-show="packedGearRatio && packedGearRatio===100"
+                                v-text="'mdi-check'"
+                                :color="navItemColor('inventories')"
+                                small
+                              />
+                            </v-slide-x-transition>
+                          </div>
+                        </div>
+                      </v-list-item-subtitle>
+                    </v-list-item-content>
+                  </v-list-item>
+                </v-toolbar-title>
 
                 <v-spacer />
 
