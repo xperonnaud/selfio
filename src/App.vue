@@ -341,24 +341,23 @@
   }
 
   .primary-gradient-color {
-    background-image: linear-gradient(45deg, #9C27B0, #2196F3, #009688);
+    background-image: linear-gradient(45deg, #009688, #2196F3, #9C27B0);
   }
 
   .primary-gradient-color-text {
-    background: -webkit-linear-gradient(45deg, #9C27B0, #2196F3, #009688);
+    background: -webkit-linear-gradient(45deg, #009688, #2196F3, #9C27B0);
     -webkit-background-clip: text !important;
     -webkit-text-fill-color: transparent;
   }
 
   .is-dark {
-
     .primary-gradient-color {
       color: white !important;
-      /*background-image: linear-gradient(45deg, #E040FB, #448AFF, #64FFDA);*/
+      /*background-image: linear-gradient(45deg, #64FFDA, #448AFF, #E040FB);*/
     }
 
     .primary-gradient-color-text {
-      background: -webkit-linear-gradient(45deg, #E040FB, #448AFF, #64FFDA);
+      background: -webkit-linear-gradient(45deg, #64FFDA, #448AFF, #E040FB);
     }
 
     .app-nav-list-item {
