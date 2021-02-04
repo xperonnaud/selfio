@@ -13,13 +13,15 @@
         <v-list-item-icon v-bind:class="[{'mr-7':!isMobile}]">
           <v-icon
             v-text="'mdi-cogs'"
-            class="primary-gradient-color-text"
+            :color="shadeColor"
             :size="LGI"
           ></v-icon>
         </v-list-item-icon>
 
         <v-list-item-content>
-          <v-list-item-title class="text-h5" v-text="'PackHub'" />
+          <v-list-item-title>
+            <span v-text="'PackHub.io'" class="text-h5 primary-gradient-color-text" />
+          </v-list-item-title>
         </v-list-item-content>
       </v-list-item>
     </template>

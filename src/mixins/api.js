@@ -104,19 +104,26 @@ export default {
                 this.isAppLoading = false;
             }
         },
-        async handleResponse(responseType, message, response) {
-            const ERROR_STR = 'Request failed with status code ';
-            let hasError = (responseType === 'error');
-            let errorCode = (hasError && message.includes(ERROR_STR)) ? message.replace(ERROR_STR,'') : null;
+        async handleResponse(responseType, message, response, action) {
 
-            if(responseType !== 'success' && (errorCode === '401' || errorCode === 401)) {
-                self.$store.commit('updateApiAccessToken', null);
-                self.$store.commit('updateApiRefreshToken', null);
+            if(this.isSessionExpiredResponse(responseType, message) || action === 'login') {
+                this.$store.commit('updateApiAccessToken', null);
+                this.$store.commit('updateApiRefreshToken', null);
                 this.$store.commit("updateUiIsSessionExpired", true);
+
+                if(action === 'login')
+                    await this.logout();
             }
 
             if(message)
                 this.updateSnackbar(responseType, message);
+        },
+        isSessionExpiredResponse(responseType, message) {
+            const ERROR_STR = 'Request failed with status code ';
+            let hasError = (responseType === 'error');
+            let errorCode = (hasError && message.includes(ERROR_STR)) ? message.replace(ERROR_STR,'') : null;
+
+            return (responseType !== 'success' && (errorCode === '401' || errorCode === 401));
         },
         async asyncForEach(array, callback) {
             for (let index = 0; index < array.length; index++) {
@@ -148,7 +155,7 @@ export default {
                     await self.handleResponse('success');
                 }
             }).catch(async function (error) {
-                await self.handleResponse('error', 'Incorrect credentials', error);
+                await self.handleResponse('error', 'Incorrect credentials', error, 'login');
             })
         },
         async api_get_user() {

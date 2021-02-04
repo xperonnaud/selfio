@@ -4,14 +4,15 @@
     v-model="snackbarDisplay"
     :dark="apiAccessToken ? isDark : true"
     :timeout="(snackbarTimeout !== 0) ? snackbarTimeout : -1"
-    :color="darkColor(snackColor)"
     v-bind:class="[
       'x-snack-bar',
       'elevation-3',
-      {'is-small':isMobile}
+      ('x-'+snackbarType),
+      {'is-small':isMobile},
+      {'is-dark':isDark},
     ]"
+    pill
     bottom
-    outlined
   >
     <span v-text="snackbarText" />
 
@@ -37,14 +38,6 @@
       isMounted: false,
     }),
     computed: {
-      snackColor() {
-        if(this.snackbarType === 'success')
-          return 'green';
-        if(this.snackbarType === 'error')
-          return 'red';
-
-          return 'primary';
-      },
       textWordCount() {
         if(this.snackbarText)
           return this.snackbarText.split(' ').length;
@@ -54,12 +47,6 @@
       snackbarTimeout() {
         return ((2 + (this.textWordCount % 4)) * 1000); // 1 second => 4 words
       },
-      snackBarColor() {
-        if(!this.snackbarType)
-          return this.darkColor('primary');
-
-        return this.darkColor(this.snackbarType);
-      }
     },
     mounted() {
       this.isMounted = true;
@@ -72,11 +59,19 @@
 
   .x-snack-bar {
 
-    &.is-small {
-
+    &.x-success {
       .v-snack__wrapper {
-        //margin-top: 0;
-        //border-radius: 0 0 4px 4px;
+        background-color :rgba(28, 28, 28, 0.75) !important;
+      }
+    }
+
+    &.x-error {
+      .v-snack__wrapper {
+        background-color :rgba(183, 28, 28, 0.75) !important;
+
+        &.is-dark {
+          background-color :rgba(255, 82, 82, 0.9) !important;
+        }
       }
     }
   }
