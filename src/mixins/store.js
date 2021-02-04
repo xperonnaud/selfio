@@ -289,6 +289,9 @@ export default {
         },
     },
     methods: {
+        copyVar(val) {
+            return JSON.parse(JSON.stringify(val));
+        },
         dynamicWeightUnit(weight) {
             switch(this.weightUnit) {
                 case 'g':

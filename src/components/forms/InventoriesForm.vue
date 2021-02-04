@@ -1252,7 +1252,7 @@
       this.initWindowHeight();
 
       if(this.item)
-        this.updatedItem = JSON.parse(JSON.stringify(this.item));
+        this.updatedItem = this.copyVar(this.item);
 
       this.isMounted = true;
     }

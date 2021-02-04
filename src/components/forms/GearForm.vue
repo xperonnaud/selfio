@@ -308,7 +308,7 @@
       this.isLoading = true;
 
       if(this.item)
-        this.updatedItem = JSON.parse(JSON.stringify(this.item));
+        this.updatedItem = this.copyVar(this.item);
 
       await this.fixUpdatedItem();
 

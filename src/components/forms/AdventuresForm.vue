@@ -810,7 +810,7 @@
         this.listHeight = (window.innerHeight - 160);
       },
       async initUpdatedItem() {
-        this.updatedItem = JSON.parse(JSON.stringify(this.item));
+        this.updatedItem = this.copyVar(this.item);
       },
       async fixUpdatedItem() {
         if(!this.isUpdatedItemFixed) {
