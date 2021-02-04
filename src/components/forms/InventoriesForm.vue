@@ -907,15 +907,17 @@
     }),
     computed: {
       selectedInventoryGear() {
-        if(typeof this.selectedInventoryGearIndex != 'number' || !this.updatedItem.inventory_gear)
+        if(typeof this.selectedInventoryGearIndex != 'number' || !this.currentInventoryGear)
           return null;
-        return (this.updatedItem.inventory_gear[this.selectedInventoryGearIndex]);
+        return (this.currentInventoryGear[this.selectedInventoryGearIndex]);
       },
       hasInventoryGear() {
         return (this.currentInventoryGear && this.currentInventoryGear.length >= 1);
       },
       currentInventoryGear() {
-        return this.updatedItem.inventory_gear || [];
+        if(this.updatedItem && this.updatedItem.inventory_gear && this.updatedItem.inventory_gear.length > 0)
+          return this.updatedItem.inventory_gear;
+        return [];
       },
       filteredGear() {
         if(this.isMounted)
@@ -1045,8 +1047,7 @@
             this.updatedItem.inventory_gear = [];
 
           let len = this.updatedItem.inventory_gear.length;
-          // Vue.set(this.updatedItem.inventory_gear, len, newInventoryGear);
-          Object.assign(this.updatedItem.inventory_gear, { [len] : newInventoryGear });
+          Vue.set(this.updatedItem.inventory_gear, len, newInventoryGear);
         }
       },
       removeGear(gear) {
@@ -1064,7 +1065,7 @@
         let consumable = 0;
         let wornConsumable = 0;
 
-        this.updatedItem.inventory_gear.forEach(function(inventoryGear) {
+        this.currentInventoryGear.forEach(function(inventoryGear) {
           let gearId = inventoryGear.gear_id;
           let gearIndex = gearRefs[gearId];
           let _gear = self.gearList[gearIndex];
@@ -1128,8 +1129,10 @@
             }
           });
 
-          if(this.originalGearListInitialized === false)
+          if(this.originalGearListInitialized === false) {
             this.originalGearList = [...self.inventoryGearList];
+            this.originalGearListInitialized = true;
+          }
         }
       },
       initWindowHeight() {
@@ -1158,17 +1161,13 @@
 
         return sum;
       },
-      initInventoryStats() {
+      async initInventoryStats() {
         this.inventoryTotalItems = this.sumCheckedGearProperty('quantity_packed');
         this.inventoryTotalWeight = this.sumCheckedGearProperty('weight');
         this.inventoryTotalPrice = this.sumCheckedGearProperty('price');
       }
     },
     watch: {
-      inventoryGearList(val) {
-        if(this.isMounted)
-          this.initInventoryStats();
-      },
       isLoading(val) {
         if(this.isMounted)
           this.$emit('update:isFormLoading',val);
@@ -1181,15 +1180,20 @@
         if(this.isMounted)
           this.$emit('update:isFormValid',val);
       },
-      isMounted(newVal, oldVal) {
-        if(newVal === true && oldVal === false)
+      async isMounted(newVal, oldVal) {
+        if(newVal === true && oldVal === false) {
           this.$emit('update:isFormMounted',newVal);
+          await this.initGearList();
+        }
       },
-      async currentInventoryGear() {
-        await this.initGearList();
-        await this.initGearCategoryStats();
+      currentInventoryGear: {
+        handler: async function() {
+          await this.initGearCategoryStats();
+          await this.initInventoryStats();
+        },
+        deep: true
       },
-      async isEditing(newVal) {
+      isEditing(newVal) {
         this.isLoading = true;
         this.$emit('update:editMode',newVal);
         this.isLoading = false;

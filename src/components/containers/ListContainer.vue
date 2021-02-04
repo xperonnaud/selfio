@@ -36,7 +36,6 @@
                 :src="xGearCategory(item.category).icon"
                 :width="SMI"
                 :height="SMI"
-                style="margin-right: 2px;"
                 :tooltipText="`<strong>${xGearCategory(item.category).title}</strong>`+(xGearCategory(item.category).description ? '<br>'+xGearCategory(item.category).description : '')"
                 isCategory
               ></x-img>

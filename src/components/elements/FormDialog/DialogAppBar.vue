@@ -2,7 +2,7 @@
 
     <v-app-bar
       v-if="isMounted"
-      :color="editMode ? 'secondary' : xTabsColor"
+      :color="editMode ? xOverlayColor : xTabsColor"
       :dense="editMode"
       :class="[(isMobile ? 'px-0' : 'px-3')]"
     >
@@ -21,12 +21,12 @@
           <v-list-item two-line>
             <v-list-item-content class="pa-0">
               <v-list-item-title>
-                <span v-if="item">{{item.title | capitalizeFilter}}</span>
+                <span v-if="item" :class="[{'text-tiny-dimmed':editMode}]">{{item.title | capitalizeFilter}}</span>
                 <span v-else>{{ currentRouteName | singularFilter | capitalizeFilter }}</span>
               </v-list-item-title>
 
               <v-list-item-subtitle>
-                <span v-if="item" v-text="formDialogType" />
+                <span v-if="item" :class="[{'text-tiny-dimmed':editMode}]" v-text="formDialogType" />
                 <span v-else v-text="'new'" />
               </v-list-item-subtitle>
             </v-list-item-content>
@@ -54,7 +54,7 @@
         icon
       >
         <v-icon
-          :size="editMode ? LGI : XLI"
+          :size="editMode ? MDI : XLI"
           v-text="'mdi-check'"
         />
       </v-btn>

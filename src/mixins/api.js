@@ -109,8 +109,11 @@ export default {
             let hasError = (responseType === 'error');
             let errorCode = (hasError && message.includes(ERROR_STR)) ? message.replace(ERROR_STR,'') : null;
 
-            if(responseType !== 'success' && (errorCode === '401' || errorCode === 401))
+            if(responseType !== 'success' && (errorCode === '401' || errorCode === 401)) {
+                self.$store.commit('updateApiAccessToken', null);
+                self.$store.commit('updateApiRefreshToken', null);
                 this.$store.commit("updateUiIsSessionExpired", true);
+            }
 
             if(message)
                 this.updateSnackbar(responseType, message);
