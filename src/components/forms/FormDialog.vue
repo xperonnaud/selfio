@@ -15,7 +15,7 @@
       :color="xBackgroundColor"
     >
       <dialog-app-bar
-        v-bind:item="item"
+        :item="item"
         v-bind:hasItemRelations="hasItemRelations"
         v-bind:editMode.sync="editMode"
         v-bind:isFormMounted.sync="isFormMounted"
@@ -151,9 +151,6 @@
             break;
 
           case 'inventories':
-            // if(self.inventoryGear[self.item.id] && self.inventoryGear[self.item.id].length > 0) {
-            //   Object.assign(relations, {['gear'] : self.inventoryGear[self.item.id]});
-            // }
             if(self.inventoryAdventures[self.item.id] && self.inventoryAdventures[self.item.id].length > 0) {
               Object.assign(relations, {['adventures'] : self.inventoryAdventures[self.item.id]});
             }

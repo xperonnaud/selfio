@@ -810,10 +810,7 @@
         this.listHeight = (window.innerHeight - 160);
       },
       async initUpdatedItem() {
-        let self = this;
-        for (const [key, value] of Object.entries(self.item)) {
-          Vue.set(self.updatedItem, key, value);
-        }
+        this.updatedItem = JSON.parse(JSON.stringify(this.item));
       },
       async fixUpdatedItem() {
         if(!this.isUpdatedItemFixed) {
@@ -964,7 +961,7 @@
       this.isLoading = true;
       this.initWindowHeight();
 
-      if(typeof this.item != 'undefined' && this.item) {
+      if(this.item) {
         await this.initUpdatedItem();
         await this.initInventoryGear();
       }

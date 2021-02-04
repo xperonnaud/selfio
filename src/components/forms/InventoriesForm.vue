@@ -650,13 +650,13 @@
                     <template v-for="(gear, index) in filteredGear">
                       <inventory-gear-list-item
                         :key="`inventory-gear-${gear.id}-${index}`"
-                        :gear.sync="gear"
-                        :index.sync="index"
-                        :inventoryGearList.sync="inventoryGearList"
+                        :gear="gear"
+                        :index="index"
+                        :inventoryGearList="inventoryGearList"
                         :inventoryGear="inventoryGearItem(gear.id)"
-                        v-bind:gearMenu.sync="inventoryGearMenu"
-                        v-bind:inventoryGearIndex.sync="selectedInventoryGearIndex"
-                        v-bind:inventoryGearQuantity.sync="selectedInventoryGearMaxQuantity"
+                        :gearMenu="inventoryGearMenu"
+                        :inventoryGearIndex="selectedInventoryGearIndex"
+                        :inventoryGearQuantity="selectedInventoryGearMaxQuantity"
                         v-on:itemAction="gear.quantity_owned > 0 ? gearListItemAction(gear) : null"
                       ></inventory-gear-list-item>
 
@@ -1011,7 +1011,7 @@
       },
       async closeEditor() {
         await this.initGearList();
-        this.isEditing = false
+        this.isEditing = false;
       },
       unSelectInventoryGear() {
         this.selectedInventoryGearIndex = null;
@@ -1046,8 +1046,7 @@
           if(!this.updatedItem.inventory_gear)
             this.updatedItem.inventory_gear = [];
 
-          let len = this.updatedItem.inventory_gear.length;
-          Vue.set(this.updatedItem.inventory_gear, len, newInventoryGear);
+          this.updatedItem.inventory_gear.push(newInventoryGear);
         }
       },
       removeGear(gear) {
@@ -1252,8 +1251,8 @@
     async mounted() {
       this.initWindowHeight();
 
-      if(typeof this.item != 'undefined' && this.item)
-        Object.assign(this.updatedItem, this.item);
+      if(this.item)
+        this.updatedItem = JSON.parse(JSON.stringify(this.item));
 
       this.isMounted = true;
     }
