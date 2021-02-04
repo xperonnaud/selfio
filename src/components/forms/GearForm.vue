@@ -306,8 +306,9 @@
     },
     async mounted() {
       this.isLoading = true;
+
       if(this.item)
-        Object.assign(this.updatedItem, this.item);
+        this.updatedItem = JSON.parse(JSON.stringify(this.item));
 
       await this.fixUpdatedItem();
 
