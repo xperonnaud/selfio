@@ -169,9 +169,7 @@
           <v-list-item-content>
             <empty-list
               :label="`Add ${currentRouteName}`"
-              :icon="currentNavItem.icon"
-              :color="currentColor"
-              isLink
+              :color="navItemColor(currentRouteName)"
             ></empty-list>
           </v-list-item-content>
         </v-list-item>
@@ -181,11 +179,7 @@
           :key="`no-results-list-${currentRouteName}`"
         >
           <v-list-item-content>
-            <empty-list
-              label="No results"
-              icon="mdi-gauge-empty"
-              :color="navItemColor(currentRouteName)"
-            ></empty-list>
+            <empty-list :color="navItemColor(currentRouteName)" />
           </v-list-item-content>
         </v-list-item>
     </v-list>

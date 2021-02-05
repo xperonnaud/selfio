@@ -16,7 +16,7 @@
       :width="XXLI"
       :min-width="XXLI"
       :height="XXLI"
-      :style="'border: 2px solid '+(gear.quantity_owned === 0 ? xInputColor : categoryColor(gear.category))+' !important;'"
+      :style="gear.category ? 'border: 2px solid '+(gear.quantity_owned === 0 ? xInputColor : categoryColor(gear.category))+' !important;' : ''"
     >
       <x-img
         v-if="gear.category && xGearCategory(gear.category)"

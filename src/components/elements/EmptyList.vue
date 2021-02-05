@@ -6,29 +6,16 @@
         <div class="pa-12">
           <div class="d-flex justify-center">
             <v-icon
-              v-if="icon"
-              :color="color"
-              v-text="icon"
-              :size="LGI"
-              class="mx-auto"
+              v-text="icon || 'mdi-gauge-empty'"
+              :color="color ? color : null"
+              :size="XXLI"
+              :class="['mx-auto', {'primary-gradient-color-text':!color}]"
             ></v-icon>
           </div>
 
-          <v-btn
-            v-if="isLink && label"
-            :color="color"
-            class="my-3"
-            outlined
-            @click="openPostFormDialog()"
-          >
-            <span v-bind:class="['text-body-2',fontShadeColor]" v-text="label" />
-          </v-btn>
+          <div class="ma-3" v-text="'This list is empty.'" />
 
-          <div
-            v-else-if="label"
-            class="text-body-2"
-            v-text="label"
-          />
+          <div v-if="label" class="text-caption" v-text="label" />
         </div>
       </div>
     </v-col>
@@ -41,10 +28,6 @@
   export default {
     name: 'empty-list',
     props: {
-      isLink: {
-        type: Boolean,
-        default: null
-      },
       label: {
         type: String,
         default: null
@@ -61,3 +44,15 @@
   }
 
 </script>
+
+<style lang="scss">
+
+  .empty-list-direction-icon {
+    transform: rotate(135deg);
+
+    .is-small {
+      transform: rotate(135deg);
+    }
+  }
+
+</style>

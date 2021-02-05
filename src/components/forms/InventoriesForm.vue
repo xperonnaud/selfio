@@ -182,16 +182,11 @@
                                 </template>
                               </v-list>
 
-                              <v-row v-else>
-                                <v-col cols="12">
-                                  <v-sheet
-                                    class="d-flex align-center justify-center text--disabled"
-                                    :height="desktopResponsiveHeight"
-                                  >
-                                    <div v-text="'This inventory is empty.'" />
-                                  </v-sheet>
-                                </v-col>
-                              </v-row>
+                              <empty-list
+                                v-else
+                                label="Add gear to your inventory."
+                                :color="navItemColor('gear')"
+                              ></empty-list>
                             </v-responsive>
                           </v-tab-item>
 
@@ -200,16 +195,11 @@
                               class="overflow-y-auto"
                               :height="mobileResponsiveHeight"
                             >
-                              <v-row v-if="inventoryGearList.length <= 0">
-                                <v-col cols="12">
-                                  <v-sheet
-                                    class="d-flex align-center justify-center text--disabled"
-                                    :height="desktopResponsiveHeight"
-                                  >
-                                    <div v-text="'This inventory is empty.'" />
-                                  </v-sheet>
-                                </v-col>
-                              </v-row>
+                              <empty-list
+                                v-if="inventoryGearList.length <= 0"
+                                label="This inventory is empty."
+                                :color="navItemColor('gear')"
+                              ></empty-list>
 
                               <x-pie-chart
                                 v-else-if="isMounted && !isLoadingPieData && !isEditing  && pieChart.labels.length > 0 && pieChart.datasets.length > 0"
@@ -238,16 +228,12 @@
 
                       <v-col v-else-if="inventoryGearList" cols="12" class="py-0 rounded">
                         <v-sheet class="rounded shadow-bottom">
-                          <v-row v-show="inventoryGearList.length <= 0">
-                            <v-col cols="12">
-                              <v-sheet
-                                class="d-flex align-center justify-center text--disabled"
-                                :height="150"
-                              >
-                                <div v-text="'This inventory is empty.'" />
-                              </v-sheet>
-                            </v-col>
-                          </v-row>
+
+                          <empty-list
+                            v-if="inventoryGearList.length <= 0"
+                            label="This inventory is empty."
+                            :color="navItemColor('gear')"
+                          ></empty-list>
 
                           <v-row v-show="inventoryGearList.length > 0">
                             <v-col cols="5">
@@ -728,6 +714,7 @@
 
   const _ = require('lodash');
 
+  import EmptyList from "@/components/elements/EmptyList";
   import InventoryGearCard from "@/components/elements/Cards/InventoryGearCard";
   import XStackedProgressCard from "@/components/elements/StackedProgressCard/XStackedProgressCard";
   import XTitleField from "@/components/inputs/fields/XTitleField";
@@ -746,6 +733,7 @@
   export default {
     name: 'inventories-form',
     components: {
+      EmptyList,
       InventoryGearCard,
       XStackedProgressCard,
       InventoryGearListItem,
