@@ -1,7 +1,7 @@
 <template>
 
   <v-card
-    v-bind:class="['shadow-bottom max-width']"
+    v-bind:class="['max-width']"
     :color="xCardColor"
   >
     <v-list class="py-0">

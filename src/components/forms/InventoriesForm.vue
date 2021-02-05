@@ -381,9 +381,9 @@
                         <div>
                           <span
                             v-bind:class="[currentColorText]"
-                            v-text="currentInventoryGear.length || 0"
+                            v-text="inventoryTotalItems || 0"
                           ></span>
-                          <span v-text="' item'+(currentInventoryGear.length>1?'s':'')" class="text-tiny" />
+                          <span v-text="' item'+(inventoryTotalItems>1?'s':'')" class="text-tiny" />
                         </div>
                       </div>
                     </v-list-item-subtitle>
@@ -1112,17 +1112,18 @@
           return sum;
 
         this.updatedItem.inventory_gear.forEach(function(inventoryGear) {
+          console.log('sumCheckedGearProperty',prop);
           let gearId = inventoryGear.gear_id;
           let gearIndex = self.gearReferences[gearId];
           let _gear = self.gearList[gearIndex];
 
-          if(_gear && (typeof _gear[prop] === 'number') && (inventoryGear.gear_quantity_packed > 0)) {
-            if(prop !== 'quantity_packed') {
-              sum += (_gear[prop] * inventoryGear.gear_quantity_packed);
-            } else {
+          if(inventoryGear.gear_quantity_packed > 0)
+            if((prop === 'quantity_packed')) {
               sum += (inventoryGear.gear_quantity_packed > 0 ? 1 : 0);
+
+            } else if (_gear && (typeof _gear[prop] === 'number')){
+              sum += (_gear[prop] * inventoryGear.gear_quantity_packed);
             }
-          }
         });
 
         return sum;
