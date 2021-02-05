@@ -9,13 +9,13 @@
     ]"
   >
     <v-app id="inspire">
-      <app-header v-if="apiAccessToken" />
+      <app-header v-if="apiAccessToken && !isAppLoading" />
 
-      <app-nav v-if="apiAccessToken"/>
+      <app-nav v-if="apiAccessToken && !isAppLoading"/>
 
-      <app-body />
+      <app-body v-if="!isAppLoading" />
 
-      <app-footer v-if="apiAccessToken" />
+      <app-footer v-if="apiAccessToken && !isAppLoading" />
 
       <v-overlay :value="isAppLoading">
         <v-progress-circular

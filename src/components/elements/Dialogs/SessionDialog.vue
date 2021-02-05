@@ -4,6 +4,7 @@
     v-if="isMounted"
     v-model="dialog"
     :max-width="isMobile ? '300' : '450'"
+    :transition="isMobile ? 'slide-x-transition' : 'fade-transition'"
     persistent
   >
     <div class="session-dialog">

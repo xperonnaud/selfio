@@ -499,7 +499,6 @@ export default {
         },
 
         fixInventory(inventory) {
-
             if(inventory.date_created)
                 delete inventory.date_created;
 

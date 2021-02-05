@@ -4,6 +4,7 @@
     v-if="isMounted && formDialogType === 'update'"
     v-model="pickerValue"
     :max-width="isMobile ? '300' : '450'"
+    :transition="isMobile ? 'slide-x-transition' : 'fade-transition'"
   >
     <template v-slot:activator="{ on, attrs }">
       <v-btn
