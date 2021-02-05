@@ -84,10 +84,7 @@
                       v-bind:class="[
                         'x-avatar',
                       ]"
-                      :style="isCategory ? (
-                        item.title!=='Unknown' ? 'border: 2px solid '+categoryColor(item.id)+' !important;'
-                          : 'border: 1px solid '+categoryColor()+' !important;'
-                        ): ''"
+                      :style="((isCategory && item.title!=='Unknown') ? 'border: 2px solid '+categoryColor(item.id)+' !important;' : '')"
                     >
                       <x-img
                         v-if="item.icon"

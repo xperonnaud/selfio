@@ -26,17 +26,14 @@
                 'x-avatar py-0 d-flex  justify-center',
                  (isMobile ? 'my-0 mr-3' : 'ml-2 mr-5'),
               ]"
-              :style="currentRouteTitle === 'Gear' ? (
-                item.category ? 'border: 2px solid '+categoryColor(item.category)+' !important;'
-                  : 'border: 1px solid '+categoryColor()+' !important;'
-                ): ''"
+              :style="((currentRouteTitle === 'Gear' && item.category) ? 'border: 2px solid '+categoryColor(item.category)+' !important;' : '')"
             >
               <x-img
                 v-if="currentRouteTitle === 'Gear' && item.category && xGearCategory(item.category)"
                 :src="xGearCategory(item.category).icon"
+                :tooltipText="`<strong>${xGearCategory(item.category).title}</strong>`+(xGearCategory(item.category).description ? '<br>'+xGearCategory(item.category).description : '')"
                 :width="SMI"
                 :height="SMI"
-                :tooltipText="`<strong>${xGearCategory(item.category).title}</strong>`+(xGearCategory(item.category).description ? '<br>'+xGearCategory(item.category).description : '')"
                 isCategory
               ></x-img>
 
@@ -45,9 +42,9 @@
               <x-img
                 v-else-if="item.activity && xActivity(item.activity)"
                 :src="xActivity(item.activity).icon"
+                :tooltipText="xActivity(item.activity).title"
                 :width="LGI"
                 :height="LGI"
-                :tooltipText="xActivity(item.activity).title"
               ></x-img>
             </v-list-item-avatar>
 

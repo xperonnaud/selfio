@@ -123,8 +123,7 @@
                                       :width="XXLI"
                                       :min-width="XXLI"
                                       :height="XXLI"
-                                      :style="gearCategoryStat.id ? 'border: 1px solid '+categoryColor(gearCategoryStat.id)+' !important;'
-                                        : 'border: 1px solid '+categoryColor()+' !important;'"
+                                      :style="gearCategoryStat.id ? 'border: 1px solid '+categoryColor(gearCategoryStat.id)+' !important;' : ''"
                                     >
                                       <x-img
                                         v-if="gearCategoryStat.id && xGearCategory(gearCategoryStat.id) && objFilter(gearCategories, 'id', parseInt(gearCategoryStat.id))[0]"
@@ -297,8 +296,7 @@
                                         :min-width="XXLI"
                                         :height="XXLI"
                                         v-bind:class="['x-avatar my-0 ml-3 mr-1 d-flex justify-center']"
-                                        :style="gearCategoryStat.id ? 'border: 2px solid '+categoryColor(gearCategoryStat.id)+' !important;'
-                                          : 'border: 1px solid '+categoryColor()+' !important;'"
+                                        :style="gearCategoryStat.id ? 'border: 2px solid '+categoryColor(gearCategoryStat.id)+' !important;' : ''"
                                       >
                                         <x-img
                                           v-if="gearCategoryStat.id && xGearCategory(gearCategoryStat.id) && objFilter(gearCategories, 'id', parseInt(gearCategoryStat.id))[0]"

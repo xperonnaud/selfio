@@ -39,10 +39,10 @@
     }),
     computed: {
       textWordCount() {
-        if(this.snackbarText)
-          return this.snackbarText.split(' ').length;
+        if(!this.snackbarText)
+          return 0;
 
-        return 0;
+        return this.snackbarText.split(' ').length;
       },
       snackbarTimeout() {
         return ((2 + (this.textWordCount % 4)) * 1000); // 1 second => 4 words
