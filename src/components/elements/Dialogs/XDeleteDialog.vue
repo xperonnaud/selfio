@@ -98,7 +98,7 @@
 
 <script>
 
-  import RelationChip from "@/components/elements/FormDialog/RelationChip";
+  import RelationChip from "@/components/elements/RelationChip";
 
   export default {
     name: 'x-delete-dialog',

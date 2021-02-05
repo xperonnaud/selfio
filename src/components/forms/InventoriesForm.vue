@@ -28,7 +28,7 @@
             <v-tab-item :key="'inventory-details'">
               <v-responsive
                 class="overflow-y-auto"
-                :height="isMobile ? maxDialogContentHeight : 535"
+                :height="isMobile ? maxDialogContentHeight : 540"
               >
                 <v-card flat :color="xBackgroundColor">
                   <v-card-text :class="{'py-1':isMobile}">
@@ -70,51 +70,17 @@
             <v-tab-item :key="'inventory-gear-balance'">
               <v-responsive
                 class="overflow-y-auto"
-                :height="isMobile ? maxDialogContentHeight : 535"
+                :height="isMobile ? maxDialogContentHeight : 540"
               >
                 <v-card flat :color="xBackgroundColor">
                   <v-card-text :class="{'py-1':isMobile}">
                     <v-row>
                       <v-col cols="12">
-                        <v-card
-                          v-bind:class="['shadow-bottom max-width']"
-                          :color="xCardColor"
-                        >
-                          <v-list class="py-0">
-                            <v-list-item one-line @click.stop="editInventory()" v-ripple>
-                              <v-list-item-content class="no-wrap">
-                                <v-list-item-title>
-                                  <div class="d-flex">
-                                    <span :class="['font-weight-bold', currentColorText]">
-                                      {{ inventoryTotalWeight | weightUnitFilter(weightUnit) }}
-                                    </span>
-                                    <span class="text-caption ml-1" v-text="dynamicWeightUnit(inventoryTotalWeight)" :key="`weight-unit-${randomId()}-${inventoryTotalWeight}`" />
-
-                                    <span class="mx-2 text--disabled" v-text="'-'" />
-
-                                    <span
-                                      v-bind:class="['text-caption', currentColorText]"
-                                      v-text="(currentInventoryGear ? currentInventoryGear.length : 0)"
-                                    ></span>
-                                    <span class="text-tiny pt-1 ml-1" v-text="' Item'+((currentInventoryGear ? currentInventoryGear.length : 0) > 1 ? 's':'')" />
-                                  </div>
-                                </v-list-item-title>
-                                <v-list-item-subtitle v-text="'Gear List'" />
-                              </v-list-item-content>
-
-                              <v-list-item-action class="d-flex no-wrap align-center justify-center ma-0">
-                                <v-btn
-                                  v-bind:class="[reversedFontShadeColor, 'elevation-0', 'primary-gradient-color']"
-                                  x-small
-                                  fab
-                                  depressed
-                                >
-                                  <v-icon :size="MDI" v-text="'mdi-pencil'" />
-                                </v-btn>
-                              </v-list-item-action>
-                            </v-list-item>
-                          </v-list>
-                        </v-card>
+                        <inventory-gear-card
+                          v-on:cardAction="editInventory()"
+                          :inventoryTotalWeight.sync="inventoryTotalWeight"
+                          :currentInventoryGear.sync="currentInventoryGear"
+                        ></inventory-gear-card>
                       </v-col>
 
                       <v-col v-if="inventoryGearList.length > 0" cols="12" class="py-0 mb-3">
@@ -141,7 +107,7 @@
                           <v-tab-item>
                             <v-responsive
                               class="overflow-y-auto pr-3 "
-                              :height="currentWindowHeight - 212"
+                              :height="mobileResponsiveHeight"
                             >
                               <v-list
                                 v-if="inventoryGearList && inventoryGearList.length > 0"
@@ -220,7 +186,7 @@
                                 <v-col cols="12">
                                   <v-sheet
                                     class="d-flex align-center justify-center text--disabled"
-                                    :height="currentWindowHeight - 280"
+                                    :height="desktopResponsiveHeight"
                                   >
                                     <div v-text="'This inventory is empty.'" />
                                   </v-sheet>
@@ -232,13 +198,13 @@
                           <v-tab-item class="rounded">
                             <v-responsive
                               class="overflow-y-auto"
-                              :height="currentWindowHeight - 212"
+                              :height="mobileResponsiveHeight"
                             >
                               <v-row v-if="inventoryGearList.length <= 0">
                                 <v-col cols="12">
                                   <v-sheet
                                     class="d-flex align-center justify-center text--disabled"
-                                    :height="currentWindowHeight - 280"
+                                    :height="desktopResponsiveHeight"
                                   >
                                     <div v-text="'This inventory is empty.'" />
                                   </v-sheet>
@@ -754,9 +720,9 @@
 
 <script>
 
-  import Vue from 'vue'
   const _ = require('lodash');
 
+  import InventoryGearCard from "@/components/elements/Cards/InventoryGearCard";
   import XStackedProgressCard from "@/components/elements/StackedProgressCard/XStackedProgressCard";
   import XTitleField from "@/components/inputs/fields/XTitleField";
   import XPicker from "@/components/inputs/XPicker";
@@ -774,6 +740,7 @@
   export default {
     name: 'inventories-form',
     components: {
+      InventoryGearCard,
       XStackedProgressCard,
       InventoryGearListItem,
       XTitleField,
@@ -906,6 +873,12 @@
       }
     }),
     computed: {
+      mobileResponsiveHeight() {
+        return (this.currentWindowHeight - 240);
+      },
+      desktopResponsiveHeight() {
+        return (this.currentWindowHeight - 260);
+      },
       selectedInventoryGear() {
         if(typeof this.selectedInventoryGearIndex != 'number' || !this.currentInventoryGear)
           return null;

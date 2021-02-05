@@ -55,7 +55,7 @@
 
 <script>
 
-  import DialogAppBar from "@/components/elements/FormDialog/DialogAppBar";
+  import DialogAppBar from "@/components/elements/Dialogs/FormDialog/DialogAppBar";
 
   export default {
     name: "form-dialog",
@@ -94,8 +94,8 @@
       loader() {
         let self = this;
         let formId = this.xFilters.capitalizeFilter(this.currentRouteName);
-        self.formComponentCalled = `./${formId}Form.vue`;
-        return () => import(`./${formId}Form.vue`)
+        self.formComponentCalled = `@/components/forms/${formId}Form.vue`;
+        return () => import(`@/components/forms/${formId}Form.vue`)
       },
       gearInventories: {
         get() {

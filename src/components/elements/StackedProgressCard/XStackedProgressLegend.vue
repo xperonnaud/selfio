@@ -36,7 +36,7 @@
                     />
                 </template>
 
-                <template v-if="item.percentage <= toggleLimit">
+                <template v-if="!((item.percentage > toggleLimit) || (!isMobile && item.percentage > (toggleLimit/3)))">
                     <span :class="[fontShadeColor]">{{item.value | weightUnitFilter(weightUnit)}}</span>
                     <span :class="fontShadeColor" v-text="dynamicWeightUnit(item.value)" :key="`weight-unit-${randomId()}-${item.value}`" />
                 </template>

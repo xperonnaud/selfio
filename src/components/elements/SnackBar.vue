@@ -61,13 +61,13 @@
 
     &.x-success {
       .v-snack__wrapper {
-        background-color :rgba(28, 28, 28, 0.75) !important;
+        background-color :rgba(28, 28, 28, 0.9) !important;
       }
     }
 
     &.x-error {
       .v-snack__wrapper {
-        background-color :rgba(183, 28, 28, 0.75) !important;
+        background-color :rgba(183, 28, 28, 0.8) !important;
 
         &.is-dark {
           background-color :rgba(255, 82, 82, 0.9) !important;

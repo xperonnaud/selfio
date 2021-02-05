@@ -33,7 +33,7 @@
 
 <script>
 
-  import SessionDialog from "@/components/elements/SessionDialog";
+  import SessionDialog from "@/components/elements/Dialogs/SessionDialog";
   import SnackBar from "@/components/elements/SnackBar";
 
   export default {

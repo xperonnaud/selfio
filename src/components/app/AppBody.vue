@@ -28,7 +28,7 @@
     name: 'app-body',
     components: {
       LoginForm,
-      FormDialog: () => import('@/components/forms/FormDialog')
+      FormDialog: () => import('@/components/elements/Dialogs/FormDialog/FormDialog')
     },
   }
 
