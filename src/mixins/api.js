@@ -105,7 +105,6 @@ export default {
             }
         },
         async handleResponse(responseType, message, response, action) {
-
             if(this.isSessionExpiredResponse(responseType, message) || action === 'login') {
                 this.$store.commit('updateApiAccessToken', null);
                 this.$store.commit('updateApiRefreshToken', null);
@@ -113,10 +112,12 @@ export default {
 
                 if(action === 'login')
                     await this.api_logout();
-            }
 
-            if(message)
+                this.updateSnackbar(responseType, (action === 'login') ? 'Your session has timed out. You have been logged off automatically.' : message);
+
+            } else if (message) {
                 this.updateSnackbar(responseType, message);
+            }
         },
         isSessionExpiredResponse(responseType, message) {
             const ERROR_STR = 'Request failed with status code ';
@@ -142,11 +143,10 @@ export default {
                 }
             ).then(async function (response) {
                 if(response && response.data) {
-
                     // refresh the App to Update access & refresh tokens & increase life-span
                     await directus.auth.refresh().then(async function (refreshResponse) {
                         self.$store.commit('updateApiAccessToken', refreshResponse.data.access_token);
-                        self.$store.commit('updateApiRefreshToken', refreshResponse.data.refresh_token);
+                        // self.$store.commit('updateApiRefreshToken', refreshResponse.data.refresh_token);
                     });
 
                     let user = await directus.users.me.read();
@@ -174,14 +174,11 @@ export default {
         },
         async api_logout() {
             let self = this;
-            this.$store.commit("updateUiIsAppLoading", true);
 
             await axios.post(
                 self.apiBaseUrl+'auth/logout',
-                {
-                    refresh_token: self.apiRefreshToken
-                }
-            )
+                { refresh_token: self.apiRefreshToken }
+                )
             .then(async function (response) {
                 await self.handleResponse('success', 'Logged out', response);
                 self.reset_api_data();
