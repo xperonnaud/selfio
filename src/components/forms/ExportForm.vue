@@ -3,7 +3,6 @@
   <v-form v-model="valid">
     <v-container fluid v-bind:class="(isMobile ? 'pt-3 px-4' : 'pt-7 px-8')">
       <v-row>
-
         <v-col v-if="!isMobile" cols="12">
           <v-data-table
             v-if="gearList && gearList.length > 0"
@@ -130,7 +129,6 @@
         <v-col v-else cols="12">
           <mobile-only-feature :icon="'responsive'" />
         </v-col>
-
       </v-row>
 
     </v-container>

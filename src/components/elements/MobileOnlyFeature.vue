@@ -1,10 +1,6 @@
 <template>
 
-  <v-alert
-    border="left"
-    :icon="`mdi-${icon}`"
-    :color="darkColor(color)"
-  >
+  <v-alert :icon="`mdi-${icon}`">
     Sorry, this feature requires a larger screen to be displayed.
   </v-alert>
 
@@ -18,10 +14,6 @@
       icon: {
         type: String,
         default: 'alert',
-      },
-      color: {
-        type: String,
-        default: 'primary',
       },
     },
   }

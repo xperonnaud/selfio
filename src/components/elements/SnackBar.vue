@@ -2,7 +2,7 @@
 
   <v-snackbar
     v-model="snackbarDisplay"
-    :dark="apiAccessToken ? isDark : true"
+    :dark="apiAccessToken ? !isDark : false"
     :timeout="(snackbarTimeout !== 0) ? snackbarTimeout : -1"
     v-bind:class="[
       'x-snack-bar',
@@ -14,7 +14,7 @@
     pill
     bottom
   >
-    <span v-text="snackbarText" />
+    <span :class="reversedFontShadeColor" v-text="snackbarText" />
 
     <template v-slot:action="{ attrs }">
       <v-btn
@@ -23,7 +23,7 @@
         v-bind="attrs"
         @click="snackbarDisplay = false"
       >
-        <v-icon v-text="'mdi-close'" />
+        <v-icon :color="reversedShadeColor" v-text="'mdi-close'" />
       </v-btn>
     </template>
   </v-snackbar>
@@ -63,11 +63,17 @@
       .v-snack__wrapper {
         background-color :rgba(28, 28, 28, 0.9) !important;
       }
+
+      &.is-dark {
+        .v-snack__wrapper {
+          background-color :rgba(227, 227, 227, 0.9) !important;
+        }
+      }
     }
 
     &.x-error {
       .v-snack__wrapper {
-        background-color :rgba(183, 28, 28, 0.8) !important;
+        background-color :rgba(183, 28, 28, 0.9) !important;
 
         &.is-dark {
           background-color :rgba(255, 82, 82, 0.9) !important;

@@ -41,20 +41,14 @@
               </v-col>
 
               <v-col cols="12" class="py-0">
-                <v-btn
+                <primary-btn
+                  label="Login"
+                  v-on:btnAction="login()"
+                  :valid.sync="valid"
+                  :isLoading.sync="isLoading"
                   block
                   large
-                  :class="['elevation-0', {'primary-gradient-color': !(!valid || isLoading)}]"
-                  @click="login()"
-                  @keyup.enter="login()"
-                  :disabled="!valid || isLoading"
-                  :loading="isLoading"
-                >
-                  <span
-                    v-bind:class="[{'text-disabled': !valid}]"
-                    v-text="'Login'"
-                  ></span>
-                </v-btn>
+                ></primary-btn>
               </v-col>
 
               <v-col cols="12" class="py-0">
@@ -85,8 +79,13 @@
 
 <script>
 
+  import PrimaryBtn from "@/components/elements/Btns/PrimaryBtn";
+
   export default {
     name: 'login-form',
+    components: {
+      PrimaryBtn
+    },
     data: () => ({
       valid: false,
       isLoading: false,

@@ -5,7 +5,7 @@
       v-if="isMounted"
       style="max-width: unset;"
       v-bind:class="[
-        {'ma-0': isMobile || isEditing},
+        {'py-0': isMobile},
         'pa-0'
       ]"
     >
@@ -33,7 +33,7 @@
                 <v-card flat :color="xBackgroundColor">
                   <v-card-text :class="{'py-1':isMobile}">
                     <v-row>
-                      <v-col cols="12">
+                      <v-col cols="12" class="pb-0">
                         <x-title-field
                           label="Title"
                           v-bind:value.sync="updatedItem.title"
@@ -95,6 +95,7 @@
                           :background-color="xTabsColor"
                           fixed-tabs
                           dense
+                          class="shadow-bottom"
                           style="border-radius: 4px 4px 0 0"
                         >
                           <v-tab>
@@ -237,7 +238,7 @@
                       </v-col>
 
                       <v-col v-else-if="inventoryGearList" cols="12" class="py-0 rounded">
-                        <v-sheet class="elevation-0 rounded">
+                        <v-sheet class="rounded shadow-bottom">
                           <v-row v-show="inventoryGearList.length <= 0">
                             <v-col cols="12">
                               <v-sheet
@@ -251,12 +252,19 @@
 
                           <v-row v-show="inventoryGearList.length > 0">
                             <v-col cols="5">
+
+                              <v-list-item one-line style="min-height: unset;">
+                                <v-list-item-content class="pt-0">
+                                  <v-list-item-title v-text="'Weight by Gear Category'" />
+                                </v-list-item-content>
+                              </v-list-item>
+
                               <x-pie-chart
                                 v-if="isMounted && !isLoadingPieData && !isEditing && pieChart.labels.length > 0 && pieChart.datasets.length > 0"
                                 :key="`pie-chart-${updatedItem.title}-${gearCategoryStats.length}`"
                                 :labels="pieChart.labels"
                                 :datasets="pieChart.datasets"
-                                style="max-height: 230px !important; margin-top: 18px !important;"
+                                style="max-height: 230px !important;"
                               ></x-pie-chart>
 
                               <v-card
@@ -380,18 +388,18 @@
                     <v-list-item-subtitle>
                       <div class="d-flex">
                         <div>
-                          <span
-                            v-bind:class="[currentColorText]"
-                            v-text="currentInventoryGear.length || 0"
-                          ></span>
-                          <span v-text="' item'+(currentInventoryGear.length>1?'s':'')" class="text-tiny" />
+                          <span v-bind:class="[currentColorText]">{{ inventoryTotalWeight | weightUnitFilter(weightUnit) }}</span>
+                          <span v-text="dynamicWeightUnit(inventoryTotalWeight)" :key="`weight-unit-${randomId()}-${inventoryTotalWeight}`" class="text-tiny" />
                         </div>
 
                         <x-divider />
 
                         <div>
-                          <span v-bind:class="[currentColorText]">{{ inventoryTotalWeight | weightUnitFilter(weightUnit) }}</span>
-                          <span v-text="dynamicWeightUnit(inventoryTotalWeight)" :key="`weight-unit-${randomId()}-${inventoryTotalWeight}`" class="text-tiny" />
+                          <span
+                            v-bind:class="[currentColorText]"
+                            v-text="currentInventoryGear.length || 0"
+                          ></span>
+                          <span v-text="' item'+(currentInventoryGear.length>1?'s':'')" class="text-tiny" />
                         </div>
                       </div>
                     </v-list-item-subtitle>
@@ -618,11 +626,11 @@
                         :key="`inventory-gear-${gear.id}-${index}`"
                         :gear="gear"
                         :index="index"
-                        :inventoryGearList="inventoryGearList"
+                        :inventoryGearList.sync="inventoryGearList"
                         :inventoryGear="inventoryGearItem(gear.id)"
-                        :gearMenu="inventoryGearMenu"
-                        :inventoryGearIndex="selectedInventoryGearIndex"
-                        :inventoryGearQuantity="selectedInventoryGearMaxQuantity"
+                        :gearMenu.sync="inventoryGearMenu"
+                        v-bind:inventoryGearIndex.sync="selectedInventoryGearIndex"
+                        v-bind:inventoryGearQuantity.sync="selectedInventoryGearMaxQuantity"
                         v-on:itemAction="gear.quantity_owned > 0 ? gearListItemAction(gear) : null"
                       ></inventory-gear-list-item>
 

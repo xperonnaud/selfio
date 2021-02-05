@@ -99,7 +99,7 @@
 
       <v-list-item
         v-bind:class="[(isMobile ? 'my-1' : 'my-2')]"
-        @click.stop="logout()"
+        @click.stop="api_logout()"
         link
         dense
       >

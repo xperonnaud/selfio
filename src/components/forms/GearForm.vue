@@ -31,9 +31,9 @@
               <v-card flat :color="xBackgroundColor">
                 <v-card-text :class="{'py-1':isMobile}">
                   <v-row>
-                    <v-col cols="12">
+                    <v-col cols="12" class="pb-0">
                       <x-title-field
-                        label="Title / Model"
+                        label="Title"
                         v-bind:value.sync="updatedItem.title"
                       ></x-title-field>
                     </v-col>

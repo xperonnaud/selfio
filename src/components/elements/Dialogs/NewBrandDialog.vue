@@ -19,7 +19,7 @@
 
         <v-card-text>
           <v-row>
-            <v-col cols="12">
+            <v-col cols="12" class="pb-0">
               <v-form v-model="validBrand">
                 <x-title-field
                   label="Title"
@@ -44,15 +44,11 @@
 
           <v-spacer />
 
-          <v-btn
-            @click="postBrand()"
-            class="primary-gradient-color"
-            depressed
-            dark
-            :disabled="!validBrand"
-          >
-            <span v-text="'Add brand'" />
-          </v-btn>
+          <primary-btn
+            label="Add brand"
+            :valid.sync="validBrand"
+            v-on:btnAction="postBrand()"
+          ></primary-btn>
         </v-card-actions>
       </v-card>
     </div>
@@ -62,11 +58,13 @@
 
 <script>
 
+  import PrimaryBtn from "@/components/elements/Btns/PrimaryBtn";
   import XTitleField from "@/components/inputs/fields/XTitleField";
 
   export default {
     name: 'new-brand-dialog',
     components: {
+      PrimaryBtn,
       XTitleField
     },
     props: {

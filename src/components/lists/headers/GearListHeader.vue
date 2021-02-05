@@ -11,7 +11,7 @@
       >
         <div class="d-flex">
           <div class="text-tiny">
-            <div v-text="'Title / Model'" />
+            <div v-text="'Title'" />
             <div v-text="'Brand'" />
           </div>
           <x-sort-icon prop="title" />

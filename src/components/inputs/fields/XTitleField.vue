@@ -5,7 +5,7 @@
     v-model="pickerValue"
     :rules="xRules.text"
     :color="color || currentColor"
-    hide-details="auto"
+    class="x-title-field mb-0"
     required
     dense
     filled
@@ -63,3 +63,13 @@
     }
   }
 </script>
+
+<style lang="scss">
+
+  .x-title-field {
+    .v-text-field__details {
+      margin-bottom: 0 !important;
+    }
+  }
+
+</style>

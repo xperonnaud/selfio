@@ -8,7 +8,7 @@
         color="transparent"
       >
         <v-container fluid v-bind:class="(isMobile ? 'pa-4' : 'pa-8')">
-          <v-row style="max-width: 750px">
+          <v-row class="row-max-width">
             <v-col cols="12">
               <div>
                 <div class="text-caption" v-text="'Weight Unit'" />
@@ -106,18 +106,12 @@
             </v-col>
 
             <v-col cols="12">
-              <v-btn
-                v-bind:class="[
-                  'elevation-0',
-                  {'max-width':isMobile},
-                  reversedFontShadeColor,
-                  {'primary-gradient-color': valid}
-                ]"
-                :disabled="!valid"
-                @click.stop="updatePreferences()"
-              >
-                <span v-text="'Save'" />
-              </v-btn>
+              <primary-btn
+                label="Save"
+                :block="isMobile"
+                :valid.sync="valid"
+                v-on:btnAction="updatePreferences()"
+              ></primary-btn>
             </v-col>
           </v-row>
         </v-container>
@@ -129,8 +123,13 @@
 
 <script>
 
+  import PrimaryBtn from "@/components/elements/Btns/PrimaryBtn";
+
   export default {
     name: "settings",
+    components: {
+      PrimaryBtn
+    },
     data: () => ({
       valid: false,
       isMounted: false,

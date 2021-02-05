@@ -35,9 +35,9 @@
                 :max-height="maxDialogContentHeight"
               >
                 <v-card flat :color="xBackgroundColor">
-                  <v-card-text :class="{'py-0':isMobile}">
+                  <v-card-text :class="{'py-1':isMobile}">
                     <v-row>
-                      <v-col cols="12">
+                      <v-col cols="12" class="pb-0">
                         <x-title-field
                           label="Title"
                           v-bind:value.sync="updatedItem.title"
@@ -111,7 +111,7 @@
                 :max-height="maxDialogContentHeight"
               >
                 <v-card flat :color="xBackgroundColor">
-                  <v-card-text :class="{'py-0':isMobile}">
+                  <v-card-text :class="{'py-1':isMobile}">
                     <v-row>
                       <v-col cols="12">
                         <x-selector
@@ -177,7 +177,7 @@
                 :max-height="maxDialogContentHeight"
               >
                 <v-card flat :color="xBackgroundColor">
-                  <v-card-text :class="{'py-0':isMobile}">
+                  <v-card-text :class="{'py-1':isMobile}">
                     <v-row>
                       <v-col cols="12">
                         <v-text-field
@@ -452,7 +452,7 @@
 
                           <v-col :cols="isMobile ? 6 : 4" :class="['py-2 col-border-r',{'ml-3':!isMobile}]">
                             <div class="d-flex align-center">
-                              <div class="text-tiny" v-text="'Title / Model'" />
+                              <div class="text-tiny" v-text="'Title'" />
                             </div>
                           </v-col>
 
@@ -507,9 +507,9 @@
                     <template v-for="(gear, index) in filteredGear">
                       <adventure-gear-list-item
                         :key="`adventure-gear-${gear.gear_id}-${index}`"
-                        v-on:itemAction="packGear(gear.gear_id)"
                         :gear.sync="gear"
                         :updatedItem.sync="updatedItem"
+                        v-on:itemAction="packGear(gear.gear_id)"
                       ></adventure-gear-list-item>
 
                       <v-divider

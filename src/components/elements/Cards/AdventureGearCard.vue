@@ -14,21 +14,21 @@
         </div>
 
         <div>
-                  <span v-bind:class="[navItemColorText('inventories')]">
-                    {{ packedGearRatio | roundIntFilter }}
-                  </span>
+          <span v-bind:class="[navItemColorText('inventories')]">
+            {{ packedGearRatio | roundIntFilter }}
+          </span>
           <span v-text="'%'" />
         </div>
       </div>
 
       <v-progress-linear
-              v-if="(typeof packedGearRatio == 'number')"
-              :key="`gear-checklist-${updatedItem.adventure_inventory}`"
-              :value="roundedPackedGearRatio"
-              :color="navItemColor('inventories')"
-              :background-color="xProgressColor"
-              :height="3"
-              class="rounded"
+        v-if="(typeof packedGearRatio == 'number')"
+        :key="`gear-checklist-${updatedItem.adventure_inventory}`"
+        :value="roundedPackedGearRatio"
+        :color="navItemColor('inventories')"
+        :background-color="xProgressColor"
+        :height="3"
+        class="rounded"
       ></v-progress-linear>
     </div>
   </x-action-card>
@@ -48,7 +48,7 @@
       updatedItem: Object,
       originalInventoryGear: [Array, Object],
       packedGearRatio: Number,
-      roundedPackedGearRatio: Number,
+      roundedPackedGearRatio: [Number, String],
     },
   }
 

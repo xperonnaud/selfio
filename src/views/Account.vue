@@ -86,20 +86,14 @@
             </v-col>
           </v-row>
 
-          <v-row style="max-width: 750px">
+          <v-row class="row-max-width">
             <v-col cols="12">
-              <v-btn
-                v-bind:class="[
-                  'elevation-0',
-                  {'max-width':isMobile},
-                  {'primary-gradient-color': valid},
-                  reversedFontShadeColor
-                ]"
-                :disabled="!valid"
-                @click.stop="updatePassword()"
-              >
-                <span v-text="'Save'" />
-              </v-btn>
+              <primary-btn
+                label="Save"
+                :block="isMobile"
+                :valid.sync="valid"
+                v-on:btnAction="updatePassword()"
+              ></primary-btn>
             </v-col>
           </v-row>
         </v-container>
@@ -111,11 +105,13 @@
 
 <script>
 
+  import PrimaryBtn from "@/components/elements/Btns/PrimaryBtn";
   // import PasswordUpdateForm from "@/components/forms/PasswordUpdateForm";
 
   export default {
     name: "account",
     components: {
+      PrimaryBtn,
       // PasswordUpdateForm,
     },
     data: () => ({

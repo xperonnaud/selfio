@@ -112,7 +112,7 @@ export default {
                 this.$store.commit("updateUiIsSessionExpired", true);
 
                 if(action === 'login')
-                    await this.logout();
+                    await this.api_logout();
             }
 
             if(message)
@@ -174,28 +174,25 @@ export default {
         },
         async api_logout() {
             let self = this;
-
             this.$store.commit("updateUiIsAppLoading", true);
 
             await axios.post(
-            self.apiBaseUrl+'auth/logout',
+                self.apiBaseUrl+'auth/logout',
                 {
                     refresh_token: self.apiRefreshToken
                 }
             )
             .then(async function (response) {
-                await self.handleResponse('success', 'Logged out', response.data);
+                await self.handleResponse('success', 'Logged out', response);
                 self.reset_api_data();
                 self.reset_user_data();
             }).catch(async function (error) {
                 await self.handleResponse('error', error.message, error);
             });
 
-            this.$store.commit("updateUiIsAppLoading", false);
-        },
-        async logout() {
-            await this.api_logout();
+            directus.auth.token = null;
             this.$store.commit("updateUiIsSessionExpired", false);
+            this.$store.commit("updateUiIsAppLoading", false);
         },
         async api_reset_password() {
             let self = this;

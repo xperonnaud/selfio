@@ -4,7 +4,7 @@
         v-if="isMounted"
         :color="xTabsColor"
         :class="[
-            'py-0 rounded',
+            'shadow-bottom py-0 rounded',
             (isMobile ? 'px-2' : 'px-4')
         ]"
     >

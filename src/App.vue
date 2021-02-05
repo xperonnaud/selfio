@@ -9,13 +9,13 @@
     ]"
   >
     <v-app id="inspire">
-      <app-header v-if="apiAccessToken && !isAppLoading" />
+      <app-header v-if="apiAccessToken" />
 
-      <app-nav v-if="apiAccessToken && !isAppLoading"/>
+      <app-nav v-if="apiAccessToken"/>
 
-      <app-body v-if="!isAppLoading" />
+      <app-body v-show="!isMobile || (isMobile && !isAppLoading)" />
 
-      <app-footer v-if="apiAccessToken && !isAppLoading" />
+      <app-footer v-if="apiAccessToken" />
 
       <v-overlay :value="isAppLoading">
         <v-progress-circular
@@ -33,16 +33,19 @@
 
 <script>
 
+  import AppHeader from "@/components/app/AppHeader";
+  import AppNav from "@/components/navigation/AppNav";
+  import AppFooter from "@/components/app/AppFooter";
   import SessionDialog from "@/components/elements/Dialogs/SessionDialog";
   import SnackBar from "@/components/elements/SnackBar";
 
   export default {
     name: 'App',
     components: {
-      AppHeader: () => import('@/components/app/AppHeader'),
-      AppNav: () => import('@/components/navigation/AppNav'),
+      AppHeader,
+      AppNav,
       AppBody: () => import('@/components/app/AppBody'),
-      AppFooter: () => import('@/components/app/AppFooter'),
+      AppFooter,
       SnackBar,
       SessionDialog
     },

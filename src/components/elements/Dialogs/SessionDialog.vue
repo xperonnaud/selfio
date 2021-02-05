@@ -23,7 +23,7 @@
 
         <v-card-actions>
           <v-btn
-            @click="logout()"
+            @click="api_logout()"
             depressed
             text
             v-text="'Leave'"

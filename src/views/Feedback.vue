@@ -74,18 +74,12 @@
 
           <v-row class="row-max-width">
             <v-col cols="12">
-              <v-btn
-                v-bind:class="[
-                  'elevation-0',
-                  {'max-width':isMobile},
-                  reversedFontShadeColor,
-                  'primary-gradient-color'
-                ]"
-                :disabled="!valid"
-                @click.stop="postFeedback(feedback)"
-              >
-                <span v-text="'Send'" />
-              </v-btn>
+              <primary-btn
+                label="Send"
+                :block="isMobile"
+                :valid.sync="valid"
+                v-on:btnAction="postFeedback(feedback)"
+              ></primary-btn>
             </v-col>
           </v-row>
         </v-container>
@@ -97,15 +91,22 @@
 
 <script>
 
+  import PrimaryBtn from "@/components/elements/Btns/PrimaryBtn";
 
   export default {
     name: "feedback",
+    components: {
+      PrimaryBtn
+    },
     data: () => ({
       isMounted: false,
       valid: false,
 
       feedbackCategories: [
-        'Interface', 'Functionalities'
+        'Interface Bug',
+        'Functionalities Bug',
+        'Interface Suggestion',
+        'Functionalities Suggestion',
       ],
 
       feedback: { object: '', message: '' }
