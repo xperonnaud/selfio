@@ -1,30 +1,32 @@
 <template>
 
-  <v-text-field
-    :label="label"
-    v-model="pickerValue"
-    :rules="xRules.text"
-    :color="color || currentColor"
-    class="x-title-field mb-0"
-    required
-    dense
-    filled
-  >
-    <template v-slot:append>
-        <v-tooltip bottom>
-          <template v-slot:activator="{ on, attrs }">
-            <v-icon
-              size="12"
-              :color="errorColor"
-              v-text="'mdi-asterisk'"
-              v-bind="attrs"
-              v-on="on"
-            />
-          </template>
-          <span v-text="'mandatory field'" />
-        </v-tooltip>
-    </template>
-  </v-text-field>
+  <v-form v-model="validField">
+    <v-text-field
+      :label="label"
+      v-model="pickerValue"
+      :rules="xRules.text"
+      :color="color || currentColor"
+      class="x-title-field mb-0"
+      required
+      dense
+      filled
+    >
+      <template v-slot:append>
+          <v-tooltip bottom>
+            <template v-slot:activator="{ on, attrs }">
+              <v-icon
+                :size="validField ? 18 : 12"
+                :color="validField ? currentColor : errorColor"
+                v-text="validField ? 'mdi-check' : 'mdi-asterisk'"
+                v-bind="attrs"
+                v-on="on"
+              />
+            </template>
+            <span v-text="validField ? 'Valid title' : 'Title is mandatory'" />
+          </v-tooltip>
+      </template>
+    </v-text-field>
+  </v-form>
 
 </template>
 
@@ -37,9 +39,14 @@
       label: String,
       value: String,
       color: String,
+      valid: {
+        type: Boolean,
+        default: false
+      },
     },
     data: () => ({
       isMounted: false,
+      validField: false,
       pickerValue: null,
     }),
     methods: {
@@ -55,6 +62,14 @@
       pickerValue(val) {
         if(this.isMounted)
           this.$emit('update:value',val);
+      },
+      valid(val) {
+        if(this.isMounted)
+          this.validField = val;
+      },
+      validField(val) {
+        if(this.isMounted)
+          this.$emit('update:valid',val);
       },
     },
     mounted() {

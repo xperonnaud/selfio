@@ -153,7 +153,7 @@
       gearHeaders() {
         return [
           {text: 'Category', value: 'type', align: 'start'},
-          {text: 'Title/Model', value: 'title'},
+          {text: 'Title', value: 'title'},
           {text: 'Description', value: 'description'},
           {text: 'Brand', value: 'brand'},
           {text: 'Weight ('+this.weightUnit+')', value: 'weight'},

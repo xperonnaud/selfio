@@ -9,11 +9,11 @@
         @click.stop="sortItems('title')"
         v-ripple
       >
-        <div class="d-flex">
-          <div class="text-tiny">
-            <div v-text="'Title'" />
-            <div v-text="'Description'" />
-          </div>
+        <div :class="['d-flex', {isMobile: 'flex-column'}]">
+          <div
+            v-bind:class="['text-tiny']"
+            v-text="'Title'"
+          ></div>
           <x-sort-icon prop="title" />
         </div>
       </v-col>

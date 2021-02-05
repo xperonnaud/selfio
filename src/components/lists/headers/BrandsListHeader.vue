@@ -9,7 +9,7 @@
         v-ripple
       >
         <div class="d-flex">
-          <div class="text-caption" v-text="'Title'" />
+          <div class="text-tiny" v-text="'Title'" />
           <x-sort-icon prop="title" />
         </div>
       </v-col>

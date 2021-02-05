@@ -27,7 +27,6 @@
                 <span
                     v-if="append"
                     v-html="append"
-                    class=""
                 ></span>
             </div>
 

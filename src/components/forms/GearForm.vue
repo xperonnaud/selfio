@@ -1,12 +1,12 @@
 <template>
 
-  <v-form v-model="valid">
-    <v-container
-      v-bind:class="[
-        'pa-0',
-        {'pb-3 pt-0':!isMobile},
-      ]"
-    >
+  <v-container
+    v-bind:class="[
+      'pa-0',
+      {'pb-3 pt-0':!isMobile},
+    ]"
+  >
+    <v-form v-model="valid">
       <v-tabs
         v-if="isMounted"
         v-model="tab"
@@ -34,6 +34,7 @@
                     <v-col cols="12" class="pb-0">
                       <x-title-field
                         label="Title"
+                        v-bind:valid.sync="validTitle"
                         v-bind:value.sync="updatedItem.title"
                       ></x-title-field>
                     </v-col>
@@ -161,8 +162,10 @@
           </v-tab-item>
         </v-tabs-items>
       </v-tabs>
-    </v-container>
-  </v-form>
+
+      <v-text-field v-show="false" v-model="validTitle" :rules="xRules.boolean" />
+    </v-form>
+  </v-container>
 
 </template>
 
@@ -223,6 +226,7 @@
       isMounted: false,
       isLoading: false,
       valid: false,
+      validTitle: false,
       tab: 'gear-general',
 
       updatedItem: {},

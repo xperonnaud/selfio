@@ -1,531 +1,534 @@
 <template>
 
-  <v-form class="adventures-form" v-model="valid">
     <v-container
       v-if="isMounted"
       style="max-width: unset;"
       v-bind:class="[
         {'py-0': isMobile},
-        'pa-0'
+        'adventures-form pa-0'
       ]"
     >
-      <v-expand-transition>
-        <v-tabs
-          v-show="!isEditing"
-          v-model="tab"
-          :color="currentColor"
-          :background-color="xTabsColor"
-          fixed-tabs
-        >
-          <v-tab :key="'adventure-general'">
-            <span v-text="'General'" />
-          </v-tab>
-          <v-tab :key="'adventure-event'">
-            <span v-text="'Event'" />
-          </v-tab>
-          <v-tab :key="'adventure-details'">
-            <span v-text="'Details'" />
-          </v-tab>
+      <v-form class="adventures-form" v-model="valid">
+        <v-expand-transition>
+          <v-tabs
+            v-show="!isEditing"
+            v-model="tab"
+            :color="currentColor"
+            :background-color="xTabsColor"
+            fixed-tabs
+          >
+            <v-tab :key="'adventure-general'">
+              <span v-text="'General'" />
+            </v-tab>
+            <v-tab :key="'adventure-event'">
+              <span v-text="'Event'" />
+            </v-tab>
+            <v-tab :key="'adventure-details'">
+              <span v-text="'Details'" />
+            </v-tab>
 
-          <v-tabs-items v-model="tab" :style="xBackgroundStyleColorStr">
-            <v-tab-item :key="'adventure-general'">
-              <v-responsive
-                class="overflow-y-auto"
-                :min-height="dialogContentHeight"
-                :max-height="maxDialogContentHeight"
-              >
-                <v-card flat :color="xBackgroundColor">
-                  <v-card-text :class="{'py-1':isMobile}">
-                    <v-row>
-                      <v-col cols="12" class="pb-0">
-                        <x-title-field
-                          label="Title"
-                          v-bind:value.sync="updatedItem.title"
-                        ></x-title-field>
-                      </v-col>
+            <v-tabs-items v-model="tab" :style="xBackgroundStyleColorStr">
+              <v-tab-item :key="'adventure-general'">
+                <v-responsive
+                  class="overflow-y-auto"
+                  :min-height="dialogContentHeight"
+                  :max-height="maxDialogContentHeight"
+                >
+                  <v-card flat :color="xBackgroundColor">
+                    <v-card-text :class="{'py-1':isMobile}">
+                      <v-row>
+                        <v-col cols="12" class="pb-0">
+                          <x-title-field
+                            label="Title"
+                            v-bind:valid.sync="validTitle"
+                            v-bind:value.sync="updatedItem.title"
+                          ></x-title-field>
+                        </v-col>
 
-                      <v-col cols="12">
-                        <x-selector
-                          label="Activity"
-                          :list="activitiesList"
-                          :listReferences="activityReferences"
-                          v-bind:value.sync="updatedItem.activity"
-                          :iconSize="LGI"
-                        ></x-selector>
-                      </v-col>
+                        <v-col cols="12">
+                          <x-selector
+                            label="Activity"
+                            :list="activitiesList"
+                            :listReferences="activityReferences"
+                            v-bind:value.sync="updatedItem.activity"
+                            :iconSize="LGI"
+                          ></x-selector>
+                        </v-col>
 
-                      <v-col cols="12">
-                        <x-picker
-                          :label="'Inventory '+(inventoryHasGear ? ('('+originalInventoryGear.length+' item'+(originalInventoryGear.length>1?'s)':')')) : ' (no items)')"
-                          :list="inventoriesList"
-                          :color="currentColor"
-                          :type="'inventories'"
-                          v-bind:value.sync="updatedItem.adventure_inventory"
-                        ></x-picker>
-                      </v-col>
+                        <v-col cols="12">
+                          <x-picker
+                            :label="'Inventory '+(inventoryHasGear ? ('('+originalInventoryGear.length+' item'+(originalInventoryGear.length>1?'s)':')')) : ' (no items)')"
+                            :list="inventoriesList"
+                            :color="currentColor"
+                            :type="'inventories'"
+                            v-bind:value.sync="updatedItem.adventure_inventory"
+                          ></x-picker>
+                        </v-col>
 
-                      <v-col
-                        v-if="(typeof updatedItem.adventure_inventory === 'number') && inventoryHasGear"
-                        cols="12"
-                      >
-                        <adventure-gear-card
-                          v-on:cardAction="editInventory()"
-                          :updatedItem.sync="updatedItem"
-                          :originalInventoryGear.sync="originalInventoryGear"
-                          :packedGearRatio.sync="packedGearRatio"
-                          :roundedPackedGearRatio.sync="roundedPackedGearRatio"
-                        ></adventure-gear-card>
-                      </v-col>
+                        <v-col
+                          v-if="(typeof updatedItem.adventure_inventory === 'number') && inventoryHasGear"
+                          cols="12"
+                        >
+                          <adventure-gear-card
+                            v-on:cardAction="editInventory()"
+                            :updatedItem.sync="updatedItem"
+                            :originalInventoryGear.sync="originalInventoryGear"
+                            :packedGearRatio.sync="packedGearRatio"
+                            :roundedPackedGearRatio.sync="roundedPackedGearRatio"
+                          ></adventure-gear-card>
+                        </v-col>
 
-                      <v-col cols="12">
-                        <x-combobox
-                          label="Tags"
-                          v-bind:value.sync="updatedItem.tags"
-                          v-bind:items="preferences.adventure_tags"
-                          v-bind:route="'adventures'"
-                        ></x-combobox>
-                      </v-col>
+                        <v-col cols="12">
+                          <x-combobox
+                            label="Tags"
+                            v-bind:value.sync="updatedItem.tags"
+                            v-bind:items="preferences.adventure_tags"
+                            v-bind:route="'adventures'"
+                          ></x-combobox>
+                        </v-col>
 
-                      <v-col cols="12">
-                        <v-textarea
-                          label="Note"
-                          v-model="updatedItem.note"
-                          :color="currentColor"
-                          filled
-                          dense
-                          hide-details="auto"
-                          auto-grow
-                          rows="1"
-                        ></v-textarea>
-                      </v-col>
-                    </v-row>
-                  </v-card-text>
-                </v-card>
-              </v-responsive>
-            </v-tab-item>
+                        <v-col cols="12">
+                          <v-textarea
+                            label="Note"
+                            v-model="updatedItem.note"
+                            :color="currentColor"
+                            filled
+                            dense
+                            hide-details="auto"
+                            auto-grow
+                            rows="1"
+                          ></v-textarea>
+                        </v-col>
+                      </v-row>
+                    </v-card-text>
+                  </v-card>
+                </v-responsive>
+              </v-tab-item>
 
-            <v-tab-item :key="'adventure-event'">
-              <v-responsive
-                class="overflow-y-auto"
-                :min-height="dialogContentHeight"
-                :max-height="maxDialogContentHeight"
-              >
-                <v-card flat :color="xBackgroundColor">
-                  <v-card-text :class="{'py-1':isMobile}">
-                    <v-row>
-                      <v-col cols="12">
-                        <x-selector
-                          label="Landscape"
-                          :list="landscapesList"
-                          :listReferences="landscapeReferences"
-                          v-bind:value.sync="updatedItem.landscape"
-                          :iconSize="36"
-                          :avatarSize="XLI"
-                          logo
-                        ></x-selector>
-                      </v-col>
+              <v-tab-item :key="'adventure-event'">
+                <v-responsive
+                  class="overflow-y-auto"
+                  :min-height="dialogContentHeight"
+                  :max-height="maxDialogContentHeight"
+                >
+                  <v-card flat :color="xBackgroundColor">
+                    <v-card-text :class="{'py-1':isMobile}">
+                      <v-row>
+                        <v-col cols="12">
+                          <x-selector
+                            label="Landscape"
+                            :list="landscapesList"
+                            :listReferences="landscapeReferences"
+                            v-bind:value.sync="updatedItem.landscape"
+                            :iconSize="36"
+                            :avatarSize="XLI"
+                            logo
+                          ></x-selector>
+                        </v-col>
 
-                      <v-col cols="12">
-                        <v-text-field
-                          label="Location"
-                          v-model="updatedItem.location"
-                          :color="currentColor"
-                          filled
-                          dense
-                          hide-details="auto"
-                        ></v-text-field>
-                      </v-col>
+                        <v-col cols="12">
+                          <v-text-field
+                            label="Location"
+                            v-model="updatedItem.location"
+                            :color="currentColor"
+                            filled
+                            dense
+                            hide-details="auto"
+                          ></v-text-field>
+                        </v-col>
 
-                      <v-col cols="12">
-                        <x-date-picker
-                          label="Start Date"
-                          v-bind:value.sync="updatedItem.start_date"
-                        ></x-date-picker>
-                      </v-col>
+                        <v-col cols="12">
+                          <x-date-picker
+                            label="Start Date"
+                            v-bind:value.sync="updatedItem.start_date"
+                          ></x-date-picker>
+                        </v-col>
 
-                      <v-col cols="12">
-                        <x-time-picker
-                          label="Start Time"
-                          v-bind:value.sync="updatedItem.start_time"
-                        ></x-time-picker>
-                      </v-col>
+                        <v-col cols="12">
+                          <x-time-picker
+                            label="Start Time"
+                            v-bind:value.sync="updatedItem.start_time"
+                          ></x-time-picker>
+                        </v-col>
 
-                      <v-col cols="12">
-                        <x-date-picker
-                          label="End Date"
-                          v-bind:value.sync="updatedItem.end_date"
-                          :minDate="updatedItem.start_date"
-                        ></x-date-picker>
-                      </v-col>
+                        <v-col cols="12">
+                          <x-date-picker
+                            label="End Date"
+                            v-bind:value.sync="updatedItem.end_date"
+                            :minDate="updatedItem.start_date"
+                          ></x-date-picker>
+                        </v-col>
 
-                      <v-col cols="12">
-                        <x-time-picker
-                          label="End Time"
-                          v-bind:value.sync="updatedItem.end_time"
-                        ></x-time-picker>
-                      </v-col>
-                    </v-row>
-                  </v-card-text>
-                </v-card>
-              </v-responsive>
-            </v-tab-item>
+                        <v-col cols="12">
+                          <x-time-picker
+                            label="End Time"
+                            v-bind:value.sync="updatedItem.end_time"
+                          ></x-time-picker>
+                        </v-col>
+                      </v-row>
+                    </v-card-text>
+                  </v-card>
+                </v-responsive>
+              </v-tab-item>
 
-            <v-tab-item :key="'adventure-conditions'">
-              <v-responsive
-                class="overflow-y-auto"
-                :min-height="dialogContentHeight"
-                :max-height="maxDialogContentHeight"
-              >
-                <v-card flat :color="xBackgroundColor">
-                  <v-card-text :class="{'py-1':isMobile}">
-                    <v-row>
-                      <v-col cols="12">
-                        <v-text-field
-                          label="Elevation"
-                          v-model="updatedItem.elevation"
-                          :rules="xRules.decimal"
-                          :color="currentColor"
-                          filled
-                          dense
-                          hide-details="auto"
-                          :suffix="elevationUnit"
-                        ></v-text-field>
-                      </v-col>
+              <v-tab-item :key="'adventure-conditions'">
+                <v-responsive
+                  class="overflow-y-auto"
+                  :min-height="dialogContentHeight"
+                  :max-height="maxDialogContentHeight"
+                >
+                  <v-card flat :color="xBackgroundColor">
+                    <v-card-text :class="{'py-1':isMobile}">
+                      <v-row>
+                        <v-col cols="12">
+                          <v-text-field
+                            label="Elevation"
+                            v-model="updatedItem.elevation"
+                            :rules="xRules.decimal"
+                            :color="currentColor"
+                            filled
+                            dense
+                            hide-details="auto"
+                            :suffix="elevationUnit"
+                          ></v-text-field>
+                        </v-col>
 
-                      <v-col cols="12">
-                        <v-text-field
-                          label="Distance"
-                          v-model="updatedItem.distance"
-                          :rules="xRules.decimal"
-                          :color="currentColor"
-                          filled
-                          dense
-                          hide-details="auto"
-                          :suffix="distanceUnit"
-                        ></v-text-field>
-                      </v-col>
+                        <v-col cols="12">
+                          <v-text-field
+                            label="Distance"
+                            v-model="updatedItem.distance"
+                            :rules="xRules.decimal"
+                            :color="currentColor"
+                            filled
+                            dense
+                            hide-details="auto"
+                            :suffix="distanceUnit"
+                          ></v-text-field>
+                        </v-col>
 
-                      <v-col cols="12">
-                        <x-simple-selector
-                          label="Weather"
-                          :list="weathers"
-                          v-bind:value.sync="updatedItem.weather"
-                          :iconSize="LGI"
-                          hasIcon
-                        ></x-simple-selector>
-                      </v-col>
+                        <v-col cols="12">
+                          <x-simple-selector
+                            label="Weather"
+                            :list="weathers"
+                            v-bind:value.sync="updatedItem.weather"
+                            :iconSize="LGI"
+                            hasIcon
+                          ></x-simple-selector>
+                        </v-col>
 
-                      <v-col cols="12">
-                        <x-increment
-                          label="Max Temperature"
-                          v-bind:value.sync="updatedItem.temp_max"
-                          :rules="xRules.temperature"
-                          :color="currentColor"
-                          :min="updatedItem.temp_min || null"
-                          :max="50"
-                          :append="temperatureUnit"
-                        ></x-increment>
-                      </v-col>
+                        <v-col cols="12">
+                          <x-increment
+                            label="Max Temperature"
+                            v-bind:value.sync="updatedItem.temp_max"
+                            :rules="xRules.temperature"
+                            :color="currentColor"
+                            :min="updatedItem.temp_min || null"
+                            :max="50"
+                            :append="temperatureUnit"
+                          ></x-increment>
+                        </v-col>
 
-                      <v-col cols="12">
-                        <x-increment
-                          label="Min Temperature"
-                          v-bind:value.sync="updatedItem.temp_min"
-                          :rules="xRules.temperature"
-                          :color="currentColor"
-                          :min="-50"
-                          :max="updatedItem.temp_max || null"
-                          :append="temperatureUnit"
-                        ></x-increment>
-                      </v-col>
+                        <v-col cols="12">
+                          <x-increment
+                            label="Min Temperature"
+                            v-bind:value.sync="updatedItem.temp_min"
+                            :rules="xRules.temperature"
+                            :color="currentColor"
+                            :min="-50"
+                            :max="updatedItem.temp_max || null"
+                            :append="temperatureUnit"
+                          ></x-increment>
+                        </v-col>
 
-                      <v-col cols="12">
-                        <x-increment
-                          label="Humidity"
-                          v-bind:value.sync="updatedItem.humidity"
-                          :rules="xRules.integer"
-                          :color="currentColor"
-                          :min="0"
-                          :max="100"
-                          :append="'%'"
-                        ></x-increment>
-                      </v-col>
-                    </v-row>
-                  </v-card-text>
-                </v-card>
-              </v-responsive>
-            </v-tab-item>
-          </v-tabs-items>
-        </v-tabs>
-      </v-expand-transition>
+                        <v-col cols="12">
+                          <x-increment
+                            label="Humidity"
+                            v-bind:value.sync="updatedItem.humidity"
+                            :rules="xRules.integer"
+                            :color="currentColor"
+                            :min="0"
+                            :max="100"
+                            :append="'%'"
+                          ></x-increment>
+                        </v-col>
+                      </v-row>
+                    </v-card-text>
+                  </v-card>
+                </v-responsive>
+              </v-tab-item>
+            </v-tabs-items>
+          </v-tabs>
+        </v-expand-transition>
 
-      <v-expand-transition>
-        <div v-show="isEditing">
-          <v-card class="mx-auto" flat :color="xBackgroundColor">
-            <v-card-text :class="['pa-0']">
-              <v-toolbar class="edition-toolbar">
-                <v-btn @click="closeEditor()" icon>
-                  <v-icon v-text="'mdi-arrow-left'" />
-                </v-btn>
+        <v-expand-transition>
+          <div v-show="isEditing">
+            <v-card class="mx-auto" flat :color="xBackgroundColor">
+              <v-card-text :class="['pa-0']">
+                <v-toolbar class="edition-toolbar">
+                  <v-btn @click="closeEditor()" icon>
+                    <v-icon v-text="'mdi-arrow-left'" />
+                  </v-btn>
 
-                <v-toolbar-title v-bind:class="[{'pa-0':isMobile}]">
-                  <v-list-item two-line>
-                    <v-list-item-content class="pa-0">
-                      <v-list-item-title v-text="'Gear checklist'" />
+                  <v-toolbar-title v-bind:class="[{'pa-0':isMobile}]">
+                    <v-list-item two-line>
+                      <v-list-item-content class="pa-0">
+                        <v-list-item-title v-text="'Gear checklist'" />
 
-                      <v-list-item-subtitle>
-                        <div class="d-flex">
-                          <div>
-                            <span class="font-weight-regular">
-                              <span v-bind:class="[navItemColorText('inventories')]" v-text="updatedItem.packed_gear ? updatedItem.packed_gear.length : 0" />
-                              <span v-text="' / '" />
-                              <span v-bind:class="[navItemColorText('inventories')]" v-text="originalInventoryGear.length" />
-                              <span v-text="' packed gear'" />
-                            </span>
+                        <v-list-item-subtitle>
+                          <div class="d-flex">
+                            <div>
+                              <span class="font-weight-regular">
+                                <span v-bind:class="[navItemColorText('inventories')]" v-text="updatedItem.packed_gear ? updatedItem.packed_gear.length : 0" />
+                                <span v-text="' / '" />
+                                <span v-bind:class="[navItemColorText('inventories')]" v-text="originalInventoryGear.length" />
+                                <span v-text="' packed gear'" />
+                              </span>
+                            </div>
+
+                            <div class="ml-1">
+                              <v-slide-x-transition>
+                                <v-icon
+                                  v-show="packedGearRatio && packedGearRatio===100"
+                                  v-text="'mdi-check'"
+                                  :color="navItemColor('inventories')"
+                                  small
+                                />
+                              </v-slide-x-transition>
+                            </div>
                           </div>
+                        </v-list-item-subtitle>
+                      </v-list-item-content>
+                    </v-list-item>
+                  </v-toolbar-title>
 
-                          <div class="ml-1">
-                            <v-slide-x-transition>
-                              <v-icon
-                                v-show="packedGearRatio && packedGearRatio===100"
-                                v-text="'mdi-check'"
-                                :color="navItemColor('inventories')"
-                                small
-                              />
-                            </v-slide-x-transition>
-                          </div>
-                        </div>
-                      </v-list-item-subtitle>
-                    </v-list-item-content>
-                  </v-list-item>
-                </v-toolbar-title>
+                  <v-spacer />
 
-                <v-spacer />
+                  <div class="mr-1 text-center">
+                    <v-menu
+                      v-model="gearFilterModeOn"
+                      :close-on-content-click="false"
+                      :nudge-width="200"
+                      left
+                    >
+                      <template v-slot:activator="{ on, attrs }">
+                        <v-btn
+                          @click="gearFilterModeOn = !gearFilterModeOn"
+                          v-bind="attrs"
+                          v-on="on"
+                          icon
+                        >
+                          <v-icon v-text="gearFilterModeOn?'mdi-filter-variant-minus':'mdi-filter-variant'" />
+                        </v-btn>
+                      </template>
 
-                <div class="mr-1 text-center">
-                  <v-menu
-                    v-model="gearFilterModeOn"
-                    :close-on-content-click="false"
-                    :nudge-width="200"
-                    left
-                  >
-                    <template v-slot:activator="{ on, attrs }">
-                      <v-btn
-                        @click="gearFilterModeOn = !gearFilterModeOn"
-                        v-bind="attrs"
-                        v-on="on"
-                        icon
-                      >
-                        <v-icon v-text="gearFilterModeOn?'mdi-filter-variant-minus':'mdi-filter-variant'" />
-                      </v-btn>
-                    </template>
+                      <v-card>
+                        <v-list class="py-1">
+                          <v-list-item>
+                            <v-list-item-title v-text="'Filters'" />
 
-                    <v-card>
-                      <v-list class="py-1">
-                        <v-list-item>
-                          <v-list-item-title v-text="'Filters'" />
+                            <v-spacer />
+
+                            <v-btn
+                              @click="closeGearFilterMenu()"
+                              icon
+                            >
+                              <v-icon v-text="'mdi-close'" />
+                            </v-btn>
+
+                          </v-list-item>
+                        </v-list>
+
+                        <v-divider />
+
+                        <v-list>
+                          <v-list-item class="mb-3">
+                            <x-picker
+                              label="Category"
+                              :list="typesList"
+                              v-bind:value.sync="gearCategoryFilter"
+                            ></x-picker>
+                          </v-list-item>
+
+                          <v-list-item class="mb-3">
+                            <v-autocomplete
+                              v-if="gearFilterModeOn"
+                              label="Tags"
+                              v-model="gearTagsFilter"
+                              :items="preferences.gear_tags"
+                              :color="currentColor"
+                              filled
+                              dense
+                              clearable
+                              hide-details="auto"
+                            ></v-autocomplete>
+                          </v-list-item>
+
+                          <v-list-item class="mb-3">
+                            <x-brand-selector v-bind:value.sync="gearBrandFilter" isInFilter />
+                          </v-list-item>
+
+                          <v-list-item class="mb-3">
+                            <x-state-selector v-bind:value.sync="gearStateFilter" isInFilter />
+                          </v-list-item>
+
+                          <v-list-item class="mb-3">
+                            <x-checkbox
+                              label="Packed"
+                              v-bind:value.sync="gearIsPackedFilter"
+                            ></x-checkbox>
+                          </v-list-item>
+
+                          <v-list-item class="mb-3">
+                            <x-checkbox
+                              label="Worn"
+                              v-bind:value.sync="gearIsWornFilter"
+                            ></x-checkbox>
+                          </v-list-item>
+
+                          <v-list-item class="mb-3">
+                            <x-checkbox
+                              label="Consumable"
+                              v-bind:value.sync="gearConsumableFilter"
+                            ></x-checkbox>
+                          </v-list-item>
+                        </v-list>
+
+                        <v-divider />
+
+                        <v-card-actions>
+                          <v-btn
+                            @click="clearAdventureMenuFilters()"
+                            :color="errorColor"
+                            text
+                          >
+                            <span v-text="'Reset'" />
+                          </v-btn>
 
                           <v-spacer />
 
                           <v-btn
                             @click="closeGearFilterMenu()"
+                            text
+                            class="primary-gradient-color-text"
                             icon
                           >
-                            <v-icon v-text="'mdi-close'" />
+                            <v-icon v-text="'mdi-check'" />
                           </v-btn>
+                        </v-card-actions>
+                      </v-card>
+                    </v-menu>
+                  </div>
 
-                        </v-list-item>
-                      </v-list>
-
-                      <v-divider />
-
-                      <v-list>
-                        <v-list-item class="mb-3">
-                          <x-picker
-                            label="Category"
-                            :list="typesList"
-                            v-bind:value.sync="gearCategoryFilter"
-                          ></x-picker>
-                        </v-list-item>
-
-                        <v-list-item class="mb-3">
-                          <v-autocomplete
-                            v-if="gearFilterModeOn"
-                            label="Tags"
-                            v-model="gearTagsFilter"
-                            :items="preferences.gear_tags"
-                            :color="currentColor"
-                            filled
-                            dense
-                            clearable
-                            hide-details="auto"
-                          ></v-autocomplete>
-                        </v-list-item>
-
-                        <v-list-item class="mb-3">
-                          <x-brand-selector v-bind:value.sync="gearBrandFilter" isInFilter />
-                        </v-list-item>
-
-                        <v-list-item class="mb-3">
-                          <x-state-selector v-bind:value.sync="gearStateFilter" isInFilter />
-                        </v-list-item>
-
-                        <v-list-item class="mb-3">
-                          <x-checkbox
-                            label="Packed"
-                            v-bind:value.sync="gearIsPackedFilter"
-                          ></x-checkbox>
-                        </v-list-item>
-
-                        <v-list-item class="mb-3">
-                          <x-checkbox
-                            label="Worn"
-                            v-bind:value.sync="gearIsWornFilter"
-                          ></x-checkbox>
-                        </v-list-item>
-
-                        <v-list-item class="mb-3">
-                          <x-checkbox
-                            label="Consumable"
-                            v-bind:value.sync="gearConsumableFilter"
-                          ></x-checkbox>
-                        </v-list-item>
-                      </v-list>
-
-                      <v-divider />
-
-                      <v-card-actions>
-                        <v-btn
-                          @click="clearAdventureMenuFilters()"
-                          :color="errorColor"
-                          text
-                        >
-                          <span v-text="'Reset'" />
-                        </v-btn>
-
-                        <v-spacer />
-
-                        <v-btn
-                          @click="closeGearFilterMenu()"
-                          text
-                          class="primary-gradient-color-text"
-                          icon
-                        >
-                          <v-icon v-text="'mdi-check'" />
-                        </v-btn>
-                      </v-card-actions>
-                    </v-card>
-                  </v-menu>
-                </div>
-
-                <v-btn
-                  @click="closeGearList()"
-                  class="primary-gradient-color-text"
-                  icon
-                >
-                  <v-icon :size="XLI" v-text="'mdi-check'" />
-                </v-btn>
-
-                <template v-slot:extension>
-                  <v-list
-                    v-bind:class="['rounded-0 py-0 max-width']"
-                    one-line
-                    flat
-                    dense
-                    color="transparent"
+                  <v-btn
+                    @click="closeGearList()"
+                    class="primary-gradient-color-text"
+                    icon
                   >
-                    <v-list-item :class="[(isMobile ? 'pl-13' : 'pl-11')]">
-                      <v-list-item-avatar
-                        v-bind:class="['x-avatar my-0 py-0 mr-1 d-flex justify-center']"
-                        width="40"
-                        height="40"
-                      >
-                        <v-col class="x-col py-2">
-                          <div class="d-flex justify-center">
+                    <v-icon :size="XLI" v-text="'mdi-check'" />
+                  </v-btn>
 
-                          </div>
-                        </v-col>
-                      </v-list-item-avatar>
+                  <template v-slot:extension>
+                    <v-list
+                      v-bind:class="['rounded-0 py-0 max-width']"
+                      one-line
+                      flat
+                      dense
+                      color="transparent"
+                    >
+                      <v-list-item :class="[(isMobile ? 'pl-13' : 'pl-11')]">
+                        <v-list-item-avatar
+                          v-bind:class="['x-avatar my-0 py-0 mr-1 d-flex justify-center']"
+                          width="40"
+                          height="40"
+                        >
+                          <v-col class="x-col py-2">
+                            <div class="d-flex justify-center">
 
-                      <v-list-item-content class="py-0">
-                        <v-row align="center" justify="center">
-
-                          <v-col :cols="isMobile ? 6 : 4" :class="['py-2 col-border-r',{'ml-3':!isMobile}]">
-                            <div class="d-flex align-center">
-                              <div class="text-tiny" v-text="'Title'" />
                             </div>
                           </v-col>
+                        </v-list-item-avatar>
 
-                          <v-col v-if="!isMobile" class="x-col px-0 py-2 col-border-r">
-                            <div class="d-flex justify-center align-center">
-                              <div class="text-tiny" v-text="'Weight'" />
-                            </div>
-                          </v-col>
+                        <v-list-item-content class="py-0">
+                          <v-row align="center" justify="center">
 
-                          <v-col v-if="!isMobile" class="x-col px-0 py-2 col-border-r">
-                            <div class="d-flex justify-center align-center">
-                              <div class="text-tiny" v-text="'Price'" />
-                            </div>
-                          </v-col>
+                            <v-col :cols="isMobile ? 6 : 4" :class="['py-2 col-border-r',{'ml-3':!isMobile}]">
+                              <div class="d-flex align-center">
+                                <div class="text-tiny" v-text="'Title'" />
+                              </div>
+                            </v-col>
 
-                          <v-col v-if="!isMobile" class="x-col px-0 py-2 col-border-r">
-                            <div class="d-flex justify-center align-center">
-                              <div class="text-tiny" v-text="'State'" />
-                            </div>
-                          </v-col>
+                            <v-col v-if="!isMobile" class="x-col px-0 py-2 col-border-r">
+                              <div class="d-flex justify-center align-center">
+                                <div class="text-tiny" v-text="'Weight'" />
+                              </div>
+                            </v-col>
 
-                          <v-col v-if="!isMobile" class="x-col px-0 py-2 col-border-r">
-                            <div class="text-tiny text-center" v-text="'Cons.'" />
-                          </v-col>
+                            <v-col v-if="!isMobile" class="x-col px-0 py-2 col-border-r">
+                              <div class="d-flex justify-center align-center">
+                                <div class="text-tiny" v-text="'Price'" />
+                              </div>
+                            </v-col>
 
-                          <v-col class="x-col px-0 py-2 col-border-r x-primary-btn rounded" @click.stop="sortGear('gear_worn')" v-ripple>
-                            <div class="text-tiny text-center" v-text="'Worn'" />
-                            <x-sort-icon prop="gear_worn" />
-                          </v-col>
+                            <v-col v-if="!isMobile" class="x-col px-0 py-2 col-border-r">
+                              <div class="d-flex justify-center align-center">
+                                <div class="text-tiny" v-text="'State'" />
+                              </div>
+                            </v-col>
 
-                          <v-col class="x-col px-0 py-2 col-border-r x-primary-btn rounded" @click.stop="sortGear('gear_quantity_packed')" v-ripple>
-                            <div class="text-tiny text-center" v-text="'Qty'" />
-                            <x-sort-icon prop="gear_quantity_packed" />
-                          </v-col>
-                        </v-row>
-                      </v-list-item-content>
-                    </v-list-item>
-                  </v-list>
-                </template>
-              </v-toolbar>
+                            <v-col v-if="!isMobile" class="x-col px-0 py-2 col-border-r">
+                              <div class="text-tiny text-center" v-text="'Cons.'" />
+                            </v-col>
 
-              <v-list
-                subheader
-                two-line
-                dense
-              >
-                <v-responsive
-                  class="overflow-y-auto"
-                  :max-height="isMobile ? (listHeight) : 600"
+                            <v-col class="x-col px-0 py-2 col-border-r x-primary-btn rounded" @click.stop="sortGear('gear_worn')" v-ripple>
+                              <div class="text-tiny text-center" v-text="'Worn'" />
+                              <x-sort-icon prop="gear_worn" />
+                            </v-col>
+
+                            <v-col class="x-col px-0 py-2 col-border-r x-primary-btn rounded" @click.stop="sortGear('gear_quantity_packed')" v-ripple>
+                              <div class="text-tiny text-center" v-text="'Qty'" />
+                              <x-sort-icon prop="gear_quantity_packed" />
+                            </v-col>
+                          </v-row>
+                        </v-list-item-content>
+                      </v-list-item>
+                    </v-list>
+                  </template>
+                </v-toolbar>
+
+                <v-list
+                  subheader
+                  two-line
+                  dense
                 >
-                  <v-scroll-y-transition group>
-                    <template v-for="(gear, index) in filteredGear">
-                      <adventure-gear-list-item
-                        :key="`adventure-gear-${gear.gear_id}-${index}`"
-                        :gear.sync="gear"
-                        :updatedItem.sync="updatedItem"
-                        v-on:itemAction="packGear(gear.gear_id)"
-                      ></adventure-gear-list-item>
+                  <v-responsive
+                    class="overflow-y-auto"
+                    :max-height="isMobile ? (listHeight) : 600"
+                  >
+                    <v-scroll-y-transition group>
+                      <template v-for="(gear, index) in filteredGear">
+                        <adventure-gear-list-item
+                          :key="`adventure-gear-${gear.gear_id}-${index}`"
+                          :gear.sync="gear"
+                          :updatedItem.sync="updatedItem"
+                          v-on:itemAction="packGear(gear.gear_id)"
+                        ></adventure-gear-list-item>
 
-                      <v-divider
-                        v-if="(index < originalInventoryGear.length - 1)"
-                        :key="index"
-                      ></v-divider>
-                    </template>
-                  </v-scroll-y-transition>
-                </v-responsive>
-              </v-list>
-            </v-card-text>
-          </v-card>
-        </div>
-      </v-expand-transition>
+                        <v-divider
+                          v-if="(index < originalInventoryGear.length - 1)"
+                          :key="index"
+                        ></v-divider>
+                      </template>
+                    </v-scroll-y-transition>
+                  </v-responsive>
+                </v-list>
+              </v-card-text>
+            </v-card>
+          </div>
+        </v-expand-transition>
+
+        <v-text-field v-show="false" v-model="validTitle" :rules="xRules.boolean" />
+      </v-form>
     </v-container>
-  </v-form>
 
 </template>
 
@@ -603,6 +606,7 @@
     data: () => ({
       isMounted: false,
       valid: false,
+      validTitle: false,
 
       tab: 'adventure-general',
 

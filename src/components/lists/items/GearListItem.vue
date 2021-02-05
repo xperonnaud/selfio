@@ -57,7 +57,6 @@
       <v-col class="x-col">
         <x-consumable-icon
           v-if="item.consumable"
-          css="margin-bottom: 3px;"
           small
         ></x-consumable-icon>
         <empty-data solo v-else />

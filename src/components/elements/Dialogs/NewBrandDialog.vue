@@ -20,14 +20,13 @@
         <v-card-text>
           <v-row>
             <v-col cols="12" class="pb-0">
-              <v-form v-model="validBrand">
-                <x-title-field
-                  label="Title"
-                  v-bind:value.sync="defaultBrand.title"
-                  :color="darkColor('primary')"
-                  @keyup.enter="postBrand()"
-                ></x-title-field>
-              </v-form>
+              <x-title-field
+                label="Title"
+                v-bind:value.sync="defaultBrand.title"
+                v-bind:valid.sync="validBrand"
+                :color="darkColor('primary')"
+                @keyup.enter="postBrand()"
+              ></x-title-field>
             </v-col>
           </v-row>
         </v-card-text>

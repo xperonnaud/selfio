@@ -1,14 +1,14 @@
 <template>
 
-  <v-form v-model="valid">
-    <v-container
-      v-if="isMounted"
-      style="max-width: unset;"
-      v-bind:class="[
-        {'py-0': isMobile},
-        'pa-0'
-      ]"
-    >
+  <v-container
+    v-if="isMounted"
+    style="max-width: unset;"
+    v-bind:class="[
+      {'py-0': isMobile},
+      'pa-0'
+    ]"
+  >
+    <v-form v-model="valid">
       <v-expand-transition>
         <v-tabs
           v-show="!isEditing"
@@ -36,6 +36,7 @@
                       <v-col cols="12" class="pb-0">
                         <x-title-field
                           label="Title"
+                          v-bind:valid.sync="validTitle"
                           v-bind:value.sync="updatedItem.title"
                         ></x-title-field>
                       </v-col>
@@ -705,8 +706,10 @@
           </v-dialog>
         </div>
       </v-expand-transition>
-    </v-container>
-  </v-form>
+
+      <v-text-field v-show="false" v-model="validTitle" :rules="xRules.boolean" />
+    </v-form>
+  </v-container>
 
 </template>
 
@@ -785,6 +788,7 @@
     data: () => ({
       isMounted: false,
       valid: false,
+      validTitle: false,
       tab: 'inventory-general',
 
       pieChart: {

@@ -5,7 +5,7 @@
     @click.stop="sortItems(prop)"
     v-ripple
   >
-    <div class="d-flex justify-center flex-column">
+    <div :class="['d-flex justify-center', {isMobile: 'flex-column'}]">
       <div
         v-bind:class="['text-tiny']"
         v-text="text"

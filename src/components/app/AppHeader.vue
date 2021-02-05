@@ -68,7 +68,7 @@
           :height="48"
           fab
         >
-          <v-icon v-text="'mdi-plus'" />
+          <v-icon color="white" v-text="'mdi-plus'" />
         </v-btn>
 
         <new-brand-dialog
