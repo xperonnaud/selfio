@@ -10,7 +10,7 @@
           <span v-bind:class="[navItemColorText('inventories')]" v-text="updatedItem.packed_gear ? updatedItem.packed_gear.length : 0" />
           <span class="text-tiny" v-text="' / '" />
           <span v-bind:class="[navItemColorText('inventories')]" v-text="originalInventoryGear.length" />
-          <span class="text-tiny" v-text="' packed'" />
+          <span class="text-tiny" v-text="' packed gear'" />
         </div>
 
         <div>

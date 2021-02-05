@@ -1,16 +1,5 @@
 <template>
 
-  <div class="d-flex">
-    <v-btn
-      @click="decrement()"
-      :disabled="isDecDisabled"
-      v-bind:class="[{'shadow-bottom':!isDecDisabled}]"
-      style="border-radius: 12px 0 0 12px !important; margin-right: 2px;"
-      :height="52"
-    >
-      <v-icon v-text="'mdi-minus'" />
-    </v-btn>
-
     <v-text-field
       :label="label"
       v-model="pickerValue"
@@ -19,24 +8,40 @@
       filled
       dense
       hide-details="auto"
-      class="rounded-0"
+      class="x-increment"
     >
-      <template v-if="append" v-slot:append>
-        <span v-html="append" />
-      </template>
+        <template v-slot:prepend-inner>
+            <v-btn
+                @click="decrement()"
+                :disabled="isDecDisabled"
+                fab
+                small
+                v-bind:class="[(isDecDisabled ? 'elevation-0' : 'shadow-bottom')]"
+            >
+                <v-icon v-text="'mdi-minus'" />
+            </v-btn>
+        </template>
+
+        <template v-slot:append>
+            <div class="d-flex align-center mr-3">
+                <span
+                    v-if="append"
+                    v-html="append"
+                    class=""
+                ></span>
+            </div>
+
+            <v-btn
+                @click="increment()"
+                :disabled="isIncDisabled"
+                fab
+                small
+                v-bind:class="[(isIncDisabled ? 'elevation-0' : 'shadow-bottom')]"
+            >
+                <v-icon v-text="'mdi-plus'" />
+            </v-btn>
+        </template>
     </v-text-field>
-
-    <v-btn
-      @click="increment()"
-      :disabled="isIncDisabled"
-      v-bind:class="[{'shadow-bottom':!isIncDisabled}]"
-      style="border-radius: 0 12px 12px 0 !important; margin-left: 2px;"
-      :height="52"
-    >
-      <v-icon v-text="'mdi-plus'" />
-    </v-btn>
-  </div>
-
 
 </template>
 
@@ -111,3 +116,17 @@
     }
   }
 </script>
+
+<style lang="scss">
+
+    .x-increment {
+        .v-input__slot {
+            padding: 0 !important;
+        }
+
+        .v-input__prepend-inner, .v-input__append-inner {
+            margin: 6px !important;
+        }
+    }
+
+</style>

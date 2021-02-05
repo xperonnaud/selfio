@@ -22,7 +22,7 @@
       ></span>
       <span
         class="ml-1"
-        v-text="' Item'+((currentInventoryGear ? currentInventoryGear.length : 0) > 1 ? 's':'')"
+        v-text="' unique item'+((currentInventoryGear ? currentInventoryGear.length : 0) > 1 ? 's':'')"
       ></span>
     </div>
   </x-action-card>
