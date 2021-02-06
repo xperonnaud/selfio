@@ -31,9 +31,6 @@ export default {
         xFilters() {
             return this.$options.filters
         },
-        assetUrl() {
-            return this.store.api.baseUrl+'assets/'
-        },
         itemOrderBy: {
             get() {
                 return this.xUi.itemOrderBy
@@ -265,11 +262,6 @@ export default {
                 return this.xUi.selectedItemRelations
             },
         },
-        vuetifyColors: {
-            get() {
-                return this.xUi.colors
-            },
-        },
         itemSearch: {
             get() {
                 return this.xUi.itemSearch
@@ -278,44 +270,8 @@ export default {
                 this.$store.commit("updateUiItemSearch", value)
             }
         },
-        currentRouteName() {
-            if(this.isStoreMounted && this.$route)
-                return this.$route.name;
-            return 'home';
-        },
-        currentRouteTitle() {
-            if(this.isStoreMounted && this.$router)
-                return this.xFilters.capitalizeFilter(this.currentRouteName);
-        },
     },
     methods: {
-        copyVar(val) {
-            return JSON.parse(JSON.stringify(val));
-        },
-        dynamicWeightUnit(weight) {
-            switch(this.weightUnit) {
-                case 'g':
-                    return (weight >= 1000 ? 'kg' : this.weightUnit);
-
-                case 'oz':
-                    return (((Math.round(weight * C.G_TO_OZ * 10) / 10) >= 96) ? 'lb' : this.weightUnit);
-
-                default:
-                    return this.weightUnit;
-            }
-        },
-        sortItems(by, option = "asc") {
-            if (this.itemOrderBy == by) {
-                if (this.itemOrderOption == "asc") {
-                    this.itemOrderOption = "desc";
-                } else if (this.itemOrderOption == "desc") {
-                    this.itemOrderOption = "asc";
-                }
-            } else {
-                this.itemOrderOption = option;
-                this.itemOrderBy = by;
-            }
-        },
         xGear(gearId) {
             if(gearId && this.gearList)
                 return (this.gearList[this.gearReferences[gearId]]);
@@ -351,16 +307,6 @@ export default {
                 return (this.landscapesList[this.landscapeReferences[landscapeId]]);
             return null;
         },
-        objFilter(object, prop, value) {
-            if(object) {
-                let result = object.filter(obj => {
-                    return obj[prop] === value
-                });
-                return result;
-            } else {
-                return null
-            }
-        },
         clearMenuFilters() {
             this.$store.commit("updateUiItemSearch", '');
             this.$store.commit("updateUiItemOwned", null);
@@ -376,71 +322,11 @@ export default {
             this.$store.commit("updateUiItemLandscape", null);
             this.$store.commit("updateUiItemWeather", null);
         },
-        updateSnackbar(type, text, icon) {
+        updateSnackbar(type, text) {
             this.snackbarDisplay = true;
             this.snackbarType = type;
             this.snackbarText = text;
         },
-        stateIcon(title) {
-            let icon = 'battery-off';
-
-            switch(title) {
-                case 'New':
-                    icon =  'battery-high';
-                    break;
-                case 'Ok':
-                    icon =  'battery-medium';
-                    break;
-                case 'Used':
-                    icon =  'battery-low';
-                    break;
-                case 'Poor':
-                    icon =  'battery-off-outline';
-                    break;
-                default:
-                    return null;
-            }
-
-            return icon;
-        },
-        sumInventoryProperty(inventoryGear, prop) {
-            let self = this;
-            let sum = 0;
-
-            inventoryGear.forEach(function(gear) {
-                if(typeof gear.gear_quantity_packed == 'number' && gear.gear_quantity_packed > 0) {
-                    if(prop === 'quantity_packed') {
-                        sum += 1;
-                    } else {
-                        let gearIndex = self.gearReferences[gear.gear_id];
-
-                        if(self.gearList[gearIndex] && (typeof self.gearList[gearIndex][prop] == 'number'))
-                            sum += (self.gearList[gearIndex][prop] * gear.gear_quantity_packed);
-                    }
-                }
-            });
-
-            return sum;
-        },
-        sumInventoryPrice(inventoryGear) {
-            return this.sumInventoryProperty(inventoryGear, 'price').toFixed(2);
-        },
-        sumInventoryWeight(inventoryGear) {
-            return this.sumInventoryProperty(inventoryGear, 'weight');
-        },
-        sumInventoryQuantityPacked(inventoryGear) {
-            return this.sumInventoryProperty(inventoryGear, 'quantity_packed');
-        },
-        randomId(length = 16) {
-            let result = '';
-            let characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-            for (let i = 0; i < length; i++) {
-                result += characters.charAt(Math.floor(Math.random() * characters.length));
-            }
-            return result;
-        },
-    },
-    watch: {
 
     },
     mounted() {

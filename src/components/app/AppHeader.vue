@@ -17,7 +17,7 @@
       ]"
     >
       <span v-if="isItemRoute" v-text="'My '" />
-      <span>{{ currentRouteName | convertSpecialCharsFilter | capitalizeFilter }}</span>
+      <span>{{ $t(`global.${currentRouteId}`) | capitalizeFilter }}</span>
     </v-toolbar-title>
 
     <template v-if="isItemRoute || isConfigurationRoute">

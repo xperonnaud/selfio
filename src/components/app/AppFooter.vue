@@ -44,10 +44,8 @@
             :key="navigationItems[item].title"
             :to="{ name: item }"
           >
-            <span
-              v-text="navigationItems[item].title"
-              v-bind:class="[(currentRouteName === item) ? currentColorText : null]"
-            ></span>
+            <span v-bind:class="[(currentRouteName === item) ? currentColorText : null]"
+            >{{$t(`global.${navigationItems[item].id}`) | capitalizeFilter}}</span>
 
             <v-icon
               v-text="navigationItems[item].icon"

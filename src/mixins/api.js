@@ -24,6 +24,9 @@ const directus = new DirectusSDK('http://localhost:8055/', {
 
 export default {
     computed: {
+        assetUrl() {
+            return this.store.api.baseUrl+'assets/'
+        },
         apiAccessToken: {
             get() {
                 return this.$store.state.api.accessToken;
@@ -125,11 +128,6 @@ export default {
             let errorCode = (hasError && message.includes(ERROR_STR)) ? message.replace(ERROR_STR,'') : null;
 
             return (responseType !== 'success' && (errorCode === '401' || errorCode === 401));
-        },
-        async asyncForEach(array, callback) {
-            for (let index = 0; index < array.length; index++) {
-                await callback(array[index], index, array);
-            }
         },
 
         async api_login() {
@@ -422,7 +420,6 @@ export default {
             })
         },
         fixGear(gear) {
-
             if(gear.date_created)
                 delete gear.date_created;
 
@@ -710,11 +707,7 @@ export default {
                 await self.handleResponse('error', error.message, error);
             })
         },
-        propExists(prop) {
-            return (typeof prop != 'undefined')
-        },
         fixAdventure(adventure) {
-
             if(adventure.date_created)
                 delete adventure.date_created;
 

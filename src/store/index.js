@@ -88,59 +88,70 @@ export default new Vuex.Store({
             navigationItems: {
                 home: {
                     title: 'Home',
+                    id: 'home',
                     icon: 'mdi-view-dashboard',
                     type: 'misc',
                 },
                 gear: {
                     title: 'Gear',
+                    id: 'gear',
                     icon: 'mdi-knife-military',
                     color: 'blue',
                     type: 'items'
                 },
                 inventories: {
                     title: 'Inventories',
+                    id: 'inventories',
                     icon: 'mdi-semantic-web',
                     color: 'purple',
                     type: 'items'
                 },
                 adventures: {
                     title: 'Adventures',
+                    id: 'adventures',
                     icon: 'mdi-image-filter-hdr',
                     color: 'teal',
                     type: 'items'
                 },
                 account: {
                     title: 'Account',
+                    id: 'account',
                     icon: 'mdi-account-circle',
                     type: 'account',
                 },
                 brands: {
                     title: 'Brands',
+                    id: 'brands',
                     icon: 'mdi-label-multiple',
                     type: 'configuration',
                 },
                 tags: {
                     title: 'Tags',
+                    id: 'tags',
                     icon: 'mdi-tag-multiple',
                     type: 'settings',
                 },
                 settings: {
                     title: 'Settings',
+                    id: 'settings',
                     icon: 'mdi-cog',
                     type: 'settings',
                 },
                 feedback: {
                     title: 'Feedback',
+                    id: 'feedback',
                     icon: 'mdi-comment-text',
                     type: 'misc',
                 },
                 import_export: {
                     title: 'Import / Export',
+                    id: 'import-export',
                     icon: 'mdi-database',
                     type: 'misc',
                 },
                 info: {
                     title: 'Info',
+                    id: 'info',
                     icon: 'mdi-chart-timeline-variant-shimmer',
                     type: 'undefined',
                 },

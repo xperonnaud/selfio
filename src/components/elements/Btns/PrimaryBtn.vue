@@ -11,7 +11,7 @@
     :large="large"
   >
     <span
-      v-bind:class="[{'text-disabled': !valid}]"
+      v-bind:class="[(valid ? 'white--text' : 'text-disabled')]"
       v-text="label"
     ></span>
   </v-btn>

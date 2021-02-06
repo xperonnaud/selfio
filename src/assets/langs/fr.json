@@ -1,0 +1,88 @@
+
+{
+  "global": {
+    "email": "Email",
+    "login": "Se connecter",
+    "logout": "Déconnexion",
+    "password": "Mot de passe",
+    "forgot-password": "Mot de passe oublié ?",
+
+    "gear":"matériel",
+    "inventories":"inventaires",
+    "adventures":"aventures",
+    "home":"accueil",
+    "account":"compte",
+    "brands":"marques",
+    "tags":"tags",
+    "import-export":"import / export",
+    "settings":"paramètres",
+    "feedback":"contactez nous",
+    "theme":"thème"
+  },
+  "rules": {
+    "phone": {
+      "required":"Ce champ est requis",
+      "length":"Le numéro de téléphone doit contenir 10 chiffres"
+    },
+    "niv": {
+      "required":"Ce champ est requis",
+      "length":"Le NIV doit contenir 17 charactères"
+    },
+    "text": {
+      "required":"Un text est requis"
+    },
+    "card": {
+      "required":"Un choix est requis"
+    },
+    "firstname": {
+      "required":"Ce champ est requis",
+      "length":"Ce champ doit contenir 25 charactères au maximum"
+    },
+    "lastname": {
+      "required":"Ce champ est requis",
+      "length":"Ce champ doit contenir 25 charactères au maximum"
+    },
+    "email": {
+      "required":"Ce champ est requis",
+      "syntax":"Le courriel doit être valide"
+    },
+    "empty": {
+      "required":"Cette valeur doit etre nulle"
+    },
+    "select": {
+      "required":"Un choix est requis"
+    },
+    "expansion": {
+      "required":"Un choix est requis"
+    },
+    "zipcode": {
+      "required":"Ce champ est requis",
+      "value":"Format postal incorrect: H1H1H1"
+    },
+    "comment": {
+      "length":"Max 500 caractères"
+    },
+    "test": {
+      "value":"Valeur trop faible"
+    },
+    "boolean": {
+      "required":"Un valeur est requise",
+      "value":"Valeur trop faible",
+      "type":"Valeur incompatible"
+    },
+    "calendar": {
+      "date": {
+        "required":"La date est requise",
+        "value":"Format de date incorrect"
+      },
+      "period": {
+        "required":"La période est requise",
+        "value":"Format incorrect"
+      },
+      "time": {
+        "required":"L'heure est requise",
+        "value":"Format incorrect"
+      }
+    }
+  }
+}

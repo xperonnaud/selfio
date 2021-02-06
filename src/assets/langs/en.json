@@ -1,0 +1,88 @@
+
+{
+  "global": {
+    "email": "Email",
+    "login": "Login",
+    "logout": "Logout",
+    "password": "Password",
+    "forgot-password": "Forgot password ?",
+
+    "gear":"gear",
+    "inventories":"inventories",
+    "adventures":"adventures",
+    "home":"home",
+    "account":"account",
+    "brands":"brands",
+    "tags":"tags",
+    "import-export":"import / export",
+    "settings":"settings",
+    "feedback":"feedback",
+    "theme":"theme"
+  },
+  "rules": {
+    "phone": {
+      "required":"This field is required",
+      "length":"Phone number must be 10 characters"
+    },
+    "niv": {
+      "required":"This field is required",
+      "length":"The VIN must have 17 characters"
+    },
+    "text": {
+      "required":"A text is required"
+    },
+    "card": {
+      "required":"Choice is required"
+    },
+    "firstname": {
+      "required":"This field is required",
+      "length":"This field must be less than 25 characters"
+    },
+    "lastname": {
+      "required":"This field is required",
+      "length":"This field must be less than 25 characters"
+    },
+    "email": {
+      "required":"This field is required",
+      "syntax":"E-mail must be valid"
+    },
+    "empty": {
+      "required":"This value must be null"
+    },
+    "select": {
+      "required":"Choice is required"
+    },
+    "expansion": {
+      "required":"Choice is required"
+    },
+    "zipcode": {
+      "required":"This field is required",
+      "value":"Wrong postal code format: H1H1H1"
+    },
+    "comment": {
+      "length":"Max 500 characters"
+    },
+    "test": {
+      "value":"Value too low"
+    },
+    "boolean": {
+      "required":"Value is required",
+      "value":"Value too low",
+      "type":"Incompatible value"
+    },
+    "calendar": {
+      "date": {
+        "required":"Date is required",
+        "value":"Should be a date value"
+      },
+      "period": {
+        "required":"Period is required",
+        "value":"Should be a period"
+      },
+      "time": {
+        "required":"Time is required",
+        "value":"Should be a time value"
+      }
+    }
+  }
+}

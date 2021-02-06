@@ -17,7 +17,7 @@
 
               <v-col cols="12" class="py-0">
                 <v-text-field
-                  label="Login"
+                  :label="$t('global.email')"
                   v-model="userLogin"
                   :rules="xRules.email"
                   filled
@@ -29,7 +29,7 @@
 
               <v-col cols="12" class="py-0">
                 <v-text-field
-                  label="Password"
+                  :label="$t('global.password')"
                   v-model="userPassword"
                   :rules="xRules.password"
                   type="password"
@@ -42,7 +42,7 @@
 
               <v-col cols="12" class="py-0">
                 <primary-btn
-                  label="Login"
+                  :label="$t('global.login')"
                   v-on:btnAction="login()"
                   :valid.sync="valid"
                   :isLoading.sync="isLoading"
@@ -63,7 +63,7 @@
                   <span
                     style="font-size: 10px;"
                     class="text-tiny-dimmed"
-                    v-text="'Forgot password ?'"
+                    v-text="$t('global.forgot-password')"
                   ></span>
                 </v-btn>
               </v-col>
