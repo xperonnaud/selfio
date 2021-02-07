@@ -28,7 +28,7 @@
                     @click.stop="toggleEditor()"
                 >
                     <v-text-field
-                        label="State"
+                        :label="$t('global.state')"
                         :value="listedPickedValue ? (gearStates[pickerValue-1].title) : null"
                         :color="currentColor"
                         hide-details="auto"
@@ -62,7 +62,7 @@
                         <v-col
                             :key="`state-selector-${itemIndex}`"
                             :cols="isMobile ? 6 : 3"
-                            v-bind:class="[(isMobile ? 'pa-1' : 'pt-0 px-2')]"
+                            v-bind:class="[(isMobile ? 'pa-1' : 'pt-0 pb-2 px-2')]"
                         >
                             <v-card
                                 v-bind:class="[
@@ -92,7 +92,7 @@
                                             'text-caption',
                                             'text-center',
                                         ]"
-                                        v-html="item.title"
+                                        v-html="$t(`states.${item.title}`)"
                                     ></div>
                                 </div>
                             </v-card>
