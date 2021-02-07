@@ -18,13 +18,13 @@
             fixed-tabs
           >
             <v-tab :key="'adventure-general'">
-              <span v-text="'General'" />
+              <span v-text="$t('global.general')" />
             </v-tab>
             <v-tab :key="'adventure-event'">
-              <span v-text="'Event'" />
+              <span v-text="$t('routes.adventures.event')" />
             </v-tab>
             <v-tab :key="'adventure-details'">
-              <span v-text="'Details'" />
+              <span v-text="$t('global.details')" />
             </v-tab>
 
             <v-tabs-items v-model="tab" :style="xBackgroundStyleColorStr">
@@ -39,7 +39,7 @@
                       <v-row>
                         <v-col cols="12" class="pb-0">
                           <x-title-field
-                            label="Title"
+                            label="title"
                             v-bind:valid.sync="validTitle"
                             v-bind:value.sync="updatedItem.title"
                           ></x-title-field>
@@ -47,7 +47,7 @@
 
                         <v-col cols="12">
                           <x-selector
-                            label="Activity"
+                            label="activity"
                             :list="activitiesList"
                             :listReferences="activityReferences"
                             v-bind:value.sync="updatedItem.activity"
@@ -57,7 +57,7 @@
 
                         <v-col cols="12">
                           <x-picker
-                            :label="'Inventory '+(inventoryHasGear ? ('('+originalInventoryGear.length+' item'+(originalInventoryGear.length>1?'s)':')')) : ' (no items)')"
+                            label="inventory"
                             :list="inventoriesList"
                             :color="currentColor"
                             :type="'inventories'"
@@ -80,7 +80,7 @@
 
                         <v-col cols="12">
                           <x-combobox
-                            label="Tags"
+                            label="tags"
                             v-bind:value.sync="updatedItem.tags"
                             v-bind:items="preferences.adventure_tags"
                             v-bind:route="'adventures'"
@@ -89,7 +89,7 @@
 
                         <v-col cols="12">
                           <v-textarea
-                            label="Note"
+                            :label="$t('global.note')"
                             v-model="updatedItem.note"
                             :color="currentColor"
                             filled
@@ -116,7 +116,7 @@
                       <v-row>
                         <v-col cols="12">
                           <x-selector
-                            label="Landscape"
+                            label="landscape"
                             :list="landscapesList"
                             :listReferences="landscapeReferences"
                             v-bind:value.sync="updatedItem.landscape"
@@ -128,7 +128,7 @@
 
                         <v-col cols="12">
                           <v-text-field
-                            label="Location"
+                            :label="$t('global.location')"
                             v-model="updatedItem.location"
                             :color="currentColor"
                             filled
@@ -139,21 +139,21 @@
 
                         <v-col cols="12">
                           <x-date-picker
-                            label="Start Date"
+                            label="start-date"
                             v-bind:value.sync="updatedItem.start_date"
                           ></x-date-picker>
                         </v-col>
 
                         <v-col cols="12">
                           <x-time-picker
-                            label="Start Time"
+                            label="start-time"
                             v-bind:value.sync="updatedItem.start_time"
                           ></x-time-picker>
                         </v-col>
 
                         <v-col cols="12">
                           <x-date-picker
-                            label="End Date"
+                            label="end-date"
                             v-bind:value.sync="updatedItem.end_date"
                             :minDate="updatedItem.start_date"
                           ></x-date-picker>
@@ -161,7 +161,7 @@
 
                         <v-col cols="12">
                           <x-time-picker
-                            label="End Time"
+                            label="end-time"
                             v-bind:value.sync="updatedItem.end_time"
                           ></x-time-picker>
                         </v-col>
@@ -182,7 +182,7 @@
                       <v-row>
                         <v-col cols="12">
                           <v-text-field
-                            label="Elevation"
+                            :label="$t('global.elevation')+'/'+$t('global.depth')"
                             v-model="updatedItem.elevation"
                             :rules="xRules.decimal"
                             :color="currentColor"
@@ -195,7 +195,7 @@
 
                         <v-col cols="12">
                           <v-text-field
-                            label="Distance"
+                            :label="$t('global.distance')"
                             v-model="updatedItem.distance"
                             :rules="xRules.decimal"
                             :color="currentColor"
@@ -208,7 +208,7 @@
 
                         <v-col cols="12">
                           <x-simple-selector
-                            label="Weather"
+                            label="weather"
                             :list="weathers"
                             v-bind:value.sync="updatedItem.weather"
                             :iconSize="LGI"
@@ -218,7 +218,7 @@
 
                         <v-col cols="12">
                           <x-increment
-                            label="Max Temperature"
+                            label="max-temp"
                             v-bind:value.sync="updatedItem.temp_max"
                             :rules="xRules.temperature"
                             :color="currentColor"
@@ -230,7 +230,7 @@
 
                         <v-col cols="12">
                           <x-increment
-                            label="Min Temperature"
+                            label="min-temp"
                             v-bind:value.sync="updatedItem.temp_min"
                             :rules="xRules.temperature"
                             :color="currentColor"
@@ -242,7 +242,7 @@
 
                         <v-col cols="12">
                           <x-increment
-                            label="Humidity"
+                            label="humidity"
                             v-bind:value.sync="updatedItem.humidity"
                             :rules="xRules.integer"
                             :color="currentColor"
@@ -272,7 +272,7 @@
                   <v-toolbar-title v-bind:class="[{'pa-0':isMobile}]">
                     <v-list-item two-line>
                       <v-list-item-content class="pa-0">
-                        <v-list-item-title v-text="'Gear checklist'" />
+                        <v-list-item-title>{{$t('components.adventure-gear-card.gear-checklist') | capitalizeFirstFilter}}</v-list-item-title>
 
                         <v-list-item-subtitle>
                           <div class="d-flex">
@@ -281,7 +281,7 @@
                                 <span v-bind:class="[navItemColorText('inventories')]" v-text="updatedItem.packed_gear ? updatedItem.packed_gear.length : 0" />
                                 <span v-text="' / '" />
                                 <span v-bind:class="[navItemColorText('inventories')]" v-text="originalInventoryGear.length" />
-                                <span v-text="' packed gear'" />
+                                <span v-text="' '+$t('components.adventure-gear-card.gear-packed')" />
                               </span>
                             </div>
 
@@ -324,7 +324,7 @@
                       <v-card>
                         <v-list class="py-1">
                           <v-list-item>
-                            <v-list-item-title v-text="'Filters'" />
+                            <v-list-item-title v-text="$t('global.filters')" />
 
                             <v-spacer />
 
@@ -343,7 +343,7 @@
                         <v-list>
                           <v-list-item class="mb-3">
                             <x-picker
-                              label="Category"
+                              label="category"
                               :list="typesList"
                               v-bind:value.sync="gearCategoryFilter"
                             ></x-picker>
@@ -352,7 +352,7 @@
                           <v-list-item class="mb-3">
                             <v-autocomplete
                               v-if="gearFilterModeOn"
-                              label="Tags"
+                              :label="$t('global.tags')"
                               v-model="gearTagsFilter"
                               :items="preferences.gear_tags"
                               :color="currentColor"
@@ -373,21 +373,21 @@
 
                           <v-list-item class="mb-3">
                             <x-checkbox
-                              label="Packed"
+                              label="packed"
                               v-bind:value.sync="gearIsPackedFilter"
                             ></x-checkbox>
                           </v-list-item>
 
                           <v-list-item class="mb-3">
                             <x-checkbox
-                              label="Worn"
+                              label="worn"
                               v-bind:value.sync="gearIsWornFilter"
                             ></x-checkbox>
                           </v-list-item>
 
                           <v-list-item class="mb-3">
                             <x-checkbox
-                              label="Consumable"
+                              label="consumable"
                               v-bind:value.sync="gearConsumableFilter"
                             ></x-checkbox>
                           </v-list-item>
@@ -401,7 +401,7 @@
                             :color="errorColor"
                             text
                           >
-                            <span v-text="'Reset'" />
+                            <span v-text="$t('global.reset')" />
                           </v-btn>
 
                           <v-spacer />
@@ -430,10 +430,10 @@
                   <template v-slot:extension>
                     <v-list
                       v-bind:class="['rounded-0 py-0 max-width']"
+                      color="transparent"
                       one-line
                       flat
                       dense
-                      color="transparent"
                     >
                       <v-list-item :class="[(isMobile ? 'pl-13' : 'pl-11')]">
                         <v-list-item-avatar
@@ -453,39 +453,39 @@
 
                             <v-col :cols="isMobile ? 6 : 4" :class="['py-2 col-border-r',{'ml-3':!isMobile}]">
                               <div class="d-flex align-center">
-                                <div class="text-tiny" v-text="'Title'" />
+                                <div class="text-tiny" v-text="$t('global.title')" />
                               </div>
                             </v-col>
 
                             <v-col v-if="!isMobile" class="x-col px-0 py-2 col-border-r">
                               <div class="d-flex justify-center align-center">
-                                <div class="text-tiny" v-text="'Weight'" />
+                                <div class="text-tiny" v-text="$t('global.weight')" />
                               </div>
                             </v-col>
 
                             <v-col v-if="!isMobile" class="x-col px-0 py-2 col-border-r">
                               <div class="d-flex justify-center align-center">
-                                <div class="text-tiny" v-text="'Price'" />
+                                <div class="text-tiny" v-text="$t('global.price')" />
                               </div>
                             </v-col>
 
                             <v-col v-if="!isMobile" class="x-col px-0 py-2 col-border-r">
                               <div class="d-flex justify-center align-center">
-                                <div class="text-tiny" v-text="'State'" />
+                                <div class="text-tiny" v-text="$t('global.state')" />
                               </div>
                             </v-col>
 
                             <v-col v-if="!isMobile" class="x-col px-0 py-2 col-border-r">
-                              <div class="text-tiny text-center" v-text="'Cons.'" />
+                              <div class="text-tiny text-center">{{$t('global.consumable') | minifyTextFilter}}</div>
                             </v-col>
 
                             <v-col class="x-col px-0 py-2 col-border-r x-primary-btn rounded" @click.stop="sortGear('gear_worn')" v-ripple>
-                              <div class="text-tiny text-center" v-text="'Worn'" />
+                              <div class="text-tiny text-center" v-text="$t('global.worn')" />
                               <x-sort-icon prop="gear_worn" />
                             </v-col>
 
                             <v-col class="x-col px-0 py-2 col-border-r x-primary-btn rounded" @click.stop="sortGear('gear_quantity_packed')" v-ripple>
-                              <div class="text-tiny text-center" v-text="'Qty'" />
+                              <div class="text-tiny text-center" v-text="$t('global.qty')" />
                               <x-sort-icon prop="gear_quantity_packed" />
                             </v-col>
                           </v-row>

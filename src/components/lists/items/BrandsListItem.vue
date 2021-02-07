@@ -28,7 +28,7 @@
                 :size="SMI"
               ></v-icon>
             </template>
-            <span v-text="'You may only delete a Private Brand (created by you).'" />
+            {{$t('components.brands-list-item.delete-rule') | capitalizeFirstFilter}}
           </v-tooltip>
         </div>
       </v-col>
@@ -47,14 +47,12 @@
         ]"
       >
         <v-card-title class="headline">
-          <span v-if="hasBrandRelations" v-text="'Delete is not allowed.'" />
-          <span v-else v-text="'You are about to delete an item.'" />
+          <span v-if="hasBrandRelations">{{$t('components.brands-list-item.delete-forbidden') | capitalizeFirstFilter}}</span>
+          <span v-else>{{$t('components.brands-list-item.delete-warning') | capitalizeFirstFilter}}</span>
         </v-card-title>
 
         <v-card-subtitle v-if="hasBrandRelations" class="pt-2">
-          <span v-text="'Remove '" />
-          <span v-bind:class="[navItemColorText('gear')]" v-text="'gear'" />
-          <span v-text="' relations first:'" />
+          <span v-text="$t('components.x-delete-dialog.remove-relations')" />
         </v-card-subtitle>
 
         <v-card-text>
@@ -79,8 +77,8 @@
           </v-responsive>
 
           <div v-else>
-            <div v-text="'This action is irreversible.'" />
-            <div v-bind:class="[fontShadeColor]" v-text="'Are you sure your wish to go forward with this?'" />
+            <div v-text="$t('components.x-delete-dialog.irreversible')" />
+            <div v-bind:class="[fontShadeColor]" v-text="$t('components.x-delete-dialog.are-you-sure')" />
           </div>
 
         </v-card-text>
@@ -91,7 +89,7 @@
 
           <v-btn
               @click="deleteDialog = false"
-              v-text="'Cancel'"
+              v-text="$t('global.cancel')"
               text
           ></v-btn>
 
@@ -102,7 +100,7 @@
               @click="deleteBrand()"
           >
             <v-icon left small :color="(isDark ? 'black' : 'white')" v-text="'mdi-alert'" />
-            <span v-bind:class="[reversedFontShadeColor]" v-text="'Delete'" />
+            <span v-bind:class="[reversedFontShadeColor]" v-text="$t('global.delete')" />
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -115,9 +113,6 @@
 
   export default {
     name: 'brands-list-item',
-    components: {
-
-    },
     data: () => ({
       deleteDialog: false,
       hasBrandRelations: false,

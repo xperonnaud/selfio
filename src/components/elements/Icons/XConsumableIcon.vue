@@ -12,7 +12,7 @@
           v-on="on"
         ></v-icon>
       </template>
-      <span v-text="'Consumable'" />
+      <span v-text="$t('global.consumable')" />
   </v-tooltip>
 
 </template>

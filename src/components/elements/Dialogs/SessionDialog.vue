@@ -15,9 +15,9 @@
           </v-avatar>
         </div>
 
-        <v-card-title class="headline mt-3" v-text="'Your session has expired.'" />
+        <v-card-title class="headline mt-3">{{t('session-expired') | capitalizeFirstFilter}}</v-card-title>
 
-        <v-card-subtitle v-text="'Please log in again.'" />
+        <v-card-subtitle>{{t('please-login') | capitalizeFirstFilter}}</v-card-subtitle>
 
         <v-divider />
 
@@ -26,7 +26,7 @@
             @click="api_logout()"
             depressed
             text
-            v-text="'Leave'"
+            v-text="$t('global.leave')"
           ></v-btn>
 
           <v-spacer />
@@ -37,7 +37,7 @@
             depressed
             dark
           >
-            <span v-text="'Log back in'" />
+            {{t('log-back')}}
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -57,6 +57,11 @@
     data: () => ({
       isMounted: false,
     }),
+    methods: {
+      t(str) {
+        return this.$t(`components.session-dialog.${str}`);
+      }
+    },
     mounted() {
       this.isMounted = true;
     }

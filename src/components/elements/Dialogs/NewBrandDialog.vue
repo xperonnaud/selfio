@@ -15,13 +15,15 @@
           </v-avatar>
         </div>
 
-        <v-card-title class="headline mt-3" v-text="'New brand'" />
+        <v-card-title class="headline mt-3">
+          {{t('new-brand') | capitalizeFilter}}
+        </v-card-title>
 
         <v-card-text>
           <v-row>
             <v-col cols="12" class="pb-0">
               <x-title-field
-                label="Title"
+                label="title"
                 v-bind:value.sync="defaultBrand.title"
                 v-bind:valid.sync="validBrand"
                 :color="darkColor('primary')"
@@ -38,13 +40,13 @@
             @click="brandDialog = false"
             depressed
             text
-            v-text="'Cancel'"
+            v-text="$t('global.cancel')"
           ></v-btn>
 
           <v-spacer />
 
           <primary-btn
-            label="Add brand"
+            label="add"
             :valid.sync="validBrand"
             v-on:btnAction="postBrand()"
           ></primary-btn>
@@ -76,6 +78,9 @@
       defaultBrand: { title: '' },
     }),
     methods: {
+      t(str) {
+        return this.$t(`components.new-brand-dialog.${str}`);
+      },
       async postBrand() {
         if(this.validBrand === true) {
           await this.api_post_brand(this.defaultBrand);

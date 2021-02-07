@@ -1,7 +1,7 @@
 <template>
 
   <x-action-card
-    title="Gear list"
+    :title="t('gear-list')"
     v-on:xCardAction="$emit('cardAction')"
   >
     <div class="d-flex text-caption">
@@ -22,7 +22,7 @@
       ></span>
       <span
         class="ml-1"
-        v-text="' unique item'+((currentInventoryGear ? currentInventoryGear.length : 0) > 1 ? 's':'')"
+        v-text="' '+t(`global.unique-item${(currentInventoryGear ? currentInventoryGear.length : 0) > 1 ? 's':''}`)"
       ></span>
     </div>
   </x-action-card>
@@ -42,6 +42,11 @@
       inventoryTotalWeight: Number,
       currentInventoryGear: [Array, Object],
     },
+    methods: {
+      t(str) {
+        return this.$t(`components.inventory-gear-card.${str}`);
+      }
+    }
   }
 
 </script>

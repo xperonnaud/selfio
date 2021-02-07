@@ -6,10 +6,11 @@
     v-ripple
   >
     <div :class="['d-flex justify-center', {isMobile: 'flex-column'}]">
-      <div
-        v-bind:class="['text-tiny']"
-        v-text="text"
-      ></div>
+      <div v-bind:class="['text-tiny']"
+      >
+        <span v-if="!mini">{{$t(`global.${text}`) | capitalizeFilter}}</span>
+        <span v-else>{{$t(`global.${text}`) | minifyTextFilter | capitalizeFilter}}</span>
+      </div>
 
       <x-sort-icon :prop="prop" />
     </div>
@@ -29,6 +30,10 @@
     props: {
       text: String,
       prop: String,
+      mini: {
+        type: Boolean,
+        default: false
+      },
     },
   }
 

@@ -11,7 +11,10 @@
           <v-row class="row-max-width">
             <v-col cols="12">
               <div>
-                <div class="text-caption" v-text="'Weight Unit'" />
+                <div class="my-1">
+                  <span class="text-subtitle-2">{{$t('global.weight') | capitalizeFilter}}</span>
+                  <span class="text-tiny">&nbsp;({{$t('global.unit')}})</span>
+                </div>
                 <v-btn-toggle v-model="preferences.weight_unit" mandatory dense tile>
                   <v-btn
                     v-for="weightUnit in weightUnits"
@@ -27,7 +30,10 @@
 
             <v-col cols="12">
               <div>
-                <div class="text-caption" v-text="'Temperature Unit'" />
+                <div class="my-1">
+                  <span class="text-subtitle-2">{{$t('global.temperature') | capitalizeFilter}}</span>
+                  <span class="text-tiny">&nbsp;({{$t('global.unit')}})</span>
+                </div>
                 <v-btn-toggle v-model="preferences.temperature_unit" mandatory dense tile>
                   <v-btn
                     v-for="temperatureUnit in temperatureUnits"
@@ -43,7 +49,10 @@
 
             <v-col cols="12">
               <div>
-                <div class="text-caption" v-text="'Distance Unit'" />
+                <div class="my-1">
+                <span class="text-subtitle-2">{{$t('global.distance') | capitalizeFilter}}</span>
+                <span class="text-tiny">&nbsp;({{$t('global.unit')}})</span>
+              </div>
                 <v-btn-toggle v-model="preferences.distance_unit" mandatory dense tile>
                   <v-btn
                     v-for="distanceUnit in distanceUnits"
@@ -59,7 +68,10 @@
 
             <v-col cols="12">
               <div>
-                <div class="text-caption" v-text="'Elevation/Depth Unit'" />
+                <div class="my-1">
+                  <span class="text-subtitle-2">{{$t('global.elevation') | capitalizeFilter}}/{{$t('global.depth') | capitalizeFilter}}</span>
+                  <span class="text-tiny">&nbsp;({{$t('global.unit')}})</span>
+                </div>
                 <v-btn-toggle v-model="preferences.elevation_unit" mandatory dense tile>
                   <v-btn
                     v-for="elevationUnit in elevationUnits"
@@ -75,7 +87,10 @@
 
             <v-col cols="12">
               <div>
-                <div class="text-caption" v-text="'Price Unit'" />
+                <div class="my-1">
+                  <span class="text-subtitle-2">{{$t('global.price') | capitalizeFilter}}</span>
+                  <span class="text-tiny">&nbsp;({{$t('global.unit')}})</span>
+                </div>
                 <v-btn-toggle v-model="preferences.price_unit" mandatory dense tile>
                   <v-btn
                     v-for="priceUnit in priceUnits"
@@ -91,7 +106,10 @@
 
             <v-col cols="12">
               <div>
-                <div class="text-caption" v-text="'Date Format'" />
+                <div class="my-1">
+                  <span class="text-subtitle-2">{{$t('global.date') | capitalizeFilter}}</span>
+                  <span class="text-tiny">&nbsp;({{$t('global.format')}})</span>
+                </div>
                 <v-btn-toggle v-model="preferences.date_format" mandatory dense tile>
                   <v-btn
                     v-for="dateFormat in dateFormats"
@@ -107,7 +125,7 @@
 
             <v-col cols="12">
               <primary-btn
-                label="Save"
+                label="save"
                 :block="isMobile"
                 :valid.sync="valid"
                 v-on:btnAction="updatePreferences()"

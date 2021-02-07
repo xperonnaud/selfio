@@ -5,7 +5,7 @@
     class="x-primary-btn"
   >
     <v-text-field
-      :label="label"
+      :label="$t(`global.${label}`)"
       v-model="pickerValue"
       :color="currentColor"
       :rules="xRules.time"

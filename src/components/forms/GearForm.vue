@@ -15,10 +15,10 @@
         fixed-tabs
       >
         <v-tab :key="'gear-general'">
-          <span v-text="'General'" />
+          <span v-text="$t('global.general')" />
         </v-tab>
         <v-tab :key="'gear-purchase'">
-          <span v-text="'Purchase'" />
+          <span v-text="$t('global.purchase')" />
         </v-tab>
 
         <v-tabs-items v-model="tab" :style="xBackgroundStyleColorStr">
@@ -33,7 +33,7 @@
                   <v-row>
                     <v-col cols="12" class="pb-0">
                       <x-title-field
-                        label="Title"
+                        label="title"
                         v-bind:valid.sync="validTitle"
                         v-bind:value.sync="updatedItem.title"
                       ></x-title-field>
@@ -41,7 +41,7 @@
 
                     <v-col cols="12">
                       <x-selector
-                        label="Category"
+                        label="category"
                         :list="typesList"
                         :listReferences="gearCategoryReferences"
                         v-bind:value.sync="updatedItem.category"
@@ -52,14 +52,14 @@
 
                     <v-col cols="12">
                       <x-checkbox
-                        label="Consumable"
+                        label="consumable"
                         v-bind:value.sync="updatedItem.consumable"
                       ></x-checkbox>
                     </v-col>
 
                     <v-col cols="12">
                       <v-text-field
-                        label="Weight"
+                        :label="$t('global.weight')"
                         v-model="updatedItem.weight"
                         :rules="xRules.decimal"
                         :color="currentColor"
@@ -72,7 +72,7 @@
 
                     <v-col cols="12">
                       <x-increment
-                        label="Quantity owned"
+                        label="quantity-owned"
                         v-bind:value.sync="updatedItem.quantity_owned"
                         :rules="xRules.decimal"
                         :color="currentColor"
@@ -83,7 +83,7 @@
 
                     <v-col cols="12">
                       <x-combobox
-                        label="Tags"
+                        label="tags"
                         v-bind:value.sync="updatedItem.tags"
                         v-bind:items="preferences.gear_tags"
                         v-bind:route="'gear'"
@@ -110,7 +110,7 @@
 
                     <v-col cols="12">
                       <v-text-field
-                        label="Price"
+                        :label="$t('global.price')"
                         v-model="updatedItem.price"
                         :rules="xRules.decimal"
                         :color="currentColor"
@@ -127,14 +127,14 @@
 
                     <v-col cols="12">
                       <x-date-picker
-                        label="Purchase date"
+                        label="purchase"
                         v-bind:value.sync="updatedItem.purchase_date"
                       ></x-date-picker>
                     </v-col>
 
                     <v-col cols="12">
                       <v-text-field
-                        label="Size"
+                        :label="$t('global.size')"
                         v-model="updatedItem.size"
                         :color="currentColor"
                         filled
@@ -145,7 +145,7 @@
 
                     <v-col cols="12">
                       <v-textarea
-                        label="Description"
+                        :label="$t('global.description')"
                         v-model="updatedItem.description"
                         :color="currentColor"
                         hide-details="auto"

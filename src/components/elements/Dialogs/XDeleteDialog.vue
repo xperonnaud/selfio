@@ -20,20 +20,29 @@
 
     <v-card :style="'border-top: 2px solid '+errorColor+' !important;'">
       <div class="max-width d-flex align-center justify-center">
-        <v-avatar :size="48" :color="errorColor" style="position: absolute; top: -26px;">
-          <v-icon :size="MDI" :color="reversedShadeColor" v-text="'mdi-trash-can-outline'" style="margin-top: 20px;" />
+        <v-avatar
+          :size="48"
+          :color="errorColor"
+          style="position: absolute; top: -26px;"
+        >
+          <v-icon
+            :size="MDI"
+            :color="reversedShadeColor"
+            v-text="'mdi-trash-can-outline'"
+            style="margin-top: 22px;"
+          ></v-icon>
         </v-avatar>
       </div>
 
-      <v-card-title class="headline mt-3">
-        <span v-text="`Deleting ${currentRouteTitle}:`" />
-        <span v-html="'&nbsp;'" />
-        <span v-if="hasItemRelations" v-text="' Not Allowed.'" />
+      <v-card-title class="text-subtitle-2 mt-3">
+        <span>{{t(`deleting-${currentRouteId}`) | capitalizeFirstFilter}}</span>
+        <span v-html="':&nbsp;'" />
+        <span v-if="hasItemRelations" v-text="t('not-allowed')">{{t('not-allowed') | capitalizeFilter}}</span>
         <span v-else v-text="item.title" />
       </v-card-title>
 
       <v-card-subtitle v-if="hasItemRelations">
-        <span v-text="'Remove relations first:'" />
+        <span v-text="t('remove-relations')" />
       </v-card-subtitle>
 
       <v-card-text>
@@ -66,8 +75,8 @@
         </v-responsive>
 
         <div v-else>
-          <div v-text="'Are you sure your wish to go forward with this?'" />
-          <div v-bind:class="[fontShadeColor]"  v-text="'This action is irreversible.'" />
+          <div>{{t('are-you-sure') | capitalizeFirstFilter}}</div>
+          <div v-bind:class="[fontShadeColor]">{{t('irreversible') | capitalizeFirstFilter}}</div>
         </div>
       </v-card-text>
 
@@ -78,7 +87,7 @@
           @click="pickerValue = false"
           depressed
           text
-          v-text="'Cancel'"
+          v-text="$t('global.cancel')"
         ></v-btn>
 
         <v-spacer />
@@ -89,7 +98,7 @@
           :disabled="hasItemRelations"
           depressed
         >
-          <span v-bind:class="[reversedFontShadeColor]" v-text="'Delete'" />
+          <span v-bind:class="[reversedFontShadeColor]" v-text="$t('global.delete')" />
         </v-btn>
       </v-card-actions>
     </v-card>
@@ -141,7 +150,13 @@
       pickerValue: null,
       dialogDeleteItem: false,
     }),
+    computed: {
+
+    },
     methods: {
+      t(str) {
+        return this.$t(`components.x-delete-dialog.${str}`)
+      },
       deleteAction() {
         if(this.item)
           this.dialogDeleteItem = true;

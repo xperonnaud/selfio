@@ -18,10 +18,10 @@
           fixed-tabs
         >
           <v-tab :key="'inventory-details'">
-            <span v-text="'Details'" />
+            <span v-text="$t('global.details')" />
           </v-tab>
           <v-tab :key="'inventory-gear-balance'">
-            <span v-text="'Gear Balance'" />
+            <span v-text="$t('routes.inventories.gear-balance')" />
           </v-tab>
 
           <v-tabs-items v-model="tab" :style="xBackgroundStyleColorStr">
@@ -35,7 +35,7 @@
                     <v-row>
                       <v-col cols="12" class="pb-0">
                         <x-title-field
-                          label="Title"
+                          label="title"
                           v-bind:valid.sync="validTitle"
                           v-bind:value.sync="updatedItem.title"
                         ></x-title-field>
@@ -43,7 +43,7 @@
 
                       <v-col cols="12">
                         <v-textarea
-                          label="Description"
+                          :label="$t('global.description')"
                           v-model="updatedItem.description"
                           :color="currentColor"
                           filled
@@ -56,7 +56,7 @@
 
                       <v-col cols="12">
                         <x-combobox
-                          label="Tags"
+                          label="tags"
                           v-bind:value.sync="updatedItem.tags"
                           v-bind:items="preferences.inventory_tags"
                           v-bind:route="'inventories'"
@@ -151,8 +151,7 @@
 
                                           <div style="width: 60px;">
                                             <span class="text-tiny" v-text="gearCategoryStat.items" />
-                                            <span class="text-tiny-dimmed" v-text="' item'" />
-                                            <span class="text-tiny-dimmed" v-show="gearCategoryStat.items > 1" v-text="'s'" />
+                                            <span class="text-tiny-dimmed" v-text="' '+$t(`global.item${gearCategoryStat.items > 1 ? 's' : ''}`)" />
                                           </div>
 
                                           <x-divider />
@@ -198,7 +197,7 @@
                             >
                               <empty-list
                                 v-if="inventoryGearList.length <= 0"
-                                label="This inventory is empty."
+                                label="empty-list"
                                 :color="navItemColor('gear')"
                               ></empty-list>
 
@@ -232,7 +231,7 @@
 
                           <empty-list
                             v-if="inventoryGearList.length <= 0"
-                            label="This inventory is empty."
+                            label="empty-list"
                             :color="navItemColor('gear')"
                           ></empty-list>
 
@@ -241,7 +240,7 @@
 
                               <v-list-item one-line style="min-height: unset;">
                                 <v-list-item-content class="pt-0">
-                                  <v-list-item-title v-text="'Weight by Gear Category'" />
+                                  <v-list-item-title>{{$t(`routes.inventories.weight-by-gear-category`) | capitalizeFirstFilter}}</v-list-item-title>
                                 </v-list-item-content>
                               </v-list-item>
 
@@ -303,7 +302,7 @@
                                             <div v-if="gearCategoryStat.id && objFilter(gearCategories, 'id', parseInt(gearCategoryStat.id))[0]"
                                             >{{ objFilter(gearCategories, 'id', parseInt(gearCategoryStat.id))[0].title }}</div>
 
-                                            <div v-else v-text="'unknown'" />
+                                            <div v-else v-text="$t('global.unknown')" />
                                           </div>
 
                                           <div class="d-flex font-weight-regular text-caption">
@@ -312,8 +311,7 @@
 
                                             <div>
                                               <span class="text-tiny" v-text="gearCategoryStat.items" />
-                                              <span class="text-tiny-dimmed" v-text="' item'" />
-                                              <span class="text-tiny-dimmed" v-show="gearCategoryStat.items > 1" v-text="'s'" />
+                                              <span class="text-tiny-dimmed" v-text="' '+$t(`global.item${gearCategoryStat.items > 1 ? 's' : ''}`)" />
                                             </div>
 
                                             <x-divider />
@@ -368,7 +366,7 @@
 
                 <v-list-item two-line>
                   <v-list-item-content class="pa-0">
-                    <v-list-item-title v-text="'Gear list'" />
+                    <v-list-item-title>{{$t(`routes.inventories.gear-list`) | capitalizeFirstFilter}}</v-list-item-title>
 
                     <v-list-item-subtitle>
                       <div class="d-flex">
@@ -384,7 +382,7 @@
                             v-bind:class="[currentColorText]"
                             v-text="inventoryTotalItems || 0"
                           ></span>
-                          <span v-text="' unique item'+(inventoryTotalItems>1?'s':'')" class="text-tiny" />
+                          <span class="text-tiny" v-text="' '+$t(`global.unique-item${inventoryTotalItems > 1 ? 's' : ''}`)" />
                         </div>
                       </div>
                     </v-list-item-subtitle>
@@ -414,7 +412,7 @@
                     <v-card>
                       <v-list class="py-1">
                         <v-list-item>
-                          <v-list-item-title v-text="'Filters'" />
+                          <v-list-item-title v-text="$t('global.filters')" />
 
                           <v-spacer />
 
@@ -433,7 +431,7 @@
                       <v-list>
                         <v-list-item class="mb-3">
                           <x-picker
-                            label="Category"
+                            label="category"
                             :list="typesList"
                             v-bind:value.sync="gearCategoryFilter"
                           ></x-picker>
@@ -442,7 +440,7 @@
                         <v-list-item class="mb-3">
                           <v-autocomplete
                             v-if="gearFilterModeOn"
-                            label="Tags"
+                            :label="$t('global.tags')"
                             v-model="gearTagsFilter"
                             :items="preferences.gear_tags"
                             :color="currentColor"
@@ -463,21 +461,21 @@
 
                         <v-list-item class="mb-3">
                           <x-checkbox
-                            label="Consumable"
+                            label="consumable"
                             v-bind:value.sync="gearConsumableFilter"
                           ></x-checkbox>
                         </v-list-item>
 
                         <v-list-item class="mb-3">
                           <x-checkbox
-                            label="Packed"
+                            label="packed"
                             v-bind:value.sync="gearIsPackedFilter"
                           ></x-checkbox>
                         </v-list-item>
 
                         <v-list-item class="mb-3">
                           <x-checkbox
-                            label="Quantity owned > 0"
+                            label="quantity-positive"
                             v-bind:value.sync="gearQuantityOwnedFilter"
                           ></x-checkbox>
                         </v-list-item>
@@ -491,7 +489,7 @@
                           :color="errorColor"
                           text
                         >
-                          <span v-text="'Reset'" />
+                          <span v-text="$t('global.reset')" />
                         </v-btn>
 
                         <v-spacer />
@@ -543,46 +541,46 @@
 
                           <v-col :cols="isMobile ? 6 : 3" class="py-2 col-border-r x-primary-btn rounded" @click.stop="sortGear('title')" v-ripple>
                             <div class="d-flex align-center">
-                              <div class="text-tiny" v-text="'Title'" />
+                              <div class="text-tiny" v-text="$t('global.title')" />
                               <x-sort-icon prop="title" />
                             </div>
                           </v-col>
 
                           <v-col class="x-col px-0 py-2 col-border-r x-primary-btn rounded" @click.stop="sortGear('weight')" v-ripple>
                             <div class="d-flex justify-center align-center">
-                              <div class="text-tiny" v-text="'Weight'" />
+                              <div class="text-tiny" v-text="$t('global.weight')" />
                               <x-sort-icon prop="weight" />
                             </div>
                           </v-col>
 
                           <v-col v-if="!isMobile" class="x-col px-0 py-2 col-border-r x-primary-btn rounded" @click.stop="sortGear('price')" v-ripple>
                             <div class="d-flex justify-center align-center">
-                              <div class="text-tiny" v-text="'Price'" />
+                              <div class="text-tiny" v-text="$t('global.price')" />
                               <x-sort-icon prop="price" />
                             </div>
                           </v-col>
 
                           <v-col v-if="!isMobile" class="x-col px-0 py-2 col-border-r x-primary-btn rounded" @click.stop="sortGear('state')" v-ripple>
                             <div class="d-flex justify-center align-center">
-                              <div class="text-tiny" v-text="'State'" />
+                              <div class="text-tiny" v-text="$t('global.state')" />
                               <x-sort-icon prop="state" />
                             </div>
                           </v-col>
 
                           <v-col v-if="!isMobile" class="x-col px-0 py-2 col-border-r x-primary-btn rounded" @click.stop="sortGear('consumable')" v-ripple>
                             <div class="d-flex justify-center align-center">
-                              <div class="text-tiny" v-text="'Consumable'" />
+                              <div class="text-tiny" v-text="$t('global.consumable')" />
                               <x-sort-icon prop="consumable" />
                             </div>
                           </v-col>
 
                           <v-col v-if="!isMobile" class="x-col px-0 py-2 col-border-r">
-                            <div class="text-tiny text-center" v-text="'Worn'" />
+                            <div class="text-tiny text-center" v-text="$t('global.worn')" />
                           </v-col>
 
                           <v-col class="x-col px-0 py-2 col-border-r x-primary-btn rounded" @click.stop="sortGear('quantity_owned')" v-ripple>
                             <div class="d-flex justify-center align-center">
-                              <div class="text-tiny text-center" v-text="'Qty'" />
+                              <div class="text-tiny text-center" v-text="$t('global.qty')" />
                               <x-sort-icon prop="state" />
                             </div>
                           </v-col>
@@ -633,10 +631,10 @@
                 subheader
                 dense
               >
-                <v-subheader v-text="'Gear List'" />
+                <v-subheader>{{$t(`routes.inventories.gear-list`) | capitalizeFirstFilter}}</v-subheader>
                 <v-list-item>
                   <v-list-item-content>
-                    <v-list-item-title v-text="'Empty'" />
+                    <v-list-item-title v-text="$t('global.empty')" />
                   </v-list-item-content>
                 </v-list-item>
               </v-list>
@@ -651,7 +649,7 @@
             <v-card v-if="typeof selectedInventoryGearIndex == 'number' && selectedInventoryGear">
               <v-list class="py-1">
                 <v-list-item>
-                  <v-list-item-title v-text="'Packing options'" />
+                  <v-list-item-title v-text="$t('global.packing-options')" />
 
                   <v-spacer />
 
@@ -670,7 +668,7 @@
               <v-list>
                 <v-list-item class="mb-3">
                   <x-increment
-                    label="Quantity packed"
+                    label="quantity-packed"
                     v-bind:value.sync="selectedInventoryGear['gear_quantity_packed']"
                     :rules="xRules.decimal"
                     :color="currentColor"
@@ -681,7 +679,7 @@
 
                 <v-list-item>
                   <x-checkbox
-                    label="Worn"
+                    label="worn"
                     v-bind:value.sync="selectedInventoryGear['gear_worn']"
                   ></x-checkbox>
                 </v-list-item>
@@ -841,28 +839,28 @@
 
       balance: {
         base: {
-          label:'Base',
+          label:'base',
           value: 0,
           percentage: 0,
           icon: 'scale-balance',
           color: 'red'
         },
         worn: {
-          label:'Worn',
+          label:'worn',
           value: 0,
           percentage: 0,
           icon: 'tshirt-crew',
           color: 'light-blue'
         },
         wornConsumable: {
-          label:'Worn & Cons.',
+          label: null,
           value: 0,
           percentage: 0,
           icon: null,
           color: 'teal'
         },
         consumable: {
-          label:'Cons.',
+          label:'consumable',
           value: 0,
           percentage: 0,
           icon: 'apple',

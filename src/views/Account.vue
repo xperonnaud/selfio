@@ -25,7 +25,7 @@
 
                     <v-list-item-content class="no-wrap">
                       <v-list-item-title class="text-h6" v-text="userLogin" />
-                      <v-list-item-subtitle v-text="'Login'" />
+                      <v-list-item-subtitle v-text="$t('global.email')" />
                     </v-list-item-content>
                   </v-list-item>
                 </v-list>
@@ -34,7 +34,7 @@
 
             <v-col cols="12">
               <v-text-field
-                label="Password"
+                :label="$t('routes.account.password-new')"
                 v-model="newPassword"
                 :rules="xRules.password"
                 :color="shadeColor"
@@ -48,7 +48,7 @@
 
             <v-col cols="12">
               <v-text-field
-                  label="Password confirmation"
+                  :label="$t('routes.account.password-confirmation')"
                   v-model="newPasswordConfirmation"
                   :rules="xRules.password"
                   :color="shadeColor"
@@ -62,7 +62,6 @@
 
             <v-col cols="12" v-show="false">
               <v-text-field
-                  label="Password"
                   v-model="newPassword"
                   :rules="xRules.password"
                   :color="darkColor('primary')"
@@ -89,7 +88,7 @@
           <v-row class="row-max-width">
             <v-col cols="12">
               <primary-btn
-                label="Save"
+                label="save"
                 :block="isMobile"
                 :valid.sync="valid"
                 v-on:btnAction="updatePassword()"

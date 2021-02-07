@@ -1,9 +1,9 @@
 <template>
 
   <v-app-bar
-    app
     v-bind:class="['rounded-0', ('elevation-1')]"
     :color="xTabsColor"
+    app
   >
     <v-app-bar-nav-icon
       class="mr-1"
@@ -16,7 +16,6 @@
         'pl-0'
       ]"
     >
-      <span v-if="isItemRoute" v-text="'My '" />
       <span>{{ $t(`global.${currentRouteId}`) | capitalizeFilter }}</span>
     </v-toolbar-title>
 
@@ -27,7 +26,7 @@
         <v-text-field
           v-show="!isMobile || displayItemSearch"
           v-model="itemSearch"
-          label="Search"
+          :label="xFilters.capitalizeFilter($t('global.search'))"
           :append-icon="!isMobile ? 'mdi-magnify' : null"
           hide-details="auto"
           clearable
@@ -151,7 +150,6 @@
       NewBrandDialog,
       FormPostBtn: () => import('@/components/elements/Btns/FormPostBtn'),
       FilterMenu: () => import('@/components/elements/FilterMenu/FilterMenu'),
-      SaveBtn: () => import('@/components/elements/Btns/SaveBtn'),
     },
     data: () => ({
       filterMode: false,
@@ -175,10 +173,10 @@
         return () => import(`@/components/lists/headers/${listId}ListHeader.vue`)
       },
       avatarSortProp() {
-        if(this.currentRouteTitle === 'Gear')
+        if(this.currentRouteId === 'gear')
           return 'type';
 
-        if(this.currentRouteTitle === 'Adventures')
+        if(this.currentRouteId === 'adventures')
           return 'activity';
 
         return null

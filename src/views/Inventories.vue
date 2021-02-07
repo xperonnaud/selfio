@@ -29,7 +29,7 @@ import ListContainer from "@/components/containers/ListContainer";
       inventoriesHeaders() {
         return [
           {text: '', value: 'icon', align: 'start'},
-          {text: 'Title', value: 'title'},
+          {text: this.$t('global.title'), value: 'title'},
         ]
       },
       inventories: {

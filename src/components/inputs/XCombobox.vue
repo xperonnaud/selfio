@@ -1,7 +1,7 @@
 <template>
 
   <v-combobox
-    :label="label"
+    :label="$t(`global.${label}`)"
     v-model="pickerValue"
     :items="items"
     color="primary"

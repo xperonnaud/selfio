@@ -3,7 +3,7 @@
   <v-list>
     <v-list-item class="mb-3">
       <x-picker
-        label="Activity"
+        label="activity"
         :list="activitiesList"
         v-bind:value.sync="itemActivity"
       ></x-picker>
@@ -12,7 +12,7 @@
     <v-list-item class="mb-3">
       <v-autocomplete
         v-if="filterMode"
-        label="Tags"
+        :label="$t('global.tags')"
         :items="preferences.adventure_tags"
         v-model="itemTag"
         filled
@@ -26,7 +26,7 @@
     <v-list-item class="mb-3">
       <v-text-field
         v-model="itemLocation"
-        label="Location"
+        :label="$t('global.location')"
         :color="currentColor"
         hide-details="auto"
         clearable
@@ -37,7 +37,7 @@
 
     <v-list-item class="mb-3">
       <x-picker
-        label="Landscape"
+        label="landscape"
         :list="landscapesList"
         v-bind:value.sync="itemLandscape"
         logo
@@ -46,7 +46,7 @@
 
     <v-list-item class="mb-3">
       <v-autocomplete
-        label="Inventory"
+        :label="$t('global.inventories')"
         :items="inventoriesList"
         v-model="itemInventory"
         filled
@@ -61,7 +61,7 @@
 
     <v-list-item class="mb-3">
       <x-simple-selector
-          label="Weather"
+          label="weather"
           :list="weathers"
           v-bind:value.sync="itemWeather"
           :iconSize="LGI"

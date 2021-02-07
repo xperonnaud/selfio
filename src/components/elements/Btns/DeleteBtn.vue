@@ -6,7 +6,7 @@
     depressed
   >
     <v-icon left small :color="(isDark ? 'black' : 'white')" v-text="'mdi-alert'" />
-    <span v-bind:class="[reversedFontShadeColor]" v-text="'Delete'" />
+    <span v-bind:class="[reversedFontShadeColor]" v-text="$t('global.delete')" />
   </v-btn>
 
 </template>

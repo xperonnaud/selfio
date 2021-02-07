@@ -2,7 +2,7 @@
 
     <v-sheet v-if="isMounted" :class="['x-state-selector x-check-form max-width']" :color="xTabsColor">
         <div v-if="isEditing" class="d-flex align-content-space-between">
-            <v-subheader class="mt-2 ml-2" v-text="'State'" />
+            <v-subheader class="mt-2 ml-2" v-text="$t('global.state')" />
 
             <v-spacer/>
 

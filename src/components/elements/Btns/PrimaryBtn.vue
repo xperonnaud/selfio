@@ -12,7 +12,7 @@
   >
     <span
       v-bind:class="[(valid ? 'white--text' : 'text-disabled')]"
-      v-text="label"
+      v-text="$t(`global.${label}`)"
     ></span>
   </v-btn>
 

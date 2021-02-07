@@ -16,7 +16,7 @@
                         x-small
                     />
 
-                    <span v-text="item.label" style="margin: 0 2px;" />
+                    <span v-if="item.label && item.label!==''" style="margin: 0 2px;">{{$t(`global.${item.label}`)}}</span>
                 </template>
 
                 <template v-else>

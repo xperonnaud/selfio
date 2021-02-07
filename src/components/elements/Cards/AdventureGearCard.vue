@@ -1,16 +1,22 @@
 <template>
 
   <x-action-card
-    title="Gear checklist"
+    :title="t('gear-checklist')"
     v-on:xCardAction="$emit('cardAction')"
   >
     <div>
       <div class="d-flex text-caption justify-space-between font-weight-regular">
         <div>
-          <span v-bind:class="[navItemColorText('inventories')]" v-text="updatedItem.packed_gear ? updatedItem.packed_gear.length : 0" />
+          <span
+            v-bind:class="[navItemColorText('inventories')]"
+            v-text="updatedItem.packed_gear ? updatedItem.packed_gear.length : 0"
+          ></span>
           <span class="text-tiny" v-text="' / '" />
-          <span v-bind:class="[navItemColorText('inventories')]" v-text="originalInventoryGear.length" />
-          <span class="text-tiny" v-text="' packed gear'" />
+          <span
+            v-bind:class="[navItemColorText('inventories')]"
+            v-text="originalInventoryGear.length"
+          ></span>
+          <span class="text-tiny" v-html="`&nbsp;${t('packed-gear')}`" />
         </div>
 
         <div>
@@ -50,6 +56,11 @@
       packedGearRatio: Number,
       roundedPackedGearRatio: [Number, String],
     },
+    methods: {
+      t(str) {
+        return this.$t(`components.adventure-gear-card.${str}`);
+      }
+    }
   }
 
 </script>

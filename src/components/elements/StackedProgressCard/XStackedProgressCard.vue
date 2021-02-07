@@ -9,7 +9,7 @@
         ]"
     >
         <v-list-item-content class="no-wrap">
-            <v-list-item-title v-text="'Balance'" />
+            <v-list-item-title v-text="$t('routes.inventories.balance')" />
 
             <v-list-item-subtitle class="pt-1">
                 <x-stacked-progress-legend

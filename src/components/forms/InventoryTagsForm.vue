@@ -5,7 +5,7 @@
       <v-row style="max-width: 750px">
         <v-col cols="12">
           <x-combobox
-            label="Inventory tags"
+            label="inventory-tags"
             v-bind:value.sync="preferences.inventory_tags"
             v-bind:items="preferences.inventory_tags"
             v-bind:route="'inventories'"

@@ -13,9 +13,9 @@
             ></v-icon>
           </div>
 
-          <div class="ma-3" v-text="'This list is empty.'" />
+          <div class="ma-3" v-text="$t('global.empty-list')" />
 
-          <div v-if="label" class="text-caption" v-text="label" />
+          <div v-if="label" class="text-caption">{{$t(`global.${label}`) | capitalizeFirstFilter}}</div>
         </div>
       </div>
     </v-col>

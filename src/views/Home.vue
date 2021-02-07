@@ -3,10 +3,10 @@
 
   <v-sheet
     v-if="isMounted"
+    v-bind:class="[(isMobile ? 'px-4 py-0' : 'pa-8')]"
     height="100%"
     max-width="100%"
     color="transparent"
-    v-bind:class="[(isMobile ? 'px-4 py-0' : 'pa-8')]"
   >
     <v-row>
       <v-col cols="12">
@@ -31,17 +31,17 @@
 
                   <v-list-item-content>
                     <v-list-item-title class="text-h6" v-text="countItems(navigationItems[item].title)" />
-                    <v-list-item-subtitle v-text="navigationItems[item].title" />
+                    <v-list-item-subtitle>{{$t(`global.${navigationItems[item].id}`) | capitalizeFilter}}</v-list-item-subtitle>
                   </v-list-item-content>
 
-                  <v-list-item-action v-if="navigationItems[item].title !== 'Inventories'">
+                  <v-list-item-action v-if="navigationItems[item].id !== 'inventories'">
                     <v-list-item-action-text v-if="countersInitialized">
-                      <template v-if="navigationItems[item].title === 'Gear'">
+                      <template v-if="navigationItems[item].id === 'gear'">
                         <span :class="['text-subtitle-2', fontShadeColor]">{{ totalWeight | weightUnitFilter(weightUnit) }}</span>
                         <span class="ml-1 text-caption" v-text="dynamicWeightUnit(totalWeight)" :key="`weight-unit-${randomId()}-${totalWeight}`" />
                       </template>
 
-                      <template v-else-if="navigationItems[item].title === 'Adventures'">
+                      <template v-else-if="navigationItems[item].id === 'adventures'">
                         <span :class="['text-subtitle-2', fontShadeColor]">{{ totalDistance | distanceUnitFilter(distanceUnit) }}</span>
                         <span class="ml-1 text-caption" v-text="distanceUnit" />
                       </template>
@@ -54,12 +54,12 @@
                     ></v-skeleton-loader>
 
                     <v-list-item-action-text v-if="countersInitialized">
-                      <template v-if="navigationItems[item].title === 'Gear'">
+                      <template v-if="navigationItems[item].id === 'gear'">
                         <span :class="['text-subtitle-2', fontShadeColor]" v-text="totalPrice" />
                         <span class="ml-2 text-caption" v-text="priceUnit" />
                       </template>
 
-                      <template v-else-if="navigationItems[item].title === 'Adventures'">
+                      <template v-else-if="navigationItems[item].id === 'adventures'">
                         <span :class="['text-subtitle-2', fontShadeColor]">{{ totalElevation | elevationUnitFilter(elevationUnit) }}</span>
                         <span class="ml-2 text-caption" v-text="elevationUnit" />
                       </template>

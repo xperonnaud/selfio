@@ -23,7 +23,7 @@
       <v-card>
         <v-list class="py-1">
           <v-list-item>
-            <v-list-item-title v-text="'Filters'" />
+            <v-list-item-title>{{$t('global.filters') | capitalizeFirstFilter}}</v-list-item-title>
 
             <v-spacer />
 
@@ -54,7 +54,7 @@
             :color="errorColor"
             text
           >
-            <span v-text="'Reset'" />
+            <span v-text="$t('global.reset')" />
           </v-btn>
 
           <v-spacer />

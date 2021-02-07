@@ -2,7 +2,7 @@
 
   <v-sheet v-if="isMounted" :class="['x-check-form max-width',{'is-in-filter':isInFilter}]" :color="xTabsColor">
     <div v-if="isEditing" class="d-flex align-content-space-between">
-      <v-subheader class="mt-2 ml-2" v-text="label" />
+      <v-subheader class="mt-2 ml-2">{{$t(`global.${label}`)}}</v-subheader>
 
       <v-spacer/>
 

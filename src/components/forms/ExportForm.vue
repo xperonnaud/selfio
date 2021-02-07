@@ -16,16 +16,14 @@
           >
             <template v-slot:top>
               <v-toolbar flat>
-                <v-toolbar-title
-                  v-bind:class="[navItemColorText('gear')]"
-                  v-text="'Gear list'"
-                ></v-toolbar-title>
+                <v-toolbar-title v-bind:class="[navItemColorText('gear')]"
+                >{{$t(`routes.inventories.gear-list`) | capitalizeFirstFilter}}</v-toolbar-title>
 
                 <v-spacer />
 
                 <v-text-field
                   v-model="gearSearch"
-                  label="Search (title)"
+                  :label="$t('global.search')"
                   append-icon="mdi-magnify"
                   class="mx-2"
                   hide-details
@@ -152,16 +150,16 @@
     computed: {
       gearHeaders() {
         return [
-          {text: 'Category', value: 'type', align: 'start'},
-          {text: 'Title', value: 'title'},
-          {text: 'Description', value: 'description'},
-          {text: 'Brand', value: 'brand'},
-          {text: 'Weight ('+this.weightUnit+')', value: 'weight'},
-          {text: 'Price ('+this.priceUnit+')', value: 'price'},
-          {text: 'Size', value: 'size'},
-          {text: 'State', value: 'state'},
-          {text: 'Purchase', value: 'purchase_date'},
-          {text: 'Qty', value: 'quantity_owned'},
+          {text: this.$t('global.category'), value: 'type', align: 'start'},
+          {text: this.$t('global.title'), value: 'title'},
+          {text: this.$t('global.description'), value: 'description'},
+          {text: this.$t('global.brand'), value: 'brand'},
+          {text: this.$t('global.weight')+' ('+this.weightUnit+')', value: 'weight'},
+          {text: this.$t('global.price')+' ('+this.priceUnit+')', value: 'price'},
+          {text: this.$t('global.size'), value: 'size'},
+          {text: this.$t('global.state'), value: 'state'},
+          {text: this.$t('global.purchase'), value: 'purchase_date'},
+          {text: this.$t('global.qty'), value: 'quantity_owned'},
         ]
       },
     },

@@ -17,10 +17,8 @@
           >
             <template v-slot:top>
               <v-toolbar flat>
-                <v-toolbar-title
-                  v-bind:class="[navItemColorText('gear')]"
-                  v-text="'Gear list'"
-                ></v-toolbar-title>
+                <v-toolbar-title v-bind:class="[navItemColorText('gear')]"
+                >{{$t(`routes.inventories.gear-list`) | capitalizeFirstFilter}}</v-toolbar-title>
                 <v-divider
                   class="mx-2"
                   inset
@@ -29,7 +27,7 @@
 
                 <v-text-field
                   v-model="gearSearch"
-                  label="Search (title)"
+                  :label="$t('global.title')"
                   append-icon="mdi-magnify"
                   class="mx-2"
                   hide-details

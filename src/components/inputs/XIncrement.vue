@@ -1,7 +1,7 @@
 <template>
 
     <v-text-field
-      :label="label"
+      :label="$t(`global.${label}`)"
       v-model="pickerValue"
       :rules="rules"
       :color="currentColor"

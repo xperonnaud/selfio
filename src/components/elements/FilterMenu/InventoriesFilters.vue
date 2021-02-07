@@ -5,7 +5,7 @@
       <v-autocomplete
         v-if="filterMode"
         :items="preferences.inventory_tags"
-        label="Tags"
+        :label="$t('global.tags')"
         v-model="itemTag"
         filled
         dense

@@ -12,26 +12,26 @@
         <div :class="['d-flex', {isMobile: 'flex-column'}]">
           <div
             v-bind:class="['text-tiny']"
-            v-text="'Title'"
+            v-text="$t('global.title')"
           ></div>
           <x-sort-icon prop="title" />
         </div>
       </v-col>
 
       <v-col class="x-col py-2 col-border-r">
-        <div class="text-tiny text-center" v-text="'Items'" />
+        <div class="text-tiny text-center" v-text="$t('global.items')" />
       </v-col>
 
       <v-col class="x-col py-2 col-border-r">
-        <div class="text-tiny text-center" v-text="'Weight'" />
+        <div class="text-tiny text-center" v-text="$t('global.weight')" />
       </v-col>
 
       <template v-if="!isMobile">
         <v-col class="x-col py-2 col-border-r">
-          <div class="text-tiny text-center" v-text="'Price'" />
+          <div class="text-tiny text-center" v-text="$t('global.price')" />
         </v-col>
 
-        <x-col text="Update" prop="date_updated" />
+        <x-col text="update" prop="date_updated" />
       </template>
 
       <v-col cols="1" class="pa-0">

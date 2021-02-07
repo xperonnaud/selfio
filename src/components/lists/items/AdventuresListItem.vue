@@ -51,7 +51,7 @@
                 ></v-icon>
               </v-progress-circular>
             </template>
-            <span v-text="inventoryTitle+' checklist'" />
+            <span v-text="inventoryTitle+' '+$t('global.checklist')" />
           </v-tooltip>
 
           <empty-data solo v-else />
@@ -116,7 +116,6 @@
                   <v-sheet
                     :color="isDark ? 'black' : 'grey lighten-4'"
                     class="list-icon-wrapper"
-
                     v-bind="attrs"
                     v-on="on"
                   >

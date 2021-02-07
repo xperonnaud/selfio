@@ -29,7 +29,7 @@
 
               <v-col cols="12" class="py-0">
                 <v-text-field
-                  :label="$t('global.password')"
+                  :label="$t('routes.login.password')"
                   v-model="userPassword"
                   :rules="xRules.password"
                   type="password"
@@ -42,7 +42,7 @@
 
               <v-col cols="12" class="py-0">
                 <primary-btn
-                  :label="$t('global.login')"
+                  label="login"
                   v-on:btnAction="login()"
                   :valid.sync="valid"
                   :isLoading.sync="isLoading"
@@ -63,7 +63,7 @@
                   <span
                     style="font-size: 10px;"
                     class="text-tiny-dimmed"
-                    v-text="$t('global.forgot-password')"
+                    v-text="$t('routes.login.forgot-password')"
                   ></span>
                 </v-btn>
               </v-col>

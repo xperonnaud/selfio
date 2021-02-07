@@ -18,7 +18,7 @@
           >
             <v-list-item-avatar
               v-if="(
-                ((currentRouteTitle !== 'Brands') && (currentRouteTitle !== 'Inventories'))
+                ((currentRouteId !== 'brands') && (currentRouteId !== 'inventories'))
                 || item.activity
                 || item.category
               )"
@@ -26,10 +26,10 @@
                 'x-avatar py-0 d-flex  justify-center',
                  (isMobile ? 'my-0 mr-3' : 'ml-2 mr-5'),
               ]"
-              :style="((currentRouteTitle === 'Gear' && item.category) ? 'border: 2px solid '+categoryColor(item.category)+' !important;' : '')"
+              :style="((currentRouteId === 'gear' && item.category) ? 'border: 2px solid '+categoryColor(item.category)+' !important;' : '')"
             >
               <x-img
-                v-if="currentRouteTitle === 'Gear' && item.category && xGearCategory(item.category)"
+                v-if="currentRouteId === 'gear' && item.category && xGearCategory(item.category)"
                 :src="xGearCategory(item.category).icon"
                 :tooltipText="`<strong>${xGearCategory(item.category).title}</strong>`+(xGearCategory(item.category).description ? '<br>'+xGearCategory(item.category).description : '')"
                 :width="SMI"
@@ -37,7 +37,7 @@
                 isCategory
               ></x-img>
 
-              <x-unknown-category-icon v-else-if="currentRouteTitle === 'Gear'" />
+              <x-unknown-category-icon v-else-if="currentRouteId === 'gear'" />
 
               <x-img
                 v-else-if="item.activity && xActivity(item.activity)"
@@ -57,101 +57,7 @@
             ></component>
 
             <v-list-item-content v-else>
-              <v-row>
-                <v-col cols="3" class="pa-0">
-                  <v-skeleton-loader
-                    height="36"
-                    type="list-item-two-line"
-                  ></v-skeleton-loader>
-                </v-col>
-
-                <v-col class="pa-0" />
-
-                <v-col class="pa-0 pt-3">
-                  <v-skeleton-loader
-                    width="40"
-                    type="text"
-                  ></v-skeleton-loader>
-                </v-col>
-
-                <v-col class="pa-0" />
-
-                <v-col class="pa-0 pt-3">
-                  <v-skeleton-loader
-                    width="40"
-                    type="text"
-                  ></v-skeleton-loader>
-                </v-col>
-
-                <template v-if="currentRouteName === 'gear'">
-                  <v-col class="pa-0" />
-
-                  <v-col class="pa-0 pt-3">
-                    <v-skeleton-loader
-                      width="40"
-                      type="text"
-                    ></v-skeleton-loader>
-                  </v-col>
-                </template>
-
-                <template v-if="!isMobile">
-                  <v-col class="pa-0" />
-
-                  <v-col class="pa-0 pt-3">
-                    <v-skeleton-loader
-                      width="40"
-                      type="text"
-                    ></v-skeleton-loader>
-                  </v-col>
-
-                  <v-col class="pa-0" />
-
-                  <v-col class="pa-0 pt-3">
-                    <v-skeleton-loader
-                      width="40"
-                      type="text"
-                    ></v-skeleton-loader>
-                  </v-col>
-
-                  <v-col class="pa-0" />
-
-                  <v-col class="pa-0 pt-3">
-                    <v-skeleton-loader
-                      width="40"
-                      type="text"
-                    ></v-skeleton-loader>
-                  </v-col>
-
-                  <template v-if="currentRouteName === 'adventures'">
-                    <v-col class="pa-0" />
-
-                    <v-col class="pa-0 pt-3">
-                      <v-skeleton-loader
-                        width="40"
-                        type="text"
-                      ></v-skeleton-loader>
-                    </v-col>
-
-                    <v-col class="pa-0" />
-
-                    <v-col class="pa-0 pt-3">
-                      <v-skeleton-loader
-                        width="40"
-                        type="text"
-                      ></v-skeleton-loader>
-                    </v-col>
-
-                    <v-col class="pa-0" />
-
-                    <v-col class="pa-0 pt-3">
-                      <v-skeleton-loader
-                        width="40"
-                        type="text"
-                      ></v-skeleton-loader>
-                    </v-col>
-                  </template>
-                </template>
-              </v-row>
+              <list-container-skeleton />
             </v-list-item-content>
 
           </v-list-item>
@@ -191,6 +97,7 @@
 
   const _ = require('lodash');
 
+  import ListContainerSkeleton from "@/components/skeletons/ListContainerSkeleton";
   import XUnknownCategoryIcon from "@/components/elements/Icons/XUnknownCategoryIcon";
   import EmptyList from "@/components/elements/EmptyList";
   import XImg from "@/components/elements/XImg";
@@ -198,6 +105,7 @@
   export default {
     name: "list-container",
     components: {
+      ListContainerSkeleton,
       XUnknownCategoryIcon,
       EmptyList,
       XImg
@@ -390,10 +298,6 @@
 </script>
 
 <style lang="scss">
-
-  .v-skeleton-loader__list-item-two-line.v-skeleton-loader__bone {
-    height: 36px !important;
-  }
 
   .list-container {
     .v-subheader {

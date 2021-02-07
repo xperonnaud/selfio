@@ -64,12 +64,73 @@
          return Math.round((value * 9/5) + 32);
  });
 
+ Vue.filter("capitalizeFirstFilter", function (value) {
+     if (!value) return '';
+     return value.toString().charAt(0).toUpperCase() + value.slice(1);
+ });
+
  Vue.filter("capitalizeFilter", function (value) {
      if (!value) return '';
      return value.toLowerCase()
          .split(' ')
          .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
          .join(' ');
+ });
+
+ Vue.filter("minifyTextFilter", function (value) {
+     if (!value) return '';
+     return (value.substring(0,4)+'.');
+ });
+
+
+ Vue.filter("removeLastCommaFilter", function (value) {
+     if (!value) return '';
+     return value.toString().replace(/,\s*$/, "");
+ });
+
+ Vue.filter("removeAllDotsFilter", function (value) {
+     if (!value) return '';
+     return value.toString().replace(/\./g, "");
+ });
+
+ Vue.filter("cleanOfferNameFilter", function (value) {
+     if (!value) return '';
+     return value.toString().replace(' Package', '').toLowerCase();
+ });
+
+ Vue.filter("accronymFilter", function (value) {
+     if (!value) return '';
+     return value.toString().substring(0, 3);
+ });
+
+ Vue.filter("lowerCaseFilter", function (value) {
+     if (!value) return '';
+     return value.toString().toLowerCase();
+ });
+
+ Vue.filter("camelizeFilter", function (value) {
+     if (!value) return '';
+     return value.toString().split(' ').join('-').toLowerCase();
+ });
+
+ Vue.filter("uncamelizeFilter", function (value) {
+     if (!value) return '';
+     value = value.toString().split('-').join(' ');
+     return value.replace(
+         /\w\S*/g,
+         function(txt) {
+             return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+         });
+ });
+
+ Vue.filter("trimZerosFilter", function (value) {
+     if (!value) return '';
+     return value.replace(/^(6777)0+(\d+)$/g, '$1-$2');
+ });
+
+ Vue.filter("resizeFilter", function (value, LastIndex, firstIndex = 0) {
+     if (!value) return '';
+     return value.toString().substring(firstIndex, LastIndex);
  });
 
  Vue.filter("convertSpecialCharsFilter", function (value) {

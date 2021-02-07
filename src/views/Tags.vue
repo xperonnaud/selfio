@@ -9,13 +9,13 @@
       :color="navItemColor(itemRoutes[tab])"
     >
       <v-tab :key="'gear-tags'">
-        <span v-text="'Gear'" />
+        {{$t('global.gear') | capitalizeFirstFilter}}
       </v-tab>
       <v-tab :key="'inventory-tags'">
-        <span v-text="'Inventories'" />
+        {{$t('global.inventories') | capitalizeFirstFilter}}
       </v-tab>
       <v-tab :key="'adventure-tags'">
-        <span v-text="'Adventures'" />
+        {{$t('global.adventures') | capitalizeFirstFilter}}
       </v-tab>
 
       <v-tabs-items v-model="tab">
@@ -49,7 +49,7 @@
       <v-row style="max-width: 750px">
         <v-col cols="12" class="py-0">
           <primary-btn
-            label="Save"
+            label="save"
             :block="isMobile"
             valid
             v-on:btnAction="updatePreferences()"

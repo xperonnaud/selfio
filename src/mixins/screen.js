@@ -35,28 +35,6 @@ export default {
         XXLI() {
             return C.XXLI;
         },
-        stateIcon(title) {
-            let icon = 'battery-off';
-
-            switch(title) {
-                case 'New':
-                    icon =  'battery-high';
-                    break;
-                case 'Ok':
-                    icon =  'battery-medium';
-                    break;
-                case 'Used':
-                    icon =  'battery-low';
-                    break;
-                case 'Poor':
-                    icon =  'battery-off-outline';
-                    break;
-                default:
-                    return null;
-            }
-
-            return icon;
-        },
         currentWindowHeight() {
             return (window.innerHeight - 92);
         },
@@ -119,6 +97,28 @@ export default {
         },
     },
     methods: {
+        stateIcon(title) {
+            let icon = 'battery-off';
+
+            switch(title) {
+                case 'New':
+                    icon =  'battery-high';
+                    break;
+                case 'Ok':
+                    icon =  'battery-medium';
+                    break;
+                case 'Used':
+                    icon =  'battery-low';
+                    break;
+                case 'Poor':
+                    icon =  'battery-off-outline';
+                    break;
+                default:
+                    return null;
+            }
+
+            return icon;
+        },
         dynamicWeightUnit(weight) {
             switch(this.weightUnit) {
                 case 'g':

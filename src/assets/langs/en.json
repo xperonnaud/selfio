@@ -1,12 +1,6 @@
 
 {
   "global": {
-    "email": "Email",
-    "login": "Login",
-    "logout": "Logout",
-    "password": "Password",
-    "forgot-password": "Forgot password ?",
-
     "gear":"gear",
     "inventories":"inventories",
     "adventures":"adventures",
@@ -15,74 +9,174 @@
     "brands":"brands",
     "tags":"tags",
     "import-export":"import / export",
+    "import":"import",
+    "export":"export",
     "settings":"settings",
     "feedback":"feedback",
-    "theme":"theme"
+    "theme":"theme",
+
+    "general": "general",
+    "details": "details",
+
+    "private": "private",
+    "public": "public",
+    "email": "Email",
+    "login": "Login",
+    "logout": "Logout",
+
+    "object": "object",
+    "message": "message",
+    "unit": "unit",
+    "format": "format",
+    "weight": "weight",
+    "temperature": "temperature",
+    "distance": "distance",
+    "elevation": "elevation",
+    "depth": "depth",
+    "price": "price",
+    "date": "date",
+    "start-date": "start date",
+    "end-date": "end date",
+    "max-temp": "max temperature",
+    "min-temp": "min temperature",
+    "time": "time",
+    "start-time": "start time",
+    "end-time": "end time",
+    "title": "title",
+    "brand":"brand",
+    "size":"size",
+    "category":"category",
+    "tag":"tag",
+    "note": "note",
+    "description": "description",
+    "comment": "comment",
+    "purchase": "purchase",
+    "state": "state",
+    "consumable": "consumable",
+    "quantity": "quantity",
+    "quantity-positive": "quantity owned > 0",
+    "quantity-owned": "quantity owned",
+    "quantity-packed": "quantity packed",
+    "qty": "qty",
+    "owned": "owned",
+    "worn": "worn",
+    "empty": "empty",
+    "packed": "packed",
+    "packing-option": "packing options",
+    "list": "list",
+    "item": "item",
+    "items": "items",
+    "checklist": "checklist",
+    "landscape": "landscape",
+    "weather": "weather",
+    "status": "status",
+    "humidity": "humidity",
+    "duration": "duration",
+    "location": "location",
+    "activity": "activity",
+    "inventory": "inventory",
+
+    "max": "max",
+    "min": "min",
+    "empty-list": "this list is empty.",
+    "no-items": "no item",
+    "base": "base",
+    "unique": "unique",
+    "unknown": "unknown",
+    "done": "done",
+    "pending": "pending",
+    "total": "total",
+    "filters": "filters",
+    "search": "search",
+    "reset": "reset",
+    "add":"add",
+    "send":"send",
+    "save":"save",
+    "create":"create",
+    "action":"action",
+    "edit":"edit",
+    "update":"update",
+    "confirm":"confirm",
+    "delete":"delete",
+    "cancel":"cancel",
+    "leave":"leave",
+    "new":"new",
+
+    "gear-tags": "gear tags",
+    "inventory-tags": "inventory tags",
+    "adventure-tags": "adventure tags"
   },
-  "rules": {
-    "phone": {
-      "required":"This field is required",
-      "length":"Phone number must be 10 characters"
+  "states": {
+    "new":"new",
+    "ok":"ok",
+    "used":"used",
+    "poor":"poor"
+  },
+  "routes": {
+    "gear": {},
+    "inventories": {
+      "gear-list": "gear list",
+      "gear-balance": "gear balance",
+      "balance": "balance",
+      "weight-by-gear-category": "weight by gear category"
     },
-    "niv": {
-      "required":"This field is required",
-      "length":"The VIN must have 17 characters"
+    "adventures": {
+      "event": "event"
     },
-    "text": {
-      "required":"A text is required"
+    "login": {
+      "password": "Password",
+      "forgot-password": "Forgot password ?"
     },
-    "card": {
-      "required":"Choice is required"
+    "account": {
+      "password-new": "New password",
+      "password-confirmation": "Password confirmation"
     },
-    "firstname": {
-      "required":"This field is required",
-      "length":"This field must be less than 25 characters"
+    "settings": {
+      "units-and-formats": "units and formats"
     },
-    "lastname": {
-      "required":"This field is required",
-      "length":"This field must be less than 25 characters"
-    },
-    "email": {
-      "required":"This field is required",
-      "syntax":"E-mail must be valid"
-    },
-    "empty": {
-      "required":"This value must be null"
-    },
-    "select": {
-      "required":"Choice is required"
-    },
-    "expansion": {
-      "required":"Choice is required"
-    },
-    "zipcode": {
-      "required":"This field is required",
-      "value":"Wrong postal code format: H1H1H1"
-    },
-    "comment": {
-      "length":"Max 500 characters"
-    },
-    "test": {
-      "value":"Value too low"
-    },
-    "boolean": {
-      "required":"Value is required",
-      "value":"Value too low",
-      "type":"Incompatible value"
-    },
-    "calendar": {
-      "date": {
-        "required":"Date is required",
-        "value":"Should be a date value"
-      },
-      "period": {
-        "required":"Period is required",
-        "value":"Should be a period"
-      },
-      "time": {
-        "required":"Time is required",
-        "value":"Should be a time value"
-      }
+    "feedback": {
+      "title": "Your feedback is very important to us!",
+      "sub-title": "Please, tell us how we can improve this application for you."
     }
+  },
+  "components": {
+    "brands-list-item": {
+      "delete-rule": "You may only delete a Private Brand (created by you).",
+      "delete-forbidden": "Delete is not allowed.",
+      "delete-warning": "You are about to delete a brand."
+    },
+    "relation-chip": {
+      "relations": "relations"
+    },
+    "inventory-gear-card": {
+      "gear-list": "gear list",
+      "unique-item": "unique item",
+      "unique-items": "unique items"
+    },
+    "adventure-gear-card": {
+      "gear-checklist": "gear checklist",
+      "packed-gear": "packed gear"
+    },
+    "new-brand-dialog": {
+      "new-brand": "new brand"
+    },
+    "session-dialog": {
+      "session-expired": "your session has expired.",
+      "please-login": "please log in again.",
+      "log-back": "log back in"
+    },
+    "x-delete-dialog": {
+      "deleting-gear": "deleting gear",
+      "deleting-inventories": "deleting inventories",
+      "deleting-adventures": "deleting adventures",
+      "deleting-brands": "deleting brands",
+      "not-allowed": "not allowed",
+      "remove-relations": "Remove relations first:",
+      "are-you-sure": "Are you sure your wish to go forward with this?",
+      "irreversible": "This action is irreversible."
+    }
+  },
+  "errors": {
+
   }
 }

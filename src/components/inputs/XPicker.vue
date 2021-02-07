@@ -2,8 +2,8 @@
 
   <v-select
       v-model="pickerValue"
+      :label="$t(`global.${label}`)"
       :items="list"
-      :label="label"
       :color="currentColor"
       item-text="title"
       item-value="id"

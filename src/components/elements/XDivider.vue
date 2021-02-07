@@ -5,7 +5,7 @@
     v-bind:class="[
       (isMobile ? 'mx-1' : 'mx-2')
     ]"
-  />
+  ></v-divider>
 
 </template>
 
