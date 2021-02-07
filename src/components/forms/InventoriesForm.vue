@@ -21,7 +21,7 @@
             <span v-text="$t('global.details')" />
           </v-tab>
           <v-tab :key="'inventory-gear-balance'">
-            <span v-text="$t('routes.inventories.gear-balance')" />
+            <span v-text="t('gear-balance')" />
           </v-tab>
 
           <v-tabs-items v-model="tab" :style="xBackgroundStyleColorStr">
@@ -143,7 +143,7 @@
                                         <div class="text-caption" style="width: 80px;">
                                           <div v-if="gearCategoryStat.id && objFilter(gearCategories, 'id', parseInt(gearCategoryStat.id))[0]"
                                           >{{ objFilter(gearCategories, 'id', parseInt(gearCategoryStat.id))[0].title }}</div>
-                                          <div v-else v-text="'unknown'" />
+                                          <div v-else v-text="$t('global.unknown')" />
                                         </div>
 
                                         <div class="d-flex font-weight-regular text-caption">
@@ -184,7 +184,7 @@
 
                               <empty-list
                                 v-else
-                                label="Add gear to your inventory."
+                                :label="t('add-gear')"
                                 :color="navItemColor('gear')"
                               ></empty-list>
                             </v-responsive>
@@ -240,7 +240,7 @@
 
                               <v-list-item one-line style="min-height: unset;">
                                 <v-list-item-content class="pt-0">
-                                  <v-list-item-title>{{$t(`routes.inventories.weight-by-gear-category`) | capitalizeFirstFilter}}</v-list-item-title>
+                                  <v-list-item-title>{{t(`weight-by-gear-category`) | capitalizeFirstFilter}}</v-list-item-title>
                                 </v-list-item-content>
                               </v-list-item>
 
@@ -366,7 +366,7 @@
 
                 <v-list-item two-line>
                   <v-list-item-content class="pa-0">
-                    <v-list-item-title>{{$t(`routes.inventories.gear-list`) | capitalizeFirstFilter}}</v-list-item-title>
+                    <v-list-item-title>{{t(`gear-list`) | capitalizeFirstFilter}}</v-list-item-title>
 
                     <v-list-item-subtitle>
                       <div class="d-flex">
@@ -382,7 +382,7 @@
                             v-bind:class="[currentColorText]"
                             v-text="inventoryTotalItems || 0"
                           ></span>
-                          <span class="text-tiny" v-text="' '+$t(`global.unique-item${inventoryTotalItems > 1 ? 's' : ''}`)" />
+                          <span class="text-tiny" v-text="' '+$t(`components.inventory-gear-card.unique-item${inventoryTotalItems > 1 ? 's' : ''}`)" />
                         </div>
                       </div>
                     </v-list-item-subtitle>
@@ -569,7 +569,7 @@
 
                           <v-col v-if="!isMobile" class="x-col px-0 py-2 col-border-r x-primary-btn rounded" @click.stop="sortGear('consumable')" v-ripple>
                             <div class="d-flex justify-center align-center">
-                              <div class="text-tiny" v-text="$t('global.consumable')" />
+                              <div class="text-tiny">{{$t('global.consumable') | minifyTextFilter}}</div>
                               <x-sort-icon prop="consumable" />
                             </div>
                           </v-col>
@@ -631,7 +631,7 @@
                 subheader
                 dense
               >
-                <v-subheader>{{$t(`routes.inventories.gear-list`) | capitalizeFirstFilter}}</v-subheader>
+                <v-subheader>{{t(`gear-list`) | capitalizeFirstFilter}}</v-subheader>
                 <v-list-item>
                   <v-list-item-content>
                     <v-list-item-title v-text="$t('global.empty')" />
@@ -924,6 +924,9 @@
       }
     },
     methods: {
+      t(str) {
+        return this.$t(`routes.inventories.${str}`);
+      },
       clearMenuFilters() {
         this.gearCategoryFilter = null;
         this.gearTagsFilter = null;

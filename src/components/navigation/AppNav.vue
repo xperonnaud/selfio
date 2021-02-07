@@ -20,7 +20,7 @@
 
         <v-list-item-content>
           <v-list-item-title>
-            <span v-text="'PackHub.io'" class="text-h5 primary-gradient-color-text" />
+            <span v-text="$t('global.app-name')" class="text-h5 primary-gradient-color-text" />
           </v-list-item-title>
         </v-list-item-content>
       </v-list-item>

@@ -47,6 +47,9 @@ export default {
         xTabsColor() {
             return ('grey '+(this.isDark ? 'darken-4' : 'lighten-5'));
         },
+        xCheckerColor() {
+            return (this.isDark ? 'grey lighten-4' : 'grey darken-2');
+        },
         xCardColor() {
             return (this.isDark ? 'grey darken-4' : 'white');
         },
@@ -101,16 +104,16 @@ export default {
             let icon = 'battery-off';
 
             switch(title) {
-                case 'New':
+                case 'new':
                     icon =  'battery-high';
                     break;
-                case 'Ok':
+                case 'ok':
                     icon =  'battery-medium';
                     break;
-                case 'Used':
+                case 'used':
                     icon =  'battery-low';
                     break;
-                case 'Poor':
+                case 'poor':
                     icon =  'battery-off-outline';
                     break;
                 default:

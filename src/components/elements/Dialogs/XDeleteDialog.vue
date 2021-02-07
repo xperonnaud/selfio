@@ -14,7 +14,7 @@
         :disabled="editMode || !isFormMounted"
         icon
       >
-        <v-icon :small="editMode" v-text="'mdi-trash-can-outline'" />
+        <v-icon :small="editMode" v-text="'mdi-trash-can-outline'" :color="xCheckerColor" />
       </v-btn>
     </template>
 

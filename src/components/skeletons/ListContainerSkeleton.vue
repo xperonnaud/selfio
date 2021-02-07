@@ -9,9 +9,9 @@
     </v-col>
 
     <template v-for="index in 2">
-      <v-col class="pa-0" :key="`list-container-skeleton-empty-col-${index}`" />
+      <v-col class="pa-0" :key="`list-container-skeleton-empty-col-${randomId()}-${index}`" />
 
-      <v-col class="pa-0 pt-3" :key="`list-container-skeletons-col-${index}`">
+      <v-col class="pa-0 pt-3" :key="`list-container-skeletons-col-${randomId()}-${index}`">
         <v-skeleton-loader width="40" type="text" />
       </v-col>
     </template>
@@ -26,18 +26,18 @@
 
     <template v-if="!isMobile">
       <template v-for="index in 3">
-        <v-col class="pa-0" :key="`list-container-skeleton-empty-col-${index}`" />
+        <v-col class="pa-0" :key="`list-container-skeleton-empty-col-${randomId()}-${index}`" />
 
-        <v-col class="pa-0 pt-3" :key="`list-container-skeletons-col-${index}`">
+        <v-col class="pa-0 pt-3" :key="`list-container-skeletons-col-${randomId()}-${index}`">
           <v-skeleton-loader width="40" type="text" />
         </v-col>
       </template>
 
       <template v-if="currentRouteName === 'adventures'">
         <template v-for="index in 3">
-          <v-col class="pa-0" :key="`list-container-skeleton-empty-col-bis-${index}`" />
+          <v-col class="pa-0" :key="`list-container-skeleton-empty-col-${randomId()}-${index}`" />
 
-          <v-col class="pa-0 pt-3" :key="`list-container-skeletons-col-bis-${index}`">
+          <v-col class="pa-0 pt-3" :key="`list-container-skeletons-col-${randomId()}-${index}`">
             <v-skeleton-loader width="40" type="text" />
           </v-col>
         </template>

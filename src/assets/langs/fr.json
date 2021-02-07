@@ -1,6 +1,8 @@
 
 {
   "global": {
+    "app-name": "PackHub.io",
+
     "gear":"matériel",
     "inventories":"inventaires",
     "inventory":"inventaire",
@@ -15,6 +17,10 @@
     "settings":"paramètres",
     "feedback":"contactez nous",
     "theme":"thème",
+
+    "add-gear":"ajoutez de matériel",
+    "add-inventories":"ajoutez un inventaire",
+    "add-adventures":"ajoutez une aventure",
 
     "general": "général",
     "details": "détails",
@@ -118,7 +124,8 @@
       "gear-list": "liste du matériel",
       "gear-balance": "répartition du matériel",
       "balance": "répartition",
-      "weight-by-gear-category": "Poids par categories"
+      "weight-by-gear-category": "Poids par categories",
+      "add-gear": "ajoutez du matériel à votre inventaire."
     },
     "adventures": {
       "event": "évènement"

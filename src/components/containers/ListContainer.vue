@@ -69,12 +69,13 @@
         </template>
 
         <v-list-item
-          v-show="(items.length <= 0)"
-          :key="`empty-list-${currentRouteName}`"
+            v-if="isItemRoute"
+            v-show="(items.length <= 0)"
+            :key="`empty-list-${currentRouteName}`"
         >
           <v-list-item-content>
             <empty-list
-              :label="`Add ${currentRouteName}`"
+              :label="`add-${currentRouteName}`"
               :color="navItemColor(currentRouteName)"
             ></empty-list>
           </v-list-item-content>

@@ -7,7 +7,7 @@
   >
     <v-card dark flat max-width="369" class="login-card mx-2">
       <v-card-title>
-        <span v-text="'PackHub.io'" class="text-h5 primary-gradient-color-text" />
+        <span v-text="$t('global.app-name')" class="text-h5 primary-gradient-color-text" />
       </v-card-title>
 
       <v-card-text>

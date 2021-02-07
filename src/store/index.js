@@ -181,10 +181,10 @@ export default new Vuex.Store({
                 'windy',
             ],
             gearStates: [
-                { id: 1, title: 'Poor', color: 'red' },
-                { id: 2, title: 'Used', color: 'orange' },
-                { id: 3, title: 'Ok', color: 'green' },
-                { id: 4, title: 'New', color: 'blue' },
+                { id: 1, title: 'poor', color: 'red' },
+                { id: 2, title: 'used', color: 'orange' },
+                { id: 3, title: 'ok', color: 'green' },
+                { id: 4, title: 'new', color: 'blue' },
             ],
             
             colors: [
