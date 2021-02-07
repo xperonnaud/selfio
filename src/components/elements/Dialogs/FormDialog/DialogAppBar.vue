@@ -26,7 +26,7 @@
               </v-list-item-title>
 
               <v-list-item-subtitle>
-                <span v-if="item" :class="[{'text-tiny-dimmed':editMode}]" v-text="formDialogType" />
+                <span v-if="item" :class="[{'text-tiny-dimmed':editMode}]" v-text="$t(`global.${formDialogType}`)" />
                 <span v-else :class="[{'text-tiny-dimmed':editMode}]" v-text="$t('global.new')" />
               </v-list-item-subtitle>
             </v-list-item-content>

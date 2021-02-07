@@ -2,7 +2,7 @@
 
   <v-form v-model="validField">
     <v-text-field
-      :label="$t(`global.${label}`)"
+      :label="xFilters.capitalizeFilter($t(`global.${label}`))"
       v-model="pickerValue"
       :rules="xRules.text"
       :color="color || currentColor"

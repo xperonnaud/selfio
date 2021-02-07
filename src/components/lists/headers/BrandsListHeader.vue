@@ -9,7 +9,7 @@
         v-ripple
       >
         <div class="d-flex">
-          <div class="text-tiny" v-text="$t('global.title')" />
+          <div class="text-tiny">{{$t('global.title') | capitalizeFirstFilter}}</div>
           <x-sort-icon prop="title" />
         </div>
       </v-col>

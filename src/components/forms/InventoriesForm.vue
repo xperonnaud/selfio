@@ -21,7 +21,7 @@
             <span v-text="$t('global.details')" />
           </v-tab>
           <v-tab :key="'inventory-gear-balance'">
-            <span v-text="t('gear-balance')" />
+            <span v-text="$t('global.gear')" />
           </v-tab>
 
           <v-tabs-items v-model="tab" :style="xBackgroundStyleColorStr">
@@ -43,7 +43,7 @@
 
                       <v-col cols="12">
                         <v-textarea
-                          :label="$t('global.description')"
+                          :label="xFilters.capitalizeFilter($t('global.description'))"
                           v-model="updatedItem.description"
                           :color="currentColor"
                           filled
@@ -129,7 +129,7 @@
                                       <x-img
                                         v-if="gearCategoryStat.id && xGearCategory(gearCategoryStat.id) && objFilter(gearCategories, 'id', parseInt(gearCategoryStat.id))[0]"
                                         :src="objFilter(gearCategories, 'id', parseInt(gearCategoryStat.id))[0].icon"
-                                        :tooltipText="xGearCategory(gearCategoryStat.id).title"
+                                        :tooltipText="xFilters.capitalizeFilter($t(`categories.${xGearCategory(gearCategoryStat.id).title}`))"
                                         :width="XSI"
                                         :height="XSI"
                                         isCategory
@@ -142,8 +142,8 @@
                                       <div class="d-flex">
                                         <div class="text-caption" style="width: 80px;">
                                           <div v-if="gearCategoryStat.id && objFilter(gearCategories, 'id', parseInt(gearCategoryStat.id))[0]"
-                                          >{{ objFilter(gearCategories, 'id', parseInt(gearCategoryStat.id))[0].title }}</div>
-                                          <div v-else v-text="$t('global.unknown')" />
+                                          >{{ $t(`categories.${objFilter(gearCategories, 'id', parseInt(gearCategoryStat.id))[0].title}`) | capitalizeFilter }}</div>
+                                          <div v-else v-text="xFilters.capitalizeFilter($t('global.unknown'))" />
                                         </div>
 
                                         <div class="d-flex font-weight-regular text-caption">
@@ -197,7 +197,7 @@
                             >
                               <empty-list
                                 v-if="inventoryGearList.length <= 0"
-                                label="empty-list"
+                                :label="t('add-gear')"
                                 :color="navItemColor('gear')"
                               ></empty-list>
 
@@ -287,7 +287,7 @@
                                         <x-img
                                           v-if="gearCategoryStat.id && xGearCategory(gearCategoryStat.id) && objFilter(gearCategories, 'id', parseInt(gearCategoryStat.id))[0]"
                                           :src="objFilter(gearCategories, 'id', parseInt(gearCategoryStat.id))[0].icon"
-                                          :tooltipText="xGearCategory(gearCategoryStat.id).title"
+                                          :tooltipText="xFilters.capitalizeFilter($t(`categories.${xGearCategory(gearCategoryStat.id).title}`))"
                                           :width="XSI"
                                           :height="XSI"
                                           isCategory
@@ -300,9 +300,9 @@
                                         <div class="d-flex">
                                           <div class="text-caption" style="width: 80px;">
                                             <div v-if="gearCategoryStat.id && objFilter(gearCategories, 'id', parseInt(gearCategoryStat.id))[0]"
-                                            >{{ objFilter(gearCategories, 'id', parseInt(gearCategoryStat.id))[0].title }}</div>
+                                            >{{ $t(`categories.${objFilter(gearCategories, 'id', parseInt(gearCategoryStat.id))[0].title}`) | capitalizeFilter }}</div>
 
-                                            <div v-else v-text="$t('global.unknown')" />
+                                            <div v-else v-text="xFilters.capitalizeFirstFilter($t('global.unknown'))" />
                                           </div>
 
                                           <div class="d-flex font-weight-regular text-caption">
@@ -541,46 +541,46 @@
 
                           <v-col :cols="isMobile ? 6 : 3" class="py-2 col-border-r x-primary-btn rounded" @click.stop="sortGear('title')" v-ripple>
                             <div class="d-flex align-center">
-                              <div class="text-tiny" v-text="$t('global.title')" />
+                              <div class="text-tiny">{{$t('global.title') | capitalizeFirstFilter}}</div>
                               <x-sort-icon prop="title" />
                             </div>
                           </v-col>
 
                           <v-col class="x-col px-0 py-2 col-border-r x-primary-btn rounded" @click.stop="sortGear('weight')" v-ripple>
                             <div class="d-flex justify-center align-center">
-                              <div class="text-tiny" v-text="$t('global.weight')" />
+                              <div class="text-tiny">{{$t('global.weight') | capitalizeFirstFilter}}</div>
                               <x-sort-icon prop="weight" />
                             </div>
                           </v-col>
 
                           <v-col v-if="!isMobile" class="x-col px-0 py-2 col-border-r x-primary-btn rounded" @click.stop="sortGear('price')" v-ripple>
                             <div class="d-flex justify-center align-center">
-                              <div class="text-tiny" v-text="$t('global.price')" />
+                              <div class="text-tiny">{{$t('global.price') | capitalizeFirstFilter}}</div>
                               <x-sort-icon prop="price" />
                             </div>
                           </v-col>
 
                           <v-col v-if="!isMobile" class="x-col px-0 py-2 col-border-r x-primary-btn rounded" @click.stop="sortGear('state')" v-ripple>
                             <div class="d-flex justify-center align-center">
-                              <div class="text-tiny" v-text="$t('global.state')" />
+                              <div class="text-tiny">{{$t('global.state') | capitalizeFirstFilter}}</div>
                               <x-sort-icon prop="state" />
                             </div>
                           </v-col>
 
                           <v-col v-if="!isMobile" class="x-col px-0 py-2 col-border-r x-primary-btn rounded" @click.stop="sortGear('consumable')" v-ripple>
                             <div class="d-flex justify-center align-center">
-                              <div class="text-tiny">{{$t('global.consumable') | minifyTextFilter}}</div>
+                              <div class="text-tiny">{{$t('global.consumable') | minifyTextFilter | capitalizeFirstFilter}}</div>
                               <x-sort-icon prop="consumable" />
                             </div>
                           </v-col>
 
                           <v-col v-if="!isMobile" class="x-col px-0 py-2 col-border-r">
-                            <div class="text-tiny text-center" v-text="$t('global.worn')" />
+                            <div class="text-tiny text-center">{{$t('global.worn') | capitalizeFirstFilter}}</div>
                           </v-col>
 
                           <v-col class="x-col px-0 py-2 col-border-r x-primary-btn rounded" @click.stop="sortGear('quantity_owned')" v-ripple>
                             <div class="d-flex justify-center align-center">
-                              <div class="text-tiny text-center" v-text="$t('global.qty')" />
+                              <div class="text-tiny text-center">{{$t('global.qty') | capitalizeFirstFilter}}</div>
                               <x-sort-icon prop="state" />
                             </div>
                           </v-col>
@@ -966,11 +966,11 @@
             let gearCategory = value.id === 0 ? null : this.xGearCategory(value.id);
             let percentage = this.xFilters.percentageFilter(value.weight, this.inventoryGearList, this.inventoryTotalWeight);
 
-            let chartLabel = (gearCategory && gearCategory.title ? gearCategory.title : 'Unknown') + `, ${percentage}%, weight(${this.dynamicWeightUnit(value.weight)})`;
+            let chartLabel = (gearCategory && gearCategory.title ? this.$t(`categories.${gearCategory.title}`) : this.$t('global.unknown')) + `, ${percentage}%, ${this.$t('global.weight')}(${this.dynamicWeightUnit(value.weight)})`;
             let color = this.categoryColor(gearCategory && gearCategory.id ? gearCategory.id : 14);
             let displayedWeight = this.weightUnitConverter(value.weight, false);
 
-            labels.push(chartLabel);
+            labels.push(this.xFilters.capitalizeFirstFilter(chartLabel));
             colors.push(color);
             data.push(displayedWeight);
           }
@@ -1159,8 +1159,8 @@
       },
       currentInventoryGear: {
         handler: async function() {
-          await this.initGearCategoryStats();
           await this.initInventoryStats();
+          await this.initGearCategoryStats();
         },
         deep: true
       },

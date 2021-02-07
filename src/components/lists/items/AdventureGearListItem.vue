@@ -24,7 +24,7 @@
       <x-img
         v-if="xGear(gear.gear_id) && xGear(gear.gear_id).category"
         :src="xGearCategory(xGear(gear.gear_id).category).icon"
-        :tooltipText="xGearCategory(xGear(gear.gear_id).category).title"
+        :tooltipText="xFilters.capitalizeFilter($t(`categories.${xGearCategory(xGear(gear.gear_id).category).title}`))"
         :width="XSI"
         :height="XSI"
         isCategory

@@ -58,16 +58,12 @@
                     </v-col>
 
                     <v-col cols="12">
-                      <v-text-field
+                      <x-text
                         :label="$t('global.weight')"
-                        v-model="updatedItem.weight"
+                        v-bind:value.sync="updatedItem.weight"
                         :rules="xRules.decimal"
-                        :color="currentColor"
-                        hide-details="auto"
                         :suffix="weightUnit"
-                        dense
-                        filled
-                      ></v-text-field>
+                      ></x-text>
                     </v-col>
 
                     <v-col cols="12">
@@ -109,16 +105,12 @@
                     </v-col>
 
                     <v-col cols="12">
-                      <v-text-field
+                      <x-text
                         :label="$t('global.price')"
-                        v-model="updatedItem.price"
+                        v-bind:value.sync="updatedItem.price"
                         :rules="xRules.decimal"
-                        :color="currentColor"
-                        filled
-                        dense
-                        hide-details="auto"
                         :suffix="priceUnit"
-                      ></v-text-field>
+                      ></x-text>
                     </v-col>
 
                     <v-col cols="12">
@@ -133,19 +125,15 @@
                     </v-col>
 
                     <v-col cols="12">
-                      <v-text-field
+                      <x-text
                         :label="$t('global.size')"
-                        v-model="updatedItem.size"
-                        :color="currentColor"
-                        filled
-                        dense
-                        hide-details="auto"
-                      ></v-text-field>
+                        v-bind:value.sync="updatedItem.size"
+                      ></x-text>
                     </v-col>
 
                     <v-col cols="12">
                       <v-textarea
-                        :label="$t('global.description')"
+                        :label="xFilters.capitalizeFirstFilter($t('global.description'))"
                         v-model="updatedItem.description"
                         :color="currentColor"
                         hide-details="auto"
@@ -173,6 +161,7 @@
 
   import Vue from 'vue'
 
+  import XText from "@/components/inputs/fields/XText";
   import XTitleField from "@/components/inputs/fields/XTitleField";
   import XBrandSelector from "@/components/inputs/fields/XBrandSelector";
   import XStateSelector from "@/components/inputs/fields/XStateSelector";
@@ -185,6 +174,7 @@
   export default {
     name: 'gear-form',
     components: {
+      XText,
       XTitleField,
       XStateSelector,
       XBrandSelector,

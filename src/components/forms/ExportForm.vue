@@ -21,14 +21,12 @@
 
                 <v-spacer />
 
-                <v-text-field
-                  v-model="gearSearch"
+                <x-text
                   :label="$t('global.search')"
-                  append-icon="mdi-magnify"
+                  v-bind:value.sync="gearSearch"
                   class="mx-2"
-                  hide-details
-                  clearable
-                ></v-text-field>
+                  appendIcon="mdi-magnify"
+                ></x-text>
 
                 <v-divider
                   class="mx-2"
@@ -98,7 +96,7 @@
               >
                 <x-img
                   :src="xGearCategory(item.category).icon"
-                  :tooltipText="xGearCategory(item.category).title"
+                  :tooltipText="xFilters.capitalizeFilter($t(`categories.${xGearCategory(item.category).title}`))"
                 />
               </v-avatar>
             </template>

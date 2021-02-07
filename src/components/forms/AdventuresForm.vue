@@ -89,7 +89,7 @@
 
                         <v-col cols="12">
                           <v-textarea
-                            :label="$t('global.note')"
+                            :label="xFilters.capitalizeFirstFilter($t('global.note'))"
                             v-model="updatedItem.note"
                             :color="currentColor"
                             filled
@@ -127,14 +127,10 @@
                         </v-col>
 
                         <v-col cols="12">
-                          <v-text-field
+                          <x-text
                             :label="$t('global.location')"
-                            v-model="updatedItem.location"
-                            :color="currentColor"
-                            filled
-                            dense
-                            hide-details="auto"
-                          ></v-text-field>
+                            v-bind:value.sync="updatedItem.location"
+                          ></x-text>
                         </v-col>
 
                         <v-col cols="12">
@@ -181,29 +177,21 @@
                     <v-card-text :class="{'py-1':isMobile}">
                       <v-row>
                         <v-col cols="12">
-                          <v-text-field
+                          <x-text
                             :label="$t('global.elevation')+'/'+$t('global.depth')"
-                            v-model="updatedItem.elevation"
+                            v-bind:value.sync="updatedItem.elevation"
                             :rules="xRules.decimal"
-                            :color="currentColor"
-                            filled
-                            dense
-                            hide-details="auto"
                             :suffix="elevationUnit"
-                          ></v-text-field>
+                          ></x-text>
                         </v-col>
 
                         <v-col cols="12">
-                          <v-text-field
+                          <x-text
                             :label="$t('global.distance')"
-                            v-model="updatedItem.distance"
+                            v-bind:value.sync="updatedItem.distance"
                             :rules="xRules.decimal"
-                            :color="currentColor"
-                            filled
-                            dense
-                            hide-details="auto"
                             :suffix="distanceUnit"
-                          ></v-text-field>
+                          ></x-text>
                         </v-col>
 
                         <v-col cols="12">
@@ -292,7 +280,7 @@
                                   v-text="'mdi-check'"
                                   :color="navItemColor('inventories')"
                                   small
-                                />
+                                ></v-icon>
                               </v-slide-x-transition>
                             </div>
                           </div>
@@ -442,9 +430,7 @@
                           height="40"
                         >
                           <v-col class="x-col py-2">
-                            <div class="d-flex justify-center">
-
-                            </div>
+                            <div class="d-flex justify-center" />
                           </v-col>
                         </v-list-item-avatar>
 
@@ -453,30 +439,30 @@
 
                             <v-col :cols="isMobile ? 6 : 4" :class="['py-2 col-border-r',{'ml-3':!isMobile}]">
                               <div class="d-flex align-center">
-                                <div class="text-tiny" v-text="$t('global.title')" />
+                                <div class="text-tiny">{{$t('global.title') | capitalizeFirstFilter}}</div>
                               </div>
                             </v-col>
 
                             <v-col v-if="!isMobile" class="x-col px-0 py-2 col-border-r">
                               <div class="d-flex justify-center align-center">
-                                <div class="text-tiny" v-text="$t('global.weight')" />
+                                <div class="text-tiny">{{$t('global.weight') | capitalizeFirstFilter}}</div>
                               </div>
                             </v-col>
 
                             <v-col v-if="!isMobile" class="x-col px-0 py-2 col-border-r">
                               <div class="d-flex justify-center align-center">
-                                <div class="text-tiny" v-text="$t('global.price')" />
+                                <div class="text-tiny">{{$t('global.price') | capitalizeFirstFilter}}</div>
                               </div>
                             </v-col>
 
                             <v-col v-if="!isMobile" class="x-col px-0 py-2 col-border-r">
                               <div class="d-flex justify-center align-center">
-                                <div class="text-tiny" v-text="$t('global.state')" />
+                                <div class="text-tiny">{{$t('global.state') | capitalizeFirstFilter}}</div>
                               </div>
                             </v-col>
 
                             <v-col v-if="!isMobile" class="x-col px-0 py-2 col-border-r">
-                              <div class="text-tiny text-center">{{$t('global.consumable') | minifyTextFilter}}</div>
+                              <div class="text-tiny text-center">{{$t('global.consumable') | minifyTextFilter | capitalizeFirstFilter}}</div>
                             </v-col>
 
                             <v-col class="x-col px-0 py-2 col-border-r x-primary-btn rounded" @click.stop="sortGear('gear_worn')" v-ripple>
@@ -538,6 +524,7 @@
 
   import Vue from 'vue'
 
+  import XText from "@/components/inputs/fields/XText";
   import AdventureGearCard from "@/components/elements/Cards/AdventureGearCard";
   import AdventureGearListItem from "@/components/lists/items/AdventureGearListItem";
   import XTitleField from "@/components/inputs/fields/XTitleField";
@@ -556,6 +543,7 @@
   export default {
     name: 'adventures-form',
     components: {
+      XText,
       AdventureGearCard,
       AdventureGearListItem,
       XTitleField,

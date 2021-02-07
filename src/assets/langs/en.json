@@ -63,6 +63,7 @@
     "quantity-positive": "quantity owned > 0",
     "quantity-owned": "quantity owned",
     "quantity-packed": "quantity packed",
+    "packing-options": "packing options",
     "qty": "qty",
     "owned": "owned",
     "worn": "worn",
@@ -117,6 +118,22 @@
     "ok":"ok",
     "used":"used",
     "poor":"poor"
+  },
+  "categories": {
+    "activity":"activity",
+    "clothing":"clothing",
+    "cooking":"cooking",
+    "documents":"documents",
+    "electronics":"electronics",
+    "emergency":"emergency",
+    "food-snacks":"food / snacks",
+    "hygiene":"hygiene",
+    "miscellanous":"miscellanous",
+    "packs-bags":"packs / bags",
+    "shelter":"shelter",
+    "sleeping":"sleeping",
+    "tools":"tools",
+    "water-drink":"water / drink"
   },
   "routes": {
     "gear": {},

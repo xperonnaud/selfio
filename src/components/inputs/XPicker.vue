@@ -2,7 +2,7 @@
 
   <v-select
       v-model="pickerValue"
-      :label="$t(`global.${label}`)"
+      :label="xFilters.capitalizeFilter($t(`global.${label}`))"
       :items="list"
       :color="currentColor"
       item-text="title"
@@ -28,7 +28,7 @@
           />
         </v-avatar>
 
-        {{ data.item.title }}
+        {{ xFilters.capitalizeFilter(data.item.title) }}
       </div>
     </template>
 
@@ -47,7 +47,7 @@
           />
         </v-avatar>
 
-        {{ data.item.title }}
+        {{ xFilters.capitalizeFilter(data.item.title) }}
 
         <div v-if="type==='inventories' && data.item.inventory_gear" class="float-right text-tiny pt-1 d-flex">
           <div class="text-right" :style="'width: '+(isMobile?'45':'70')+'px;'">

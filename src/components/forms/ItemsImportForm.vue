@@ -25,14 +25,12 @@
                   vertical
                 ></v-divider>
 
-                <v-text-field
-                  v-model="gearSearch"
+                <x-text
                   :label="$t('global.title')"
+                  v-bind:value.sync="gearSearch"
                   append-icon="mdi-magnify"
                   class="mx-2"
-                  hide-details
-                  clearable
-                ></v-text-field>
+                ></x-text>
 
                 <v-divider
                   class="mx-2"
@@ -93,7 +91,7 @@
               <v-avatar v-if="item.category && xGearCategory(item.category) && xGearCategory(item.category).icon" :size="LGI" class="x-avatar">
                 <x-img
                   :src="xGearCategory(item.category).icon"
-                  :tooltipText="xGearCategory(item.category).title"
+                  :tooltipText="$t(`categories.${xGearCategory(item.category).title}`)"
                 />
               </v-avatar>
             </template>
@@ -132,12 +130,14 @@
 
 <script>
 
+  import XText from "@/components/inputs/fields/XText";
   import XImg from "@/components/elements/XImg";
   import MobileOnlyFeature from "@/components/elements/MobileOnlyFeature";
 
   export default {
     name: 'items-import-form',
     components: {
+      XText,
       XImg,
       MobileOnlyFeature
     },

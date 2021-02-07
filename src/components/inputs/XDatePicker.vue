@@ -5,7 +5,7 @@
     class="x-primary-btn"
   >
     <v-text-field
-      :label="$t(`global.${label}`)"
+      :label="xFilters.capitalizeFirstFilter($t(`global.${label}`))"
       :value="pickerValue"
       :color="currentColor"
       :rules="xRules.date"

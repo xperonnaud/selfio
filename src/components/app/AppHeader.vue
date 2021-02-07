@@ -140,12 +140,14 @@
 
 <script>
 
+  import XText from "@/components/inputs/fields/XText";
   import NewBrandDialog from "@/components/elements/Dialogs/NewBrandDialog";
   import XSortIcon from "@/components/elements/Icons/XSortIcon";
 
   export default {
     name: 'app-header',
     components: {
+      XText,
       XSortIcon,
       NewBrandDialog,
       FormPostBtn: () => import('@/components/elements/Btns/FormPostBtn'),

@@ -28,7 +28,7 @@
             @click.stop="toggleEditor()"
           >
             <v-text-field
-              :label="$t(`global.${label}`)"
+              :label="xFilters.capitalizeFilter($t(`global.${label}`))"
               :value="pickerValue ? pickerValue : null"
               :color="currentColor"
               hide-details="auto"

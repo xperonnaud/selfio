@@ -3,7 +3,7 @@
   <v-row>
     <v-col cols="12">
       <div class="d-flex text-center align-center justify-center">
-        <div class="pa-12">
+        <div class="pa-10">
           <div class="d-flex justify-center">
             <v-icon
               v-text="icon || 'mdi-gauge-empty'"
@@ -15,7 +15,7 @@
 
           <div class="ma-3" v-text="$t('global.empty-list')" />
 
-          <div v-if="label" class="text-caption">{{$t(`global.${label}`) | capitalizeFirstFilter}}</div>
+          <div v-if="label" class="text-caption">{{label | capitalizeFirstFilter}}</div>
         </div>
       </div>
     </v-col>

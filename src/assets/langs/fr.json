@@ -61,11 +61,12 @@
     "state": "état",
     "consumable": "consommable",
     "quantity": "quantité",
-    "quantity-positive": "quantité possédée > 0",
-    "quantity-owned": "quantité possédée",
+    "quantity-positive": "quantité en stock > 0",
+    "quantity-owned": "quantité en stock",
     "quantity-packed": "quantité rangée",
+    "packing-options": "options de rangement",
     "qty": "qté",
-    "owned": "possédé",
+    "owned": "en stock",
     "empty": "vide",
     "worn": "porté",
     "packed": "rangé",
@@ -118,10 +119,26 @@
     "used":"usé",
     "poor":"mauvais"
   },
+  "categories": {
+    "activity":"activité",
+    "clothing":"vêtements",
+    "cooking":"cuisine",
+    "documents":"documents",
+    "electronics":"électronique",
+    "emergency":"urgence",
+    "food-snacks":"nourriture",
+    "hygiene":"hygiène",
+    "miscellanous":"divers",
+    "packs-bags":"sacs",
+    "shelter":"abris",
+    "sleeping":"sommeil",
+    "tools":"outils",
+    "water-drink":"eau / boissons"
+  },
   "routes": {
     "gear": {},
     "inventories": {
-      "gear-list": "liste du matériel",
+      "gear-list": "liste de matériel",
       "gear-balance": "répartition du matériel",
       "balance": "répartition",
       "weight-by-gear-category": "Poids par categories",
@@ -142,8 +159,8 @@
       "units-and-formats": "unités et formats"
     },
     "feedback": {
-      "title": "Vos commentaires sont très importants pour nous!",
-      "sub-title": "S'il vous plait, dites nous comment nous pouvons améliorer cette application pour vous."
+      "title": "Vos commentaires sont très importants!",
+      "sub-title": "Dites nous comment nous pouvons améliorer cette application pour vous."
     }
   },
   "components": {

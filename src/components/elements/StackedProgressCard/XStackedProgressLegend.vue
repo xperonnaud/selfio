@@ -16,7 +16,7 @@
                         x-small
                     />
 
-                    <span v-if="item.label && item.label!==''" style="margin: 0 2px;">{{$t(`global.${item.label}`)}}</span>
+                    <span v-if="item.label && item.label!==''" style="margin: 0 2px;">{{$t(`global.${item.label}`) | capitalizeFirstFilter}}</span>
                 </template>
 
                 <template v-else>

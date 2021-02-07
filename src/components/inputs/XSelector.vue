@@ -28,8 +28,8 @@
             @click.stop="toggleEditor()"
           >
             <v-text-field
-              :label="label"
-              :value="listedPickedValue ? (list[listReferences[pickerValue]].title) : null"
+              :label="xFilters.capitalizeFilter($t(`global.${label}`))"
+              :value="listedPickedValue ? xFilters.capitalizeFilter(isCategory ? $t(`categories.${list[listReferences[pickerValue]].title}`) : list[listReferences[pickerValue]].title) : null"
               :color="currentColor"
               hide-details="auto"
               append-icon="mdi-menu-down"
@@ -42,7 +42,7 @@
                 <x-img
                   v-if="list[listReferences[pickerValue]] && list[listReferences[pickerValue]].icon"
                   :src="list[listReferences[pickerValue]].icon"
-                  :tooltipText="list[listReferences[pickerValue]].title"
+                  :tooltipText="xFilters.capitalizeFilter(isCategory ? $t(`categories.${list[listReferences[pickerValue]].title}`) : list[listReferences[pickerValue]].title)"
                   :width="avatarSize ? avatarSize : iconSize"
                   :height="avatarSize ? avatarSize : iconSize"
                   :logo="logo"
@@ -84,17 +84,18 @@
                       v-bind:class="[
                         'x-avatar',
                       ]"
-                      :style="((isCategory && item.title!=='Unknown') ? 'border: 2px solid '+categoryColor(item.id)+' !important;' : '')"
+                      :style="((isCategory && item.title!==$t('global.unknown')) ? 'border: 2px solid '+categoryColor(item.id)+' !important;' : '')"
                     >
                       <x-img
                         v-if="item.icon"
                         :src="item.icon"
                         :width="iconSize"
                         :height="iconSize"
-                        :tooltipText="`<strong>${item.title}</strong>`+(item.description ? '<br>'+item.description : '')"
+                        :tooltipText="`<strong>${(isCategory ? xFilters.capitalizeFilter($t(`categories.${item.title}`)) : item.title)}</strong>`"
                         :logo="logo"
                         :isCategory="isCategory"
                       ></x-img>
+<!--                      +(item.description ? '<br>'+item.description : '')-->
                     </v-avatar>
 
                   </div>
@@ -104,7 +105,7 @@
                       'text-caption',
                       'text-center',
                     ]"
-                    v-html="item.title"
+                    v-html="isCategory ? xFilters.capitalizeFilter($t(`categories.${item.title}`)) : item.title"
                   ></div>
                 </div>
               </v-card>

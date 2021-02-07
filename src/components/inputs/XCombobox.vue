@@ -1,7 +1,7 @@
 <template>
 
   <v-combobox
-    :label="$t(`global.${label}`)"
+    :label="xFilters.capitalizeFilter($t(`global.${label}`))"
     v-model="pickerValue"
     :items="items"
     color="primary"
@@ -26,7 +26,7 @@
         :disabled="data.disabled"
         @click:close="data.parent.selectItem(data.item)"
       >
-        {{ data.item }}
+        {{ xFilters.capitalizeFilter(data.item) }}
       </v-chip>
     </template>
   </v-combobox>

@@ -10,17 +10,13 @@
         v-ripple
       >
         <div :class="['d-flex', {isMobile: 'flex-column'}]">
-          <div v-bind:class="['text-tiny']"
-          >{{$t('global.title') | capitalizeFilter}}</div>
-
+          <div v-bind:class="['text-tiny']">{{$t('global.title') | capitalizeFilter}}</div>
           <x-sort-icon prop="title" />
         </div>
       </v-col>
 
       <v-col class="x-col col-border-r py-2">
-        <div class="text-tiny text-center">
-          {{$t('global.checklist') | capitalizeFilter}}
-        </div>
+        <div class="text-tiny text-center">{{$t('global.checklist') | capitalizeFilter}}</div>
       </v-col>
 
       <template v-if="!isMobile">
@@ -39,9 +35,7 @@
         <x-col text="date" prop="start_date" />
 
         <v-col class="x-col py-2 col-border-r">
-          <div class="text-tiny text-center">
-            {{$t('global.duration') | capitalizeFilter}}
-          </div>
+          <div class="text-tiny text-center">{{$t('global.duration') | capitalizeFilter}}</div>
         </v-col>
 
         <x-col text="update" prop="date_updated" />

@@ -34,7 +34,7 @@
 
             <v-col cols="12">
               <v-text-field
-                :label="$t('routes.account.password-new')"
+                :label="xFilters.capitalizeFirstFilter($t('routes.account.password-new'))"
                 v-model="newPassword"
                 :rules="xRules.password"
                 :color="shadeColor"
@@ -48,7 +48,7 @@
 
             <v-col cols="12">
               <v-text-field
-                  :label="$t('routes.account.password-confirmation')"
+                  :label="xFilters.capitalizeFirstFilter($t('routes.account.password-confirmation'))"
                   v-model="newPasswordConfirmation"
                   :rules="xRules.password"
                   :color="shadeColor"
