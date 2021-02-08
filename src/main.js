@@ -1,5 +1,5 @@
 
-// ç é â/ê/î/ô/û à/è/ì/ò/ù ë/ï/ü
+// ç é â/ê/î/ô/û à/è/ì/ò/ù ë/ï/ü É À È Ç
 import Vue from 'vue'
 import Vuex from 'vuex'
 import App from './App.vue'

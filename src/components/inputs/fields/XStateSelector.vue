@@ -2,7 +2,7 @@
 
     <v-sheet v-if="isMounted" :class="['x-state-selector x-check-form max-width']" :color="xTabsColor">
         <div v-if="isEditing" class="d-flex align-content-space-between">
-            <v-subheader class="mt-2 ml-2" v-text="$t('global.state')" />
+            <v-subheader class="mt-2 ml-2">{{$t('global.state') | capitalizeFirstFilter}}</v-subheader>
 
             <v-spacer/>
 
@@ -28,7 +28,7 @@
                     @click.stop="toggleEditor()"
                 >
                     <v-text-field
-                        :label="$t('global.state')"
+                        :label="xFilters.capitalizeFirstFilter($t('global.state'))"
                         :value="listedPickedValue ? (gearStates[pickerValue-1].title) : null"
                         :color="currentColor"
                         hide-details="auto"
@@ -42,7 +42,7 @@
                             <v-avatar v-if="listedPickedValue" tile left min-width="26" width="26" height="26">
                                 <v-icon
                                     :color="gearStates[pickerValue-1].color"
-                                    v-text="'mdi-'+stateIcon(gearStates[pickerValue-1].title)"
+                                    v-text="'mdi-'+stateIcon(xGearStates[pickerValue-1].title)"
                                     :size="MDI"
                                 ></v-icon>
                             </v-avatar>
@@ -57,12 +57,12 @@
                 v-show="isEditing"
                 v-bind:class="['py-0 elevation-0']"
             >
-                <v-row>
+                <v-row class="px-1">
                     <template v-for="(item, itemIndex) in gearStates">
                         <v-col
                             :key="`state-selector-${itemIndex}`"
                             :cols="isMobile ? 6 : 3"
-                            v-bind:class="[(isMobile ? 'pa-1' : 'pt-0 pb-2 px-2')]"
+                            v-bind:class="[(isMobile ? 'pa-1' : 'pt-0 pb-2 px-1')]"
                         >
                             <v-card
                                 v-bind:class="[

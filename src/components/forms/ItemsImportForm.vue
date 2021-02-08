@@ -91,7 +91,7 @@
               <v-avatar v-if="item.category && xGearCategory(item.category) && xGearCategory(item.category).icon" :size="LGI" class="x-avatar">
                 <x-img
                   :src="xGearCategory(item.category).icon"
-                  :tooltipText="$t(`categories.${xGearCategory(item.category).title}`)"
+                  :tooltipText="$t(`categories.${xGearCategory(item.category).title}.title`)"
                 />
               </v-avatar>
             </template>

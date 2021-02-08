@@ -31,12 +31,11 @@
               <x-img
                 v-if="currentRouteId === 'gear' && item.category && xGearCategory(item.category)"
                 :src="xGearCategory(item.category).icon"
-                :tooltipText="xFilters.capitalizeFilter($t(`categories.${xGearCategory(item.category).title}`))"
+                :tooltipText="item.category"
                 :width="SMI"
                 :height="SMI"
                 isCategory
               ></x-img>
-<!--                +(xGearCategory(item.category).description ? '<br>'+xGearCategory(item.category).description : '')-->
 
               <x-unknown-category-icon v-else-if="currentRouteId === 'gear'" />
 

@@ -91,11 +91,10 @@
                         :src="item.icon"
                         :width="iconSize"
                         :height="iconSize"
-                        :tooltipText="`<strong>${(isCategory ? xFilters.capitalizeFilter($t(`categories.${item.title}`)) : item.title)}</strong>`"
+                        :tooltipText="item.title"
                         :logo="logo"
                         :isCategory="isCategory"
                       ></x-img>
-<!--                      +(item.description ? '<br>'+item.description : '')-->
                     </v-avatar>
 
                   </div>
@@ -105,7 +104,7 @@
                       'text-caption',
                       'text-center',
                     ]"
-                    v-html="isCategory ? xFilters.capitalizeFilter($t(`categories.${item.title}`)) : item.title"
+                    v-html="isCategory ? xFilters.capitalizeFilter($t(`categories.${item.title}.title`)) : item.title"
                   ></div>
                 </div>
               </v-card>

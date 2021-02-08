@@ -117,23 +117,65 @@
     "new":"neuf",
     "ok":"ok",
     "used":"usé",
-    "poor":"mauvais"
+    "poor":"hs"
   },
   "categories": {
-    "activity":"activité",
-    "clothing":"vêtements",
-    "cooking":"cuisine",
-    "documents":"documents",
-    "electronics":"électronique",
-    "emergency":"urgence",
-    "food-snacks":"nourriture",
-    "hygiene":"hygiène",
-    "miscellanous":"divers",
-    "packs-bags":"sacs",
-    "shelter":"abris",
-    "sleeping":"sommeil",
-    "tools":"outils",
-    "water-drink":"eau / boissons"
+    "activity": {
+      "title": "activité",
+      "desc": "Équipement spécifique: harnais d'escalade, câne à pêche, skis, ..."
+    },
+    "clothing": {
+      "title": "vêtements",
+      "desc": "Veste, pantalon, chaussure, bonnet, glant, ..."
+    },
+    "cooking": {
+      "title": "cuisine",
+      "desc": "Réchaud, gamelle, ustensils, carburant, ..."
+    },
+    "documents": {
+      "title": "documents",
+      "desc": "Carte, passeports, permis, certifications, ..."
+    },
+    "electronics": {
+      "title": "électronique",
+      "desc": "Lampe, gps, téléphone, montre, powerbank, caméra, ..."
+    },
+    "emergency": {
+      "title": "urgence",
+      "desc": "Urgence & réparation: bandages, repousse insects, kit de coutûre, ..."
+    },
+    "food-snacks": {
+      "title": "nourriture",
+      "desc": "Repas déhydratés, bar de céréales, noix, baies, fruits séchés ..."
+    },
+    "hygiene": {
+      "title": "hygiène",
+      "desc": "Dentifrice, savon, lingettes, ..."
+    },
+    "miscellanous": {
+      "title": "divers",
+      "desc": "Tout ce qui va dans aucune autre catégorie: livres, jeux, porte bonheur, bijoux, ..."
+    },
+    "packs-bags": {
+      "title": "sacs",
+      "desc": "Sac à dos, sac de compression, sac étanche, ..."
+    },
+    "shelter": {
+      "title": "abris",
+      "desc": "Tente, bâche, hamac, ..."
+    },
+    "sleeping": {
+      "title": "sommeil",
+      "desc": "Sac de couchage, tapis de sol, oreiller, converture, hamac, ..."
+    },
+    "tools": {
+      "title": "outils",
+      "desc": "Couteau, hache, pelle, outil multi-fonction, ..."
+    },
+    "water-drink": {
+      "title": "eau & boissons",
+      "desc": "Eau, café, boisson énergisante, ..."
+    }
   },
   "routes": {
     "gear": {},

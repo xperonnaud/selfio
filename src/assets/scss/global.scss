@@ -232,21 +232,34 @@
 .primary-gradient-color {
   background-image: linear-gradient(45deg, #009688, #2196F3, #9C27B0);
 }
+.primary-gradient-color-vertical {
+  background-image: linear-gradient(90deg, #009688, #2196F3, #9C27B0);
+}
+
+.primary-gradient-color-text, .primary-gradient-color-text-vertical {
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent;
+}
 
 .primary-gradient-color-text {
   background: -webkit-linear-gradient(45deg, #009688, #2196F3, #9C27B0);
-  -webkit-background-clip: text !important;
-  -webkit-text-fill-color: transparent;
+}
+
+.primary-gradient-color-text-vertical {
+  background: -webkit-linear-gradient(90deg, #009688, #2196F3, #9C27B0);
 }
 
 .is-dark {
   .primary-gradient-color {
     color: white !important;
-    /*background-image: linear-gradient(45deg, #64FFDA, #448AFF, #E040FB);*/
   }
 
-  .primary-gradient-color-text {
+  .primary-gradient-color-text,  {
     background: -webkit-linear-gradient(45deg, #64FFDA, #448AFF, #E040FB);
+  }
+
+  .primary-gradient-color-text-vertical,  {
+    background: -webkit-linear-gradient(90deg, #64FFDA, #448AFF, #E040FB);
   }
 
   .app-nav-list-item {

@@ -21,7 +21,7 @@
       <x-img
         v-if="gear.category && xGearCategory(gear.category)"
         :src="xGearCategory(gear.category).icon"
-        :tooltipText="xFilters.capitalizeFilter($t(`categories.${xGearCategory(gear.category).title}`))"
+        :tooltipText="gear.category"
         :width="XSI"
         :height="XSI"
         isCategory
@@ -34,9 +34,7 @@
       <v-row align="center" justify="center" :class="[{'text--disabled':gear.quantity_owned === 0}]">
         <v-col :cols="isMobile ? 6 : 3" class="py-0">
           <div>
-            <v-list-item-title v-bind:class="['mb-1',{'text-body-2' : isMobile}]">
-              {{gear.title}}
-            </v-list-item-title>
+            <v-list-item-title v-bind:class="['mb-1',{'text-body-2' : isMobile}]" v-text="gear.title" />
 
             <v-list-item-subtitle
               v-if="!isMobile"
@@ -86,7 +84,7 @@
                 v-on="on"
               ></v-icon>
             </template>
-            <span v-text="xGearState(gear.state).title" />
+            <span v-text="$t(`states.${xGearState(gear.state).title}`)" />
           </v-tooltip>
           <empty-data solo v-else />
         </v-col>
@@ -136,7 +134,7 @@
 
     <v-list-item-action style="margin-right: 0 !important;">
       <v-btn
-        :class="[{'primary-gradient-color-text':inventoryGearList.includes(gear.id)}]"
+        :class="[{'primary-gradient-color-text-vertical':inventoryGearList.includes(gear.id)}]"
         :disabled="!inventoryGearList.includes(gear.id)"
         @click.stop="inventoryGearList.includes(gear.id) ? selectInventoryGear(gear) : null"
         icon

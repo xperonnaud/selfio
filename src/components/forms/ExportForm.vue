@@ -96,8 +96,9 @@
               >
                 <x-img
                   :src="xGearCategory(item.category).icon"
-                  :tooltipText="xFilters.capitalizeFilter($t(`categories.${xGearCategory(item.category).title}`))"
-                />
+                  :tooltipText="item.category"
+                  isCategory
+                ></x-img>
               </v-avatar>
             </template>
 
@@ -107,7 +108,7 @@
                 :color="xGearState(item.state).color"
                 v-text="'mdi-'+stateIcon(xGearState(item.state).title)"
                 :size="MDI"
-              />
+              ></v-icon>
             </template>
 
             <template v-slot:item.activity="{ item }">

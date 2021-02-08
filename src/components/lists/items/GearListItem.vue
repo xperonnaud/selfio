@@ -48,7 +48,7 @@
                 v-on="on"
               ></v-icon>
             </template>
-            <span v-text="xGearState(item.state).title" />
+            <span v-text="$t(`states.${xGearState(item.state).title}`)" />
           </v-tooltip>
           <empty-data solo v-else />
         </v-col>

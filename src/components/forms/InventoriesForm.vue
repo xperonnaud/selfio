@@ -129,7 +129,7 @@
                                       <x-img
                                         v-if="gearCategoryStat.id && xGearCategory(gearCategoryStat.id) && objFilter(gearCategories, 'id', parseInt(gearCategoryStat.id))[0]"
                                         :src="objFilter(gearCategories, 'id', parseInt(gearCategoryStat.id))[0].icon"
-                                        :tooltipText="xFilters.capitalizeFilter($t(`categories.${xGearCategory(gearCategoryStat.id).title}`))"
+                                        :tooltipText="gearCategoryStat.id"
                                         :width="XSI"
                                         :height="XSI"
                                         isCategory
@@ -142,7 +142,7 @@
                                       <div class="d-flex">
                                         <div class="text-caption" style="width: 80px;">
                                           <div v-if="gearCategoryStat.id && objFilter(gearCategories, 'id', parseInt(gearCategoryStat.id))[0]"
-                                          >{{ $t(`categories.${objFilter(gearCategories, 'id', parseInt(gearCategoryStat.id))[0].title}`) | capitalizeFilter }}</div>
+                                          >{{ $t(`categories.${objFilter(gearCategories, 'id', parseInt(gearCategoryStat.id))[0].title}.title`) | capitalizeFilter }}</div>
                                           <div v-else v-text="xFilters.capitalizeFilter($t('global.unknown'))" />
                                         </div>
 
@@ -287,11 +287,11 @@
                                         <x-img
                                           v-if="gearCategoryStat.id && xGearCategory(gearCategoryStat.id) && objFilter(gearCategories, 'id', parseInt(gearCategoryStat.id))[0]"
                                           :src="objFilter(gearCategories, 'id', parseInt(gearCategoryStat.id))[0].icon"
-                                          :tooltipText="xFilters.capitalizeFilter($t(`categories.${xGearCategory(gearCategoryStat.id).title}`))"
+                                          :tooltipText="gearCategoryStat.id"
                                           :width="XSI"
                                           :height="XSI"
                                           isCategory
-                                        />
+                                        ></x-img>
 
                                         <x-unknown-category-icon v-else />
                                       </v-list-item-avatar>
@@ -300,7 +300,7 @@
                                         <div class="d-flex">
                                           <div class="text-caption" style="width: 80px;">
                                             <div v-if="gearCategoryStat.id && objFilter(gearCategories, 'id', parseInt(gearCategoryStat.id))[0]"
-                                            >{{ $t(`categories.${objFilter(gearCategories, 'id', parseInt(gearCategoryStat.id))[0].title}`) | capitalizeFilter }}</div>
+                                            >{{ $t(`categories.${objFilter(gearCategories, 'id', parseInt(gearCategoryStat.id))[0].title}.title`) | capitalizeFilter }}</div>
 
                                             <div v-else v-text="xFilters.capitalizeFirstFilter($t('global.unknown'))" />
                                           </div>
@@ -412,7 +412,7 @@
                     <v-card>
                       <v-list class="py-1">
                         <v-list-item>
-                          <v-list-item-title v-text="$t('global.filters')" />
+                          <v-list-item-title>{{$t('global.filters') | capitalizeFirstFilter}}</v-list-item-title>
 
                           <v-spacer />
 
@@ -432,7 +432,7 @@
                         <v-list-item class="mb-3">
                           <x-picker
                             label="category"
-                            :list="typesList"
+                            :list="categoriesList"
                             v-bind:value.sync="gearCategoryFilter"
                           ></x-picker>
                         </v-list-item>
@@ -440,7 +440,7 @@
                         <v-list-item class="mb-3">
                           <v-autocomplete
                             v-if="gearFilterModeOn"
-                            :label="$t('global.tags')"
+                            :label="xFilters.capitalizeFirstFilter($t('global.tags'))"
                             v-model="gearTagsFilter"
                             :items="preferences.gear_tags"
                             :color="currentColor"
@@ -649,7 +649,7 @@
             <v-card v-if="typeof selectedInventoryGearIndex == 'number' && selectedInventoryGear">
               <v-list class="py-1">
                 <v-list-item>
-                  <v-list-item-title v-text="$t('global.packing-options')" />
+                  <v-list-item-title>{{$t('global.packing-options') | capitalizeFirstFilter}}</v-list-item-title>
 
                   <v-spacer />
 
@@ -966,7 +966,7 @@
             let gearCategory = value.id === 0 ? null : this.xGearCategory(value.id);
             let percentage = this.xFilters.percentageFilter(value.weight, this.inventoryGearList, this.inventoryTotalWeight);
 
-            let chartLabel = (gearCategory && gearCategory.title ? this.$t(`categories.${gearCategory.title}`) : this.$t('global.unknown')) + `, ${percentage}%, ${this.$t('global.weight')}(${this.dynamicWeightUnit(value.weight)})`;
+            let chartLabel = (gearCategory && gearCategory.title ? this.$t(`categories.${gearCategory.title}.title`) : this.$t('global.unknown')) + `, ${percentage}%, ${this.$t('global.weight')}(${this.dynamicWeightUnit(value.weight)})`;
             let color = this.categoryColor(gearCategory && gearCategory.id ? gearCategory.id : 14);
             let displayedWeight = this.weightUnitConverter(value.weight, false);
 

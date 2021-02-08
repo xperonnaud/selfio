@@ -72,7 +72,7 @@ export default {
                 return this.$store.state.selfio.gear;
             }
         },
-        typesList: {
+        categoriesList: {
             get() {
                 return this.$store.state.selfio.gearCategories;
             }
