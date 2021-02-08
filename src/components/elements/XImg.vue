@@ -24,9 +24,9 @@
         <span
           class="ma-0 pa-0"
           v-if="isCategory"
-          v-html="xGearCategory(tooltipText) ? xFilters.capitalizeFilter($t(`categories.${xGearCategory(tooltipText).title}.title`))
+          v-html="xGearCategory(tooltipText) ? xCap($t(`categories.${xGearCategory(tooltipText).title}.title`))
           + '<br>'
-           + xFilters.capitalizeFilter($t(`categories.${xGearCategory(tooltipText).title}.desc`)) : null"
+           + xCap($t(`categories.${xGearCategory(tooltipText).title}.desc`)) : null"
         ></span>
         <span class="ma-0 pa-0" v-else v-html="tooltipText" />
       </template>

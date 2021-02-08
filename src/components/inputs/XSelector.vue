@@ -28,8 +28,8 @@
             @click.stop="toggleEditor()"
           >
             <v-text-field
-              :label="xFilters.capitalizeFilter($t(`global.${label}`))"
-              :value="listedPickedValue ? xFilters.capitalizeFilter(isCategory ? $t(`categories.${list[listReferences[pickerValue]].title}`) : list[listReferences[pickerValue]].title) : null"
+              :label="xCap($t(`global.${label}`))"
+              :value="listedPickedValue ? xCap(isCategory ? $t(`categories.${list[listReferences[pickerValue]].title}`) : list[listReferences[pickerValue]].title) : null"
               :color="currentColor"
               hide-details="auto"
               append-icon="mdi-menu-down"
@@ -42,7 +42,7 @@
                 <x-img
                   v-if="list[listReferences[pickerValue]] && list[listReferences[pickerValue]].icon"
                   :src="list[listReferences[pickerValue]].icon"
-                  :tooltipText="xFilters.capitalizeFilter(isCategory ? $t(`categories.${list[listReferences[pickerValue]].title}`) : list[listReferences[pickerValue]].title)"
+                  :tooltipText="xCap(isCategory ? $t(`categories.${list[listReferences[pickerValue]].title}`) : list[listReferences[pickerValue]].title)"
                   :width="avatarSize ? avatarSize : iconSize"
                   :height="avatarSize ? avatarSize : iconSize"
                   :logo="logo"
@@ -104,7 +104,7 @@
                       'text-caption',
                       'text-center',
                     ]"
-                    v-html="isCategory ? xFilters.capitalizeFilter($t(`categories.${item.title}.title`)) : item.title"
+                    v-html="isCategory ? xCap($t(`categories.${item.title}.title`)) : item.title"
                   ></div>
                 </div>
               </v-card>

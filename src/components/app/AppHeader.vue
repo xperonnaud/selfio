@@ -26,7 +26,7 @@
         <v-text-field
           v-show="!isMobile || displayItemSearch"
           v-model="itemSearch"
-          :label="xFilters.capitalizeFilter($t('global.search'))"
+          :label="xCap($t('global.search'))"
           :append-icon="!isMobile ? 'mdi-magnify' : null"
           hide-details="auto"
           clearable
@@ -170,7 +170,7 @@
     computed: {
       headerLoader() {
         let self = this;
-        let listId = this.xFilters.capitalizeFilter(this.currentRouteName);
+        let listId = this.xCap(this.currentRouteName);
         self.listHeaderComponentCalled = `@/components/lists/headers/${listId}ListHeader.vue`;
         return () => import(`@/components/lists/headers/${listId}ListHeader.vue`)
       },

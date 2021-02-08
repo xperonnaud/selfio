@@ -35,7 +35,7 @@
 
             <v-col cols="12">
               <v-text-field
-                :label="xFilters.capitalizeFilter($t('global.object'))"
+                :label="xCap($t('global.object'))"
                 v-model="feedback.object"
                 :rules="xRules.object"
                 :color="darkColor('primary')"
@@ -48,7 +48,7 @@
 
             <v-col cols="12">
               <v-textarea
-                :label="xFilters.capitalizeFilter($t('global.message'))"
+                :label="xCap($t('global.message'))"
                 v-model="feedback.message"
                 :rules="xRules.message"
                 :color="darkColor('primary')"

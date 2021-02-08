@@ -38,11 +38,11 @@
         <span>{{t(`deleting-${currentRouteId}`) | capitalizeFirstFilter}}</span>
         <span v-html="':&nbsp;'" />
         <span v-if="hasItemRelations" v-text="t('not-allowed')">{{t('not-allowed') | capitalizeFilter}}</span>
-        <span v-else v-text="item.title" />
+        <span v-else v-text="item.title">{{item.title | capitalizeFirstFilter}}</span>
       </v-card-title>
 
       <v-card-subtitle v-if="hasItemRelations">
-        <span v-text="t('remove-relations')" />
+        {{t('remove-relations') | capitalizeFirstFilter}}
       </v-card-subtitle>
 
       <v-card-text>
@@ -93,7 +93,7 @@
         <v-spacer />
 
         <v-btn
-          :color="darkColor('error')"
+          :color="errorColor"
           @click="deleteAction()"
           :disabled="hasItemRelations"
           depressed

@@ -272,6 +272,12 @@ export default {
         },
     },
     methods: {
+        xCap(str) {
+            return this.xFilters.capitalizeFilter(str);
+        },
+        xCapFirst(str) {
+            return this.xFilters.capitalizeFirstFilter(str);
+        },
         xGear(gearId) {
             if(gearId && this.gearList)
                 return (this.gearList[this.gearReferences[gearId]]);

@@ -28,7 +28,7 @@
                     @click.stop="toggleEditor()"
                 >
                     <v-text-field
-                        :label="xFilters.capitalizeFirstFilter($t('global.state'))"
+                        :label="xCapFirst($t('global.state'))"
                         :value="listedPickedValue ? (gearStates[pickerValue-1].title) : null"
                         :color="currentColor"
                         hide-details="auto"

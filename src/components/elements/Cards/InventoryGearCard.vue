@@ -1,7 +1,7 @@
 <template>
 
   <x-action-card
-    :title="xFilters.capitalizeFirstFilter(t('gear-list'))"
+    :title="xCapFirst(t('gear-list'))"
     v-on:xCardAction="$emit('cardAction')"
   >
     <div class="d-flex text-caption">

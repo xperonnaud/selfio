@@ -1,7 +1,7 @@
 <template>
 
   <v-text-field
-    :label="xFilters.capitalizeFilter(label)"
+    :label="xCap(label)"
     v-model="pickerValue"
     :rules="rules"
     :color="color || currentColor"

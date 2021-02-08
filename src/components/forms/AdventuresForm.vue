@@ -89,7 +89,7 @@
 
                         <v-col cols="12">
                           <v-textarea
-                            :label="xFilters.capitalizeFirstFilter($t('global.note'))"
+                            :label="xCapFirst($t('global.note'))"
                             v-model="updatedItem.note"
                             :color="currentColor"
                             filled

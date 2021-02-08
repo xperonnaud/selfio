@@ -133,7 +133,7 @@
 
                     <v-col cols="12">
                       <v-textarea
-                        :label="xFilters.capitalizeFirstFilter($t('global.description'))"
+                        :label="xCapFirst($t('global.description'))"
                         v-model="updatedItem.description"
                         :color="currentColor"
                         hide-details="auto"

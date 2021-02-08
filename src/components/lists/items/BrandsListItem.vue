@@ -16,6 +16,7 @@
             v-if="item.global === false"
             @click.stop="openDeleteDialog(item.id)"
             v-text="'mdi-trash-can-outline'"
+            :color="xCheckerColor"
           ></v-icon>
 
           <v-tooltip v-else left>
@@ -36,23 +37,34 @@
 
     <v-dialog
         v-model="deleteDialog"
-        max-width="500px"
+        :max-width="isMobile ? '300' : '450'"
         :hide-overlay="isMobile"
         :transition="isMobile ? 'slide-x-transition' : 'fade-transition'"
         persistent
     >
-      <v-card
-          v-bind:class="[
-          {'rounded-0': isMobile},
-        ]"
-      >
-        <v-card-title class="headline">
+      <v-card :style="'border-top: 2px solid '+errorColor+' !important;'">
+        <div class="max-width d-flex align-center justify-center">
+          <v-avatar
+            :size="48"
+            :color="errorColor"
+            style="position: absolute; top: -26px;"
+          >
+            <v-icon
+              :size="MDI"
+              :color="reversedShadeColor"
+              v-text="'mdi-trash-can-outline'"
+              style="margin-top: 22px;"
+            ></v-icon>
+          </v-avatar>
+        </div>
+
+        <v-card-title class="text-subtitle-2 mt-3">
           <span v-if="hasBrandRelations">{{$t('components.brands-list-item.delete-forbidden') | capitalizeFirstFilter}}</span>
           <span v-else>{{$t('components.brands-list-item.delete-warning') | capitalizeFirstFilter}}</span>
         </v-card-title>
 
         <v-card-subtitle v-if="hasBrandRelations" class="pt-2">
-          <span v-text="$t('components.x-delete-dialog.remove-relations')" />
+          {{t('remove-relations') | capitalizeFirstFilter}}
         </v-card-subtitle>
 
         <v-card-text>
@@ -64,42 +76,40 @@
             <v-sheet :color="'grey '+(isDark ? 'darken-4' : 'lighten-4')" class="pa-2">
               <template v-for="gear in brandRelations(selectedBrandId)">
                 <v-chip
-                    :key="`${gear.title}-relation-${gear.id}`"
-                    :color="navItemColor('gear')"
-                    class="ma-1"
-                    label
-                    small
-                    dark
-                    v-text="gear.title"
+                  :key="`${gear.title}-relation-${gear.id}`"
+                  :color="navItemColor('gear')"
+                  class="ma-1"
+                  label
+                  small
+                  dark
+                  v-text="gear.title"
                 ></v-chip>
               </template>
             </v-sheet>
           </v-responsive>
 
           <div v-else>
-            <div v-text="$t('components.x-delete-dialog.irreversible')" />
-            <div v-bind:class="[fontShadeColor]" v-text="$t('components.x-delete-dialog.are-you-sure')" />
+            <div>{{t('are-you-sure') | capitalizeFirstFilter}}</div>
+            <div v-bind:class="[fontShadeColor]">{{t('irreversible') | capitalizeFirstFilter}}</div>
           </div>
 
         </v-card-text>
 
         <v-card-actions>
+          <v-btn
+            @click="deleteDialog = false"
+            v-text="$t('global.cancel')"
+            text
+          ></v-btn>
 
           <v-spacer />
 
           <v-btn
-              @click="deleteDialog = false"
-              v-text="$t('global.cancel')"
-              text
-          ></v-btn>
-
-          <v-btn
-              :color="errorColor"
-              :disabled="hasBrandRelations"
-              depressed
-              @click="deleteBrand()"
+            :color="errorColor"
+            :disabled="hasBrandRelations"
+            depressed
+            @click="deleteBrand()"
           >
-            <v-icon left small :color="(isDark ? 'black' : 'white')" v-text="'mdi-alert'" />
             <span v-bind:class="[reversedFontShadeColor]" v-text="$t('global.delete')" />
           </v-btn>
         </v-card-actions>
@@ -119,6 +129,9 @@
       selectedBrandId: null,
     }),
     methods: {
+      t(str) {
+        return this.$t(`components.x-delete-dialog.${str}`)
+      },
       async openDeleteDialog(brandId) {
         this.selectedBrandId = brandId;
         this.hasBrandRelations = (this.brandRelations(brandId).length > 0);

@@ -9,7 +9,7 @@ export default {
         },
         currentRouteTitle() {
             if(this.isStoreMounted && this.$router)
-                return this.xFilters.capitalizeFilter(this.currentRouteName);
+                return this.xCap(this.currentRouteName);
         },
         currentRouteId() {
             if(!this.currentNavItem)

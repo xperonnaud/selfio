@@ -43,7 +43,7 @@
 
                       <v-col cols="12">
                         <v-textarea
-                          :label="xFilters.capitalizeFilter($t('global.description'))"
+                          :label="xCap($t('global.description'))"
                           v-model="updatedItem.description"
                           :color="currentColor"
                           filled
@@ -143,7 +143,7 @@
                                         <div class="text-caption" style="width: 80px;">
                                           <div v-if="gearCategoryStat.id && objFilter(gearCategories, 'id', parseInt(gearCategoryStat.id))[0]"
                                           >{{ $t(`categories.${objFilter(gearCategories, 'id', parseInt(gearCategoryStat.id))[0].title}.title`) | capitalizeFilter }}</div>
-                                          <div v-else v-text="xFilters.capitalizeFilter($t('global.unknown'))" />
+                                          <div v-else v-text="xCap($t('global.unknown'))" />
                                         </div>
 
                                         <div class="d-flex font-weight-regular text-caption">
@@ -302,7 +302,7 @@
                                             <div v-if="gearCategoryStat.id && objFilter(gearCategories, 'id', parseInt(gearCategoryStat.id))[0]"
                                             >{{ $t(`categories.${objFilter(gearCategories, 'id', parseInt(gearCategoryStat.id))[0].title}.title`) | capitalizeFilter }}</div>
 
-                                            <div v-else v-text="xFilters.capitalizeFirstFilter($t('global.unknown'))" />
+                                            <div v-else v-text="xCapFirst($t('global.unknown'))" />
                                           </div>
 
                                           <div class="d-flex font-weight-regular text-caption">
@@ -440,7 +440,7 @@
                         <v-list-item class="mb-3">
                           <v-autocomplete
                             v-if="gearFilterModeOn"
-                            :label="xFilters.capitalizeFirstFilter($t('global.tags'))"
+                            :label="xCapFirst($t('global.tags'))"
                             v-model="gearTagsFilter"
                             :items="preferences.gear_tags"
                             :color="currentColor"
@@ -970,7 +970,7 @@
             let color = this.categoryColor(gearCategory && gearCategory.id ? gearCategory.id : 14);
             let displayedWeight = this.weightUnitConverter(value.weight, false);
 
-            labels.push(this.xFilters.capitalizeFirstFilter(chartLabel));
+            labels.push(this.xCapFirst(chartLabel));
             colors.push(color);
             data.push(displayedWeight);
           }
@@ -1113,7 +1113,7 @@
         let self = this;
         let sum = 0;
 
-        if(!this.inventoryGearList)
+        if(!this.inventoryGearList || !this.updatedItem.inventory_gear || this.updatedItem.inventory_gear.length <= 0)
           return sum;
 
         this.updatedItem.inventory_gear.forEach(function(inventoryGear) {

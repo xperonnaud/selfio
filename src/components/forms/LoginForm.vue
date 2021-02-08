@@ -17,7 +17,7 @@
 
               <v-col cols="12" class="py-0">
                 <v-text-field
-                  :label="xFilters.capitalizeFirstFilter($t('global.email'))"
+                  :label="xCapFirst($t('global.email'))"
                   v-model="userLogin"
                   :rules="xRules.email"
                   filled

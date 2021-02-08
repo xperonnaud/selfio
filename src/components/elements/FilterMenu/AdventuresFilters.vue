@@ -12,7 +12,7 @@
     <v-list-item class="mb-3">
       <v-autocomplete
         v-if="filterMode"
-        :label="xFilters.capitalizeFirstFilter($t('global.tags'))"
+        :label="xCapFirst($t('global.tags'))"
         :items="preferences.adventure_tags"
         v-model="itemTag"
         filled
@@ -41,7 +41,7 @@
 
     <v-list-item class="mb-3">
       <v-autocomplete
-        :label="xFilters.capitalizeFirstFilter($t('global.inventories'))"
+        :label="xCapFirst($t('global.inventories'))"
         :items="inventoriesList"
         v-model="itemInventory"
         filled

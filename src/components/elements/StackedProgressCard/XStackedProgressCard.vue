@@ -9,7 +9,7 @@
         ]"
     >
         <v-list-item-content class="no-wrap">
-            <v-list-item-title v-text="xFilters.capitalizeFirstFilter($t('routes.inventories.balance'))" />
+            <v-list-item-title v-text="xCapFirst($t('routes.inventories.balance'))" />
 
             <v-list-item-subtitle class="pt-1">
                 <x-stacked-progress-legend

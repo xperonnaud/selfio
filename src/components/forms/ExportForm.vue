@@ -135,11 +135,14 @@
 
 <script>
 
+  import XText from "@/components/inputs/fields/XText";
+
   export default {
     name: 'items-import-form',
     components: {
       XImg: () => import('@/components/elements/XImg'),
-      MobileOnlyFeature: () => import('@/components/elements/MobileOnlyFeature')
+      MobileOnlyFeature: () => import('@/components/elements/MobileOnlyFeature'),
+      XText,
     },
     data: () => ({
       valid: false,

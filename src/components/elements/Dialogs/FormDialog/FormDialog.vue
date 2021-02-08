@@ -93,7 +93,7 @@
     computed: {
       loader() {
         let self = this;
-        let formId = this.xFilters.capitalizeFilter(this.currentRouteName);
+        let formId = this.xCap(this.currentRouteName);
         self.formComponentCalled = `@/components/forms/${formId}Form.vue`;
         return () => import(`@/components/forms/${formId}Form.vue`)
       },
