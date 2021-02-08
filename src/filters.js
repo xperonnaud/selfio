@@ -66,11 +66,13 @@
 
  Vue.filter("capitalizeFirstFilter", function (value) {
      if (!value) return '';
+     if (typeof value == 'number') return value;
      return value.toString().charAt(0).toUpperCase() + value.slice(1);
  });
 
  Vue.filter("capitalizeFilter", function (value) {
      if (!value) return '';
+     if (typeof value == 'number') return value;
      return value.toLowerCase()
          .split(' ')
          .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
@@ -79,9 +81,9 @@
 
  Vue.filter("minifyTextFilter", function (value) {
      if (!value) return '';
+     if (typeof value == 'number') return value;
      return (value.substring(0,4)+'.');
  });
-
 
  Vue.filter("removeLastCommaFilter", function (value) {
      if (!value) return '';

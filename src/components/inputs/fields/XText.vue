@@ -27,7 +27,7 @@
     props: {
       label: String,
       value: {
-        type: String,
+        type: [Number, String],
         default: null,
       },
       small: {

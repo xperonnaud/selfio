@@ -19,20 +19,7 @@
     </template>
 
     <v-card :style="'border-top: 2px solid '+errorColor+' !important;'">
-      <div class="max-width d-flex align-center justify-center">
-        <v-avatar
-          :size="48"
-          :color="errorColor"
-          style="position: absolute; top: -26px;"
-        >
-          <v-icon
-            :size="MDI"
-            :color="reversedShadeColor"
-            v-text="'mdi-trash-can-outline'"
-            style="margin-top: 22px;"
-          ></v-icon>
-        </v-avatar>
-      </div>
+      <x-delete-avatar />
 
       <v-card-title class="text-subtitle-2 mt-3">
         <span>{{t(`deleting-${currentRouteId}`) | capitalizeFirstFilter}}</span>
@@ -74,33 +61,16 @@
           </v-sheet>
         </v-responsive>
 
-        <div v-else>
-          <div>{{t('are-you-sure') | capitalizeFirstFilter}}</div>
-          <div v-bind:class="[fontShadeColor]">{{t('irreversible') | capitalizeFirstFilter}}</div>
-        </div>
+        <x-delete-sure v-else />
       </v-card-text>
 
       <v-divider />
 
-      <v-card-actions>
-        <v-btn
-          @click="pickerValue = false"
-          depressed
-          text
-          v-text="$t('global.cancel')"
-        ></v-btn>
-
-        <v-spacer />
-
-        <v-btn
-          :color="errorColor"
-          @click="deleteAction()"
-          :disabled="hasItemRelations"
-          depressed
-        >
-          <span v-bind:class="[reversedFontShadeColor]" v-text="$t('global.delete')" />
-        </v-btn>
-      </v-card-actions>
+      <x-delete-actions
+        v-bind:value.sync="pickerValue"
+        v-bind:deleteItem.sync="dialogDeleteItem"
+        :hasItemRelations.sync="hasItemRelations"
+      ></x-delete-actions>
     </v-card>
   </v-dialog>
 
@@ -109,10 +79,16 @@
 <script>
 
   import RelationChip from "@/components/elements/RelationChip";
+  import XDeleteSure from "@/components/elements/Dialogs/XDeleteDialog/XDeleteSure";
+  import XDeleteAvatar from "@/components/elements/Dialogs/XDeleteDialog/XDeleteAvatar";
+  import XDeleteActions from "@/components/elements/Dialogs/XDeleteDialog/XDeleteActions";
 
   export default {
     name: 'x-delete-dialog',
     components: {
+      XDeleteSure,
+      XDeleteAvatar,
+      XDeleteActions,
       RelationChip
     },
     props: {
@@ -150,18 +126,9 @@
       pickerValue: null,
       dialogDeleteItem: false,
     }),
-    computed: {
-
-    },
     methods: {
       t(str) {
         return this.$t(`components.x-delete-dialog.${str}`)
-      },
-      deleteAction() {
-        if(this.item)
-          this.dialogDeleteItem = true;
-
-        this.pickerValue = false;
       },
     },
     watch: {

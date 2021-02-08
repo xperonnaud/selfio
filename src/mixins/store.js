@@ -273,9 +273,13 @@ export default {
     },
     methods: {
         xCap(str) {
+            if(!str) return '';
+            if(typeof str == 'number') return str;
             return this.xFilters.capitalizeFilter(str);
         },
         xCapFirst(str) {
+            if(!str) return '';
+            if(typeof str == 'number') return str;
             return this.xFilters.capitalizeFirstFilter(str);
         },
         xGear(gearId) {

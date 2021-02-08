@@ -64,7 +64,7 @@
 
 <script>
 
-  import XDeleteDialog from "@/components/elements/Dialogs/XDeleteDialog";
+  import XDeleteDialog from "@/components/elements/Dialogs/XDeleteDialog/XDeleteDialog";
 
   export default {
     name: "dialog-app-bar",

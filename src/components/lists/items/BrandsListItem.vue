@@ -43,20 +43,7 @@
         persistent
     >
       <v-card :style="'border-top: 2px solid '+errorColor+' !important;'">
-        <div class="max-width d-flex align-center justify-center">
-          <v-avatar
-            :size="48"
-            :color="errorColor"
-            style="position: absolute; top: -26px;"
-          >
-            <v-icon
-              :size="MDI"
-              :color="reversedShadeColor"
-              v-text="'mdi-trash-can-outline'"
-              style="margin-top: 22px;"
-            ></v-icon>
-          </v-avatar>
-        </div>
+        <x-delete-avatar />
 
         <v-card-title class="text-subtitle-2 mt-3">
           <span v-if="hasBrandRelations">{{$t('components.brands-list-item.delete-forbidden') | capitalizeFirstFilter}}</span>
@@ -79,6 +66,7 @@
                   :key="`${gear.title}-relation-${gear.id}`"
                   :color="navItemColor('gear')"
                   class="ma-1"
+                  outlined
                   label
                   small
                   dark
@@ -88,10 +76,7 @@
             </v-sheet>
           </v-responsive>
 
-          <div v-else>
-            <div>{{t('are-you-sure') | capitalizeFirstFilter}}</div>
-            <div v-bind:class="[fontShadeColor]">{{t('irreversible') | capitalizeFirstFilter}}</div>
-          </div>
+          <x-delete-sure v-else />
 
         </v-card-text>
 
@@ -121,8 +106,15 @@
 
 <script>
 
+  import XDeleteAvatar from "@/components/elements/Dialogs/XDeleteDialog/XDeleteAvatar";
+  import XDeleteSure from "@/components/elements/Dialogs/XDeleteDialog/XDeleteSure";
+
   export default {
     name: 'brands-list-item',
+    components: {
+      XDeleteSure,
+      XDeleteAvatar,
+    },
     data: () => ({
       deleteDialog: false,
       hasBrandRelations: false,

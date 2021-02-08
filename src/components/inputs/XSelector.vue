@@ -29,7 +29,7 @@
           >
             <v-text-field
               :label="xCap($t(`global.${label}`))"
-              :value="listedPickedValue ? xCap(isCategory ? $t(`categories.${list[listReferences[pickerValue]].title}`) : list[listReferences[pickerValue]].title) : null"
+              :value="listedPickedValue ? xCap(isCategory ? $t(`categories.${list[listReferences[pickerValue]].title}.title`) : list[listReferences[pickerValue]].title) : null"
               :color="currentColor"
               hide-details="auto"
               append-icon="mdi-menu-down"
@@ -42,7 +42,7 @@
                 <x-img
                   v-if="list[listReferences[pickerValue]] && list[listReferences[pickerValue]].icon"
                   :src="list[listReferences[pickerValue]].icon"
-                  :tooltipText="xCap(isCategory ? $t(`categories.${list[listReferences[pickerValue]].title}`) : list[listReferences[pickerValue]].title)"
+                  :tooltipText="xCap(isCategory ? $t(`categories.${list[listReferences[pickerValue]].title}.title`) : list[listReferences[pickerValue]].title)"
                   :width="avatarSize ? avatarSize : iconSize"
                   :height="avatarSize ? avatarSize : iconSize"
                   :logo="logo"
