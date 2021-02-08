@@ -4,13 +4,13 @@
     <v-row align="center" justify="center">
       <v-col :cols="isMobile ? 7 : 6" class="py-0">
         <v-list-item-title
-          v-text="item.title"
+          v-text="xCap(item.title)"
           v-bind:class="['mb-1',{'text-body-2' : isMobile}]"
         ></v-list-item-title>
 
         <v-list-item-subtitle
           v-bind:class="[(item.description ? 'text-caption' : 'text-tiny-dimmed')]"
-          v-text="item.description ? item.description : '.'"
+          v-text="item.description ? xCapFirst(item.description) : '.'"
         ></v-list-item-subtitle>
       </v-col>
 

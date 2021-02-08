@@ -8,7 +8,7 @@
         v-else
         v-show="!(formDialog && isMobile) && (isMobile ? !navigationCollapse : true)"
         v-bind:class="['router-view', {'is-dark':isDark}]"
-      />
+      ></router-view>
 
       <form-dialog
         v-if="apiAccessToken && formDialogType"

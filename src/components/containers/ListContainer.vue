@@ -5,7 +5,7 @@
     :color="xBackgroundColor"
   >
     <v-list
-      v-show="!(formDialog && isMobile) && !loading"
+      v-show="!(formDialog && isMobile)"
       v-bind:class="['rounded-0', (isMobile ? 'py-1' : 'py-2')]"
       one-line
       flat
@@ -50,7 +50,7 @@
 
             <component
               v-if="listComponent"
-              :key="`${currentRouteName}-list-item-component`"
+              :key="`${currentRouteId}-list-item-component`"
               :is="listComponent"
               :ref="listRef"
               :item="item"
@@ -68,27 +68,10 @@
           ></v-divider>
         </template>
 
-        <v-list-item
-            v-if="isItemRoute"
-            v-show="(items.length <= 0)"
-            :key="`empty-list-${currentRouteName}`"
-        >
-          <v-list-item-content>
-            <empty-list
-              :label="`add-${currentRouteName}`"
-              :color="navItemColor(currentRouteName)"
-            ></empty-list>
-          </v-list-item-content>
-        </v-list-item>
+        <item-empty-list-item v-show="(items.length <= 0)" />
 
-        <v-list-item
-          v-show="(filteredItems.length <= 0) && !(items.length <= 0)"
-          :key="`no-results-list-${currentRouteName}`"
-        >
-          <v-list-item-content>
-            <empty-list :color="navItemColor(currentRouteName)" />
-          </v-list-item-content>
-        </v-list-item>
+        <no-result-empty-list-item v-show="(filteredItems.length <= 0) && !(items.length <= 0)" />
+
     </v-list>
   </v-card>
 
@@ -98,6 +81,8 @@
 
   const _ = require('lodash');
 
+  import ItemEmptyListItem from "@/components/lists/items/ItemEmptyListItem";
+  import NoResultEmptyListItem from "@/components/lists/items/NoResultEmptyListItem";
   import ListContainerSkeleton from "@/components/skeletons/ListContainerSkeleton";
   import XUnknownCategoryIcon from "@/components/elements/Icons/XUnknownCategoryIcon";
   import EmptyList from "@/components/elements/EmptyList";
@@ -106,10 +91,12 @@
   export default {
     name: "list-container",
     components: {
-      ListContainerSkeleton,
-      XUnknownCategoryIcon,
-      EmptyList,
-      XImg
+        ItemEmptyListItem,
+        NoResultEmptyListItem,
+        ListContainerSkeleton,
+        XUnknownCategoryIcon,
+        EmptyList,
+        XImg
     },
     props: {
       title: String,
@@ -124,7 +111,7 @@
     },
     data: () => ({
       isMounted: false,
-      loading: false,
+      loading: true,
 
       listRef: null,
       listComponent: null,
@@ -237,7 +224,7 @@
       }
     },
     methods: {
-      componentLoad() {
+      async componentLoad() {
         let self = this;
 
         if(this.isItemRoute || this.isConfigurationRoute)
@@ -252,7 +239,7 @@
       openItemDialog(item) {
         if(item) {
           let self = this;
-          this.isAppLoading = true;
+          this.loading = true;
 
           let references = null;
           if(this.currentRouteName === 'gear') {
@@ -281,18 +268,19 @@
       },
     },
     watch: {
-      currentRouteName(value) {
+      async currentRouteName(value) {
         if (!value)
           return null;
 
         this.clearMenuFilters();
-        this.componentLoad();
+        await this.componentLoad();
       },
     },
-    mounted() {
+    async mounted() {
       this.listRef = this.randomId();
+      await this.componentLoad();
       this.isMounted = true;
-      this.componentLoad();
+      this.loading = false;
     }
   }
 

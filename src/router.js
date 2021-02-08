@@ -3,19 +3,19 @@ import Router from 'vue-router';
 
 import Home from './views/Home.vue';
 
-import Gear from './views/Gear.vue';
-import Inventories from './views/Inventories.vue';
-import Adventures from './views/Adventures.vue';
+const Gear = () => import('./views/Gear.vue');
+const Inventories = () => import('./views/Inventories.vue');
+const Adventures = () => import('./views/Adventures.vue');
 
-import Account from './views/Account.vue';
-import Tags from './views/Tags.vue';
-import Brands from './views/Brands.vue';
-import Settings from './views/Settings.vue';
-import ImportExport from './views/ImportExport.vue';
+const Account = () => import('./views/Account.vue');
+const Tags = () => import('./views/Tags.vue');
+const Brands = () => import('./views/Brands.vue');
+const Settings = () => import('./views/Settings.vue');
+const ImportExport = () => import('./views/ImportExport.vue');
 
-import Feedback from './views/Feedback.vue';
-import Info from './views/Info.vue';
-import Dashboard from './views/Dashboard.vue';
+const Feedback = () => import('./views/Feedback.vue');
+const Info = () => import('./views/Info.vue');
+const Dashboard = () => import('./views/Dashboard.vue');
 
 Vue.use(Router);
 

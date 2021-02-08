@@ -34,12 +34,12 @@
       <v-row align="center" justify="center" :class="[{'text--disabled':gear.quantity_owned === 0}]">
         <v-col :cols="isMobile ? 6 : 3" class="py-0">
           <div>
-            <v-list-item-title v-bind:class="['mb-1',{'text-body-2' : isMobile}]" v-text="gear.title" />
+            <v-list-item-title v-bind:class="['mb-1',{'text-body-2' : isMobile}]" v-text="xCap(gear.title)" />
 
             <v-list-item-subtitle
               v-if="!isMobile"
               v-bind:class="[(gear.quantity_owned === 0 ? 'text--disabled' : 'text-caption')]"
-              v-text="gear.brand ? xGearBrand(gear.brand).title : '.'"
+              v-text="gear.brand ? xCap(xGearBrand(gear.brand).title) : '.'"
             ></v-list-item-subtitle>
 
             <v-list-item-subtitle

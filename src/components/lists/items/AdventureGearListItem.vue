@@ -38,13 +38,13 @@
         <v-col :cols="isMobile ? 6 : 4" class="py-0">
           <div v-if="xGear(gear.gear_id)">
             <v-list-item-title
-              v-text="xGear(gear.gear_id).title"
+              v-text="xCap(xGear(gear.gear_id).title)"
               v-bind:class="['mb-1',{'text-body-2' : isMobile}]"
             ></v-list-item-title>
 
             <v-list-item-subtitle
               class="text-caption"
-              v-text="xGear(gear.gear_id).brand ? xGearBrand(xGear(gear.gear_id).brand).title : '.'"
+              v-text="xGear(gear.gear_id).brand ? xCap(xGearBrand(xGear(gear.gear_id).brand).title) : '.'"
             ></v-list-item-subtitle>
           </div>
         </v-col>

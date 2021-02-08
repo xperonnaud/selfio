@@ -96,12 +96,12 @@
       },
       formDialog(val) {
         if(this.isMounted && (val === false)) {
-          if(this.isAppLoading === true)
-            this.isAppLoading = false;
-
           this.selectedItem = null;
           this.selectedItemIndex = null;
           this.formDialogType = null;
+
+          if(this.isAppLoading === true)
+            this.isAppLoading = false;
         }
       },
     },

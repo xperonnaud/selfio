@@ -11,12 +11,10 @@
         v-ripple
       >
         <v-list-item-content class="no-wrap">
-          <v-list-item-title v-text="title" />
+          <v-list-item-title>{{title | capitalizeFirstFilter}}</v-list-item-title>
 
           <v-list-item-subtitle>
-
             <slot />
-
           </v-list-item-subtitle>
         </v-list-item-content>
 

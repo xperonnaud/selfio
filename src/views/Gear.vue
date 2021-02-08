@@ -1,7 +1,8 @@
 <template>
-  <v-sheet v-if="isMounted" height="100%">
 
+  <v-sheet height="100%">
     <list-container
+      v-show="!isLoading"
       v-bind:icon="currentIcon"
       v-bind:title="currentTitle"
       v-bind:color="currentColor"
@@ -9,8 +10,8 @@
       v-bind:itemHeaders="gearHeaders"
       v-bind:keyName="'name'"
     ></list-container>
-
   </v-sheet>
+
 </template>
 
 <script>
@@ -24,6 +25,7 @@ export default {
     },
     data: () => ({
       isMounted: false,
+      isLoading: true,
     }),
     computed: {
       gearHeaders() {
@@ -47,6 +49,7 @@ export default {
     },
     mounted() {
       this.isMounted = true;
+      this.isLoading = false;
     }
   }
 

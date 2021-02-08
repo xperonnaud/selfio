@@ -5,7 +5,7 @@
 
       <v-col :cols="isMobile ? 6 : 2" class="py-0">
         <v-list-item-title
-          v-text="item.title"
+          v-text="xCap(item.title)"
           v-bind:class="[{'text-body-2' : isMobile}]"
         ></v-list-item-title>
 
@@ -20,7 +20,7 @@
         <v-list-item-subtitle
           v-else
           v-bind:class="[(item.location ? 'text-caption' : 'text-tiny-dimmed')]"
-          v-text="item.location ? item.location : '.'"
+          v-text="item.location ? xCap(item.location) : '.'"
         ></v-list-item-subtitle>
       </v-col>
 
