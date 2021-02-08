@@ -19,7 +19,7 @@
       :width="XXLI"
       :min-width="XXLI"
       :height="XXLI"
-      :style="xGear(gear.gear_id).category ? 'border: 2px solid '+categoryColor(xGear(gear.gear_id).category)+' !important;' : ''"
+      :style="xGear(gear.gear_id).category ? `border: 2px solid ${categoryColor(xGear(gear.gear_id).category)} !important;` : ''"
     >
       <x-img
         v-if="xGear(gear.gear_id) && xGear(gear.gear_id).category"
@@ -69,7 +69,7 @@
               <v-icon
                 :color="xGearState(xGear(gear.gear_id).state).color"
                 class="pa-2"
-                v-text="'mdi-'+stateIcon(xGearState(xGear(gear.gear_id).state).title)"
+                v-text="`mdi-${stateIcon(xGearState(xGear(gear.gear_id).state).title)}`"
                 :size="SMI"
                 v-bind="attrs"
                 v-on="on"

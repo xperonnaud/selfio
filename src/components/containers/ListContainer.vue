@@ -26,7 +26,7 @@
                 'x-avatar py-0 d-flex  justify-center',
                  (isMobile ? 'my-0 mr-3' : 'ml-2 mr-5'),
               ]"
-              :style="((currentRouteId === 'gear' && item.category) ? 'border: 2px solid '+categoryColor(item.category)+' !important;' : '')"
+              :style="((currentRouteId === 'gear' && item.category) ? `border: 2px solid ${categoryColor(item.category)} !important;` : '')"
             >
               <x-img
                 v-if="currentRouteId === 'gear' && item.category && xGearCategory(item.category)"

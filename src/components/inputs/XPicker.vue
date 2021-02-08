@@ -44,7 +44,7 @@
             :src="data.item.icon"
             :logo="logo"
             :tooltipText="data.item.title"
-          />
+          ></x-img>
         </v-avatar>
 
         {{ xCap(data.item.title) }}

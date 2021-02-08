@@ -84,7 +84,7 @@
                         ></inventory-gear-card>
                       </v-col>
 
-                      <v-col v-if="inventoryGearList.length > 0" cols="12" class="py-0 mb-3">
+                      <v-col v-if="inventoryGearList && inventoryGearList.length > 0" cols="12" class="py-0 mb-3">
                         <x-stacked-progress-card
                           :items.sync="balance"
                         ></x-stacked-progress-card>
@@ -124,7 +124,7 @@
                                       :width="XXLI"
                                       :min-width="XXLI"
                                       :height="XXLI"
-                                      :style="gearCategoryStat.id ? 'border: 1px solid '+categoryColor(gearCategoryStat.id)+' !important;' : ''"
+                                      :style="gearCategoryStat.id ? `border: 1px solid ${categoryColor(gearCategoryStat.id)} !important;` : ''"
                                     >
                                       <x-img
                                         v-if="gearCategoryStat.id && xGearCategory(gearCategoryStat.id) && objFilter(gearCategories, 'id', parseInt(gearCategoryStat.id))[0]"
@@ -151,7 +151,7 @@
 
                                           <div style="width: 60px;">
                                             <span class="text-tiny" v-text="gearCategoryStat.items" />
-                                            <span class="text-tiny-dimmed" v-text="' '+$t(`global.item${gearCategoryStat.items > 1 ? 's' : ''}`)" />
+                                            <span class="text-tiny-dimmed" v-text="` ${$t(`global.item${gearCategoryStat.items > 1 ? 's' : ''}`)}`" />
                                           </div>
 
                                           <x-divider />
@@ -196,7 +196,7 @@
                               :height="mobileResponsiveHeight"
                             >
                               <empty-list
-                                v-if="inventoryGearList.length <= 0"
+                                v-if="inventoryGearList && inventoryGearList.length <= 0"
                                 :label="t('add-gear')"
                                 :color="navItemColor('gear')"
                               ></empty-list>

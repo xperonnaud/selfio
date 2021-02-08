@@ -106,7 +106,7 @@
               <v-icon
                 v-if="item.state && xGearState(item.state) && xGearState(item.state).color"
                 :color="xGearState(item.state).color"
-                v-text="'mdi-'+stateIcon(xGearState(item.state).title)"
+                v-text="`mdi-${stateIcon(xGearState(item.state).title)}`"
                 :size="MDI"
               ></v-icon>
             </template>

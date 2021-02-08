@@ -303,7 +303,36 @@
       "irreversible": "This action is irreversible."
     }
   },
-  "errors": {
-
+  "rules": {
+    "required": "This field is required.",
+    "email": "Invalid email",
+    "valid": "Invalid value",
+    "date": "Invalid date",
+    "time": "Invalid time",
+    "integer": "Invalid value. Only positive whole numbers are accepted.",
+    "decimals": "Invalid value. Only positive numbers are accepted.",
+    "temperature": "Invalid temperature",
+    "message": "Your message is too long. 500 characters max.",
+    "elevation": "Invalid value. Only  numbers are accepted."
+  },
+  "api": {
+    "session-expired": "Your session has timed out. You have been logged off automatically.",
+    "incorrect-credentials": "Incorrect credentials",
+    "username-password": "Incorrect Username/Password",
+    "logged-out": "Logged out",
+    "feedback-sent": "Feedback sent. Thank You!",
+    "brand-added": "Brand added",
+    "brand-deleted": "Brand deleted",
+    "tags-updated": "Tags updated",
+    "settings-updated": "Settings updated",
+    "gear-added": "Gear added",
+    "gear-updated": "Gear updated",
+    "gear-deleted": "Gear deleted",
+    "inventory-added": "Inventory added",
+    "inventory-updated": "Inventory updated",
+    "inventory-deleted": "Inventory deleted",
+    "adventure-added": "Adventure added",
+    "adventure-updated": "Adventure updated",
+    "adventure-deleted": "Adventure deleted"
   }
 }

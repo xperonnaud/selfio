@@ -18,19 +18,17 @@
       </v-btn>
     </template>
 
-    <v-card :style="'border-top: 2px solid '+errorColor+' !important;'">
+    <v-card :style="`border-top: 2px solid ${errorColor} !important;`">
       <x-delete-avatar />
 
       <v-card-title class="text-subtitle-2 mt-3">
         <span>{{t(`deleting-${currentRouteId}`) | capitalizeFirstFilter}}</span>
         <span v-html="':&nbsp;'" />
-        <span v-if="hasItemRelations" v-text="t('not-allowed')">{{t('not-allowed') | capitalizeFilter}}</span>
+        <span v-if="hasItemRelations">{{t('not-allowed') | capitalizeFilter}}</span>
         <span v-else v-text="item.title">{{item.title | capitalizeFirstFilter}}</span>
       </v-card-title>
 
-      <v-card-subtitle v-if="hasItemRelations">
-        {{t('remove-relations') | capitalizeFirstFilter}}
-      </v-card-subtitle>
+      <v-card-subtitle v-if="hasItemRelations">{{t('remove-relations') | capitalizeFirstFilter}}</v-card-subtitle>
 
       <v-card-text>
         <v-responsive
@@ -38,7 +36,7 @@
           class="overflow-y-auto"
           :max-height="300"
         >
-          <v-sheet :color="'grey '+(isDark ? 'darken-4' : 'lighten-4')" class="pa-2">
+          <v-sheet :color="`grey ${(isDark ? 'darken-4' : 'lighten-4')}`" class="pa-2">
             <relation-chip
               :relationType="'inventories'"
               :list="inventoriesList"

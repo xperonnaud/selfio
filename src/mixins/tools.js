@@ -39,41 +39,26 @@ export default {
         },
         xRules() {
             return {
-                phone: [
-                    v => !!v || 'phone is required',
-                    v => (v && v.length === 12) || 'phone length',
-                ],
-                niv: [
-                    v => (v && v.length === 17) || 'niv length',
-                ],
-                card: [
-                    v => !!v || v === 'unknown' || 'card required'
-                ],
                 password: [
-                    v => !!v || 'password required',
+                    v => !!v || this.$t('rules.required'),
                 ],
                 text: [
-                    v => !!v || 'text required',
+                    v => !!v || this.$t('rules.required'),
                 ],
                 object: [
-                    v => !!v || 'object required',
+                    v => !!v || this.$t('rules.required'),
                 ],
                 message: [
-                    v => !!v || 'message required',
-                    v => (v.length <= 500) || 'message length'
+                    v => !!v || this.$t('rules.required'),
+                    v => (v.length <= 500) || this.$t('rules.message')
                 ],
-                firstname: [
-                    v => !!v || 'firstname required',
-                    v => (v && v.length <= 25) || 'firstname length'
-                ],
-                lastname: [
-                    v => !!v || 'lastname required',
-                    v => (v && v.length <= 25) || 'lastname length'
+                required: [
+                    v => !!v || this.$t('rules.required'),
                 ],
                 email: [
-                    v => !!v || 'email required',
+                    v => !!v || this.$t('rules.required'),
                     v => /^\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b$/
-                        .test(v.toUpperCase()) || 'email syntax'
+                        .test(v.toUpperCase()) || this.$t('rules.email')
                 ],
                 id: [
                     v => (v === null)
@@ -84,38 +69,38 @@ export default {
                     v => (v === '')
                         || (v === null)
                         || /^(-?[0-9]+(\.[0-9][0-9]?)?)*$/.test(v)
-                        || 'temperature only (-50, 50)'
+                        || this.$t('rules.temperature')
                 ],
                 elevation: [
                     v => (v === '')
                         || (v === null)
                         || /^(-?[0-9]+(\.[0-9][0-9]?)?)*$/.test(v)
-                        || '-+ integers && decimals only'
+                        || this.$t('rules.elevation')
                 ],
                 integer: [
                     v => (v === '')
                         || (v === null)
                         || /^([0-9]+)*$/.test(v)
-                        || 'integers only'
+                        || this.$t('rules.integer')
                 ],
                 decimal: [
                     v => (v === '')
                         || (v === null)
                         || /^([0-9]+(\.[0-9][0-9]?)?)*$/.test(v)
-                        || 'decimals only'
+                        || this.$t('rules.decimal')
                 ],
                 date: [
                     v => (v === '')
                         || (v === null)
                         || /^(\d{4})-(\d{2})-(\d{2})$/.test(v)
-                        || 'date syntax'
+                        || this.$t('rules.date')
                 ],
                 time: [
                     v => (v === '')
                         || (v === null)
                         || /^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/.test(v)
                         || /^([0-1]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]$/.test(v)
-                        || 'time syntax'
+                        || this.$t('rules.time')
                 ],
                 select: [
                     v => !!v || v === 'na' || v === 'unknown' || 'select required'
@@ -123,20 +108,10 @@ export default {
                 null: [
                     v => (typeof v != 'undefined') || 'empty required'
                 ],
-                expansion: [
-                    v => !!v || 'expansion required'
-                ],
-                postalCode: [
-                    v => !!v || 'zipcode required',
-                    v => /^(?!.*[dfioquDFIOQU])[a-vxyA-VXY][0-9][a-zA-Z] ?[0-9][a-zA-Z][0-9]$/.test(v) || 'zipcode.value',
-                ],
-                test: [
-                    v => (v > 1) || 'test value'
-                ],
                 boolean: [
-                    v => !!v || v === 'unknown' || 'boolean required',
-                    v => (v === true) || 'boolean value',
-                    v => (typeof v === "boolean") || 'boolean type',
+                    v => !!v || v === 'unknown' || this.$t('rules.required'),
+                    v => (v === true) || this.$t('rules.required'),
+                    v => (typeof v === "boolean") || this.$t('rules.required'),
                 ],
             }
         },

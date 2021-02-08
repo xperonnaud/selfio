@@ -180,7 +180,7 @@
                       <v-row>
                         <v-col cols="12">
                           <x-text
-                            :label="$t('global.elevation')+'/'+$t('global.depth')"
+                            :label="`${$t('global.elevation')}/${$t('global.depth')}`"
                             v-bind:value.sync="updatedItem.elevation"
                             :rules="xRules.decimal"
                             :suffix="elevationUnit"
@@ -272,7 +272,7 @@
                                 <span v-bind:class="[navItemColorText('inventories')]" v-text="updatedItem.packed_gear ? updatedItem.packed_gear.length : 0" />
                                 <span v-text="' / '" />
                                 <span v-bind:class="[navItemColorText('inventories')]" v-text="originalInventoryGear.length" />
-                                <span v-text="' '+$t('components.adventure-gear-card.packed-gear')" />
+                                <span v-text="` ${$t('components.adventure-gear-card.packed-gear')}`" />
                               </span>
                             </div>
 

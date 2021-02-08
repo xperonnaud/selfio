@@ -303,7 +303,36 @@
       "irreversible": "Cette action est irreversible."
     }
   },
-  "errors": {
-
+  "rules": {
+    "required": "Ce champ est requis.",
+    "email": "Email non valide.",
+    "valid": "Valeur non valide.",
+    "date": "Date non valide.",
+    "time": "Heure non valide.",
+    "integer": "Valeur non valide. Seuls les nombres positifs entiers sont acceptés.",
+    "decimals": "Valeur non valide. Seuls les nombres positifs sont acceptés.",
+    "temperature": "Température non valide",
+    "message": "Votre message est trop long. 500 caractères max.",
+    "elevation": "Valeur non valide. Seuls les nombres sont acceptés."
+  },
+  "api": {
+    "session-expired": "Votre session a expiré. Vous avez été déconnecté automatiquement.",
+    "incorrect-credentials": "Identifiants incorrects",
+    "username-password": "Email / Mot de passe non valides",
+    "logged-out": "Déconnecté",
+    "feedback-sent": "Commentaire envoyé. Merci!",
+    "brand-added": "Brand ajoutée",
+    "brand-deleted": "Brand supprimée",
+    "tags-updated": "Tags modifiés",
+    "settings-updated": "Settings modifiés",
+    "gear-added": "Gear ajoutée",
+    "gear-updated": "Gear modifié",
+    "gear-deleted": "Gear supprimé",
+    "inventory-added": "Inventory ajouté",
+    "inventory-updated": "Inventory modifié",
+    "inventory-deleted": "Inventory supprimé",
+    "adventure-added": "Adventure ajoutée",
+    "adventure-updated": "Adventure modifiée",
+    "adventure-deleted": "Adventure supprimée"
   }
 }

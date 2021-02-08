@@ -7,7 +7,7 @@
     v-bind:class="[
       'x-snack-bar',
       'elevation-3',
-      ('x-'+snackbarType),
+      (`x-${snackbarType}`),
       {'is-small':isMobile},
       {'is-dark':isDark},
     ]"

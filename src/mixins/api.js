@@ -116,7 +116,7 @@ export default {
                 if(action === 'login')
                     await this.api_logout();
 
-                this.updateSnackbar(responseType, (action === 'login') ? 'Your session has timed out. You have been logged off automatically.' : message);
+                this.updateSnackbar(responseType, (action === 'login') ? self.$t('api.session-expired') : message);
 
             } else if (message) {
                 this.updateSnackbar(responseType, message);
@@ -153,7 +153,7 @@ export default {
                     await self.handleResponse('success');
                 }
             }).catch(async function (error) {
-                await self.handleResponse('error', 'Incorrect credentials', error, 'login');
+                await self.handleResponse('error', self.$t('api.session-incorrect-credentials'), error, 'login');
             })
         },
         async api_get_user() {
@@ -167,7 +167,7 @@ export default {
                     await self.handleResponse('success');
                 }
             }).catch(async function (error) {
-                await self.handleResponse('error', 'Incorrect Username/Password', error);
+                await self.handleResponse('error', self.$t('api.username-password'), error);
             })
         },
         async api_logout() {
@@ -178,7 +178,7 @@ export default {
                 { refresh_token: self.apiRefreshToken }
                 )
             .then(async function (response) {
-                await self.handleResponse('success', 'Logged out', response);
+                await self.handleResponse('success', self.$t('api.logged-out'), response);
                 self.reset_api_data();
                 self.reset_user_data();
             }).catch(async function (error) {
@@ -247,7 +247,7 @@ export default {
 
             await directus.items('feedbacks').create(feedback)
             .then(async function () {
-                await self.handleResponse('success', 'Feedback sent. Thank You!');
+                await self.handleResponse('success', self.$t('api.feedback-sent'));
             }).catch(async function (error) {
                 await self.handleResponse('error', error.message, error);
             })
@@ -268,7 +268,7 @@ export default {
             await directus.items('brands').create(brand)
             .then(async function (response) {
                 self.$store.commit("addBrand",response.data);
-                await self.handleResponse('success', 'Brand added');
+                await self.handleResponse('success', self.$t('api.brand-added'));
 
             }).catch(async function (error) {
                 await self.handleResponse('error', error.message, error);
@@ -279,7 +279,7 @@ export default {
             await directus.items('brands').delete(brandId)
             .then(async function () {
                 self.$store.commit("removeBrand", brandIndex);
-                await self.handleResponse('success', 'Brand deleted');
+                await self.handleResponse('success', self.$t('api.brand-deleted'));
 
             }).catch(async function (error) {
                 await self.handleResponse('error', error.message, error);
@@ -340,7 +340,7 @@ export default {
                 },
             })
             .then(async function (response) {
-                if(response.data.length > 0) {
+                if(response.data && response.data.length > 0) {
                     self.$store.commit("updatePreferences", response.data[0]);
                 } else {
                     await self.api_init_preferences();
@@ -383,7 +383,7 @@ export default {
             await directus.items('preferences').update(preferences.id, preferences)
             .then(async function (response) {
                 Object.assign(self.$store.state.selfio.preferences, response.data);
-                await self.handleResponse('success', (!noMessage ? 'Preferences updated' : null));
+                await self.handleResponse('success', (!noMessage ? self.$t('api.settings-updated') : null));
 
             }).catch(async function (error) {
                 await self.handleResponse('error', error.message, error);
@@ -403,7 +403,7 @@ export default {
             await directus.items('preferences').update(self.$store.state.selfio.preferences.id, self.$store.state.selfio.preferences)
             .then(async function (response) {
                 Object.assign(self.$store.state.selfio.preferences, response.data);
-                await self.handleResponse('success', 'Tags updated');
+                await self.handleResponse('success', self.$t('api.tags-updated'));
             }).catch(async function (error) {
                 await self.handleResponse('error', error.message, error);
             })
@@ -456,7 +456,7 @@ export default {
             await directus.items('gear').create(gear)
             .then(async function (response) {
                 self.$store.commit("addGear",response.data);
-                await self.handleResponse('success', 'Gear added');
+                await self.handleResponse('success', self.$t('api.settings-added'));
 
             }).catch(async function (error) {
                 await self.handleResponse('error', error.message, error);
@@ -470,7 +470,7 @@ export default {
             await directus.items('gear').update(gear.id, gear)
             .then(async function (response) {
                 self.$store.commit("patchGear", { index: gearIndex, data: response.data });
-                await self.handleResponse('success', 'Gear updated');
+                await self.handleResponse('success', self.$t('api.gear-updated'));
 
             }).catch(async function (error) {
                 await self.handleResponse('error', error.message, error);
@@ -482,7 +482,7 @@ export default {
             await directus.items('gear').delete(gearId)
             .then(async function () {
                 self.$store.commit("removeGear", gearIndex);
-                await self.handleResponse('success', 'Gear deleted');
+                await self.handleResponse('success', self.$t('api.gear-deleted'));
 
             }).catch(async function (error) {
                 await self.handleResponse('error', error.message, error);
@@ -544,7 +544,7 @@ export default {
                     self.$store.commit("resetTempInventoryGear");
                 });
 
-                await self.handleResponse('success', 'Inventory added');
+                await self.handleResponse('success', self.$t('api.inventory-added'));
 
             }).catch(async function (error) {
                 await self.handleResponse('error', error.message, error);
@@ -574,7 +574,7 @@ export default {
                     self.$store.commit("resetTempInventoryGear");
                 });
 
-                await self.handleResponse('success', 'Inventory updated');
+                await self.handleResponse('success', self.$t('api.inventory-updated'));
 
             }).catch(async function (error) {
                 await self.handleResponse('error', error.message, error);
@@ -598,7 +598,7 @@ export default {
                 });
 
                 self.$store.commit("removeInventory", inventoryIndex);
-                await self.handleResponse('success', 'Inventory deleted');
+                await self.handleResponse('success', self.$t('api.inventory-deleted'));
 
             }).catch(async function (error) {
                 await self.handleResponse('error', error.message, error);
@@ -607,6 +607,9 @@ export default {
 
         async updateGearList(inventoryId, inventoryIndex, originalGearList, gearList, inventoryGear, gearInventoryRelations) {
             let self = this;
+
+            if(inventoryGear === null)
+                inventoryGear = [];
 
             let sameGear = inventoryGear.filter(x => originalGearList.includes(x.gear_id));
 
@@ -638,13 +641,13 @@ export default {
                 return gearInventoryRelations[gearId];
             });
 
-            if(mappedSameGear.length > 0)
+            if(mappedSameGear && mappedSameGear.length > 0)
                 await self.api_update_inventory_gear(mappedSameGear);
 
-            if(mappedAddedGear.length > 0)
+            if(mappedAddedGear && mappedAddedGear.length > 0)
                 await self.api_create_inventory_gear(mappedAddedGear);
 
-            if(mappedRemovedGear.length > 0)
+            if(mappedRemovedGear && mappedRemovedGear.length > 0)
                 await self.api_delete_inventory_gear(mappedRemovedGear);
         },
         async api_get_gear_inventories(gearId) {
@@ -783,7 +786,7 @@ export default {
             await directus.items('adventures').create(adventure)
             .then(async function (response) {
                 self.$store.commit("addAdventure", response.data);
-                await self.handleResponse('success', 'Adventure added');
+                await self.handleResponse('success', self.$t('api.adventure-added'));
 
             }).catch(async function (error) {
                 await self.handleResponse('error', error.message, error);
@@ -803,7 +806,7 @@ export default {
             await directus.items('adventures').update(adventure.id, adventure)
             .then(async function () {
                 self.$store.commit("patchAdventure", payload);
-                await self.handleResponse('success', 'Adventure updated');
+                await self.handleResponse('success', self.$t('api.adventure-updated'));
 
             }).catch(async function (error) {
                 await self.handleResponse('error', error.message, error, self.api_patch_adventure, adventure, adventureIndex, oldAdventureInventory);
@@ -815,7 +818,7 @@ export default {
             await directus.items('adventures').delete(adventureId)
             .then(async function (response) {
                 self.$store.commit("removeAdventure", adventureIndex);
-                await self.handleResponse('success', 'Adventure deleted');
+                await self.handleResponse('success', self.$t('api.adventure-deleted'));
 
             }).catch(async function (error) {
                 await self.handleResponse('error', error.message, error);

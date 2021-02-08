@@ -299,7 +299,7 @@ export default new Vuex.Store({
             }
         },
         updateInventoryGear(state, inventoryIndex) {
-            if(typeof inventoryIndex == 'number' && state.selfio.inventories[inventoryIndex]) {
+            if(typeof inventoryIndex == 'number' && state.selfio.inventories[inventoryIndex] && state.selfio.inventories[inventoryIndex]['inventory_gear']) {
                 while(state.selfio.inventories[inventoryIndex]['inventory_gear'].length > 0) state.selfio.inventories[inventoryIndex]['inventory_gear'].pop();
                 Object.assign(state.selfio.inventories[inventoryIndex]['inventory_gear'], state.ui.tempInventoryGear);
             }
