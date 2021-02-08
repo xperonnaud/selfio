@@ -62,25 +62,19 @@
         <v-col class="py-0 px-1">
           <div class="d-flex justify-center">
             <div v-bind:class="['text-center max-width']">
-              <v-tooltip v-if="item.landscape" bottom>
-                <template v-slot:activator="{ on, attrs }">
-                  <div
-                    class="list-icon-wrapper"
-                    v-bind="attrs"
-                    v-on="on"
-                  >
-                    <x-img
-                      :src="xLandscape(item.landscape).icon"
-                      :width="35"
-                      :height="35"
-                      :tooltipText="xLandscape(item.landscape).title"
-                      noMargin
-                      logo
-                    ></x-img>
-                  </div>
-                </template>
-                <span v-text="xLandscape(item.landscape).title" />
-              </v-tooltip>
+              <div
+                v-if="item.landscape"
+                class="list-icon-wrapper"
+              >
+                <x-img
+                  :src="xLandscape(item.landscape).icon"
+                  :width="35"
+                  :height="35"
+                  :tooltipText="xCap($t(`landscapes.${xLandscape(item.landscape).title}.title`))"
+                  noMargin
+                  logo
+                ></x-img>
+              </div>
 
               <empty-data solo v-else />
             </div>
@@ -125,7 +119,7 @@
                     ></v-icon>
                   </v-sheet>
                 </template>
-                <span>{{item.weather | noDashFilter}}</span>
+                <span>{{xCap($t(`weathers.${item.weather}.title`))}}</span>
               </v-tooltip>
               <empty-data v-else />
             </div>

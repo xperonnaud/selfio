@@ -42,11 +42,11 @@
                     <v-col cols="12">
                       <x-selector
                         label="category"
+                        dataType="categories"
                         :list="categoriesList"
                         :listReferences="gearCategoryReferences"
                         v-bind:value.sync="updatedItem.category"
                         :iconSize="LGI"
-                        isCategory
                       ></x-selector>
                     </v-col>
 

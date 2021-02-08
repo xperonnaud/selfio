@@ -57,6 +57,7 @@
     <v-list-item class="mb-3">
       <x-simple-selector
           label="weather"
+          dataType="weathers"
           :list="weathers"
           v-bind:value.sync="itemWeather"
           :iconSize="LGI"

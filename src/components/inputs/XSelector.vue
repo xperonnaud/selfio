@@ -29,7 +29,7 @@
           >
             <v-text-field
               :label="xCap($t(`global.${label}`))"
-              :value="listedPickedValue ? xCap(isCategory ? $t(`categories.${list[listReferences[pickerValue]].title}.title`) : list[listReferences[pickerValue]].title) : null"
+              :value="listedPickedValue ? xCap(dataType ? $t(`${dataType}.${selectedItem.title}.title`) : selectedItem.title) : null"
               :color="currentColor"
               hide-details="auto"
               append-icon="mdi-menu-down"
@@ -40,9 +40,9 @@
             >
               <template v-slot:prepend-inner style="margin-top: 0">
                 <x-img
-                  v-if="list[listReferences[pickerValue]] && list[listReferences[pickerValue]].icon"
-                  :src="list[listReferences[pickerValue]].icon"
-                  :tooltipText="xCap(isCategory ? $t(`categories.${list[listReferences[pickerValue]].title}.title`) : list[listReferences[pickerValue]].title)"
+                  v-if="selectedItem && selectedItem.icon"
+                  :src="selectedItem.icon"
+                  :tooltipText="xCap(dataType ? $t(`${dataType}.${selectedItem.title}.title`) : selectedItem.title)"
                   :width="avatarSize ? avatarSize : iconSize"
                   :height="avatarSize ? avatarSize : iconSize"
                   :logo="logo"
@@ -91,7 +91,7 @@
                         :src="item.icon"
                         :width="iconSize"
                         :height="iconSize"
-                        :tooltipText="item.title"
+                        :tooltipText="xCap(dataType ? $t(`${dataType}.${item.title}.title`) : item.title)"
                         :logo="logo"
                         :isCategory="isCategory"
                       ></x-img>
@@ -104,7 +104,7 @@
                       'text-caption',
                       'text-center',
                     ]"
-                    v-html="isCategory ? xCap($t(`categories.${item.title}.title`)) : item.title"
+                    v-html="xCap(dataType ? $t(`${dataType}.${item.title}.title`) : item.title)"
                   ></div>
                 </div>
               </v-card>
@@ -131,6 +131,7 @@
       listReferences: Object,
       label: String,
       value: Number,
+      dataType: String,
       iconSize: {
         type: Number,
         default: 48
@@ -140,10 +141,6 @@
         default: null
       },
       logo: {
-        type: Boolean,
-        default: false
-      },
-      isCategory: {
         type: Boolean,
         default: false
       },
@@ -158,6 +155,14 @@
       pickerValue: null,
     }),
     computed: {
+      selectedItem() {
+        if(!this.listedPickedValue)
+          return null;
+        return this.list[this.listReferences[this.pickerValue]]
+      },
+      isCategory() {
+        return this.dataType === 'categories';
+      },
       listedPickedValue() {
         if(!this.isMounted)
           return false;

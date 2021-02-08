@@ -171,7 +171,6 @@ export default new Vuex.Store({
                 'partly-cloudy',
                 'partly-rainy',
                 'partly-snowy',
-                'partly-snowy-rainy',
                 'pouring',
                 'rainy',
                 'snowy',

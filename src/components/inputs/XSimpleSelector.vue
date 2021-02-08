@@ -29,7 +29,7 @@
           >
             <v-text-field
               :label="xCap($t(`global.${label}`))"
-              :value="pickerValue ? pickerValue : null"
+              :value="pickerValue ? xCap(dataType ? $t(`${dataType}.${pickerValue}.title`) : pickerValue) : null"
               :color="currentColor"
               hide-details="auto"
               append-icon="mdi-menu-down"
@@ -85,13 +85,8 @@
                     <v-icon v-text="`mdi-weather-${item}`" />
                   </div>
 
-                  <div
-                    v-bind:class="[
-                      'text-caption',
-                      'text-center',
-                    ]"
-                  >
-                    {{ item | noDashFilter | capitalizeFilter }}
+                  <div class="text-caption text-center">
+                    {{ (dataType ? $t(`${dataType}.${item}.title`) : item) | capitalizeFilter }}
                   </div>
                 </div>
               </v-card>
@@ -112,6 +107,7 @@
       list: Array,
       label: String,
       value: String,
+      dataType: String,
       iconSize: {
         type: Number,
         default: 48

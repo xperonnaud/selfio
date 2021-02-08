@@ -48,6 +48,7 @@
                         <v-col cols="12">
                           <x-selector
                             label="activity"
+                            dataType="activities"
                             :list="activitiesList"
                             :listReferences="activityReferences"
                             v-bind:value.sync="updatedItem.activity"
@@ -117,6 +118,7 @@
                         <v-col cols="12">
                           <x-selector
                             label="landscape"
+                            dataType="landscapes"
                             :list="landscapesList"
                             :listReferences="landscapeReferences"
                             v-bind:value.sync="updatedItem.landscape"
@@ -197,6 +199,7 @@
                         <v-col cols="12">
                           <x-simple-selector
                             label="weather"
+                            dataType="weathers"
                             :list="weathers"
                             v-bind:value.sync="updatedItem.weather"
                             :iconSize="LGI"
