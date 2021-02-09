@@ -1,6 +1,5 @@
 <template>
 
-  <v-list-item-content>
     <v-row align="center" justify="center">
         <v-col :cols="isMobile ? 4 : 3" class="py-0">
           <div>
@@ -76,7 +75,6 @@
           </div>
         </v-col>
     </v-row>
-  </v-list-item-content>
 
 </template>
 

@@ -1,7 +1,7 @@
 <template>
 
   <v-card
-    v-bind:class="['list-container mx-auto elevation-0']"
+    v-bind:class="['x-list mx-auto elevation-0']"
     :color="xBackgroundColor"
   >
     <v-list
@@ -11,56 +11,45 @@
       flat
     >
         <template v-for="(item, index) in filteredItems">
-          <v-list-item
+          <x-list-item
             :key="`${currentRouteName}-${item.id}-${index}`"
-            @click.stop="isItemRoute ? openItemDialog(item) : null"
-            v-bind:class="['pl-3']"
+            v-bind:item.sync="item"
+            v-on:listItemAction="isItemRoute ? openItemDialog(item) : null"
           >
-            <v-list-item-avatar
-              v-if="(
-                ((currentRouteId !== 'brands') && (currentRouteId !== 'inventories'))
-                || item.activity
-                || item.category
-              )"
-              v-bind:class="[
-                'x-avatar py-0 d-flex  justify-center',
-                 (isMobile ? 'my-0 mr-3' : 'ml-2 mr-5'),
-              ]"
-              :style="((currentRouteId === 'gear' && item.category) ? `border: 2px solid ${categoryColor(item.category)} !important;` : '')"
-            >
-              <x-img
-                v-if="currentRouteId === 'gear' && item.category && xGearCategory(item.category)"
-                :src="xGearCategory(item.category).icon"
-                :tooltipText="item.category"
-                :width="SMI"
-                :height="SMI"
-                isCategory
-              ></x-img>
+            <template v-slot:list-item-avatar>
+              <v-list-item-avatar
+                v-if="(
+                  ((currentRouteId !== 'brands') && (currentRouteId !== 'inventories'))
+                  || item.activity
+                  || item.category
+                )"
+                v-bind:class="[
+                  'x-avatar py-0 d-flex  justify-center',
+                   (isMobile ? 'my-0 mr-3' : 'ml-2 mr-5'),
+                ]"
+                :style="((currentRouteId === 'gear' && item.category) ? `border: 2px solid ${categoryColor(item.category)} !important;` : '')"
+              >
+                <x-img
+                  v-if="currentRouteId === 'gear' && item.category && xGearCategory(item.category)"
+                  :src="xGearCategory(item.category).icon"
+                  :tooltipText="item.category"
+                  :width="SMI"
+                  :height="SMI"
+                  isCategory
+                ></x-img>
 
-              <x-unknown-category-icon v-else-if="currentRouteId === 'gear'" />
+                <x-unknown-category-icon v-else-if="currentRouteId === 'gear'" />
 
-              <x-img
-                v-else-if="item.activity && xActivity(item.activity)"
-                :src="xActivity(item.activity).icon"
-                :tooltipText="xActivity(item.activity).title"
-                :width="LGI"
-                :height="LGI"
-              ></x-img>
-            </v-list-item-avatar>
-
-            <component
-              v-if="listComponent"
-              :key="`${currentRouteId}-list-item-component`"
-              :is="listComponent"
-              :ref="listRef"
-              :item="item"
-            ></component>
-
-            <v-list-item-content v-else>
-              <list-container-skeleton />
-            </v-list-item-content>
-
-          </v-list-item>
+                <x-img
+                  v-else-if="item.activity && xActivity(item.activity)"
+                  :src="xActivity(item.activity).icon"
+                  :tooltipText="xActivity(item.activity).title"
+                  :width="LGI"
+                  :height="LGI"
+                ></x-img>
+              </v-list-item-avatar>
+            </template>
+          </x-list-item>
 
           <v-divider
             v-if="index < items.length - 1"
@@ -68,9 +57,9 @@
           ></v-divider>
         </template>
 
-        <item-empty-list-item v-show="(items.length <= 0)" />
+        <item-empty-list-item v-if="(items.length <= 0)" />
 
-        <no-result-empty-list-item v-show="(filteredItems.length <= 0) && !(items.length <= 0)" />
+        <no-result-empty-list-item v-if="(filteredItems.length <= 0) && !(items.length <= 0)" />
 
     </v-list>
   </v-card>
@@ -81,22 +70,17 @@
 
   const _ = require('lodash');
 
-  import ItemEmptyListItem from "@/components/lists/items/ItemEmptyListItem";
-  import NoResultEmptyListItem from "@/components/lists/items/NoResultEmptyListItem";
-  import ListContainerSkeleton from "@/components/skeletons/ListContainerSkeleton";
   import XUnknownCategoryIcon from "@/components/elements/Icons/XUnknownCategoryIcon";
-  import EmptyList from "@/components/elements/EmptyList";
   import XImg from "@/components/elements/XImg";
 
   export default {
-    name: "list-container",
+    name: "x-list",
     components: {
-        ItemEmptyListItem,
-        NoResultEmptyListItem,
-        ListContainerSkeleton,
-        XUnknownCategoryIcon,
-        EmptyList,
-        XImg
+      XListItem: () => import('@/components/lists/XListItem'),
+      ItemEmptyListItem: () => import('@/components/lists/items/ItemEmptyListItem'),
+      NoResultEmptyListItem: () => import('@/components/lists/items/NoResultEmptyListItem'),
+      XUnknownCategoryIcon,
+      XImg
     },
     props: {
       title: String,
@@ -288,7 +272,7 @@
 
 <style lang="scss">
 
-  .list-container {
+  .x-list {
     .v-subheader {
       height: 24px !important;
     }

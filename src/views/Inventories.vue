@@ -1,26 +1,26 @@
 <template>
   <v-sheet v-if="isMounted" height="100%">
 
-    <list-container
+    <x-list
       v-bind:icon="currentIcon"
       v-bind:title="currentTitle"
       v-bind:color="currentColor"
       v-bind:items.sync="inventories"
       v-bind:itemHeaders="inventoriesHeaders"
       v-bind:keyName="'name'"
-    ></list-container>
+    ></x-list>
 
   </v-sheet>
 </template>
 
 <script>
 
-import ListContainer from "@/components/containers/ListContainer";
+  import XList from "@/components/lists/XList";
 
   export default {
     name: "inventories-view",
     components: {
-      ListContainer,
+      XList,
     },
     data: () => ({
       isMounted: false,

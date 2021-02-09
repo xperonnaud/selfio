@@ -16,7 +16,7 @@
 
 <script>
 
-import ListContainer from '@/components/containers/ListContainer'
+import ListContainer from '@/components/lists/XList'
 
 export default {
     name: "gear-view",
