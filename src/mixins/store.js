@@ -1,6 +1,4 @@
 
-import C from '@/constants'
-
 export default {
     data () {
         return {
@@ -9,7 +7,115 @@ export default {
                 'gear',
                 'inventories',
                 'adventures'
-            ]
+            ],
+            NAVIGATION_ROUTES: [
+                'gear',
+                'inventories',
+                'adventures',
+                'home',
+                'account',
+                'brands',
+                'tags',
+                'import_export',
+                'settings',
+                'feedback',
+                'info',
+            ],
+            NAVIGATION_ITEMS: {
+                home: {
+                    title: 'Home',
+                    id: 'home',
+                    icon: 'mdi-view-dashboard',
+                    type: 'misc',
+                },
+                gear: {
+                    title: 'Gear',
+                    id: 'gear',
+                    icon: 'mdi-knife-military',
+                    color: 'blue',
+                    type: 'items'
+                },
+                inventories: {
+                    title: 'Inventories',
+                    id: 'inventories',
+                    icon: 'mdi-semantic-web',
+                    color: 'purple',
+                    type: 'items'
+                },
+                adventures: {
+                    title: 'Adventures',
+                    id: 'adventures',
+                    icon: 'mdi-image-filter-hdr',
+                    color: 'teal',
+                    type: 'items'
+                },
+                account: {
+                    title: 'Account',
+                    id: 'account',
+                    icon: 'mdi-account-circle',
+                    type: 'account',
+                },
+                brands: {
+                    title: 'Brands',
+                    id: 'brands',
+                    icon: 'mdi-label-multiple',
+                    type: 'configuration',
+                },
+                tags: {
+                    title: 'Tags',
+                    id: 'tags',
+                    icon: 'mdi-tag-multiple',
+                    type: 'settings',
+                },
+                settings: {
+                    title: 'Settings',
+                    id: 'settings',
+                    icon: 'mdi-cog',
+                    type: 'settings',
+                },
+                feedback: {
+                    title: 'Feedback',
+                    id: 'feedback',
+                    icon: 'mdi-comment-text',
+                    type: 'misc',
+                },
+                import_export: {
+                    title: 'Import / Export',
+                    id: 'import-export',
+                    icon: 'mdi-database',
+                    type: 'misc',
+                },
+                info: {
+                    title: 'Info',
+                    id: 'info',
+                    icon: 'mdi-chart-timeline-variant-shimmer',
+                    type: 'undefined',
+                },
+            },
+            WEATHERS: [
+                'cloudy',
+                'fog',
+                'hail',
+                'hazy',
+                'lightning',
+                'lightning-rainy',
+                'partly-cloudy',
+                'partly-rainy',
+                'partly-snowy',
+                'pouring',
+                'rainy',
+                'snowy',
+                'snowy-heavy',
+                'snowy-rainy',
+                'sunny',
+                'windy',
+            ],
+            GEAR_STATES: [
+                { id: 1, title: 'poor', color: 'red' },
+                { id: 2, title: 'used', color: 'orange' },
+                { id: 3, title: 'ok', color: 'green' },
+                { id: 4, title: 'new', color: 'blue' },
+            ],
         }
     },
     computed: {
@@ -121,7 +227,22 @@ export default {
         },
         weathers: {
             get() {
-                return this.xUi.weathers
+                return this.WEATHERS
+            },
+        },
+        navigationRoutes: {
+            get() {
+                return this.NAVIGATION_ROUTES
+            },
+        },
+        navigationItems: {
+            get() {
+                return this.NAVIGATION_ITEMS;
+            },
+        },
+        gearStates: {
+            get() {
+                return this.GEAR_STATES
             },
         },
         user: {
@@ -192,11 +313,6 @@ export default {
                 return this.xSelfio.gearCategories
             },
         },
-        gearStates: {
-            get() {
-                return this.xUi.gearStates
-            },
-        },
         gearReferences: {
             get() {
                 return this.xSelfio.gearReferences
@@ -217,16 +333,6 @@ export default {
                 return this.xSelfio.landscapeReferences
             },
         },
-        weatherReferences: {
-            get() {
-                return this.xSelfio.weatherReferences
-            },
-        },
-        gearStateReferences: {
-            get() {
-                return this.xSelfio.gearStateReferences
-            },
-        },
         gearCategoryReferences: {
             get() {
                 return this.xSelfio.gearCategoryReferences
@@ -240,16 +346,6 @@ export default {
         inventoryReferences: {
             get() {
                 return this.xSelfio.inventoryReferences
-            },
-        },
-        navigationRoutes: {
-            get() {
-                return this.xUi.navigationRoutes
-            },
-        },
-        navigationItems: {
-            get() {
-                return this.xUi.navigationItems
             },
         },
         tempInventoryGear: {

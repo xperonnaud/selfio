@@ -1,5 +1,5 @@
 
-import C from '@/constants'
+import CONSTANTS from '@/constants'
 import vuetifyColors from 'vuetify/lib/util/colors'
 
 export default {
@@ -9,31 +9,48 @@ export default {
                 width: 0,
                 height: 0
             },
+            COLORS: [
+                'red',
+                'pink',
+                'purple',
+                'deep-purple',
+                'indigo',
+                'blue',
+                'cyan',
+                'teal',
+                'green',
+                'light-green',
+                'yellow',
+                'orange',
+                'deep-orange',
+                'brown',
+                'blue-grey',
+            ],
         }
     },
     computed: {
         vuetifyColors: {
             get() {
-                return this.xUi.colors
+                return this.COLORS
             },
         },
         XSI() {
-            return C.XSI;
+            return CONSTANTS.XSI;
         },
         SMI() {
-            return C.SMI;
+            return CONSTANTS.SMI;
         },
         MDI() {
-            return C.MDI;
+            return CONSTANTS.MDI;
         },
         LGI() {
-            return C.LGI;
+            return CONSTANTS.LGI;
         },
         XLI() {
-            return C.XLI;
+            return CONSTANTS.XLI;
         },
         XXLI() {
-            return C.XXLI;
+            return CONSTANTS.XXLI;
         },
         currentWindowHeight() {
             return (window.innerHeight - 92);
@@ -128,7 +145,7 @@ export default {
                     return (weight >= 1000 ? 'kg' : this.weightUnit);
 
                 case 'oz':
-                    return (((Math.round(weight * C.G_TO_OZ * 10) / 10) >= 96) ? 'lb' : this.weightUnit);
+                    return (((Math.round(weight * CONSTANTS.G_TO_OZ * 10) / 10) >= 96) ? 'lb' : this.weightUnit);
 
                 default:
                     return this.weightUnit;

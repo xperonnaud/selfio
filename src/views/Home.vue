@@ -11,7 +11,7 @@
     <v-row>
       <v-col cols="12">
         <div v-bind:class="['d-flex flex-wrap']">
-          <template v-for="(item, index) in navigationRoutes">
+          <template v-for="(item, index) in NAVIGATION_ROUTES">
             <v-card
               v-if="navigationItems[item].type === 'items'"
               :key="index"
