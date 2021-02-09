@@ -38,7 +38,7 @@ Vue.mixin(StoreMixin);
 Vue.mixin(ScreenMixin);
 
 const i18n = new VueI18n({
-  locale: 'fr', // set locale
+  locale: 'en', // set locale
   messages: { // translation files
     en: require('@/assets/langs/en.json'),
     fr: require('@/assets/langs/fr.json'),

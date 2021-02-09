@@ -11,6 +11,22 @@
           <v-row class="row-max-width">
             <v-col cols="12">
               <div>
+                <v-select
+                  :label="xCap($t('global.language'))"
+                  :items="languages"
+                  v-model="preferences.language"
+                  @change="setLang(preferences.language)"
+                  item-text="title"
+                  item-value="id"
+                  hide-details
+                  filled
+                  dense
+                ></v-select>
+              </div>
+            </v-col>
+
+            <v-col cols="12">
+              <div>
                 <div class="my-1">
                   <span class="text-subtitle-2">{{$t('global.weight') | capitalizeFilter}}</span>
                   <span class="text-tiny">&nbsp;({{$t('global.unit')}})</span>
@@ -152,6 +168,10 @@
       valid: false,
       isMounted: false,
 
+      languages: [
+        {id: 'en', title: 'English'},
+        {id: 'fr', title: 'Français'},
+      ],
       priceUnits: ['$', '€', '£', '¥'],
       distanceUnits: ['km', 'mi'],
       elevationUnits: ['m', 'ft'],

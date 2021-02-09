@@ -30,6 +30,8 @@
     "login": "Login",
     "logout": "Logout",
 
+    "languages": "languages",
+    "language": "language",
     "object": "object",
     "message": "message",
     "unit": "unit",

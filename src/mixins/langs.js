@@ -24,9 +24,9 @@ export default {
 
             return lang;
         },
-    },
-    setLang(lang) {
-        this.$i18n.locale = lang;
-        document.documentElement.setAttribute('lang',lang);
+        setLang(lang) {
+            this.$i18n.locale = lang;
+            document.documentElement.setAttribute('lang',lang);
+        },
     },
 }

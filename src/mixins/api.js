@@ -342,6 +342,7 @@ export default {
             .then(async function (response) {
                 if(response.data && response.data.length > 0) {
                     self.$store.commit("updatePreferences", response.data[0]);
+                    self.setLang(response.data[0].language);
                 } else {
                     await self.api_init_preferences();
                 }
@@ -359,6 +360,7 @@ export default {
                 temperature_unit:"&#8451;",
                 date_format:"DD-MM-YY",
                 theme:"light",
+                language: this.getNavigatorLanguage(),
                 gear_tags:[],
                 inventory_tags:[],
                 adventure_tags:[],
@@ -367,6 +369,7 @@ export default {
             await directus.items('preferences').create(preferences)
             .then(function (response) {
                 self.$store.commit("updatePreferences",response.data);
+                self.setLang(response.data.language);
             }).catch(async function (error) {
                 await self.handleResponse('error', error.message, error);
             })

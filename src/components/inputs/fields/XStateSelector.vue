@@ -42,7 +42,7 @@
                             <v-avatar v-if="listedPickedValue" tile left min-width="26" width="26" height="26">
                                 <v-icon
                                     :color="gearStates[pickerValue-1].color"
-                                    v-text="'mdi-'+stateIcon(xGearStates[pickerValue-1].title)"
+                                    v-text="'mdi-'+stateIcon(gearStates[pickerValue-1].title)"
                                     :size="MDI"
                                 ></v-icon>
                             </v-avatar>
