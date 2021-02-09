@@ -15,9 +15,7 @@
           :item="item"
         ></component>
 
-        <v-list-item-content v-else>
-          <list-container-skeleton />
-        </v-list-item-content>
+        <x-list-item-skeleton v-else />
       </v-list-item-content>
     </v-list-item>
 
@@ -25,14 +23,10 @@
 
 <script>
 
-  const _ = require('lodash');
-
-  import ListContainerSkeleton from "@/components/skeletons/ListContainerSkeleton";
-
   export default {
     name: "x-list-item",
     components: {
-        ListContainerSkeleton,
+        XListItemSkeleton: () => import('@/components/skeletons/XListItemSkeleton'),
     },
     props: {
       item: Object,
@@ -85,14 +79,3 @@
   }
 
 </script>
-
-
-<style lang="scss">
-
-    /*.x-list-item {*/
-    /*    .v-list-item__content {*/
-    /*        padding: 8px 0 !important;*/
-    /*    }*/
-    /*}*/
-
-</style>

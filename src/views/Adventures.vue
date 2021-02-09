@@ -1,7 +1,8 @@
 <template>
-  <v-sheet v-if="isMounted" height="100%">
+  <v-sheet height="100%">
 
     <x-list
+      v-show="isMounted"
       v-bind:icon="currentIcon"
       v-bind:title="currentTitle"
       v-bind:color="currentColor"
@@ -15,12 +16,10 @@
 
 <script>
 
-  import XList from '@/components/lists/XList'
-
   export default {
     name: "adventures-view",
     components: {
-      XList
+      XList: () => import('@/components/lists/XList'),
     },
     data: () => ({
       isMounted: false,

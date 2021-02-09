@@ -80,20 +80,14 @@
 
 <script>
 
-  import XConsumableIcon from "@/components/elements/Icons/XConsumableIcon";
-  import XUpdateCol from "@/components/xcols/XUpdateCol";
-  import XWeightCol from "@/components/xcols/XWeightCol";
-  import EmptyData from "@/components/elements/EmptyData";
-  import EditIcon from "@/components/elements/Icons/EditIcon";
-
   export default {
     name: 'gear-list-item',
     components: {
-      XConsumableIcon,
-      XUpdateCol,
-      XWeightCol,
-      EmptyData,
-      EditIcon,
+      XConsumableIcon: () => import('@/components/elements/Icons/XConsumableIcon'),
+      XUpdateCol: () => import('@/components/xcols/XUpdateCol'),
+      XWeightCol: () => import('@/components/xcols/XWeightCol'),
+      EmptyData: () => import('@/components/elements/EmptyData'),
+      EditIcon: () => import('@/components/elements/Icons/EditIcon'),
     },
     props: {
       item: Object,

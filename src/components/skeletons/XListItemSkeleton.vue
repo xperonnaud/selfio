@@ -51,15 +51,7 @@
 <script>
 
   export default {
-    name: "list-container-skeleton",
+    name: "x-list-item-skeleton",
   }
 
 </script>
-
-<style lang="scss">
-
-  .v-skeleton-loader__list-item-two-line.v-skeleton-loader__bone {
-    height: 36px !important;
-  }
-
-</style>

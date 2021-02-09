@@ -1,31 +1,28 @@
 <template>
 
   <v-sheet height="100%">
-    <list-container
-      v-show="!isLoading"
+    <x-list
+      v-show="isMounted"
       v-bind:icon="currentIcon"
       v-bind:title="currentTitle"
       v-bind:color="currentColor"
       v-bind:items="gear"
       v-bind:itemHeaders="gearHeaders"
       v-bind:keyName="'name'"
-    ></list-container>
+    ></x-list>
   </v-sheet>
 
 </template>
 
 <script>
 
-import ListContainer from '@/components/lists/XList'
-
 export default {
     name: "gear-view",
     components: {
-      ListContainer,
+      XList: () => import('@/components/lists/XList'),
     },
     data: () => ({
       isMounted: false,
-      isLoading: true,
     }),
     computed: {
       gearHeaders() {
@@ -49,7 +46,6 @@ export default {
     },
     mounted() {
       this.isMounted = true;
-      this.isLoading = false;
     }
   }
 

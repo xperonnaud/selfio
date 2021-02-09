@@ -52,16 +52,12 @@
 
 <script>
 
-  import XUpdateCol from "@/components/xcols/XUpdateCol";
-  import EmptyData from "@/components/elements/EmptyData";
-  import EditIcon from "@/components/elements/Icons/EditIcon";
-
   export default {
     name: 'inventories-list-item',
     components: {
-      XUpdateCol,
-      EmptyData,
-      EditIcon
+      XUpdateCol: () => import('@/components/xcols/XUpdateCol'),
+      EmptyData: () => import('@/components/elements/EmptyData'),
+      EditIcon: () => import('@/components/elements/Icons/EditIcon'),
     },
     props: {
       item: Object,

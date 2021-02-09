@@ -5,12 +5,18 @@
     :color="xBackgroundColor"
   >
     <v-list
+      v-if="isMounted"
       v-show="!(formDialog && isMobile)"
       v-bind:class="['rounded-0', (isMobile ? 'py-1' : 'py-2')]"
       one-line
       flat
     >
-        <template v-for="(item, index) in filteredItems">
+      <v-virtual-scroll
+        :bench="benched"
+        :items="filteredItems"
+        item-height="64"
+      >
+        <template v-slot:default="{ item, index }">
           <x-list-item
             :key="`${currentRouteName}-${item.id}-${index}`"
             v-bind:item.sync="item"
@@ -60,7 +66,7 @@
         <item-empty-list-item v-if="(items.length <= 0)" />
 
         <no-result-empty-list-item v-if="(filteredItems.length <= 0) && !(items.length <= 0)" />
-
+      </v-virtual-scroll>
     </v-list>
   </v-card>
 
@@ -70,17 +76,14 @@
 
   const _ = require('lodash');
 
-  import XUnknownCategoryIcon from "@/components/elements/Icons/XUnknownCategoryIcon";
-  import XImg from "@/components/elements/XImg";
-
   export default {
     name: "x-list",
     components: {
       XListItem: () => import('@/components/lists/XListItem'),
       ItemEmptyListItem: () => import('@/components/lists/items/ItemEmptyListItem'),
       NoResultEmptyListItem: () => import('@/components/lists/items/NoResultEmptyListItem'),
-      XUnknownCategoryIcon,
-      XImg
+      XUnknownCategoryIcon: () => import('@/components/elements/Icons/XUnknownCategoryIcon'),
+      XImg: () => import('@/components/elements/XImg')
     },
     props: {
       title: String,
@@ -95,7 +98,7 @@
     },
     data: () => ({
       isMounted: false,
-      loading: true,
+      benched: 3,
 
       listRef: null,
       listComponent: null,
@@ -223,7 +226,6 @@
       openItemDialog(item) {
         if(item) {
           let self = this;
-          this.loading = true;
 
           let references = null;
           if(this.currentRouteName === 'gear') {
@@ -261,10 +263,11 @@
       },
     },
     async mounted() {
+      let self = this;
       this.listRef = this.randomId();
       await this.componentLoad();
-      this.isMounted = true;
-      this.loading = false;
+
+      self.isMounted = true;
     }
   }
 

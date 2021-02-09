@@ -218,18 +218,13 @@
 
   import moment from 'moment';
 
-  import XUpdateCol from "@/components/xcols/XUpdateCol";
-  import EmptyData from "@/components/elements/EmptyData";
-  import EditIcon from "@/components/elements/Icons/EditIcon";
-  import XImg from "@/components/elements/XImg";
-
   export default {
     name: 'adventures-list-item',
     components: {
-      XUpdateCol,
-      EmptyData,
-      EditIcon,
-      XImg
+      XUpdateCol: () => import('@/components/xcols/XUpdateCol'),
+      EmptyData: () => import('@/components/elements/EmptyData'),
+      EditIcon: () => import('@/components/elements/Icons/EditIcon'),
+      XImg: () => import('@/components/elements/XImg')
     },
     props: {
       item: Object,

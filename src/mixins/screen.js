@@ -29,6 +29,9 @@ export default {
         }
     },
     computed: {
+        maxListItems() {
+            return (this.isMobile ? 10 : 20);
+        },
         vuetifyColors: {
             get() {
                 return this.COLORS
