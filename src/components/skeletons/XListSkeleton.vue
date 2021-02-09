@@ -9,7 +9,7 @@
       one-line
       flat
     >
-      <template v-for="index in maxListItems">
+      <template v-for="index in xListMaxItems">
         <v-list-item :key="`x-list-skeleton-${randomId()}-${index}`" class="x-list-item pl-3">
           <v-list-item-content :class="[{'pl-1':currentRouteId === 'inventories'}]">
             <x-list-item-skeleton />
@@ -17,7 +17,7 @@
         </v-list-item>
 
         <v-divider
-          v-if="index < maxListItems - 1"
+          v-if="index < xListMaxItems - 1"
           :key="index"
         ></v-divider>
       </template>

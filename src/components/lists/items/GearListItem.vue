@@ -52,7 +52,7 @@
           </v-col>
         </template>
 
-        <v-col class="x-col">
+        <v-col class="x-col d-flex justify-center align-center">
           <x-consumable-icon
             v-if="item.consumable"
             small

@@ -28,8 +28,4 @@ export default {
     LGI: LGI,
     XLI: XLI,
     XXLI: XXLI,
-
-    // UI
-
-
 }

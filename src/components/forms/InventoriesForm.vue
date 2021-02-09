@@ -605,22 +605,32 @@
                 >
                   <v-scroll-y-transition group>
                     <template v-for="(gear, index) in filteredGear">
-                      <inventory-gear-list-item
-                        :key="`inventory-gear-${gear.id}-${index}`"
-                        :gear="gear"
-                        :index="index"
-                        :inventoryGearList.sync="inventoryGearList"
-                        :inventoryGear="inventoryGearItem(gear.id)"
-                        :gearMenu.sync="inventoryGearMenu"
-                        v-bind:inventoryGearIndex.sync="selectedInventoryGearIndex"
-                        v-bind:inventoryGearQuantity.sync="selectedInventoryGearMaxQuantity"
-                        v-on:itemAction="gear.quantity_owned > 0 ? gearListItemAction(gear) : null"
-                      ></inventory-gear-list-item>
+<!--                    <v-virtual-scroll-->
+<!--                      :bench="benched"-->
+<!--                      :items="filteredGear"-->
+<!--                      :item-height="xListItemsHeight"-->
+<!--                      :height="isMobile ? (listHeight) : 600"-->
+<!--                    >-->
+<!--                      <template v-slot:default="{ gear, index }">-->
+                        <inventory-gear-list-item
+                          v-if="gear"
+                          :key="`inventory-gear-${gear.id}-${index}`"
+                          :gear="gear"
+                          :index="index"
+                          :inventoryGearList.sync="inventoryGearList"
+                          :inventoryGear="inventoryGearItem(gear.id)"
+                          :gearMenu.sync="inventoryGearMenu"
+                          v-bind:inventoryGearIndex.sync="selectedInventoryGearIndex"
+                          v-bind:inventoryGearQuantity.sync="selectedInventoryGearMaxQuantity"
+                          v-on:itemAction="gear.quantity_owned > 0 ? gearListItemAction(gear) : null"
+                        ></inventory-gear-list-item>
 
-                      <v-divider
-                        v-if="(index < gearList.length - 1)"
-                        :key="index"
-                      ></v-divider>
+                        <v-divider
+                          v-if="(index < filteredGear.length - 1)"
+                          :key="index"
+                        ></v-divider>
+<!--                      </template>-->
+<!--                    </v-virtual-scroll>-->
                     </template>
                   </v-scroll-y-transition>
                 </v-responsive>
@@ -788,6 +798,7 @@
       valid: false,
       validTitle: false,
       tab: 'inventory-general',
+      benched: 5,
 
       pieChart: {
         labels: [],

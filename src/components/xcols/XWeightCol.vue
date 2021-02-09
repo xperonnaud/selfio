@@ -1,6 +1,6 @@
 <template>
 
-  <v-col class="x-col">
+  <v-col class="x-col d-flex justify-center align-center">
     <div v-if="hasGear && weight">
       <span :class="['text-caption',{'text--disabled':disabled}]">{{ weight | weightUnitFilter(weightUnit) }}</span>
       <span :class="['text-tiny-dimmed',{'text--disabled':disabled}]" v-text="dynamicWeightUnit(weight)" :key="`dynamic-weight-unit-${weight}-${randomId()}`" />

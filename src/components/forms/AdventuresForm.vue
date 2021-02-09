@@ -598,6 +598,7 @@
       isMounted: false,
       valid: false,
       validTitle: false,
+      benched: 5,
 
       tab: 'adventure-general',
 

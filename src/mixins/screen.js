@@ -29,8 +29,15 @@ export default {
         }
     },
     computed: {
-        maxListItems() {
-            return (this.isMobile ? 10 : 20);
+        xListHeight() {
+            return (this.xListItemsHeight * this.xListMaxItems);
+        },
+        xListMaxItems() {
+            // -5 => benched xList local prop)
+            return (this.isMobile ? 7 : 17);
+        },
+        xListItemsHeight() {
+            return 64;
         },
         vuetifyColors: {
             get() {

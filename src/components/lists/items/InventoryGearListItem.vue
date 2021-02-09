@@ -1,7 +1,7 @@
 <template>
 
   <v-list-item
-    v-on:click="$emit('itemAction',gear)"
+    v-on:click="$emit('itemAction', gear)"
     v-bind:class="[
       'x-checklist-item',
       {'px-3':isMobile}

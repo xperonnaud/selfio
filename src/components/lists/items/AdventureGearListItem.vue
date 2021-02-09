@@ -53,7 +53,7 @@
           v-if="!isMobile"
           :hasGear="typeof xGear(gear.gear_id) == 'object'"
           :weight="xGear(gear.gear_id).weight"
-        />
+        ></x-weight-col>
 
         <v-col v-if="!isMobile" class="x-col">
           <div v-if="xGear(gear.gear_id) && xGear(gear.gear_id).price" >
@@ -63,7 +63,7 @@
           <empty-data solo v-else />
         </v-col>
 
-        <v-col v-if="!isMobile" class="x-col">
+        <v-col v-if="!isMobile" class="x-col d-flex justify-center align-center">
           <v-tooltip v-if="xGear(gear.gear_id) && xGear(gear.gear_id).state && xGearState(xGear(gear.gear_id).state)" bottom>
             <template v-slot:activator="{ on, attrs }">
               <v-icon
@@ -80,14 +80,14 @@
           <empty-data solo v-else />
         </v-col>
 
-        <v-col v-if="!isMobile" class="x-col">
+        <v-col v-if="!isMobile" class="x-col d-flex justify-center align-center">
           <div v-if="xGear(gear.gear_id).consumable">
             <x-consumable-icon small />
           </div>
           <empty-data solo v-else />
         </v-col>
 
-        <v-col class="x-col">
+        <v-col class="x-col d-flex justify-center align-center">
           <div v-if="gear.gear_worn">
             <x-worn-icon small />
           </div>

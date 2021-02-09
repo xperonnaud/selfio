@@ -14,10 +14,11 @@
       <v-virtual-scroll
         :bench="benched"
         :items="filteredItems"
-        item-height="64"
+        :item-height="xListItemsHeight"
       >
         <template v-slot:default="{ item, index }">
           <x-list-item
+            v-if="item"
             :key="`${currentRouteName}-${item.id}-${index}`"
             v-bind:item.sync="item"
             v-on:listItemAction="isItemRoute ? openItemDialog(item) : null"
@@ -98,7 +99,7 @@
     },
     data: () => ({
       isMounted: false,
-      benched: 3,
+      benched: 5,
 
       listRef: null,
       listComponent: null,
