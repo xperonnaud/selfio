@@ -101,7 +101,6 @@
     },
     data: () => ({
       isMounted: false,
-      benched: 5,
 
       listRef: null,
       listComponent: null,

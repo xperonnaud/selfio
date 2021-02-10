@@ -778,7 +778,6 @@
       valid: false,
       validTitle: false,
       tab: 'inventory-general',
-      benched: 5,
 
       pieChart: {
         labels: [],
