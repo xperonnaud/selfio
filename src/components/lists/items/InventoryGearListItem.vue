@@ -148,24 +148,16 @@
 
 <script>
 
-  import XImg from "@/components/elements/XImg";
-  import XWeightCol from "@/components/xcols/XWeightCol";
-  import XChecker from "@/components/inputs/XChecker";
-  import EmptyData from "@/components/elements/EmptyData";
-  import XWornIcon from "@/components/elements/Icons/XWornIcon";
-  import XConsumableIcon from "@/components/elements/Icons/XConsumableIcon";
-  import XUnknownCategoryIcon from "@/components/elements/Icons/XUnknownCategoryIcon";
-
   export default {
     name: 'inventory-gear-list-item',
     components: {
-      XImg,
-      XWeightCol,
-      XChecker,
-      EmptyData,
-      XWornIcon,
-      XConsumableIcon,
-      XUnknownCategoryIcon,
+      XImg: () => import('@/components/elements/XImg'),
+      XWeightCol: () => import('@/components/xcols/XWeightCol'),
+      XChecker: () => import('@/components/inputs/XChecker'),
+      EmptyData: () => import('@/components/elements/EmptyData'),
+      XWornIcon: () => import('@/components/elements/Icons/XWornIcon'),
+      XConsumableIcon: () => import('@/components/elements/Icons/XConsumableIcon'),
+      XUnknownCategoryIcon: () => import('@/components/elements/Icons/XUnknownCategoryIcon'),
     },
     props: {
       gear: Object,

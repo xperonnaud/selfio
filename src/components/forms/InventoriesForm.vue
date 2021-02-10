@@ -594,7 +594,7 @@
               </v-toolbar>
 
               <v-list
-                v-if="gearList.length >= 1"
+                v-if="filteredGear.length > 0"
                 subheader
                 two-line
                 dense
@@ -603,27 +603,32 @@
                   class="overflow-y-auto"
                   :max-height="isMobile ? (listHeight) : 600"
                 >
-                  <v-scroll-y-transition group>
-                    <template v-for="(gear, index) in filteredGear">
-                        <inventory-gear-list-item
-                          v-if="gear"
-                          :key="`inventory-gear-${gear.id}-${index}`"
-                          :gear="gear"
-                          :index="index"
-                          :inventoryGearList.sync="inventoryGearList"
-                          :inventoryGear="inventoryGearItem(gear.id)"
-                          :gearMenu.sync="inventoryGearMenu"
-                          v-bind:inventoryGearIndex.sync="selectedInventoryGearIndex"
-                          v-bind:inventoryGearQuantity.sync="selectedInventoryGearMaxQuantity"
-                          v-on:itemAction="gear.quantity_owned > 0 ? gearListItemAction(gear) : null"
-                        ></inventory-gear-list-item>
+                  <RecycleScroller
+                    class="scroller"
+                    :items.sync="filteredGear"
+                    :item-size="xListItemsHeight"
+                    key-field="id"
+                    v-slot="{ gear, index }"
+                  >
+                    <template v-if="typeof index == 'number'">
+                      <inventory-gear-list-item
+                        :key="`inventory-gear-${filteredGear[index]}-${index}`"
+                        :gear="filteredGear[index]"
+                        :index="index"
+                        :inventoryGearList.sync="inventoryGearList"
+                        :inventoryGear="inventoryGearItem(filteredGear[index].id)"
+                        :gearMenu.sync="inventoryGearMenu"
+                        v-bind:inventoryGearIndex.sync="selectedInventoryGearIndex"
+                        v-bind:inventoryGearQuantity.sync="selectedInventoryGearMaxQuantity"
+                        v-on:itemAction="filteredGear[index].quantity_owned > 0 ? gearListItemAction(filteredGear[index]) : null"
+                      ></inventory-gear-list-item>
 
-                        <v-divider
-                          v-if="(index < filteredGear.length - 1)"
-                          :key="index"
-                        ></v-divider>
-                    </template>
-                  </v-scroll-y-transition>
+                      <v-divider
+                        v-if="(index < filteredGear.length - 1)"
+                        :key="index"
+                      ></v-divider>
+                      </template>
+                  </RecycleScroller>
                 </v-responsive>
               </v-list>
 
@@ -716,41 +721,25 @@
 
   const _ = require('lodash');
 
-  import EmptyList from "@/components/elements/EmptyList";
-  import InventoryGearCard from "@/components/elements/Cards/InventoryGearCard";
-  import XStackedProgressCard from "@/components/elements/StackedProgressCard/XStackedProgressCard";
-  import XTitleField from "@/components/inputs/fields/XTitleField";
-  import XPicker from "@/components/inputs/XPicker";
-  import XBrandSelector from "@/components/inputs/fields/XBrandSelector";
-  import XStateSelector from "@/components/inputs/fields/XStateSelector";
-  import XIncrement from "@/components/inputs/XIncrement";
-  import XCheckbox from "@/components/inputs/XCheckbox";
-  import XSortIcon from "@/components/elements/Icons/XSortIcon";
-  import XDivider from "@/components/elements/XDivider";
-  import XImg from "@/components/elements/XImg";
-  import XCombobox from "@/components/inputs/XCombobox";
-  import XUnknownCategoryIcon from "@/components/elements/Icons/XUnknownCategoryIcon";
-  import InventoryGearListItem from "@/components/lists/items/InventoryGearListItem";
-
   export default {
     name: 'inventories-form',
     components: {
-      EmptyList,
-      InventoryGearCard,
-      XStackedProgressCard,
-      InventoryGearListItem,
-      XTitleField,
-      XUnknownCategoryIcon,
-      XBrandSelector,
-      XStateSelector,
-      XPicker,
-      XIncrement,
-      XCheckbox,
-      XSortIcon,
+      EmptyList: () => import('@/components/elements/EmptyList'),
+      InventoryGearCard: () => import('@/components/elements/Cards/InventoryGearCard'),
+      XStackedProgressCard: () => import('@/components/elements/StackedProgressCard/XStackedProgressCard'),
+      InventoryGearListItem: () => import('@/components/lists/items/InventoryGearListItem'),
+      XTitleField: () => import('@/components/inputs/fields/XTitleField'),
+      XUnknownCategoryIcon: () => import('@/components/elements/Icons/XUnknownCategoryIcon'),
+      XBrandSelector: () => import('@/components/inputs/fields/XBrandSelector'),
+      XStateSelector: () => import('@/components/inputs/fields/XStateSelector'),
+      XPicker: () => import('@/components/inputs/XPicker'),
+      XIncrement: () => import('@/components/inputs/XIncrement'),
+      XCheckbox: () => import('@/components/inputs/XCheckbox'),
+      XSortIcon: () => import('@/components/elements/Icons/XSortIcon'),
       XPieChart: () => import('@/components/charts/XPieChart'),
-      XCombobox,
-      XDivider,
-      XImg
+      XCombobox: () => import('@/components/inputs/XCombobox'),
+      XDivider: () => import('@/components/elements/XDivider'),
+      XImg: () => import('@/components/elements/XImg')
     },
     props: {
       item: Object,

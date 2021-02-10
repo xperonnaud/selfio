@@ -11,6 +11,9 @@ import VueAxios from 'vue-axios';
 import VueBlobJsonCsv from 'vue-blob-json-csv';
 import VueI18n from 'vue-i18n';
 
+import 'vue-virtual-scroller/dist/vue-virtual-scroller.css'
+import { RecycleScroller } from 'vue-virtual-scroller'
+
 import GlobalCss from "@/assets/scss/global.scss"
 import CssVariables from "@/assets/scss/variables.scss"
 
@@ -36,6 +39,8 @@ Vue.mixin(LangsMixin);
 Vue.mixin(ApiMixin);
 Vue.mixin(StoreMixin);
 Vue.mixin(ScreenMixin);
+
+Vue.component('RecycleScroller', RecycleScroller);
 
 const i18n = new VueI18n({
   locale: 'en', // set locale

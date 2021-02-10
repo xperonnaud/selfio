@@ -11,12 +11,15 @@
       one-line
       flat
     >
-      <v-virtual-scroll
-        :bench="benched"
+      <RecycleScroller
+        v-if="(filteredItems.length > 0)"
+        class="scroller"
         :items="filteredItems"
-        :item-height="xListItemsHeight"
+        :item-size="xListItemsHeight"
+        key-field="id"
+        v-slot="{ item, index }"
       >
-        <template v-slot:default="{ item, index }">
+        <template>
           <x-list-item
             v-if="item"
             :key="`${currentRouteName}-${item.id}-${index}`"
@@ -57,17 +60,16 @@
               </v-list-item-avatar>
             </template>
           </x-list-item>
-
           <v-divider
-            v-if="index < items.length - 1"
+            v-if="index < filteredItems.length - 1"
             :key="index"
           ></v-divider>
         </template>
+      </RecycleScroller>
 
-        <item-empty-list-item v-if="(items.length <= 0)" />
+      <item-empty-list-item v-else-if="(items.length <= 0)" />
 
-        <no-result-empty-list-item v-if="(filteredItems.length <= 0) && !(items.length <= 0)" />
-      </v-virtual-scroll>
+      <no-result-empty-list-item v-else-if="(filteredItems.length <= 0) && !(filteredItems.length <= 0)" />
     </v-list>
   </v-card>
 

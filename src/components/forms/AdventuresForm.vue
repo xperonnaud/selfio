@@ -485,6 +485,7 @@
                 </v-toolbar>
 
                 <v-list
+                        v-if="filteredGear.length > 0"
                   subheader
                   two-line
                   dense
@@ -493,13 +494,19 @@
                     class="overflow-y-auto"
                     :max-height="isMobile ? (listHeight) : 600"
                   >
-                    <v-scroll-y-transition group>
-                      <template v-for="(gear, index) in filteredGear">
+                    <RecycleScroller
+                      class="scroller"
+                      :items.sync="filteredGear"
+                      :item-size="xListItemsHeight"
+                      key-field="id"
+                      v-slot="{ gear, index }"
+                    >
+                      <template v-if="typeof index == 'number'">
                         <adventure-gear-list-item
-                          :key="`adventure-gear-${gear.gear_id}-${index}`"
-                          :gear.sync="gear"
+                          :key="`adventure-gear-${filteredGear[index].gear_id}-${index}`"
+                          :gear.sync="filteredGear[index]"
                           :updatedItem.sync="updatedItem"
-                          v-on:itemAction="packGear(gear.gear_id)"
+                          v-on:itemAction="packGear(filteredGear[index].gear_id)"
                         ></adventure-gear-list-item>
 
                         <v-divider
@@ -507,7 +514,7 @@
                           :key="index"
                         ></v-divider>
                       </template>
-                    </v-scroll-y-transition>
+                    </RecycleScroller>
                   </v-responsive>
                 </v-list>
               </v-card-text>
@@ -527,40 +534,24 @@
 
   import Vue from 'vue'
 
-  import XText from "@/components/inputs/fields/XText";
-  import AdventureGearCard from "@/components/elements/Cards/AdventureGearCard";
-  import AdventureGearListItem from "@/components/lists/items/AdventureGearListItem";
-  import XTitleField from "@/components/inputs/fields/XTitleField";
-  import XCheckbox from "@/components/inputs/XCheckbox";
-  import XBrandSelector from "@/components/inputs/fields/XBrandSelector";
-  import XStateSelector from "@/components/inputs/fields/XStateSelector";
-  import XSortIcon from "@/components/elements/Icons/XSortIcon";
-  import XIncrement from "@/components/inputs/XIncrement";
-  import XPicker from "@/components/inputs/XPicker";
-  import XTimePicker from "@/components/inputs/XTimePicker";
-  import XDatePicker from "@/components/inputs/XDatePicker";
-  import XSelector from "@/components/inputs/XSelector";
-  import XSimpleSelector from "@/components/inputs/XSimpleSelector";
-  import XCombobox from "@/components/inputs/XCombobox";
-
   export default {
     name: 'adventures-form',
     components: {
-      XText,
-      AdventureGearCard,
-      AdventureGearListItem,
-      XTitleField,
-      XCheckbox,
-      XBrandSelector,
-      XStateSelector,
-      XSortIcon,
-      XCombobox,
-      XIncrement,
-      XTimePicker,
-      XDatePicker,
-      XPicker,
-      XSelector,
-      XSimpleSelector,
+      XText: () => import('@/components/inputs/fields/XText'),
+      AdventureGearCard: () => import('@/components/elements/Cards/AdventureGearCard'),
+      AdventureGearListItem: () => import('@/components/lists/items/AdventureGearListItem'),
+      XTitleField: () => import('@/components/inputs/fields/XTitleField'),
+      XCheckbox: () => import('@/components/inputs/XCheckbox'),
+      XBrandSelector: () => import('@/components/inputs/fields/XBrandSelector'),
+      XStateSelector: () => import('@/components/inputs/fields/XStateSelector'),
+      XSortIcon: () => import('@/components/elements/Icons/XSortIcon'),
+      XCombobox: () => import('@/components/inputs/XCombobox'),
+      XIncrement: () => import('@/components/inputs/XIncrement'),
+      XTimePicker: () => import('@/components/inputs/XTimePicker'),
+      XDatePicker: () => import('@/components/inputs/XDatePicker'),
+      XPicker: () => import('@/components/inputs/XPicker'),
+      XSelector: () => import('@/components/inputs/XSelector'),
+      XSimpleSelector: () => import('@/components/inputs/XSimpleSelector'),
     },
     props: {
       item: Object,
