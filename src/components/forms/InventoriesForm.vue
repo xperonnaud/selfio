@@ -605,13 +605,6 @@
                 >
                   <v-scroll-y-transition group>
                     <template v-for="(gear, index) in filteredGear">
-<!--                    <v-virtual-scroll-->
-<!--                      :bench="benched"-->
-<!--                      :items="filteredGear"-->
-<!--                      :item-height="xListItemsHeight"-->
-<!--                      :height="isMobile ? (listHeight) : 600"-->
-<!--                    >-->
-<!--                      <template v-slot:default="{ gear, index }">-->
                         <inventory-gear-list-item
                           v-if="gear"
                           :key="`inventory-gear-${gear.id}-${index}`"
@@ -629,8 +622,6 @@
                           v-if="(index < filteredGear.length - 1)"
                           :key="index"
                         ></v-divider>
-<!--                      </template>-->
-<!--                    </v-virtual-scroll>-->
                     </template>
                   </v-scroll-y-transition>
                 </v-responsive>

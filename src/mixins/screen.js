@@ -29,6 +29,9 @@ export default {
         }
     },
     computed: {
+        skeletonItemWidth() {
+            return (this.isMobile ? 20 : 60);
+        },
         xListHeight() {
             return (this.xListItemsHeight * this.xListMaxItems);
         },

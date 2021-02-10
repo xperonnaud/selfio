@@ -1,50 +1,13 @@
 <template>
 
-  <v-row>
-    <v-col cols="3" class="pa-0">
-      <v-skeleton-loader
-        height="36"
-        type="list-item-two-line"
-      ></v-skeleton-loader>
-    </v-col>
-
-    <template v-for="index in 2">
-      <v-col class="pa-0" :key="`list-container-skeleton-empty-col-${randomId()}-${index}`" />
-
-      <v-col class="pa-0 pt-3" :key="`list-container-skeletons-col-${randomId()}-${index}`">
-        <v-skeleton-loader width="40" type="text" />
-      </v-col>
-    </template>
-
-    <template v-if="currentRouteName === 'gear'">
-      <v-col class="pa-0" />
-
-      <v-col class="pa-0 pt-3">
-        <v-skeleton-loader width="40" type="text" />
-      </v-col>
-    </template>
-
-    <template v-if="!isMobile">
-      <template v-for="index in 3">
-        <v-col class="pa-0" :key="`list-container-skeleton-empty-col-${randomId()}-${index}`" />
-
-        <v-col class="pa-0 pt-3" :key="`list-container-skeletons-col-${randomId()}-${index}`">
-          <v-skeleton-loader width="40" type="text" />
-        </v-col>
-      </template>
-
-      <template v-if="currentRouteName === 'adventures'">
-        <template v-for="index in 3">
-          <v-col class="pa-0" :key="`list-container-skeleton-empty-col-${randomId()}-${index}`" />
-
-          <v-col class="pa-0 pt-3" :key="`list-container-skeletons-col-${randomId()}-${index}`">
-            <v-skeleton-loader width="40" type="text" />
-          </v-col>
-        </template>
-        <span v-show="false" />
-      </template>
-    </template>
-  </v-row>
+  <div class="x-list-item-skeleton">
+    <component
+      v-if="skeletonComponent"
+      :key="`${currentRouteId}-list-item-skeleton`"
+      :is="skeletonComponent"
+      :ref="skeletonRef"
+    ></component>
+  </div>
 
 </template>
 
@@ -52,6 +15,44 @@
 
   export default {
     name: "x-list-item-skeleton",
+    data: () => ({
+      isMounted: false,
+      loading: true,
+
+      skeletonRef: null,
+      skeletonComponent: null,
+      skeletonComponentCalled: null,
+    }),
+
+    computed: {
+      loader() {
+        let self = this;
+        let skeletonId = this.xCap(this.currentRouteName);
+        self.skeletonComponentCalled = `@/components/skeletons/${skeletonId}ListItemSkeleton.vue`;
+        return () => import(`@/components/skeletons/${skeletonId}ListItemSkeleton.vue`)
+      },
+    },
+
+    methods: {
+      async componentLoad() {
+        let self = this;
+
+        if(this.isItemRoute || this.isConfigurationRoute)
+          this.loader()
+            .then(() => {
+              self.skeletonComponent = () => self.loader();
+            })
+            .catch((e) => {
+              console.log('componentLoad ERROR',e);
+            })
+      },
+    },
+    async mounted() {
+      this.skeletonRef = this.randomId();
+      await this.componentLoad();
+      this.isMounted = true;
+      this.loading = false;
+    }
   }
 
 </script>
