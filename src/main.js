@@ -10,6 +10,7 @@ import axios from 'axios';
 import VueAxios from 'vue-axios';
 import VueBlobJsonCsv from 'vue-blob-json-csv';
 import VueI18n from 'vue-i18n';
+import {mapState} from 'vuex';
 
 import 'vue-virtual-scroller/dist/vue-virtual-scroller.css'
 import { RecycleScroller } from 'vue-virtual-scroller'
@@ -61,5 +62,10 @@ new Vue({
   store,
   axios,
   VueAxios,
+  computed: mapState([
+    'api',
+    'selfio',
+    'ui'
+  ]),
   render: h => h(App)
 }).$mount('#app');
