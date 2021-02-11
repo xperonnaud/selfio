@@ -562,7 +562,7 @@
       },
       isFormLoading: {
         type: Boolean,
-        default: false
+        default: true
       },
       isFormValid: {
         type: Boolean,
@@ -593,7 +593,7 @@
       tab: 'adventure-general',
 
       isEditing: false,
-      isLoading: false,
+      isLoading: null,
       listHeight: 160,
 
       isUpdatedItemFixed: false,
@@ -879,7 +879,6 @@
       },
     },
     async mounted() {
-      this.isLoading = true;
       this.initWindowHeight();
 
       if(this.item) {

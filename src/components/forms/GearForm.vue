@@ -199,7 +199,7 @@
       },
       isFormLoading: {
         type: Boolean,
-        default: false
+        default: true
       },
       isFormValid: {
         type: Boolean,
@@ -220,7 +220,7 @@
     },
     data: () => ({
       isMounted: false,
-      isLoading: true,
+      isLoading: null,
       valid: false,
       validTitle: false,
       tab: 'gear-general',
@@ -259,11 +259,9 @@
           this.$emit('update:isFormMounted',newVal);
       },
       isLoading(val) {
-        if(this.isMounted)
           this.$emit('update:isFormLoading',val);
       },
       isFormLoading(val) {
-        if(this.isMounted)
           this.isLoading = val;
       },
       async postItem(val) {

@@ -750,7 +750,7 @@
       },
       isFormLoading: {
         type: Boolean,
-        default: false
+        default: true
       },
       isFormValid: {
         type: Boolean,
@@ -811,7 +811,7 @@
 
       overlay: false,
       isEditing: false,
-      isLoading: false,
+      isLoading: null,
       isLoadingPieData: false,
       listHeight: 160,
 
@@ -1207,9 +1207,6 @@
         }
       },
     },
-    beforeDestroy() {
-      this.isMounted = false;
-    },
     async mounted() {
       this.initWindowHeight();
 
@@ -1217,6 +1214,7 @@
         this.updatedItem = this.copyVar(this.item);
 
       this.isMounted = true;
+      this.isLoading = false;
     }
   }
 

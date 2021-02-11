@@ -11,6 +11,7 @@
     <v-card
       v-bind:class="[{'rounded-0': isMobile}]"
       :color="xBackgroundColor"
+      :min-height="isMobile ? '100%' : 450"
     >
       <dialog-app-bar
         :item="item"
@@ -40,7 +41,7 @@
           v-bind:editMode.sync="editMode"
         ></component>
 
-        <v-overlay v-if="isMobile" :value="!isMounted || isLoading || isFormLoading || !isFormMounted">
+        <v-overlay :value="!formComponent || !isMounted || isLoading || isFormLoading || !isFormMounted">
           <v-progress-circular
             indeterminate
             size="64"
@@ -73,8 +74,8 @@
     data() {
       return {
         isMounted: false,
-        isLoading: false,
-        isFormLoading: false,
+        isLoading: true,
+        isFormLoading: true,
         isFormValid: false,
         isFormMounted: false,
         editMode: false,
@@ -197,9 +198,11 @@
           },50);
       },
     },
+    create() {
+      this.isAppLoading = false;
+    },
     async mounted() {
       let self = this;
-      this.isLoading = true;
 
       if(this.isItemRoute)
         self.componentLoad();

@@ -226,6 +226,7 @@
       },
       openItemDialog(item) {
         if(item) {
+          this.isAppLoading = true;
           let self = this;
 
           let references = null;
