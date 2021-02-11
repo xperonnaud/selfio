@@ -19,6 +19,7 @@ const directus = new DirectusSDK('http://localhost:8055/', {
     auth: {
         storage: new MemoryStore(), // Storage adapter where refresh tokens are stored in JSON mode
         mode: 'json', // What login mode to use. One of `json`, `cookie`
+        // autoRefresh: true
     },
 });
 
@@ -97,6 +98,14 @@ export default {
         },
     },
     methods: {
+        xTranslate(translate) {
+            if (typeof translate === 'string') {
+                return this.$i18n.t(translate)
+            } else if (translate === void 0) {
+                return this.$i18n.t('loading')
+            }
+            return translate[this.$i18n.locale]
+        },
         async updatePassword() {
             alert('Updating PWD. [method implementation in progress...]');
         },
@@ -109,14 +118,12 @@ export default {
         },
         async handleResponse(responseType, message, response, action) {
             if(this.isSessionExpiredResponse(responseType, message) || action === 'login') {
-                this.$store.commit('updateApiAccessToken', null);
-                this.$store.commit('updateApiRefreshToken', null);
                 this.$store.commit("updateUiIsSessionExpired", true);
 
                 if(action === 'login')
                     await this.api_logout();
 
-                this.updateSnackbar(responseType, (action === 'login') ? self.xTranslate('api.session-expired') : message);
+                this.updateSnackbar(responseType, (action === 'login') ? this.xTranslate('api.session-expired') : message);
 
             } else if (message) {
                 this.updateSnackbar(responseType, message);
@@ -130,6 +137,10 @@ export default {
             return (responseType !== 'success' && (errorCode === '401' || errorCode === 401));
         },
 
+        async setDirectusTokens(data) {
+            this.$store.commit('updateApiAccessToken', data.access_token);
+            this.$store.commit('updateApiRefreshToken', data.refresh_token);
+        },
         async api_login() {
             let self = this;
             directus.auth; // let the constructor run
@@ -141,11 +152,10 @@ export default {
                 }
             ).then(async function (response) {
                 if(response && response.data) {
+                    await self.setDirectusTokens(response.data);
+
                     // refresh the App to Update access & refresh tokens & increase life-span
-                    await directus.auth.refresh().then(async function (refreshResponse) {
-                        self.$store.commit('updateApiAccessToken', refreshResponse.data.access_token);
-                        // self.$store.commit('updateApiRefreshToken', refreshResponse.data.refresh_token);
-                    });
+                    await self.api_refresh(response.data.refresh_token);
 
                     let user = await directus.users.me.read();
                     self.$store.commit('updateUser', user.data);
@@ -153,8 +163,17 @@ export default {
                     await self.handleResponse('success');
                 }
             }).catch(async function (error) {
-                await self.handleResponse('error', 'api.session-incorrect-credentials', error, 'login');
+                await self.handleResponse('error', self.xTranslate('api.incorrect-credentials'), error, 'login');
             })
+        },
+        async api_refresh(refreshToken) {
+            let self = this;
+
+            await directus.auth.refresh({
+                refresh_token: refreshToken
+            }).then(async function (response) {
+                await self.setDirectusTokens(response.data);
+            });
         },
         async api_get_user() {
             let self = this;
