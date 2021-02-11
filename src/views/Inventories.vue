@@ -2,11 +2,9 @@
   <v-sheet height="100%">
 
     <x-list
-      v-show="isMounted"
       v-bind:icon="currentIcon"
       v-bind:title="currentTitle"
-      v-bind:color="currentColor"
-      v-bind:items.sync="inventories"
+      v-bind:items.sync="inventoriesList"
       v-bind:itemHeaders="inventoriesHeaders"
       v-bind:keyName="'name'"
     ></x-list>
@@ -30,11 +28,6 @@
           {text: '', value: 'icon', align: 'start'},
           {text: this.$t('global.title'), value: 'title'},
         ]
-      },
-      inventories: {
-        get() {
-          return this.$store.state.selfio.inventories
-        },
       },
     },
     mounted() {

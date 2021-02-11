@@ -2,11 +2,9 @@
   <v-sheet height="100%">
 
     <x-list
-      v-show="isMounted"
       v-bind:icon="currentIcon"
       v-bind:title="currentTitle"
-      v-bind:color="currentColor"
-      v-bind:items="adventures"
+      v-bind:items="adventuresList"
       v-bind:itemHeaders="adventuresHeaders"
       v-bind:keyName="'name'"
     ></x-list>
@@ -33,11 +31,6 @@
           {text: 'Inventory', value: 'adventure_inventory'},
           {text: 'Difficulty', value: 'difficulty'},
         ]
-      },
-      adventures: {
-        get() {
-          return this.$store.state.selfio.adventures
-        },
       },
     },
     mounted() {

@@ -5,25 +5,28 @@
     :color="xBackgroundColor"
   >
     <v-list
-      v-if="isMounted"
+      v-if="filteredItems.length > 0"
       v-show="!(formDialog && isMobile)"
       v-bind:class="['rounded-0', (isMobile ? 'py-1' : 'py-2')]"
       one-line
       flat
     >
-      <RecycleScroller
-        v-if="(filteredItems.length > 0)"
-        class="scroller"
+<!--      <RecycleScroller-->
+<!--        class="scroller"-->
+<!--        :items.sync="filteredItems"-->
+<!--        :item-size="xListItemsHeight"-->
+<!--        :prerender="xListMaxItems"-->
+<!--        v-slot="{ item, index }"-->
+<!--      >-->
+<!--        <template>-->
+      <v-virtual-scroll
         :items="filteredItems"
-        :item-size="xListItemsHeight"
-        key-field="id"
-        v-slot="{ item, index }"
+        :item-height="xListItemsHeight"
       >
-        <template>
+        <template v-slot:default="{ item, index }">
           <x-list-item
-            v-if="item"
-            :key="`${currentRouteName}-${item.id}-${index}`"
-            v-bind:item.sync="item"
+            :key="`${currentRouteName}-${randomId()}-${index}`"
+            :item.sync="item"
             v-on:listItemAction="isItemRoute ? openItemDialog(item) : null"
           >
             <template v-slot:list-item-avatar>
@@ -60,14 +63,20 @@
               </v-list-item-avatar>
             </template>
           </x-list-item>
+
           <v-divider
             v-if="index < filteredItems.length - 1"
             :key="index"
           ></v-divider>
         </template>
-      </RecycleScroller>
+      </v-virtual-scroll>
+<!--        </template>-->
+<!--      </RecycleScroller>-->
 
-      <item-empty-list-item v-else-if="(items.length <= 0)" />
+    </v-list>
+
+    <v-list v-else>
+      <item-empty-list-item v-if="(items.length <= 0)" />
 
       <no-result-empty-list-item v-else-if="(filteredItems.length <= 0) && !(filteredItems.length <= 0)" />
     </v-list>
@@ -90,10 +99,6 @@
     },
     props: {
       title: String,
-      color: {
-        type: String,
-        default: 'black'
-      },
       icon: String,
       items: Array,
       itemHeaders: Array,
@@ -107,6 +112,9 @@
       listComponentCalled: null,
     }),
     computed: {
+      color() {
+        return this.currentColor
+      },
       loader() {
         let self = this;
         let listId = this.xCap(this.currentRouteName);

@@ -485,7 +485,7 @@
                 </v-toolbar>
 
                 <v-list
-                        v-if="filteredGear.length > 0"
+                  v-if="filteredGear.length > 0"
                   subheader
                   two-line
                   dense

@@ -3,6 +3,7 @@
     <v-list-item
       v-on:click="$emit('listItemAction')"
       v-bind:class="['x-list-item pl-3']"
+      :style="`max-height: ${xListItemsHeight}px !important;`"
     >
       <slot name="list-item-avatar" />
 

@@ -1,17 +1,15 @@
 <template>
-
   <v-sheet height="100%">
+
     <x-list
-      v-show="isMounted"
       v-bind:icon="currentIcon"
       v-bind:title="currentTitle"
-      v-bind:color="currentColor"
-      v-bind:items="gear"
+      v-bind:items.sync="gearList"
       v-bind:itemHeaders="gearHeaders"
       v-bind:keyName="'name'"
     ></x-list>
-  </v-sheet>
 
+  </v-sheet>
 </template>
 
 <script>
@@ -37,11 +35,6 @@ export default {
           {text: 'Price ('+this.priceUnit+')', value: 'price'},
           {text: 'Qty (owned)', value: 'quantity_owned'},
         ]
-      },
-      gear: {
-        get() {
-          return this.$store.state.selfio.gear
-        },
       },
     },
     mounted() {

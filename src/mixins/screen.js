@@ -40,7 +40,7 @@ export default {
             return (this.isMobile ? 7 : 17);
         },
         xListItemsHeight() {
-            return 64;
+            return (this.isMobile ? 61 : 63);
         },
         vuetifyColors: {
             get() {
