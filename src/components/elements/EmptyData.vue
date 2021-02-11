@@ -1,12 +1,9 @@
 <template>
 
   <div
-    v-bind:class="[
-      'text-tiny-dimmed text-center',
-    ]"
-    :style="'width: 100%;'"
+    v-bind:class="['text-tiny-dimmed, empty-data']"
     v-text="'.'"
-  />
+  ></div>
 
 </template>
 

@@ -36,11 +36,10 @@ export default {
             return (this.xListItemsHeight * this.xListMaxItems);
         },
         xListMaxItems() {
-            // -5 => benched xList local prop)
             return (this.isMobile ? 7 : 17);
         },
         xListItemsHeight() {
-            return (this.isMobile ? 61 : 63);
+            return (this.isMobile ? 61 : 64);
         },
         vuetifyColors: {
             get() {

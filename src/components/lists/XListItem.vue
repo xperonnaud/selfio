@@ -3,7 +3,6 @@
     <v-list-item
       v-on:click="$emit('listItemAction')"
       v-bind:class="['x-list-item pl-3']"
-      :style="`max-height: ${xListItemsHeight}px !important;`"
     >
       <slot name="list-item-avatar" />
 
@@ -15,7 +14,7 @@
           :ref="listRef"
           :item="item"
         ></component>
-        <x-list-item-skeleton v-else />
+        <x-list-item-skeleton v-else-if="loading || !listComponent" />
       </v-list-item-content>
     </v-list-item>
 
@@ -50,6 +49,7 @@
     methods: {
       async componentLoad() {
         let self = this;
+        this.loading = true;
 
         if(this.isItemRoute || this.isConfigurationRoute)
           this.loader()
@@ -58,7 +58,10 @@
             })
             .catch((e) => {
               console.log('componentLoad ERROR',e);
-            })
+            });
+
+
+        this.loading = false;
       },
     },
     watch: {
@@ -74,7 +77,6 @@
       this.listRef = this.randomId();
       await this.componentLoad();
       this.isMounted = true;
-      this.loading = false;
     }
   }
 

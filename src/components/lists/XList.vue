@@ -11,15 +11,8 @@
       one-line
       flat
     >
-<!--      <RecycleScroller-->
-<!--        class="scroller"-->
-<!--        :items.sync="filteredItems"-->
-<!--        :item-size="xListItemsHeight"-->
-<!--        :prerender="xListMaxItems"-->
-<!--        v-slot="{ item, index }"-->
-<!--      >-->
-<!--        <template>-->
       <v-virtual-scroll
+        :benched="xListMaxItems"
         :items="filteredItems"
         :item-height="xListItemsHeight"
       >
@@ -70,8 +63,6 @@
           ></v-divider>
         </template>
       </v-virtual-scroll>
-<!--        </template>-->
-<!--      </RecycleScroller>-->
 
     </v-list>
 

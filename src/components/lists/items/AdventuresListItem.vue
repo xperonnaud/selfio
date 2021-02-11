@@ -13,7 +13,7 @@
         v-bind:class="[(item.start_date ? 'text-caption' : 'text-tiny-dimmed')]"
       >
         <span v-if="item.start_date">{{item.start_date | dayMonthFilter}}</span>
-        <span v-else v-text="'.'" />
+        <span v-else class="empty-data" v-text="'.'" />
       </v-list-item-subtitle>
 
       <v-list-item-subtitle

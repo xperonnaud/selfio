@@ -1,5 +1,10 @@
 
 
+.empty-data {
+  @extend .text-tiny-dimmed;
+  margin: auto;
+}
+
 .v-skeleton-loader__list-item-two-line.v-skeleton-loader__bone {
   height: 36px !important;
 }
