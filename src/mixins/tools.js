@@ -116,7 +116,11 @@ export default {
             }
         },
     },
-    methods: {sumInventoryProperty(inventoryGear, prop) {
+    methods: {
+        xTranslate(str) {
+            return this.$t(str);
+        },
+        sumInventoryProperty(inventoryGear, prop) {
             let self = this;
             let sum = 0;
 

@@ -1,7 +1,7 @@
 
 const axios = require('axios').default;
 import DirectusSDK from '@directus/sdk-js';
-import C from '@/constants'
+import CONSTANTS from '@/constants'
 
 class MemoryStore {
     constructor() {
@@ -116,7 +116,7 @@ export default {
                 if(action === 'login')
                     await this.api_logout();
 
-                this.updateSnackbar(responseType, (action === 'login') ? self.$t('api.session-expired') : message);
+                this.updateSnackbar(responseType, (action === 'login') ? self.xTranslate('api.session-expired') : message);
 
             } else if (message) {
                 this.updateSnackbar(responseType, message);
@@ -153,7 +153,7 @@ export default {
                     await self.handleResponse('success');
                 }
             }).catch(async function (error) {
-                await self.handleResponse('error', self.$t('api.session-incorrect-credentials'), error, 'login');
+                await self.handleResponse('error', 'api.session-incorrect-credentials', error, 'login');
             })
         },
         async api_get_user() {
@@ -167,7 +167,7 @@ export default {
                     await self.handleResponse('success');
                 }
             }).catch(async function (error) {
-                await self.handleResponse('error', self.$t('api.username-password'), error);
+                await self.handleResponse('error', self.xTranslate('api.username-password'), error);
             })
         },
         async api_logout() {
@@ -178,7 +178,7 @@ export default {
                 { refresh_token: self.apiRefreshToken }
                 )
             .then(async function (response) {
-                await self.handleResponse('success', self.$t('api.logged-out'), response);
+                await self.handleResponse('success', self.xTranslate('api.logged-out'), response);
                 self.reset_api_data();
                 self.reset_user_data();
             }).catch(async function (error) {
@@ -247,7 +247,7 @@ export default {
 
             await directus.items('feedbacks').create(feedback)
             .then(async function () {
-                await self.handleResponse('success', self.$t('api.feedback-sent'));
+                await self.handleResponse('success', self.xTranslate('api.feedback-sent'));
             }).catch(async function (error) {
                 await self.handleResponse('error', error.message, error);
             })
@@ -268,7 +268,7 @@ export default {
             await directus.items('brands').create(brand)
             .then(async function (response) {
                 self.$store.commit("addBrand",response.data);
-                await self.handleResponse('success', self.$t('api.brand-added'));
+                await self.handleResponse('success', self.xTranslate('api.brand-added'));
 
             }).catch(async function (error) {
                 await self.handleResponse('error', error.message, error);
@@ -279,7 +279,7 @@ export default {
             await directus.items('brands').delete(brandId)
             .then(async function () {
                 self.$store.commit("removeBrand", brandIndex);
-                await self.handleResponse('success', self.$t('api.brand-deleted'));
+                await self.handleResponse('success', self.xTranslate('api.brand-deleted'));
 
             }).catch(async function (error) {
                 await self.handleResponse('error', error.message, error);
@@ -386,7 +386,7 @@ export default {
             await directus.items('preferences').update(preferences.id, preferences)
             .then(async function (response) {
                 Object.assign(self.$store.state.selfio.preferences, response.data);
-                await self.handleResponse('success', (!noMessage ? self.$t('api.settings-updated') : null));
+                await self.handleResponse('success', (!noMessage ? self.xTranslate('api.settings-updated') : null));
 
             }).catch(async function (error) {
                 await self.handleResponse('error', error.message, error);
@@ -406,7 +406,7 @@ export default {
             await directus.items('preferences').update(self.$store.state.selfio.preferences.id, self.$store.state.selfio.preferences)
             .then(async function (response) {
                 Object.assign(self.$store.state.selfio.preferences, response.data);
-                await self.handleResponse('success', self.$t('api.tags-updated'));
+                await self.handleResponse('success', self.xTranslate('api.tags-updated'));
             }).catch(async function (error) {
                 await self.handleResponse('error', error.message, error);
             })
@@ -443,7 +443,7 @@ export default {
 
             } else {
                 if(this.weightUnit === 'oz')
-                    gear.weight = (Math.round(gear.weight / C.G_TO_OZ * 10) / 10)
+                    gear.weight = (Math.round(gear.weight / CONSTANTS.G_TO_OZ * 10) / 10)
             }
 
             if(!this.propExists(gear.quantity_owned))
@@ -459,7 +459,7 @@ export default {
             await directus.items('gear').create(gear)
             .then(async function (response) {
                 self.$store.commit("addGear",response.data);
-                await self.handleResponse('success', self.$t('api.settings-added'));
+                await self.handleResponse('success', self.xTranslate('api.settings-added'));
 
             }).catch(async function (error) {
                 await self.handleResponse('error', error.message, error);
@@ -473,7 +473,7 @@ export default {
             await directus.items('gear').update(gear.id, gear)
             .then(async function (response) {
                 self.$store.commit("patchGear", { index: gearIndex, data: response.data });
-                await self.handleResponse('success', self.$t('api.gear-updated'));
+                await self.handleResponse('success', self.xTranslate('api.gear-updated'));
 
             }).catch(async function (error) {
                 await self.handleResponse('error', error.message, error);
@@ -485,7 +485,7 @@ export default {
             await directus.items('gear').delete(gearId)
             .then(async function () {
                 self.$store.commit("removeGear", gearIndex);
-                await self.handleResponse('success', self.$t('api.gear-deleted'));
+                await self.handleResponse('success', self.xTranslate('api.gear-deleted'));
 
             }).catch(async function (error) {
                 await self.handleResponse('error', error.message, error);
@@ -547,7 +547,7 @@ export default {
                     self.$store.commit("resetTempInventoryGear");
                 });
 
-                await self.handleResponse('success', self.$t('api.inventory-added'));
+                await self.handleResponse('success', self.xTranslate('api.inventory-added'));
 
             }).catch(async function (error) {
                 await self.handleResponse('error', error.message, error);
@@ -577,7 +577,7 @@ export default {
                     self.$store.commit("resetTempInventoryGear");
                 });
 
-                await self.handleResponse('success', self.$t('api.inventory-updated'));
+                await self.handleResponse('success', self.xTranslate('api.inventory-updated'));
 
             }).catch(async function (error) {
                 await self.handleResponse('error', error.message, error);
@@ -601,7 +601,7 @@ export default {
                 });
 
                 self.$store.commit("removeInventory", inventoryIndex);
-                await self.handleResponse('success', self.$t('api.inventory-deleted'));
+                await self.handleResponse('success', self.xTranslate('api.inventory-deleted'));
 
             }).catch(async function (error) {
                 await self.handleResponse('error', error.message, error);
@@ -732,7 +732,7 @@ export default {
                 adventure.distance = parseFloat(adventure.distance);
 
                 if(this.distanceUnit === 'mi')
-                    adventure.distance = Math.round(adventure.distance / C.KM_TO_MI * 100) / 100;
+                    adventure.distance = Math.round(adventure.distance / CONSTANTS.KM_TO_MI * 100) / 100;
             }
 
             if(!this.propExists(adventure.elevation)) {
@@ -741,7 +741,7 @@ export default {
                 adventure.elevation = parseFloat(adventure.elevation);
 
                 if(this.elevationUnit === 'ft')
-                    adventure.elevation = Math.round(adventure.elevation / C.M_TO_FT * 100) / 100;
+                    adventure.elevation = Math.round(adventure.elevation / CONSTANTS.M_TO_FT * 100) / 100;
             }
 
             if(!this.propExists(adventure.temp_max)) {
@@ -789,7 +789,7 @@ export default {
             await directus.items('adventures').create(adventure)
             .then(async function (response) {
                 self.$store.commit("addAdventure", response.data);
-                await self.handleResponse('success', self.$t('api.adventure-added'));
+                await self.handleResponse('success', self.xTranslate('api.adventure-added'));
 
             }).catch(async function (error) {
                 await self.handleResponse('error', error.message, error);
@@ -809,7 +809,7 @@ export default {
             await directus.items('adventures').update(adventure.id, adventure)
             .then(async function () {
                 self.$store.commit("patchAdventure", payload);
-                await self.handleResponse('success', self.$t('api.adventure-updated'));
+                await self.handleResponse('success', self.xTranslate('api.adventure-updated'));
 
             }).catch(async function (error) {
                 await self.handleResponse('error', error.message, error, self.api_patch_adventure, adventure, adventureIndex, oldAdventureInventory);
@@ -821,7 +821,7 @@ export default {
             await directus.items('adventures').delete(adventureId)
             .then(async function (response) {
                 self.$store.commit("removeAdventure", adventureIndex);
-                await self.handleResponse('success', self.$t('api.adventure-deleted'));
+                await self.handleResponse('success', self.xTranslate('api.adventure-deleted'));
 
             }).catch(async function (error) {
                 await self.handleResponse('error', error.message, error);
