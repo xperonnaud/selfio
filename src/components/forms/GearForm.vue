@@ -151,6 +151,12 @@
         </v-tabs-items>
       </v-tabs>
 
+      <v-overlay v-if="!isMobile && (!isMounted || isLoading)">
+        <v-progress-circular
+          indeterminate
+          size="64"
+        ></v-progress-circular>
+      </v-overlay>
       <v-text-field v-show="false" v-model="validTitle" :rules="xRules.boolean" />
     </v-form>
   </v-container>
@@ -214,7 +220,7 @@
     },
     data: () => ({
       isMounted: false,
-      isLoading: false,
+      isLoading: true,
       valid: false,
       validTitle: false,
       tab: 'gear-general',
@@ -299,8 +305,6 @@
       },
     },
     async mounted() {
-      this.isLoading = true;
-
       if(this.item)
         this.updatedItem = this.copyVar(this.item);
 

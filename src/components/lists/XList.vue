@@ -13,7 +13,7 @@
     >
       <v-virtual-scroll
         :benched="xListMaxItems"
-        :items="filteredItems"
+        :items.sync="filteredItems"
         :item-height="xListItemsHeight"
       >
         <template v-slot:default="{ item, index }">

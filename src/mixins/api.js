@@ -425,7 +425,7 @@ export default {
             await directus.items('preferences').update(self.$store.state.selfio.preferences.id, self.$store.state.selfio.preferences)
             .then(async function (response) {
                 Object.assign(self.$store.state.selfio.preferences, response.data);
-                await self.handleResponse('success', self.xTranslate('api.tags-updated'));
+                await self.handleResponse('success');
             }).catch(async function (error) {
                 await self.handleResponse('error', error.message, error);
             })
@@ -478,7 +478,7 @@ export default {
             await directus.items('gear').create(gear)
             .then(async function (response) {
                 self.$store.commit("addGear",response.data);
-                await self.handleResponse('success', self.xTranslate('api.settings-added'));
+                await self.handleResponse('success', self.xTranslate('api.gear-added'));
 
             }).catch(async function (error) {
                 await self.handleResponse('error', error.message, error);

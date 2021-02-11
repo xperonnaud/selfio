@@ -9,9 +9,7 @@
     style="overflow-y: unset;"
   >
     <v-card
-      v-bind:class="[
-        {'rounded-0': isMobile},
-      ]"
+      v-bind:class="[{'rounded-0': isMobile}]"
       :color="xBackgroundColor"
     >
       <dialog-app-bar
@@ -41,15 +39,15 @@
           v-bind:deleteItem.sync="deleteItem"
           v-bind:editMode.sync="editMode"
         ></component>
+
+        <v-overlay v-if="isMobile" :value="!isMounted || isLoading || isFormLoading || !isFormMounted">
+          <v-progress-circular
+            indeterminate
+            size="64"
+          ></v-progress-circular>
+        </v-overlay>
       </v-card-text>
     </v-card>
-
-    <v-overlay :value="!isMounted || isLoading || isFormLoading || !isFormMounted">
-      <v-progress-circular
-        indeterminate
-        size="64"
-      ></v-progress-circular>
-    </v-overlay>
   </v-dialog>
 </template>
 
