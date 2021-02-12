@@ -3,9 +3,9 @@ module.exports = {
   "transpileDependencies": [
     "vuetify"
   ],
-  outputDir: './dist/',
+  outputDir: 'dist/',
   indexPath: 'public/index.html',
-  assetsDir: 'src/assets/',
+  assetsDir: 'assets/',
     pages: {
         index: {
             // entry for the page
