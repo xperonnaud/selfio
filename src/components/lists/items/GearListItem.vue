@@ -9,8 +9,8 @@
             ></v-list-item-title>
 
             <v-list-item-subtitle
-              v-bind:class="[(item.brand && xGearBrand(item.brand).title ? 'text-caption' : 'text-tiny-dimmed')]"
-              v-text="item.brand ? xCap(xGearBrand(item.brand).title) : '.'"
+              v-bind:class="[(item.brand && xGearBrand(item.brand) && xGearBrand(item.brand).title ? 'text-caption' : 'text-tiny-dimmed')]"
+              v-text="(item.brand && xGearBrand(item.brand)) ? xCap(xGearBrand(item.brand).title) : '.'"
             ></v-list-item-subtitle>
           </div>
         </v-col>

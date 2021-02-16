@@ -9,12 +9,14 @@
       <v-list-item-content :class="[{'pl-1':currentRouteId === 'inventories'}]">
         <component
           v-if="listComponent"
+          v-show="isMounted && !loading"
           :key="`${currentRouteId}-list-item-component`"
           :is="listComponent"
           :ref="listRef"
           :item="item"
         ></component>
-        <x-list-item-skeleton v-else-if="loading || !listComponent" />
+
+        <x-list-item-skeleton v-if="!(isMounted && !loading && listComponent)" />
       </v-list-item-content>
     </v-list-item>
 
@@ -22,10 +24,12 @@
 
 <script>
 
+    import XListItemSkeleton from "@/components/skeletons/XListItemSkeleton";
+
   export default {
     name: "x-list-item",
     components: {
-        XListItemSkeleton: () => import('@/components/skeletons/XListItemSkeleton'),
+        XListItemSkeleton,
     },
     props: {
       item: Object,

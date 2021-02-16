@@ -77,7 +77,7 @@
 
             <template v-slot:item.brand="{ item }">
               <span
-                v-if="item.brand && xGearCategory(item.brand)"
+                v-if="item.brand && xGearBrand(item.brand)"
                 v-text="xGearBrand(item.brand).title"
                 :size="LGI"
               ></span>
