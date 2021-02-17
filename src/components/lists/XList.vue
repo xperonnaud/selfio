@@ -8,7 +8,7 @@
       v-if="isMounted && listItemComponent"
       style="height: 100%; overflow-y: auto;"
       :data-key="'id'"
-      :data-sources="filteredItems"
+      :data-sources.sync="filteredItems"
       :data-component="listItemComponent"
       page-mode
       wrap-class="x-list"
@@ -174,16 +174,15 @@
 
         if(this.isItemRoute || this.isConfigurationRoute)
           this.loader()
-                  .then(() => {
-                    self.listItemComponent = () => self.loader();
-                  })
-                  .catch((e) => {
-                    console.log('componentLoad ERROR',e);
-                  });
+            .then(() => {
+              self.listItemComponent = () => self.loader();
+            })
+            .catch((e) => {
+              console.log('componentLoad ERROR',e);
+            });
 
         this.loading = false;
       },
-
     },
     watch: {
       async currentRouteName(value) {
@@ -225,6 +224,5 @@
       }
     }
   }
-
 
 </style>

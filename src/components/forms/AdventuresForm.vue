@@ -499,12 +499,12 @@
                       :items.sync="filteredGear"
                       :minItemSize="xListItemsHeight"
                       key-field="id"
-                      v-slot="{ gear, index }"
+                      v-slot="{ index }"
                     >
                       <template v-if="typeof index == 'number'">
                         <adventure-gear-list-item
                           :key="`adventure-gear-${filteredGear[index].gear_id}-${index}`"
-                          :gear.sync="filteredGear[index]"
+                          :source.sync="filteredGear[index]"
                           :updatedItem.sync="updatedItem"
                           v-on:itemAction="packGear(filteredGear[index].gear_id)"
                         ></adventure-gear-list-item>
@@ -533,13 +533,14 @@
   const _ = require('lodash');
 
   import Vue from 'vue'
+  import AdventureGearListItem from "@/components/lists/items/AdventureGearListItem";
 
   export default {
     name: 'adventures-form',
     components: {
       XText: () => import('@/components/inputs/fields/XText'),
       AdventureGearCard: () => import('@/components/elements/Cards/AdventureGearCard'),
-      AdventureGearListItem: () => import('@/components/lists/items/AdventureGearListItem'),
+      AdventureGearListItem,
       XTitleField: () => import('@/components/inputs/fields/XTitleField'),
       XCheckbox: () => import('@/components/inputs/XCheckbox'),
       XBrandSelector: () => import('@/components/inputs/fields/XBrandSelector'),

@@ -608,7 +608,7 @@
                     :items.sync="filteredGear"
                     :minItemSize="xListItemsHeight"
                     key-field="id"
-                    v-slot="{ gear, index }"
+                    v-slot="{ index }"
                   >
                     <template v-if="typeof index == 'number'">
                       <inventory-gear-list-item
@@ -721,13 +721,15 @@
 
   const _ = require('lodash');
 
+  import InventoryGearListItem from "@/components/lists/items/InventoryGearListItem";
+
   export default {
     name: 'inventories-form',
     components: {
+      InventoryGearListItem,
       EmptyList: () => import('@/components/elements/EmptyList'),
       InventoryGearCard: () => import('@/components/elements/Cards/InventoryGearCard'),
       XStackedProgressCard: () => import('@/components/elements/StackedProgressCard/XStackedProgressCard'),
-      InventoryGearListItem: () => import('@/components/lists/items/InventoryGearListItem'),
       XTitleField: () => import('@/components/inputs/fields/XTitleField'),
       XUnknownCategoryIcon: () => import('@/components/elements/Icons/XUnknownCategoryIcon'),
       XBrandSelector: () => import('@/components/inputs/fields/XBrandSelector'),
