@@ -5,7 +5,7 @@
     style="max-width: unset;"
     v-bind:class="[
       {'py-0': isMobile},
-      'pa-0'
+      'inventories-form pa-0'
     ]"
   >
     <v-form v-model="valid">
@@ -603,10 +603,10 @@
                   class="overflow-y-auto"
                   :max-height="isMobile ? (listHeight) : 600"
                 >
-                  <RecycleScroller
+                  <DynamicScroller
                     class="scroller"
                     :items.sync="filteredGear"
-                    :item-size="xListItemsHeight"
+                    :minItemSize="xListItemsHeight"
                     key-field="id"
                     v-slot="{ gear, index }"
                   >
@@ -628,7 +628,7 @@
                         :key="index"
                       ></v-divider>
                       </template>
-                  </RecycleScroller>
+                  </DynamicScroller>
                 </v-responsive>
               </v-list>
 
@@ -1219,3 +1219,14 @@
   }
 
 </script>
+
+<style lang="scss">
+
+  .inventories-form {
+
+    .scroller {
+      height: 100%;
+    }
+  }
+
+</style>

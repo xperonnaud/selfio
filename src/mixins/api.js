@@ -274,7 +274,7 @@ export default {
 
         async api_get_brands() {
             let self = this;
-            await directus.items('brands').read()
+            await directus.items('brands').read({ limit: -1 })
             .then(function (response) {
                 self.$store.commit("updateBrands",response.data);
             }).catch(async function (error) {

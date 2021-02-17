@@ -13,7 +13,7 @@ import VueI18n from 'vue-i18n';
 import {mapState} from 'vuex';
 
 import 'vue-virtual-scroller/dist/vue-virtual-scroller.css'
-import { RecycleScroller } from 'vue-virtual-scroller'
+import { RecycleScroller, DynamicScroller, DynamicScrollerItem } from 'vue-virtual-scroller'
 
 import GlobalCss from "@/assets/scss/global.scss"
 import CssVariables from "@/assets/scss/variables.scss"
@@ -41,7 +41,10 @@ Vue.mixin(ApiMixin);
 Vue.mixin(StoreMixin);
 Vue.mixin(ScreenMixin);
 
+// VueVirtualScroller external library component registration
 Vue.component('RecycleScroller', RecycleScroller);
+Vue.component('DynamicScroller', DynamicScroller);
+Vue.component('DynamicScrollerItem', DynamicScrollerItem);
 
 const i18n = new VueI18n({
   locale: 'en', // set locale

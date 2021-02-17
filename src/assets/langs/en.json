@@ -235,7 +235,7 @@
       "title": "tools",
       "desc": "Axe, shovel, knife, multi-tool, ..."
     },
-    "water-drink": {
+    "hydration": {
       "title": "water & drinks",
       "desc": "Water, coffee, energy drink, ..."
     }

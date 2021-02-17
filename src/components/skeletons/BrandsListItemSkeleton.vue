@@ -8,10 +8,7 @@
       ></v-skeleton-loader>
     </v-col>
 
-    <v-col
-      class="pa-0 pt-1 d-flex align-center justify-center"
-     :key="`list-container-skeletons-col-${randomId()}-${index}`"
-    >
+    <v-col class="pa-0 pt-1 d-flex align-center justify-center">
       <v-skeleton-loader :width="skeletonItemWidth" type="text" />
     </v-col>
   </v-row>

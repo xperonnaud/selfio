@@ -494,10 +494,10 @@
                     class="overflow-y-auto"
                     :max-height="isMobile ? (listHeight) : 600"
                   >
-                    <RecycleScroller
+                    <DynamicScroller
                       class="scroller"
                       :items.sync="filteredGear"
-                      :item-size="xListItemsHeight"
+                      :minItemSize="xListItemsHeight"
                       key-field="id"
                       v-slot="{ gear, index }"
                     >
@@ -514,7 +514,7 @@
                           :key="index"
                         ></v-divider>
                       </template>
-                    </RecycleScroller>
+                    </DynamicScroller>
                   </v-responsive>
                 </v-list>
               </v-card-text>
@@ -897,6 +897,10 @@
 <style lang="scss">
 
   .adventures-form {
+
+    .scroller {
+      height: 100%;
+    }
 
     .v-subheader {
       max-height: 24px !important;

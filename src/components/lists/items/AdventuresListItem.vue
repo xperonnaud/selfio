@@ -1,216 +1,238 @@
 <template>
 
-  <v-row align="center" justify="center">
+  <v-list-item
+    @click="openItemDialog(source)"
+    class="pl-3"
+  >
+    <v-list-item-avatar
+      v-bind:class="[
+        'x-avatar py-0 d-flex  justify-center',
+         (isMobile ? 'my-0 mr-3' : 'ml-2 mr-5'),
+      ]"
+    >
+      <x-img
+        v-if="source.activity && xActivity(source.activity)"
+        :src="xActivity(source.activity).icon"
+        :tooltipText="xActivity(source.activity).title"
+        :width="LGI"
+        :height="LGI"
+      ></x-img>
+    </v-list-item-avatar>
 
-    <v-col :cols="isMobile ? 6 : 2" class="py-0">
-      <v-list-item-title
-        v-text="xCap(item.title)"
-        v-bind:class="[{'text-body-2' : isMobile}]"
-      ></v-list-item-title>
+    <v-list-item-content>
+      <v-row align="center" justify="center">
 
-      <v-list-item-subtitle
-        v-if="isMobile"
-        v-bind:class="[(item.start_date ? 'text-caption' : 'text-tiny-dimmed')]"
-      >
-        <span v-if="item.start_date">{{item.start_date | dayMonthFilter}}</span>
-        <span v-else class="empty-data" v-text="'.'" />
-      </v-list-item-subtitle>
+        <v-col :cols="isMobile ? 6 : 2" class="py-0">
+          <v-list-item-title
+            v-text="xCap(source.title)"
+            v-bind:class="[{'text-body-2' : isMobile}]"
+          ></v-list-item-title>
 
-      <v-list-item-subtitle
-        v-else
-        v-bind:class="[(item.location ? 'text-caption' : 'text-tiny-dimmed')]"
-        v-text="item.location ? xCap(item.location) : '.'"
-      ></v-list-item-subtitle>
-    </v-col>
-
-    <v-col class="py-0 px-1">
-      <div class="d-flex justify-center">
-        <v-tooltip v-if="item.adventure_inventory && (typeof packedGearRatio == 'number')" bottom>
-          <template v-slot:activator="{ on, attrs }">
-            <v-progress-circular
-              :key="`adventure-checklist-${item.id}`"
-              :size="isMobile ? 35 : 37"
-              :width="2"
-              :rotate="-90"
-              :value="packedGearRatio"
-              :color="navItemColor('inventories')"
-              v-bind="attrs"
-              v-on="on"
-            >
-              <span v-show="packedGearRatio !== 100" class="text-caption">
-                <span v-bind:class="[fontShadeColor]">{{packedGearRatio | roundIntFilter}}</span>
-                <span class="text-tiny-dimmed" v-text="'%'" />
-              </span>
-
-              <v-icon
-                v-show="packedGearRatio === 100"
-                v-text="'mdi-check'"
-                :color="navItemColor('inventories')"
-                small
-              ></v-icon>
-            </v-progress-circular>
-          </template>
-          <span v-text="inventoryTitle+' '+$t('global.checklist')" />
-        </v-tooltip>
-
-        <empty-data solo v-else />
-      </div>
-    </v-col>
-
-    <template v-if="!isMobile">
-      <v-col class="py-0 px-1">
-        <div class="d-flex justify-center">
-          <div v-bind:class="['text-center max-width']">
-            <div
-              v-if="item.landscape"
-              class="list-icon-wrapper"
-            >
-              <x-img
-                :src="xLandscape(item.landscape).icon"
-                :width="35"
-                :height="35"
-                :tooltipText="xCap($t(`landscapes.${xLandscape(item.landscape).title}.title`))"
-                noMargin
-                logo
-              ></x-img>
-            </div>
-
-            <empty-data solo v-else />
-          </div>
-        </div>
-      </v-col>
-
-      <v-col class="x-col">
-        <div v-if="item.distance" v-bind:class="['ml-1 text-caption']">
-          <span>{{ item.distance | distanceUnitFilter(distanceUnit) }}</span>
-          <span class="text-tiny-dimmed" v-text="' '+distanceUnit" />
-        </div>
-        <empty-data solo v-else />
-      </v-col>
-
-      <v-col class="x-col">
-        <div v-if="item.elevation" v-bind:class="['ml-1 text-caption']">
-          <span>{{ item.elevation | elevationUnitFilter(elevationUnit) }}</span>
-          <span class="text-tiny-dimmed" v-text="' '+elevationUnit" />
-        </div>
-        <empty-data solo v-else />
-      </v-col>
-
-      <v-col class="x-col py-0 px-1">
-        <div class="d-flex justify-center">
-          <div
-            v-bind:class="[
-              (isMobile ? 'mr-0' : 'mx-2'),
-              'text-center max-width justify-center'
-            ]"
+          <v-list-item-subtitle
+            v-if="isMobile"
+            v-bind:class="[(source.start_date ? 'text-caption' : 'text-tiny-dimmed')]"
           >
-            <v-tooltip v-if="item.weather" bottom>
+            <span v-if="source.start_date">{{source.start_date | dayMonthFilter}}</span>
+            <span v-else class="empty-data" v-text="'.'" />
+          </v-list-item-subtitle>
+
+          <v-list-item-subtitle
+            v-else
+            v-bind:class="[(source.location ? 'text-caption' : 'text-tiny-dimmed')]"
+            v-text="source.location ? xCap(source.location) : '.'"
+          ></v-list-item-subtitle>
+        </v-col>
+
+        <v-col class="py-0 px-1">
+          <div class="d-flex justify-center">
+            <v-tooltip v-if="source.adventure_inventory && (typeof packedGearRatio == 'number')" bottom>
               <template v-slot:activator="{ on, attrs }">
-                <v-sheet
-                  :color="isDark ? 'black' : 'grey lighten-4'"
-                  class="list-icon-wrapper"
+                <v-progress-circular
+                  :key="`adventure-checklist-${source.id}`"
+                  :size="isMobile ? 35 : 37"
+                  :width="2"
+                  :rotate="-90"
+                  :value="packedGearRatio"
+                  :color="navItemColor('inventories')"
                   v-bind="attrs"
                   v-on="on"
                 >
+                  <span v-show="packedGearRatio !== 100" class="text-caption">
+                    <span v-bind:class="[fontShadeColor]">{{packedGearRatio | roundIntFilter}}</span>
+                    <span class="text-tiny-dimmed" v-text="'%'" />
+                  </span>
+
                   <v-icon
-                    class="pa-2"
-                    v-text="`mdi-weather-${item.weather}`"
+                    v-show="packedGearRatio === 100"
+                    v-text="'mdi-check'"
+                    :color="navItemColor('inventories')"
+                    small
                   ></v-icon>
-                </v-sheet>
+                </v-progress-circular>
               </template>
-              <span>{{xCap($t(`weathers.${item.weather}.title`))}}</span>
+              <span v-text="inventoryTitle+' '+$t('global.checklist')" />
             </v-tooltip>
-            <empty-data v-else />
+
+            <empty-data solo v-else />
           </div>
-        </div>
-      </v-col>
+        </v-col>
 
-      <v-col class="x-col py-0 px-1">
-        <div class="d-flex justify-center">
-          <div class="text-caption stacked-item-data text-center max-width">
-            <div v-if="item.temp_max">
-              <span>{{ item.temp_max | temperatureUnitFilter(temperatureUnit) }}</span>
-              <span class="text-tiny-dimmed" v-html="' '+temperatureUnit" />
-            </div>
-            <empty-data v-else />
+        <template v-if="!isMobile">
+          <v-col class="py-0 px-1">
+            <div class="d-flex justify-center">
+              <div v-bind:class="['text-center max-width']">
+                <div
+                  v-if="source.landscape"
+                  class="list-icon-wrapper"
+                >
+                  <x-img
+                    :src="xLandscape(source.landscape).icon"
+                    :width="35"
+                    :height="35"
+                    :tooltipText="xCap($t(`landscapes.${xLandscape(source.landscape).title}.title`))"
+                    noMargin
+                    logo
+                  ></x-img>
+                </div>
 
-            <div v-if="item.temp_min">
-              <span>{{ item.temp_min | temperatureUnitFilter(temperatureUnit) }}</span>
-              <span class="text-tiny-dimmed" v-html="' '+temperatureUnit" />
+                <empty-data solo v-else />
+              </div>
             </div>
-            <empty-data v-else />
+          </v-col>
+
+          <v-col class="x-col">
+            <div v-if="source.distance" v-bind:class="['ml-1 text-caption']">
+              <span>{{ source.distance | distanceUnitFilter(distanceUnit) }}</span>
+              <span class="text-tiny-dimmed" v-text="' '+distanceUnit" />
+            </div>
+            <empty-data solo v-else />
+          </v-col>
+
+          <v-col class="x-col">
+            <div v-if="source.elevation" v-bind:class="['ml-1 text-caption']">
+              <span>{{ source.elevation | elevationUnitFilter(elevationUnit) }}</span>
+              <span class="text-tiny-dimmed" v-text="' '+elevationUnit" />
+            </div>
+            <empty-data solo v-else />
+          </v-col>
+
+          <v-col class="x-col py-0 px-1">
+            <div class="d-flex justify-center">
+              <div
+                v-bind:class="[
+                  (isMobile ? 'mr-0' : 'mx-2'),
+                  'text-center max-width justify-center'
+                ]"
+              >
+                <v-tooltip v-if="source.weather" bottom>
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-sheet
+                      :color="isDark ? 'black' : 'grey lighten-4'"
+                      class="list-icon-wrapper"
+                      v-bind="attrs"
+                      v-on="on"
+                    >
+                      <v-icon
+                        class="pa-2"
+                        v-text="`mdi-weather-${source.weather}`"
+                      ></v-icon>
+                    </v-sheet>
+                  </template>
+                  <span>{{xCap($t(`weathers.${source.weather}.title`))}}</span>
+                </v-tooltip>
+                <empty-data v-else />
+              </div>
+            </div>
+          </v-col>
+
+          <v-col class="x-col py-0 px-1">
+            <div class="d-flex justify-center">
+              <div class="text-caption stacked-item-data text-center max-width">
+                <div v-if="source.temp_max">
+                  <span>{{ source.temp_max | temperatureUnitFilter(temperatureUnit) }}</span>
+                  <span class="text-tiny-dimmed" v-html="' '+temperatureUnit" />
+                </div>
+                <empty-data v-else />
+
+                <div v-if="source.temp_min">
+                  <span>{{ source.temp_min | temperatureUnitFilter(temperatureUnit) }}</span>
+                  <span class="text-tiny-dimmed" v-html="' '+temperatureUnit" />
+                </div>
+                <empty-data v-else />
+              </div>
+            </div>
+          </v-col>
+
+          <v-col class="x-col">
+            <div v-if="source.humidity" v-bind:class="['ml-1 text-caption']">
+              <span v-bind:class="['light-blue--text']" v-text="source.humidity" />
+              <span class="text-tiny-dimmed" v-text="'%'" />
+            </div>
+            <empty-data solo v-else />
+          </v-col>
+
+          <v-col class="x-col">
+            <div v-if="source.start_date">
+              <span class="text-caption">{{source.start_date | minimalDateFilter(dateFormatPref)}}</span>
+            </div>
+            <empty-data solo v-else />
+          </v-col>
+
+          <v-col class="x-col">
+            <div v-if="duration" v-bind:class="['ml-1 text-caption']">
+              <span
+                v-bind:class="[
+                  { 'text-tiny-dimmed text-center':!duration }
+                ]"
+                v-html="convertMinutes(duration)"
+              />
+            </div>
+            <empty-data solo v-else />
+          </v-col>
+
+          <x-update-col :item="source" />
+        </template>
+
+        <v-col class="py-0 px-1">
+          <div class="d-flex justify-start">
+            <div
+              v-bind:class="[
+                (isMobile ? 'mr-0' : 'mx-2'),
+                'text-center max-width'
+              ]"
+            >
+              <v-sheet
+                v-if="source.start_date"
+                class="list-icon-wrapper"
+              >
+                <v-tooltip bottom>
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-icon
+                      class="pa-2"
+                      :size="MDI"
+                      v-text="'mdi-'+dateStatusIcon(source.start_date)"
+                      :color="dateStatusColor(source.start_date)"
+                      v-bind="attrs"
+                      v-on="on"
+                    ></v-icon>
+                  </template>
+                  <span v-text="dateStatusText(source.start_date)" />
+                </v-tooltip>
+              </v-sheet>
+              <empty-data v-else solo />
+            </div>
           </div>
-        </div>
-      </v-col>
+        </v-col>
 
-      <v-col class="x-col">
-        <div v-if="item.humidity" v-bind:class="['ml-1 text-caption']">
-          <span v-bind:class="['light-blue--text']" v-text="item.humidity" />
-          <span class="text-tiny-dimmed" v-text="'%'" />
-        </div>
-        <empty-data solo v-else />
-      </v-col>
+        <v-col cols="1" class="pa-0">
+          <div class="mx-3">
+            <edit-icon v-bind:class="[{'mx-4' : !isMobile}]" :style="'padding: 9px 0'" />
+          </div>
+        </v-col>
 
-      <v-col class="x-col">
-        <div v-if="item.start_date">
-          <span class="text-caption">{{item.start_date | minimalDateFilter(dateFormatPref)}}</span>
-        </div>
-        <empty-data solo v-else />
-      </v-col>
-
-      <v-col class="x-col">
-        <div v-if="duration" v-bind:class="['ml-1 text-caption']">
-          <span
-            v-bind:class="[
-              { 'text-tiny-dimmed text-center':!duration }
-            ]"
-            v-html="convertMinutes(duration)"
-          />
-        </div>
-        <empty-data solo v-else />
-      </v-col>
-
-      <x-update-col :item="item" />
-    </template>
-
-    <v-col class="py-0 px-1">
-      <div class="d-flex justify-start">
-        <div
-          v-bind:class="[
-            (isMobile ? 'mr-0' : 'mx-2'),
-            'text-center max-width'
-          ]"
-        >
-          <v-sheet
-            v-if="item.start_date"
-            class="list-icon-wrapper"
-          >
-            <v-tooltip bottom>
-              <template v-slot:activator="{ on, attrs }">
-                <v-icon
-                  class="pa-2"
-                  :size="MDI"
-                  v-text="'mdi-'+dateStatusIcon(item.start_date)"
-                  :color="dateStatusColor(item.start_date)"
-                  v-bind="attrs"
-                  v-on="on"
-                ></v-icon>
-              </template>
-              <span v-text="dateStatusText(item.start_date)" />
-            </v-tooltip>
-          </v-sheet>
-          <empty-data v-else solo />
-        </div>
-      </div>
-    </v-col>
-
-    <v-col cols="1" class="pa-0">
-      <div class="mx-3">
-        <edit-icon v-bind:class="[{'mx-4' : !isMobile}]" :style="'padding: 9px 0'" />
-      </div>
-    </v-col>
-
-  </v-row>
+      </v-row>
+    </v-list-item-content>
+  </v-list-item>
 
 </template>
 
@@ -218,16 +240,25 @@
 
   import moment from 'moment';
 
+  import XUpdateCol from "@/components/xcols/XUpdateCol";
+  import EmptyData from "@/components/elements/EmptyData";
+  import EditIcon from "@/components/elements/Icons/EditIcon";
+
   export default {
     name: 'adventures-list-item',
     components: {
-      XUpdateCol: () => import('@/components/xcols/XUpdateCol'),
-      EmptyData: () => import('@/components/elements/EmptyData'),
-      EditIcon: () => import('@/components/elements/Icons/EditIcon'),
-      XImg: () => import('@/components/elements/XImg')
+      XUpdateCol,
+      EmptyData,
+      EditIcon,
+      XImg: () => import('@/components/elements/XImg'),
     },
     props: {
-      item: Object,
+      source: {
+        type: Object,
+        default () {
+          return {}
+        }
+      }
     },
     data: () => ({
       isMounted: false,
@@ -238,16 +269,16 @@
     computed: {
       packedGearRatio() {
         if(this.isMounted && this.inventory_gear && this.inventory_gear.length > 0)
-          return (((this.item.packed_gear ? this.item.packed_gear.length : 0) / this.inventory_gear.length) * 100);
+          return (((this.source.packed_gear ? this.source.packed_gear.length : 0) / this.inventory_gear.length) * 100);
         return null;
       },
       inventoryTitle() {
-        if(typeof this.item.adventure_inventory != 'number')
+        if(typeof this.source.adventure_inventory != 'number')
           return null;
-        return this.xInventory(this.item.adventure_inventory).title;
+        return this.xInventory(this.source.adventure_inventory).title;
       },
       adventureInventory() {
-        return this.item.adventure_inventory;
+        return this.source.adventure_inventory;
       }
     },
     methods: {
@@ -275,40 +306,40 @@
                 : 'progress-clock'));
       },
       initInventoryGear() {
-        if(this.item.adventure_inventory
-            && this.xInventory(this.item.adventure_inventory)
-            && this.xInventory(this.item.adventure_inventory).inventory_gear
+        if(this.source.adventure_inventory
+            && this.xInventory(this.source.adventure_inventory)
+            && this.xInventory(this.source.adventure_inventory).inventory_gear
         ) {
-          this.inventory_gear = this.xInventory(this.item.adventure_inventory).inventory_gear;
+          this.inventory_gear = this.xInventory(this.source.adventure_inventory).inventory_gear;
         }
       },
-      adventureDaySpan(item) {
+      adventureDaySpan(source) {
         let startDatetime = null;
         let endDatetime = null;
         let unitOfTime = 'minute';
 
-        if(item.start_date && item.end_date) {
-          if(item.start_time && item.end_time) {
-            startDatetime = moment(item.start_date + " " + item.start_time);
-            endDatetime = moment(item.end_date + " " + item.end_time);
+        if(source.start_date && source.end_date) {
+          if(source.start_time && source.end_time) {
+            startDatetime = moment(source.start_date + " " + source.start_time);
+            endDatetime = moment(source.end_date + " " + source.end_time);
 
           } else {
-            startDatetime = moment(item.start_date);
-            endDatetime = moment(item.end_date);
+            startDatetime = moment(source.start_date);
+            endDatetime = moment(source.end_date);
             unitOfTime = 'day'
           }
-        } else if(item.start_time && item.end_time) {
-          startDatetime = moment(item.start_time);
-          endDatetime = moment(item.end_time);
+        } else if(source.start_time && source.end_time) {
+          startDatetime = moment(source.start_time);
+          endDatetime = moment(source.end_time);
         }
 
-        unitOfTime = unitOfTime > 1 ? unitOfTime+'s' : unitOfTime
+        unitOfTime = unitOfTime > 1 ? unitOfTime+'s' : unitOfTime;
 
         this.duration = (startDatetime && endDatetime) ? endDatetime.diff(startDatetime, unitOfTime) : 0;
       }
     },
     watch: {
-      item: {
+      source: {
         handler: function(newVal) {
           this.adventureDaySpan(newVal);
         },
@@ -321,7 +352,7 @@
     },
     mounted() {
       this.initInventoryGear();
-      this.adventureDaySpan(this.item);
+      this.adventureDaySpan(this.source);
 
       this.isMounted = true;
     }

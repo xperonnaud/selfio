@@ -4,69 +4,20 @@
     v-bind:class="['x-list mx-auto elevation-0']"
     :color="xBackgroundColor"
   >
-    <v-list
-      v-if="filteredItems.length > 0"
-      v-show="!(formDialog && isMobile)"
-      v-bind:class="['rounded-0', (isMobile ? 'py-1' : 'py-2')]"
-      one-line
-      flat
-    >
-      <v-virtual-scroll
-        :benched="xListMaxItems"
-        :items.sync="filteredItems"
-        :item-height="xListItemsHeight"
-      >
-        <template v-slot:default="{ item, index }">
-          <x-list-item
-            :key="`${currentRouteName}-${randomId()}-${index}`"
-            :item.sync="item"
-            v-on:listItemAction="isItemRoute ? openItemDialog(item) : null"
-          >
-            <template v-slot:list-item-avatar>
-              <v-list-item-avatar
-                v-if="(
-                  ((currentRouteId !== 'brands') && (currentRouteId !== 'inventories'))
-                  || item.activity
-                  || item.category
-                )"
-                v-bind:class="[
-                  'x-avatar py-0 d-flex  justify-center',
-                   (isMobile ? 'my-0 mr-3' : 'ml-2 mr-5'),
-                ]"
-                :style="((currentRouteId === 'gear' && item.category) ? `border: 2px solid ${categoryColor(item.category)} !important;` : '')"
-              >
-                <x-img
-                  v-if="currentRouteId === 'gear' && item.category && xGearCategory(item.category)"
-                  :src="xGearCategory(item.category).icon"
-                  :tooltipText="item.category"
-                  :width="SMI"
-                  :height="SMI"
-                  isCategory
-                ></x-img>
+    <virtual-list
+      v-if="isMounted && listItemComponent"
+      style="height: 100%; overflow-y: auto;"
+      :data-key="'id'"
+      :data-sources="filteredItems"
+      :data-component="listItemComponent"
+      page-mode
+      wrap-class="x-list"
+      item-class="x-list-item"
+    ></virtual-list>
 
-                <x-unknown-category-icon v-else-if="currentRouteId === 'gear'" />
+    <x-list-skeleton v-else />
 
-                <x-img
-                  v-else-if="item.activity && xActivity(item.activity)"
-                  :src="xActivity(item.activity).icon"
-                  :tooltipText="xActivity(item.activity).title"
-                  :width="LGI"
-                  :height="LGI"
-                ></x-img>
-              </v-list-item-avatar>
-            </template>
-          </x-list-item>
-
-          <v-divider
-            v-if="index < filteredItems.length - 1"
-            :key="index"
-          ></v-divider>
-        </template>
-      </v-virtual-scroll>
-
-    </v-list>
-
-    <v-list v-else>
+    <v-list v-if="items.length <= 0 || (filteredItems.length <= 0) && !(filteredItems.length <= 0)">
       <item-empty-list-item v-if="(items.length <= 0)" />
 
       <no-result-empty-list-item v-else-if="(filteredItems.length <= 0) && !(filteredItems.length <= 0)" />
@@ -79,14 +30,16 @@
 
   const _ = require('lodash');
 
+  import XListSkeleton from "@/components/skeletons/XListSkeleton";
+  import VirtualList from 'vue-virtual-scroll-list'
+
   export default {
     name: "x-list",
     components: {
-      XListItem: () => import('@/components/lists/XListItem'),
+      'virtual-list': VirtualList,
+      XListSkeleton,
       ItemEmptyListItem: () => import('@/components/lists/items/ItemEmptyListItem'),
-      NoResultEmptyListItem: () => import('@/components/lists/items/NoResultEmptyListItem'),
-      XUnknownCategoryIcon: () => import('@/components/elements/Icons/XUnknownCategoryIcon'),
-      XImg: () => import('@/components/elements/XImg')
+      NoResultEmptyListItem: () => import('@/components/lists/items/NoResultEmptyListItem')
     },
     props: {
       title: String,
@@ -97,20 +50,21 @@
     },
     data: () => ({
       isMounted: false,
+      loading: true,
 
-      listRef: null,
-      listComponent: null,
-      listComponentCalled: null,
+      listItemRef: null,
+      listItemComponent: null,
+      listItemComponentCalled: null,
     }),
     computed: {
-      color() {
-        return this.currentColor
-      },
       loader() {
         let self = this;
-        let listId = this.xCap(this.currentRouteName);
-        self.listComponentCalled = `@/components/lists/items/${listId}ListItem.vue`;
-        return () => import(`@/components/lists/items/${listId}ListItem.vue`)
+        let listItemId = this.xCap(this.currentRouteName);
+        self.listItemComponentCalled = `@/components/lists/items/${listItemId}ListItem.vue`;
+        return () => import(`@/components/lists/items/${listItemId}ListItem.vue`)
+      },
+      color() {
+        return this.currentColor
       },
       itemOwned: {
         get() {
@@ -215,45 +169,21 @@
       async componentLoad() {
         let self = this;
 
+        if(!this.loading)
+          this.loading = true;
+
         if(this.isItemRoute || this.isConfigurationRoute)
           this.loader()
-            .then(() => {
-              self.listComponent = () => self.loader();
-            })
-            .catch((e) => {
-              console.log('componentLoad ERROR',e);
-            })
+                  .then(() => {
+                    self.listItemComponent = () => self.loader();
+                  })
+                  .catch((e) => {
+                    console.log('componentLoad ERROR',e);
+                  });
+
+        this.loading = false;
       },
-      openItemDialog(item) {
-        if(item) {
-          this.isAppLoading = true;
-          let self = this;
 
-          let references = null;
-          if(this.currentRouteName === 'gear') {
-            references = this.gearReferences;
-
-          } else if(this.currentRouteName === 'inventories') {
-            references = this.inventoryReferences;
-
-          } else if(this.currentRouteName === 'adventures') {
-            references = this.adventureReferences;
-          }
-
-          if(references) {
-            let itemIndex = references[item.id];
-
-            setTimeout(function(){
-              self.selectedItem = item;
-              self.selectedItemIndex = itemIndex;
-              self.formDialog = true;
-              self.formDialogType = 'update';
-            }, 50);
-          } else {
-            self.formDialog = false;
-          }
-        }
-      },
     },
     watch: {
       async currentRouteName(value) {
@@ -261,15 +191,12 @@
           return null;
 
         this.clearMenuFilters();
-        await this.componentLoad();
       },
     },
     async mounted() {
-      let self = this;
-      this.listRef = this.randomId();
+      this.listItemRef = this.randomId();
       await this.componentLoad();
-
-      self.isMounted = true;
+      this.isMounted = true;
     }
   }
 
@@ -278,9 +205,26 @@
 <style lang="scss">
 
   .x-list {
+
+    .x-list-item {
+      background-color: #FFFFFF;
+      border-bottom: 1px solid #F9F9F9;
+    }
+
     .v-subheader {
       height: 24px !important;
     }
   }
+
+  .is-dark {
+    .x-list {
+
+      .x-list-item {
+        background-color: #181818;
+        border-bottom: 1px solid #121212;
+      }
+    }
+  }
+
 
 </style>

@@ -39,7 +39,7 @@
             <v-list-item-subtitle
               v-if="!isMobile"
               v-bind:class="[(gear.quantity_owned === 0 ? 'text--disabled' : 'text-caption')]"
-              v-text="gear.brand ? xCap(xGearBrand(gear.brand).title) : '.'"
+              v-text="gear.brand && xGearBrand(gear.brand) ? xCap(xGearBrand(gear.brand).title) : '.'"
             ></v-list-item-subtitle>
 
             <v-list-item-subtitle

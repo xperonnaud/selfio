@@ -20,12 +20,18 @@ export default {
             return this.navigationItems[this.currentRouteName]
         },
         currentTitle() {
+            if(!this.currentNavItem)
+                return null;
             return (this.currentNavItem.title);
         },
         currentIcon() {
+            if(!this.currentNavItem)
+                return null;
             return (this.currentNavItem.icon);
         },
         currentType() {
+            if(!this.currentNavItem)
+                return null;
             return (this.currentNavItem.type);
         },
         isItemRoute() {

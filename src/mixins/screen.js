@@ -129,6 +129,36 @@ export default {
         },
     },
     methods: {
+        openItemDialog(item) {
+            if(item) {
+                this.isAppLoading = true;
+                let self = this;
+
+                let references = null;
+                if(this.currentRouteName === 'gear') {
+                    references = this.gearReferences;
+
+                } else if(this.currentRouteName === 'inventories') {
+                    references = this.inventoryReferences;
+
+                } else if(this.currentRouteName === 'adventures') {
+                    references = this.adventureReferences;
+                }
+
+                if(references) {
+                    let itemIndex = references[item.id];
+
+                    setTimeout(function(){
+                        self.selectedItem = item;
+                        self.selectedItemIndex = itemIndex;
+                        self.formDialog = true;
+                        self.formDialogType = 'update';
+                    }, 50);
+                } else {
+                    self.formDialog = false;
+                }
+            }
+        },
         stateIcon(title) {
             let icon = 'battery-off';
 
