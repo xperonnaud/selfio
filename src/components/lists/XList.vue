@@ -207,7 +207,7 @@
 
     .x-list-item {
       background-color: #FFFFFF;
-      border-bottom: 1px solid #F9F9F9;
+      border-bottom: 1px solid #F7F7F7;
     }
 
     .v-subheader {
@@ -220,7 +220,7 @@
 
       .x-list-item {
         background-color: #181818;
-        border-bottom: 1px solid #121212;
+        border-bottom: 1px solid #0C0C0C;
       }
     }
   }

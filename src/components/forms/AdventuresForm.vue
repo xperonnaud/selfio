@@ -261,7 +261,7 @@
                   </v-btn>
 
                   <v-toolbar-title v-bind:class="[{'pa-0':isMobile}]">
-                    <v-list-item two-line>
+                    <v-list-item two-line class="px-0">
                       <v-list-item-content class="pa-0">
                         <v-list-item-title>{{$t('components.adventure-gear-card.gear-checklist') | capitalizeFirstFilter}}</v-list-item-title>
 
@@ -469,13 +469,17 @@
                             </v-col>
 
                             <v-col class="x-col px-0 py-2 col-border-r x-primary-btn rounded" @click.stop="sortGear('gear_worn')" v-ripple>
-                              <div class="text-tiny text-center" v-text="$t('global.worn')" />
-                              <x-sort-icon prop="gear_worn" />
+                              <div class="d-flex justify-center align-center">
+                                <div class="text-tiny text-center">{{$t('global.worn') | capitalizeFirstFilter}}</div>
+                                <x-sort-icon prop="gear_worn" />
+                              </div>
                             </v-col>
 
                             <v-col class="x-col px-0 py-2 col-border-r x-primary-btn rounded" @click.stop="sortGear('gear_quantity_packed')" v-ripple>
-                              <div class="text-tiny text-center" v-text="$t('global.qty')" />
-                              <x-sort-icon prop="gear_quantity_packed" />
+                              <div class="d-flex justify-center align-center">
+                                <div class="text-tiny text-center">{{$t('global.qty') | capitalizeFirstFilter}}</div>
+                                <x-sort-icon prop="gear_quantity_packed" />
+                              </div>
                             </v-col>
                           </v-row>
                         </v-list-item-content>

@@ -364,7 +364,7 @@
                   <v-icon v-text="'mdi-arrow-left'" />
                 </v-btn>
 
-                <v-list-item two-line>
+                <v-list-item two-line class="px-0">
                   <v-list-item-content class="pa-0">
                     <v-list-item-title>{{t(`gear-list`) | capitalizeFirstFilter}}</v-list-item-title>
 
