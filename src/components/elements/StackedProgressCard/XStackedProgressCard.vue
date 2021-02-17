@@ -1,15 +1,29 @@
 <template>
 
-
-    <v-sheet
+    <v-card
         v-if="isMounted"
         :color="xTabsColor"
-        class="pt-1 pb-2 px-2 rounded"
+        :class="[
+            'shadow-bottom py-0 rounded',
+            (isMobile ? 'px-2' : 'px-4')
+        ]"
     >
-        <x-stacked-progress-legend :items.sync="items" :toggleLimit="displayToggleLimit" />
+        <v-list-item-content class="no-wrap">
+            <v-list-item-title v-text="xCapFirst($t('routes.inventories.balance'))" />
 
-        <x-stacked-progress-bar :items.sync="items" :toggleLimit="displayToggleLimit" />
-    </v-sheet>
+            <v-list-item-subtitle class="pt-1">
+                <x-stacked-progress-legend
+                    :items.sync="items"
+                    :toggleLimit="displayToggleLimit"
+                ></x-stacked-progress-legend>
+
+                <x-stacked-progress-bar
+                    :items.sync="items"
+                    :toggleLimit="displayToggleLimit"
+                ></x-stacked-progress-bar>
+            </v-list-item-subtitle>
+        </v-list-item-content>
+    </v-card>
 
 </template>
 

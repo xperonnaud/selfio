@@ -1,7 +1,7 @@
 <template>
 
   <v-autocomplete
-    label="Brand"
+    :label="xCap($t('global.brand'))"
     v-model="pickerValue"
     :loading="loading"
     :items="brandsList"

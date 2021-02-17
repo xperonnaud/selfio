@@ -3,8 +3,9 @@
   <v-checkbox
     :input-value="pickerValue"
     :off-icon="'mdi-checkbox-blank-outline'"
-    :on-icon="'mdi-checkbox-marked-outline'"
+    :on-icon="'mdi-checkbox-marked'"
     :disabled="disabled"
+    :color="xCheckerColor"
     filled
     hide-details
   ></v-checkbox>

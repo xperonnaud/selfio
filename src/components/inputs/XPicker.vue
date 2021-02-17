@@ -2,8 +2,8 @@
 
   <v-select
       v-model="pickerValue"
+      :label="xCap($t(`global.${label}`))"
       :items="list"
-      :label="label"
       :color="currentColor"
       item-text="title"
       item-value="id"
@@ -28,7 +28,7 @@
           />
         </v-avatar>
 
-        {{ data.item.title }}
+        {{ xCap(data.item.title) }}
       </div>
     </template>
 
@@ -44,10 +44,10 @@
             :src="data.item.icon"
             :logo="logo"
             :tooltipText="data.item.title"
-          />
+          ></x-img>
         </v-avatar>
 
-        {{ data.item.title }}
+        {{ xCap(data.item.title) }}
 
         <div v-if="type==='inventories' && data.item.inventory_gear" class="float-right text-tiny pt-1 d-flex">
           <div class="text-right" :style="'width: '+(isMobile?'45':'70')+'px;'">

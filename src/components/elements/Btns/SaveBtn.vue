@@ -9,7 +9,7 @@
     class="elevation-0"
   >
     <v-icon v-if="!isOutlined" v-text="'mdi-check'"/>
-    <span v-show="forceText" v-text="'Save'" />
+    <span v-show="forceText" v-text="$t('global.save')" />
   </v-btn>
 
 </template>

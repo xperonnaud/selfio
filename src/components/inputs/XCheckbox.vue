@@ -9,7 +9,7 @@
       :class="['pa-0 ma-0']"
     ></x-checker>
 
-    <span class="x-checkbox-label text-body-2 my-auto" v-text="label" />
+    <span class="x-checkbox-label text-body-2 my-auto">{{$t(`global.${label}`) | capitalizeFirstFilter}}</span>
   </v-card>
 
 </template>

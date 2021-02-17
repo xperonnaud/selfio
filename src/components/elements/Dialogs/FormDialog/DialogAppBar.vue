@@ -2,7 +2,7 @@
 
     <v-app-bar
       v-if="isMounted"
-      :color="editMode ? 'secondary' : xTabsColor"
+      :color="editMode ? xOverlayColor : xTabsColor"
       :dense="editMode"
       :class="[(isMobile ? 'px-0' : 'px-3')]"
     >
@@ -17,19 +17,20 @@
       </v-btn>
 
       <v-toolbar-title v-bind:class="['pl-0',{'pa-0':isMobile}]">
-        <template v-if="item">
-          <span
-            v-bind:class="[
-              {'text-subtitle-1':editMode},
-              {'grey--text':editMode},
-            ]"
-          >{{item.title | capitalizeFilter}}</span>
-          <span v-bind:class="['text-tiny-dimmed mx-2 mb-1']" v-text="formDialogType" />
-        </template>
+        <template>
+          <v-list-item two-line>
+            <v-list-item-content class="pa-0">
+              <v-list-item-title>
+                <span v-if="item" :class="[{'text-body-2 text--disabled':editMode}]">{{item.title | capitalizeFilter}}</span>
+                <span v-else :class="[{'text-body-2 text--disabled':editMode}]">{{ $t(`global.${currentRouteId}`) | capitalizeFilter }}</span>
+              </v-list-item-title>
 
-        <template v-else>
-          <span v-bind:class="[{currentColorText : !editMode}]">{{ currentRouteName | singularFilter | capitalizeFilter }}</span>
-          <span v-bind:class="['text-tiny-dimmed mx-2 mb-1']" v-text="'new'" />
+              <v-list-item-subtitle>
+                <span v-if="item" :class="[{'text-tiny-dimmed':editMode}]" v-text="$t(`global.${formDialogType}`)" />
+                <span v-else :class="[{'text-tiny-dimmed':editMode}]" v-text="$t('global.new')" />
+              </v-list-item-subtitle>
+            </v-list-item-content>
+          </v-list-item>
         </template>
       </v-toolbar-title>
 
@@ -53,7 +54,7 @@
         icon
       >
         <v-icon
-          :size="editMode ? LGI : XLI"
+          :size="editMode ? MDI : XLI"
           v-text="'mdi-check'"
         />
       </v-btn>
@@ -63,7 +64,7 @@
 
 <script>
 
-  import XDeleteDialog from "@/components/elements/DeleteDialog/XDeleteDialog";
+  import XDeleteDialog from "@/components/elements/Dialogs/XDeleteDialog/XDeleteDialog";
 
   export default {
     name: "dialog-app-bar",

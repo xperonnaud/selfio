@@ -1,0 +1,341 @@
+
+{
+  "global": {
+    "app-name": "PackHub.io",
+
+    "gear":"gear",
+    "inventories":"inventories",
+    "adventures":"adventures",
+    "home":"home",
+    "account":"account",
+    "brands":"brands",
+    "tags":"tags",
+    "import-export":"import / export",
+    "import":"import",
+    "export":"export",
+    "settings":"settings",
+    "feedback":"feedback",
+    "theme":"theme",
+
+    "add-gear":"add gear",
+    "add-inventories":"add an inventory",
+    "add-adventures":"add an adventure",
+
+    "general": "general",
+    "details": "details",
+
+    "private": "private",
+    "public": "public",
+    "email": "Email",
+    "login": "Login",
+    "logout": "Logout",
+
+    "languages": "languages",
+    "language": "language",
+    "object": "object",
+    "message": "message",
+    "unit": "unit",
+    "format": "format",
+    "weight": "weight",
+    "temperature": "temperature",
+    "distance": "distance",
+    "elevation": "elevation",
+    "depth": "depth",
+    "price": "price",
+    "date": "date",
+    "start-date": "start date",
+    "end-date": "end date",
+    "max-temp": "max temperature",
+    "min-temp": "min temperature",
+    "time": "time",
+    "start-time": "start time",
+    "end-time": "end time",
+    "title": "title",
+    "brand":"brand",
+    "size":"size",
+    "category":"category",
+    "tag":"tag",
+    "note": "note",
+    "description": "description",
+    "comment": "comment",
+    "purchase": "purchase",
+    "state": "state",
+    "consumable": "consumable",
+    "quantity": "quantity",
+    "quantity-positive": "quantity owned > 0",
+    "quantity-owned": "quantity owned",
+    "quantity-packed": "quantity packed",
+    "packing-options": "packing options",
+    "qty": "qty",
+    "owned": "owned",
+    "worn": "worn",
+    "empty": "empty",
+    "packed": "packed",
+    "packing-option": "packing options",
+    "list": "list",
+    "item": "item",
+    "items": "items",
+    "checklist": "checklist",
+    "landscape": "landscape",
+    "weather": "weather",
+    "status": "status",
+    "humidity": "humidity",
+    "duration": "duration",
+    "location": "location",
+    "activity": "activity",
+    "inventory": "inventory",
+
+    "max": "max",
+    "min": "min",
+    "empty-list": "this list is empty.",
+    "no-items": "no item",
+    "base": "base",
+    "unique": "unique",
+    "unknown": "unknown",
+    "done": "done",
+    "pending": "pending",
+    "total": "total",
+    "filters": "filters",
+    "search": "search",
+    "reset": "reset",
+    "add":"add",
+    "send":"send",
+    "save":"save",
+    "create":"create",
+    "action":"action",
+    "edit":"edit",
+    "update":"update",
+    "confirm":"confirm",
+    "delete":"delete",
+    "cancel":"cancel",
+    "leave":"leave",
+    "new":"new",
+
+    "gear-tags": "gear tags",
+    "inventory-tags": "inventory tags",
+    "adventure-tags": "adventure tags"
+  },
+  "states": {
+    "new":"new",
+    "ok":"ok",
+    "used":"used",
+    "poor":"poor"
+  },
+  "weathers": {
+    "cloudy": {"title": "cloudy"},
+    "fog": {"title": "fog"},
+    "hail": {"title": "hail"},
+    "hazy": {"title": "hazy"},
+    "lightning": {"title": "lightning"},
+    "lightning-rainy": {"title": "lightning & rain"},
+    "partly-cloudy": {"title": "light clouds"},
+    "partly-rainy": {"title": "light rain"},
+    "partly-snowy": {"title": "light snowfall"},
+    "pouring": {"title": "shower"},
+    "rainy": {"title": "rainy"},
+    "snowy": {"title": "snowy"},
+    "snowy-heavy": {"title": "heavy snow"},
+    "snowy-rainy": {"title": "heavy rain"},
+    "sunny": {"title": "sunny"},
+    "windy": {"title": "windy"}
+  },
+  "landscapes": {
+    "beach": {"title": "beach"},
+    "tropical": {"title": "tropical"},
+    "offshore": {"title": "offshore"},
+    "forest": {"title": "forest"},
+    "hills": {"title": "hills"},
+    "taiga": {"title": "taiga"},
+    "riverside": {"title": "riverside"},
+    "city-indoor": {"title": "city indoor"},
+    "mixed": {"title": "mixed"},
+    "island": {"title": "island"},
+    "toundra": {"title": "toundra"},
+    "fields": {"title": "fields"},
+    "arctic": {"title": "arctic"},
+    "volcano": {"title": "volcano"},
+    "badland": {"title": "badland"},
+    "savannah": {"title": "savannah"},
+    "mountains": {"title": "mountains"},
+    "arial": {"title": "arial"},
+    "desert": {"title": "desert"},
+    "plateau": {"title": "plateau"},
+    "coastal": {"title": "coastal"},
+    "city-outdoor": {"title": "city outdoor"},
+    "park": {"title": "park"}
+  },
+  "activities": {
+    "running": {"title": "running"},
+    "hiking": {"title": "hiking"},
+    "trekking": {"title": "trekking"},
+    "mountaineering": {"title": "mountaineering"},
+    "alpinism": {"title": "alpinism"},
+    "hunting": {"title": "hunting"},
+    "camping": {"title": "camping"},
+    "backpacking": {"title": "backpacking"},
+    "off-road": {"title": "off road"},
+    "trip": {"title": "trip"},
+    "sightseeing": {"title": "sightseeing"},
+    "photography": {"title": "photography"},
+    "airsoft": {"title": "airsoft"},
+    "climbing": {"title": "climbing"},
+    "fishing": {"title": "fishing"},
+    "diving": {"title": "diving"}
+  },
+  "categories": {
+    "activity": {
+      "title": "activity",
+      "desc": "Activity specific equipment: climbing harness, fishing rod, skis, ..."
+    },
+    "clothing": {
+      "title": "clothing",
+      "desc": "Vests, pants, shoes, hats, gloves, ..."
+    },
+    "cooking": {
+      "title": "cooking",
+      "desc": "Cooking pot, stove, utensils, fuel, ..."
+    },
+    "documents": {
+      "title": "documents",
+      "desc": "Maps, passports, permits, certifications, ..."
+    },
+    "electronics": {
+      "title": "electronics",
+      "desc": "Lighting, gps, phone, watch, powerbank, camera, ..."
+    },
+    "emergency": {
+      "title": "emergency",
+      "desc": "Emergency and repair: bandages, insect repellent, sewing kit, ..."
+    },
+    "food-snacks": {
+      "title": "food & snacks",
+      "desc": "Dehydrated meals, energy bars, nuts & berries, dried fruits, ..."
+    },
+    "hygiene": {
+      "title": "hygiene",
+      "desc": "Vests, pants, shoes, hats, gloves, etc.."
+    },
+    "miscellanous": {
+      "title": "miscellanous",
+      "desc": "Vests, pants, shoes, hats, gloves, etc.."
+    },
+    "packs-bags": {
+      "title": "packs & bags",
+      "desc": "Backpack, compression bags, waterproof sacks, ..."
+    },
+    "shelter": {
+      "title": "shelter",
+      "desc": "Tent, tent footprint, tarp, hammock, ..."
+    },
+    "sleeping": {
+      "title": "sleeping",
+      "desc": "Sleeping bag & pad & matt, pillow, liner, hammock, ..."
+    },
+    "tools": {
+      "title": "tools",
+      "desc": "Axe, shovel, knife, multi-tool, ..."
+    },
+    "hydration": {
+      "title": "water & drinks",
+      "desc": "Water, coffee, energy drink, ..."
+    }
+  },
+  "routes": {
+    "gear": {},
+    "inventories": {
+      "gear-list": "gear list",
+      "gear-balance": "gear balance",
+      "balance": "balance",
+      "weight-by-gear-category": "weight by gear category",
+      "add-gear": "add gear to your inventory."
+    },
+    "adventures": {
+      "event": "event"
+    },
+    "login": {
+      "password": "Password",
+      "forgot-password": "Forgot password ?"
+    },
+    "account": {
+      "password-new": "New password",
+      "password-confirmation": "Password confirmation"
+    },
+    "settings": {
+      "units-and-formats": "units and formats"
+    },
+    "feedback": {
+      "title": "Your feedback is very important to us!",
+      "sub-title": "Please, tell us how we can improve this application for you."
+    }
+  },
+  "components": {
+    "brands-list-item": {
+      "delete-rule": "You may only delete a Private Brand (created by you).",
+      "delete-forbidden": "Delete is not allowed.",
+      "delete-warning": "You are about to delete a brand."
+    },
+    "relation-chip": {
+      "relations": "relations"
+    },
+    "inventory-gear-card": {
+      "gear-list": "gear list",
+      "unique-item": "unique item",
+      "unique-items": "unique items"
+    },
+    "adventure-gear-card": {
+      "gear-checklist": "gear checklist",
+      "packed-gear": "packed gear"
+    },
+    "new-brand-dialog": {
+      "new-brand": "new brand"
+    },
+    "session-dialog": {
+      "session-expired": "your session has expired.",
+      "please-login": "please log in again.",
+      "log-back": "log back in"
+    },
+    "x-delete-dialog": {
+      "deleting-gear": "deleting gear",
+      "deleting-inventories": "deleting inventories",
+      "deleting-adventures": "deleting adventures",
+      "deleting-brands": "deleting brands",
+      "not-allowed": "not allowed",
+      "remove-relations": "Remove relations first:",
+      "are-you-sure": "Are you sure your wish to go forward with this?",
+      "irreversible": "This action is irreversible."
+    }
+  },
+  "rules": {
+    "required": "This field is required.",
+    "email": "Invalid email",
+    "valid": "Invalid value",
+    "date": "Invalid date",
+    "time": "Invalid time",
+    "integer": "Invalid value. Only positive whole numbers are accepted.",
+    "decimals": "Invalid value. Only positive numbers are accepted.",
+    "temperature": "Invalid temperature",
+    "message": "Your message is too long. 500 characters max.",
+    "elevation": "Invalid value. Only  numbers are accepted."
+  },
+  "api": {
+    "session-expired": "Your session has timed out. You have been logged off automatically.",
+    "incorrect-credentials": "Incorrect credentials",
+    "username-password": "Incorrect Username/Password",
+    "logged-out": "Logged out",
+    "feedback-sent": "Feedback sent. Thank You!",
+    "brand-added": "Brand added",
+    "brand-deleted": "Brand deleted",
+    "tags-updated": "Tags updated",
+    "settings-added": "Settings updated",
+    "settings-updated": "Settings updated",
+    "gear-added": "Gear added",
+    "gear-updated": "Gear updated",
+    "gear-deleted": "Gear deleted",
+    "inventory-added": "Inventory added",
+    "inventory-updated": "Inventory updated",
+    "inventory-deleted": "Inventory deleted",
+    "adventure-added": "Adventure added",
+    "adventure-updated": "Adventure updated",
+    "adventure-deleted": "Adventure deleted"
+  }
+}

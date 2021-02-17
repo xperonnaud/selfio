@@ -1,26 +1,23 @@
 <template>
-  <v-sheet v-if="isMounted" height="100%">
+  <v-sheet height="100%">
 
-    <list-container
+    <x-list
       v-bind:icon="currentIcon"
       v-bind:title="currentTitle"
-      v-bind:color="currentColor"
-      v-bind:items="adventures"
+      v-bind:items="adventuresList"
       v-bind:itemHeaders="adventuresHeaders"
       v-bind:keyName="'name'"
-    ></list-container>
+    ></x-list>
 
   </v-sheet>
 </template>
 
 <script>
 
-  import ListContainer from '@/components/containers/ListContainer'
-
   export default {
     name: "adventures-view",
     components: {
-      ListContainer
+      XList: () => import('@/components/lists/XList'),
     },
     data: () => ({
       isMounted: false,
@@ -34,11 +31,6 @@
           {text: 'Inventory', value: 'adventure_inventory'},
           {text: 'Difficulty', value: 'difficulty'},
         ]
-      },
-      adventures: {
-        get() {
-          return this.$store.state.selfio.adventures
-        },
       },
     },
     mounted() {

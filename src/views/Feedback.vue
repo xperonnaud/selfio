@@ -25,8 +25,8 @@
                     </v-list-item-avatar>
 
                     <v-list-item-content class="no-wrap">
-                      <v-list-item-title class="text-h6" v-text="'Your feedback is very important to us!'" />
-                      <v-list-item-subtitle v-text="'Please, tell us how we can improve this application for you.'" />
+                      <v-list-item-title class="text-h6" v-text="$t(`routes.feedback.title`)" />
+                      <v-list-item-subtitle v-text="$t(`routes.feedback.sub-title`)" />
                     </v-list-item-content>
                   </v-list-item>
                 </v-list>
@@ -35,7 +35,7 @@
 
             <v-col cols="12">
               <v-text-field
-                label="Object"
+                :label="xCap($t('global.object'))"
                 v-model="feedback.object"
                 :rules="xRules.object"
                 :color="darkColor('primary')"
@@ -44,23 +44,11 @@
                 dense
                 required
               ></v-text-field>
-          </v-col>
-
-            <v-col cols="12">
-              <v-select
-                :items="feedbackCategories"
-                :color="darkColor('primary')"
-                hide-details="auto"
-                label="Category"
-                filled
-                dense
-                optional
-              ></v-select>
             </v-col>
 
             <v-col cols="12">
               <v-textarea
-                label="Message"
+                :label="xCap($t('global.message'))"
                 v-model="feedback.message"
                 :rules="xRules.message"
                 :color="darkColor('primary')"
@@ -74,18 +62,12 @@
 
           <v-row class="row-max-width">
             <v-col cols="12">
-              <v-btn
-                v-bind:class="[
-                  'elevation-0',
-                  {'max-width':isMobile},
-                  reversedFontShadeColor,
-                  'primary-gradient-color'
-                ]"
-                :disabled="!valid"
-                @click.stop="postFeedback(feedback)"
-              >
-                <span v-text="'Send'" />
-              </v-btn>
+              <primary-btn
+                label="send"
+                :block="isMobile"
+                :valid.sync="valid"
+                v-on:btnAction="postFeedback(feedback)"
+              ></primary-btn>
             </v-col>
           </v-row>
         </v-container>
@@ -97,16 +79,16 @@
 
 <script>
 
+  import PrimaryBtn from "@/components/elements/Btns/PrimaryBtn";
 
   export default {
     name: "feedback",
+    components: {
+      PrimaryBtn
+    },
     data: () => ({
       isMounted: false,
       valid: false,
-
-      feedbackCategories: [
-        'Interface', 'Functionalities'
-      ],
 
       feedback: { object: '', message: '' }
     }),

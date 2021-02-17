@@ -5,7 +5,7 @@
       <v-row style="max-width: 750px">
         <v-col cols="12">
           <x-combobox
-            label="Gear tags"
+            label="gear-tags"
             v-bind:value.sync="preferences.gear_tags"
             v-bind:items="preferences.gear_tags"
             v-bind:route="'gear'"

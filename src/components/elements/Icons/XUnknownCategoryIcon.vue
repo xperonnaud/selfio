@@ -10,7 +10,7 @@
                 v-on="on"
             ></v-icon>
         </template>
-        <span v-text="'Unknown'" />
+        <span v-text="$t('global.unknown')" />
     </v-tooltip>
 
 </template>

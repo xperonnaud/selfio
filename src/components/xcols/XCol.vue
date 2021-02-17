@@ -5,11 +5,11 @@
     @click.stop="sortItems(prop)"
     v-ripple
   >
-    <div class="d-flex justify-center flex-column">
-      <div
-        v-bind:class="['text-tiny']"
-        v-text="text"
-      ></div>
+    <div :class="['d-flex justify-center', {isMobile: 'flex-column'}]">
+      <div v-bind:class="['text-tiny']">
+        <span v-if="!mini">{{$t(`global.${text}`) | capitalizeFirstFilter}}</span>
+        <span v-else>{{$t(`global.${text}`) | minifyTextFilter | capitalizeFirstFilter}}</span>
+      </div>
 
       <x-sort-icon :prop="prop" />
     </div>
@@ -29,6 +29,10 @@
     props: {
       text: String,
       prop: String,
+      mini: {
+        type: Boolean,
+        default: false
+      },
     },
   }
 

@@ -9,13 +9,12 @@
     style="overflow-y: unset;"
   >
     <v-card
-      v-bind:class="[
-        {'rounded-0': isMobile},
-      ]"
+      v-bind:class="[{'rounded-0': isMobile}]"
       :color="xBackgroundColor"
+      :min-height="isMobile ? '100%' : 450"
     >
       <dialog-app-bar
-        v-bind:item="item"
+        :item="item"
         v-bind:hasItemRelations="hasItemRelations"
         v-bind:editMode.sync="editMode"
         v-bind:isFormMounted.sync="isFormMounted"
@@ -41,21 +40,21 @@
           v-bind:deleteItem.sync="deleteItem"
           v-bind:editMode.sync="editMode"
         ></component>
+
+        <v-overlay :value="!formComponent || !isMounted || isLoading || isFormLoading || !isFormMounted">
+          <v-progress-circular
+            indeterminate
+            size="64"
+          ></v-progress-circular>
+        </v-overlay>
       </v-card-text>
     </v-card>
-
-    <v-overlay :value="!isMounted || isLoading || isFormLoading">
-      <v-progress-circular
-        indeterminate
-        size="64"
-      ></v-progress-circular>
-    </v-overlay>
   </v-dialog>
 </template>
 
 <script>
 
-  import DialogAppBar from "@/components/elements/FormDialog/DialogAppBar";
+  import DialogAppBar from "@/components/elements/Dialogs/FormDialog/DialogAppBar";
 
   export default {
     name: "form-dialog",
@@ -75,8 +74,8 @@
     data() {
       return {
         isMounted: false,
-        isLoading: false,
-        isFormLoading: false,
+        isLoading: true,
+        isFormLoading: true,
         isFormValid: false,
         isFormMounted: false,
         editMode: false,
@@ -93,9 +92,9 @@
     computed: {
       loader() {
         let self = this;
-        let formId = this.xFilters.capitalizeFilter(this.currentRouteName);
-        self.formComponentCalled = `./${formId}Form.vue`;
-        return () => import(`./${formId}Form.vue`)
+        let formId = this.xCap(this.currentRouteName);
+        self.formComponentCalled = `@/components/forms/${formId}Form.vue`;
+        return () => import(`@/components/forms/${formId}Form.vue`)
       },
       gearInventories: {
         get() {
@@ -151,9 +150,6 @@
             break;
 
           case 'inventories':
-            // if(self.inventoryGear[self.item.id] && self.inventoryGear[self.item.id].length > 0) {
-            //   Object.assign(relations, {['gear'] : self.inventoryGear[self.item.id]});
-            // }
             if(self.inventoryAdventures[self.item.id] && self.inventoryAdventures[self.item.id].length > 0) {
               Object.assign(relations, {['adventures'] : self.inventoryAdventures[self.item.id]});
             }
@@ -202,9 +198,11 @@
           },50);
       },
     },
+    create() {
+      this.isAppLoading = false;
+    },
     async mounted() {
       let self = this;
-      this.isLoading = true;
 
       if(this.isItemRoute)
         self.componentLoad();

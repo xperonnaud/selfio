@@ -3,8 +3,8 @@
   <v-list>
     <v-list-item class="mb-3">
       <x-picker
-        label="Category"
-        :list="typesList"
+        label="category"
+        :list="categoriesList"
         v-bind:value.sync="itemGearCategory"
       ></x-picker>
     </v-list-item>
@@ -12,7 +12,7 @@
     <v-list-item class="mb-3">
       <v-autocomplete
         v-if="filterMode"
-        label="Tags"
+        :label="$t('global.tags')"
         v-model="itemTag"
         :items="preferences.gear_tags"
         :color="currentColor"
@@ -33,14 +33,14 @@
 
     <v-list-item class="mb-3">
       <x-checkbox
-        label="Consumable"
+        label="consumable"
         v-bind:value.sync="itemConsumable"
       ></x-checkbox>
     </v-list-item>
 
     <v-list-item class="mb-3">
       <x-increment
-        label="Quantity owned"
+        label="quantity-owned"
         v-bind:value.sync="itemQuantityOwned"
         :rules="xRules.decimal"
         :color="currentColor"

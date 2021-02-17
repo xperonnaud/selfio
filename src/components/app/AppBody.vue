@@ -8,7 +8,7 @@
         v-else
         v-show="!(formDialog && isMobile) && (isMobile ? !navigationCollapse : true)"
         v-bind:class="['router-view', {'is-dark':isDark}]"
-      />
+      ></router-view>
 
       <form-dialog
         v-if="apiAccessToken && formDialogType"
@@ -28,7 +28,7 @@
     name: 'app-body',
     components: {
       LoginForm,
-      FormDialog: () => import('@/components/forms/FormDialog')
+      FormDialog: () => import('@/components/elements/Dialogs/FormDialog/FormDialog')
     },
   }
 

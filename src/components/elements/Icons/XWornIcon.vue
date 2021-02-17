@@ -12,7 +12,7 @@
               v-on="on"
           ></v-icon>
       </template>
-      <span v-text="'Worn'" />
+      <span v-text="$t('global.worn')" />
   </v-tooltip>
 
 </template>

@@ -3,7 +3,6 @@
   <v-form v-model="valid">
     <v-container fluid v-bind:class="(isMobile ? 'pt-3 px-4' : 'pt-7 px-8')">
       <v-row>
-
         <v-col v-if="!isMobile" cols="12">
           <v-data-table
             v-if="gearList && gearList.length > 0"
@@ -17,21 +16,17 @@
           >
             <template v-slot:top>
               <v-toolbar flat>
-                <v-toolbar-title
-                  v-bind:class="[navItemColorText('gear')]"
-                  v-text="'Gear list'"
-                ></v-toolbar-title>
+                <v-toolbar-title v-bind:class="[navItemColorText('gear')]"
+                >{{$t(`routes.inventories.gear-list`) | capitalizeFirstFilter}}</v-toolbar-title>
 
                 <v-spacer />
 
-                <v-text-field
-                  v-model="gearSearch"
-                  label="Search (title)"
-                  append-icon="mdi-magnify"
+                <x-text
+                  :label="$t('global.search')"
+                  v-bind:value.sync="gearSearch"
                   class="mx-2"
-                  hide-details
-                  clearable
-                ></v-text-field>
+                  appendIcon="mdi-magnify"
+                ></x-text>
 
                 <v-divider
                   class="mx-2"
@@ -82,7 +77,7 @@
 
             <template v-slot:item.brand="{ item }">
               <span
-                v-if="item.brand && xGearCategory(item.brand)"
+                v-if="item.brand && xGearBrand(item.brand)"
                 v-text="xGearBrand(item.brand).title"
                 :size="LGI"
               ></span>
@@ -101,8 +96,9 @@
               >
                 <x-img
                   :src="xGearCategory(item.category).icon"
-                  :tooltipText="xGearCategory(item.category).title"
-                />
+                  :tooltipText="item.category"
+                  isCategory
+                ></x-img>
               </v-avatar>
             </template>
 
@@ -110,9 +106,9 @@
               <v-icon
                 v-if="item.state && xGearState(item.state) && xGearState(item.state).color"
                 :color="xGearState(item.state).color"
-                v-text="'mdi-'+stateIcon(xGearState(item.state).title)"
+                v-text="`mdi-${stateIcon(xGearState(item.state).title)}`"
                 :size="MDI"
-              />
+              ></v-icon>
             </template>
 
             <template v-slot:item.activity="{ item }">
@@ -130,7 +126,6 @@
         <v-col v-else cols="12">
           <mobile-only-feature :icon="'responsive'" />
         </v-col>
-
       </v-row>
 
     </v-container>
@@ -140,11 +135,14 @@
 
 <script>
 
+  import XText from "@/components/inputs/fields/XText";
+
   export default {
     name: 'items-import-form',
     components: {
       XImg: () => import('@/components/elements/XImg'),
-      MobileOnlyFeature: () => import('@/components/elements/MobileOnlyFeature')
+      MobileOnlyFeature: () => import('@/components/elements/MobileOnlyFeature'),
+      XText,
     },
     data: () => ({
       valid: false,
@@ -154,16 +152,16 @@
     computed: {
       gearHeaders() {
         return [
-          {text: 'Category', value: 'type', align: 'start'},
-          {text: 'Title/Model', value: 'title'},
-          {text: 'Description', value: 'description'},
-          {text: 'Brand', value: 'brand'},
-          {text: 'Weight ('+this.weightUnit+')', value: 'weight'},
-          {text: 'Price ('+this.priceUnit+')', value: 'price'},
-          {text: 'Size', value: 'size'},
-          {text: 'State', value: 'state'},
-          {text: 'Purchase', value: 'purchase_date'},
-          {text: 'Qty', value: 'quantity_owned'},
+          {text: this.$t('global.category'), value: 'type', align: 'start'},
+          {text: this.$t('global.title'), value: 'title'},
+          {text: this.$t('global.description'), value: 'description'},
+          {text: this.$t('global.brand'), value: 'brand'},
+          {text: this.$t('global.weight')+' ('+this.weightUnit+')', value: 'weight'},
+          {text: this.$t('global.price')+' ('+this.priceUnit+')', value: 'price'},
+          {text: this.$t('global.size'), value: 'size'},
+          {text: this.$t('global.state'), value: 'state'},
+          {text: this.$t('global.purchase'), value: 'purchase_date'},
+          {text: this.$t('global.qty'), value: 'quantity_owned'},
         ]
       },
     },

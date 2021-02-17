@@ -2,7 +2,7 @@
 
   <v-sheet v-if="isMounted" :class="['x-check-form max-width',{'is-in-filter':isInFilter}]" :color="xTabsColor">
     <div v-if="isEditing" class="d-flex align-content-space-between">
-      <v-subheader class="mt-2 ml-2" v-text="label" />
+      <v-subheader class="mt-2 ml-2">{{$t(`global.${label}`)}}</v-subheader>
 
       <v-spacer/>
 
@@ -28,8 +28,8 @@
             @click.stop="toggleEditor()"
           >
             <v-text-field
-              :label="label"
-              :value="listedPickedValue ? (list[listReferences[pickerValue]].title) : null"
+              :label="xCap($t(`global.${label}`))"
+              :value="listedPickedValue ? xCap(dataType ? $t(`${dataType}.${selectedItem.title}.title`) : selectedItem.title) : null"
               :color="currentColor"
               hide-details="auto"
               append-icon="mdi-menu-down"
@@ -40,9 +40,9 @@
             >
               <template v-slot:prepend-inner style="margin-top: 0">
                 <x-img
-                  v-if="list[listReferences[pickerValue]] && list[listReferences[pickerValue]].icon"
-                  :src="list[listReferences[pickerValue]].icon"
-                  :tooltipText="list[listReferences[pickerValue]].title"
+                  v-if="selectedItem && selectedItem.icon"
+                  :src="selectedItem.icon"
+                  :tooltipText="xCap(dataType ? $t(`${dataType}.${selectedItem.title}.title`) : selectedItem.title)"
                   :width="avatarSize ? avatarSize : iconSize"
                   :height="avatarSize ? avatarSize : iconSize"
                   :logo="logo"
@@ -84,17 +84,14 @@
                       v-bind:class="[
                         'x-avatar',
                       ]"
-                      :style="isCategory ? (
-                        item.title!=='Unknown' ? 'border: 2px solid '+categoryColor(item.id)+' !important;'
-                          : 'border: 1px solid '+categoryColor()+' !important;'
-                        ): ''"
+                      :style="((isCategory && item.title!==$t('global.unknown')) ? 'border: 2px solid '+categoryColor(item.id)+' !important;' : '')"
                     >
                       <x-img
                         v-if="item.icon"
                         :src="item.icon"
                         :width="iconSize"
                         :height="iconSize"
-                        :tooltipText="`<strong>${item.title}</strong>`+(item.description ? '<br>'+item.description : '')"
+                        :tooltipText="xCap(dataType ? $t(`${dataType}.${item.title}.title`) : item.title)"
                         :logo="logo"
                         :isCategory="isCategory"
                       ></x-img>
@@ -107,7 +104,7 @@
                       'text-caption',
                       'text-center',
                     ]"
-                    v-html="item.title"
+                    v-html="xCap(dataType ? $t(`${dataType}.${item.title}.title`) : item.title)"
                   ></div>
                 </div>
               </v-card>
@@ -134,6 +131,7 @@
       listReferences: Object,
       label: String,
       value: Number,
+      dataType: String,
       iconSize: {
         type: Number,
         default: 48
@@ -143,10 +141,6 @@
         default: null
       },
       logo: {
-        type: Boolean,
-        default: false
-      },
-      isCategory: {
         type: Boolean,
         default: false
       },
@@ -161,6 +155,14 @@
       pickerValue: null,
     }),
     computed: {
+      selectedItem() {
+        if(!this.listedPickedValue)
+          return null;
+        return this.list[this.listReferences[this.pickerValue]]
+      },
+      isCategory() {
+        return this.dataType === 'categories';
+      },
       listedPickedValue() {
         if(!this.isMounted)
           return false;

@@ -1,26 +1,23 @@
 <template>
-  <v-sheet v-if="isMounted" height="100%">
+  <v-sheet height="100%">
 
-    <list-container
+    <x-list
       v-bind:icon="currentIcon"
       v-bind:title="currentTitle"
-      v-bind:color="currentColor"
-      v-bind:items="gear"
+      v-bind:items.sync="gearList"
       v-bind:itemHeaders="gearHeaders"
       v-bind:keyName="'name'"
-    ></list-container>
+    ></x-list>
 
   </v-sheet>
 </template>
 
 <script>
 
-import ListContainer from '@/components/containers/ListContainer'
-
 export default {
     name: "gear-view",
     components: {
-      ListContainer,
+      XList: () => import('@/components/lists/XList'),
     },
     data: () => ({
       isMounted: false,
@@ -38,11 +35,6 @@ export default {
           {text: 'Price ('+this.priceUnit+')', value: 'price'},
           {text: 'Qty (owned)', value: 'quantity_owned'},
         ]
-      },
-      gear: {
-        get() {
-          return this.$store.state.selfio.gear
-        },
       },
     },
     mounted() {

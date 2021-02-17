@@ -1,26 +1,23 @@
 <template>
-  <v-sheet v-if="isMounted" height="100%">
+  <v-sheet height="100%">
 
-    <list-container
+    <x-list
       v-bind:icon="currentIcon"
       v-bind:title="currentTitle"
-      v-bind:color="currentColor"
-      v-bind:items.sync="inventories"
+      v-bind:items.sync="inventoriesList"
       v-bind:itemHeaders="inventoriesHeaders"
       v-bind:keyName="'name'"
-    ></list-container>
+    ></x-list>
 
   </v-sheet>
 </template>
 
 <script>
 
-import ListContainer from "@/components/containers/ListContainer";
-
   export default {
     name: "inventories-view",
     components: {
-      ListContainer,
+      XList: () => import('@/components/lists/XList'),
     },
     data: () => ({
       isMounted: false,
@@ -29,13 +26,8 @@ import ListContainer from "@/components/containers/ListContainer";
       inventoriesHeaders() {
         return [
           {text: '', value: 'icon', align: 'start'},
-          {text: 'Title', value: 'title'},
+          {text: this.$t('global.title'), value: 'title'},
         ]
-      },
-      inventories: {
-        get() {
-          return this.$store.state.selfio.inventories
-        },
       },
     },
     mounted() {

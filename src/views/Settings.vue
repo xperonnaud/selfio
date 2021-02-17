@@ -8,10 +8,29 @@
         color="transparent"
       >
         <v-container fluid v-bind:class="(isMobile ? 'pa-4' : 'pa-8')">
-          <v-row style="max-width: 750px">
+          <v-row class="row-max-width">
             <v-col cols="12">
               <div>
-                <div class="text-caption" v-text="'Weight Unit'" />
+                <v-select
+                  :label="xCap($t('global.language'))"
+                  :items="languages"
+                  v-model="preferences.language"
+                  @change="setLang(preferences.language)"
+                  item-text="title"
+                  item-value="id"
+                  hide-details
+                  filled
+                  dense
+                ></v-select>
+              </div>
+            </v-col>
+
+            <v-col cols="12">
+              <div>
+                <div class="my-1">
+                  <span class="text-subtitle-2">{{$t('global.weight') | capitalizeFilter}}</span>
+                  <span class="text-tiny">&nbsp;({{$t('global.unit')}})</span>
+                </div>
                 <v-btn-toggle v-model="preferences.weight_unit" mandatory dense tile>
                   <v-btn
                     v-for="weightUnit in weightUnits"
@@ -27,7 +46,10 @@
 
             <v-col cols="12">
               <div>
-                <div class="text-caption" v-text="'Temperature Unit'" />
+                <div class="my-1">
+                  <span class="text-subtitle-2">{{$t('global.temperature') | capitalizeFilter}}</span>
+                  <span class="text-tiny">&nbsp;({{$t('global.unit')}})</span>
+                </div>
                 <v-btn-toggle v-model="preferences.temperature_unit" mandatory dense tile>
                   <v-btn
                     v-for="temperatureUnit in temperatureUnits"
@@ -43,7 +65,10 @@
 
             <v-col cols="12">
               <div>
-                <div class="text-caption" v-text="'Distance Unit'" />
+                <div class="my-1">
+                <span class="text-subtitle-2">{{$t('global.distance') | capitalizeFilter}}</span>
+                <span class="text-tiny">&nbsp;({{$t('global.unit')}})</span>
+              </div>
                 <v-btn-toggle v-model="preferences.distance_unit" mandatory dense tile>
                   <v-btn
                     v-for="distanceUnit in distanceUnits"
@@ -59,7 +84,10 @@
 
             <v-col cols="12">
               <div>
-                <div class="text-caption" v-text="'Elevation/Depth Unit'" />
+                <div class="my-1">
+                  <span class="text-subtitle-2">{{$t('global.elevation') | capitalizeFilter}}/{{$t('global.depth') | capitalizeFilter}}</span>
+                  <span class="text-tiny">&nbsp;({{$t('global.unit')}})</span>
+                </div>
                 <v-btn-toggle v-model="preferences.elevation_unit" mandatory dense tile>
                   <v-btn
                     v-for="elevationUnit in elevationUnits"
@@ -75,7 +103,10 @@
 
             <v-col cols="12">
               <div>
-                <div class="text-caption" v-text="'Price Unit'" />
+                <div class="my-1">
+                  <span class="text-subtitle-2">{{$t('global.price') | capitalizeFilter}}</span>
+                  <span class="text-tiny">&nbsp;({{$t('global.unit')}})</span>
+                </div>
                 <v-btn-toggle v-model="preferences.price_unit" mandatory dense tile>
                   <v-btn
                     v-for="priceUnit in priceUnits"
@@ -91,7 +122,10 @@
 
             <v-col cols="12">
               <div>
-                <div class="text-caption" v-text="'Date Format'" />
+                <div class="my-1">
+                  <span class="text-subtitle-2">{{$t('global.date') | capitalizeFilter}}</span>
+                  <span class="text-tiny">&nbsp;({{$t('global.format')}})</span>
+                </div>
                 <v-btn-toggle v-model="preferences.date_format" mandatory dense tile>
                   <v-btn
                     v-for="dateFormat in dateFormats"
@@ -106,18 +140,12 @@
             </v-col>
 
             <v-col cols="12">
-              <v-btn
-                v-bind:class="[
-                  'elevation-0',
-                  {'max-width':isMobile},
-                  reversedFontShadeColor,
-                  {'primary-gradient-color': valid}
-                ]"
-                :disabled="!valid"
-                @click.stop="updatePreferences()"
-              >
-                <span v-text="'Save'" />
-              </v-btn>
+              <primary-btn
+                label="save"
+                :block="isMobile"
+                :valid.sync="valid"
+                v-on:btnAction="updatePreferences()"
+              ></primary-btn>
             </v-col>
           </v-row>
         </v-container>
@@ -129,12 +157,21 @@
 
 <script>
 
+  import PrimaryBtn from "@/components/elements/Btns/PrimaryBtn";
+
   export default {
     name: "settings",
+    components: {
+      PrimaryBtn
+    },
     data: () => ({
       valid: false,
       isMounted: false,
 
+      languages: [
+        {id: 'en', title: 'English'},
+        {id: 'fr', title: 'Français'},
+      ],
       priceUnits: ['$', '€', '£', '¥'],
       distanceUnits: ['km', 'mi'],
       elevationUnits: ['m', 'ft'],

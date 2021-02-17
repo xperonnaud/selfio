@@ -4,7 +4,7 @@
     <v-list-item class="mb-3">
       <v-switch
         v-model="itemOwned"
-        label="Private"
+        :label="$t('global.private')"
         flat
         inset
       ></v-switch>

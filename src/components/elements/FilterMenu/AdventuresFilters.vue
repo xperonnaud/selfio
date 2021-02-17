@@ -3,7 +3,7 @@
   <v-list>
     <v-list-item class="mb-3">
       <x-picker
-        label="Activity"
+        label="activity"
         :list="activitiesList"
         v-bind:value.sync="itemActivity"
       ></x-picker>
@@ -12,7 +12,7 @@
     <v-list-item class="mb-3">
       <v-autocomplete
         v-if="filterMode"
-        label="Tags"
+        :label="xCapFirst($t('global.tags'))"
         :items="preferences.adventure_tags"
         v-model="itemTag"
         filled
@@ -24,20 +24,15 @@
     </v-list-item>
 
     <v-list-item class="mb-3">
-      <v-text-field
-        v-model="itemLocation"
-        label="Location"
-        :color="currentColor"
-        hide-details="auto"
-        clearable
-        dense
-        filled
-      ></v-text-field>
+      <x-text
+        :label="$t('global.location')"
+        v-bind:value.sync="itemLocation"
+      ></x-text>
     </v-list-item>
 
     <v-list-item class="mb-3">
       <x-picker
-        label="Landscape"
+        label="landscape"
         :list="landscapesList"
         v-bind:value.sync="itemLandscape"
         logo
@@ -46,7 +41,7 @@
 
     <v-list-item class="mb-3">
       <v-autocomplete
-        label="Inventory"
+        :label="xCapFirst($t('global.inventories'))"
         :items="inventoriesList"
         v-model="itemInventory"
         filled
@@ -61,7 +56,8 @@
 
     <v-list-item class="mb-3">
       <x-simple-selector
-          label="Weather"
+          label="weather"
+          dataType="weathers"
           :list="weathers"
           v-bind:value.sync="itemWeather"
           :iconSize="LGI"
@@ -75,6 +71,7 @@
 
 <script>
 
+  import XText from "@/components/inputs/fields/XText";
   import XSimpleSelector from "@/components/inputs/XSimpleSelector";
   import XPicker from "@/components/inputs/XPicker";
 
@@ -82,6 +79,7 @@
     name: 'adventures-filter',
     components: {
       XSimpleSelector,
+      XText,
       XPicker,
     },
     props: {

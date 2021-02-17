@@ -2,7 +2,7 @@
 
     <v-sheet v-if="isMounted" :class="['x-state-selector x-check-form max-width']" :color="xTabsColor">
         <div v-if="isEditing" class="d-flex align-content-space-between">
-            <v-subheader class="mt-2 ml-2" v-text="'State'" />
+            <v-subheader class="mt-2 ml-2">{{$t('global.state') | capitalizeFirstFilter}}</v-subheader>
 
             <v-spacer/>
 
@@ -28,7 +28,7 @@
                     @click.stop="toggleEditor()"
                 >
                     <v-text-field
-                        label="State"
+                        :label="xCapFirst($t('global.state'))"
                         :value="listedPickedValue ? (gearStates[pickerValue-1].title) : null"
                         :color="currentColor"
                         hide-details="auto"
@@ -57,12 +57,12 @@
                 v-show="isEditing"
                 v-bind:class="['py-0 elevation-0']"
             >
-                <v-row>
+                <v-row class="px-1">
                     <template v-for="(item, itemIndex) in gearStates">
                         <v-col
                             :key="`state-selector-${itemIndex}`"
                             :cols="isMobile ? 6 : 3"
-                            v-bind:class="[(isMobile ? 'pa-1' : 'pt-0 px-2')]"
+                            v-bind:class="[(isMobile ? 'pa-1' : 'pt-0 pb-2 px-1')]"
                         >
                             <v-card
                                 v-bind:class="[
@@ -92,7 +92,7 @@
                                             'text-caption',
                                             'text-center',
                                         ]"
-                                        v-html="item.title"
+                                        v-html="$t(`states.${item.title}`)"
                                     ></div>
                                 </div>
                             </v-card>

@@ -17,24 +17,20 @@
           >
             <template v-slot:top>
               <v-toolbar flat>
-                <v-toolbar-title
-                  v-bind:class="[navItemColorText('gear')]"
-                  v-text="'Gear list'"
-                ></v-toolbar-title>
+                <v-toolbar-title v-bind:class="[navItemColorText('gear')]"
+                >{{$t(`routes.inventories.gear-list`) | capitalizeFirstFilter}}</v-toolbar-title>
                 <v-divider
                   class="mx-2"
                   inset
                   vertical
                 ></v-divider>
 
-                <v-text-field
-                  v-model="gearSearch"
-                  label="Search (title)"
+                <x-text
+                  :label="$t('global.title')"
+                  v-bind:value.sync="gearSearch"
                   append-icon="mdi-magnify"
                   class="mx-2"
-                  hide-details
-                  clearable
-                ></v-text-field>
+                ></x-text>
 
                 <v-divider
                   class="mx-2"
@@ -95,7 +91,7 @@
               <v-avatar v-if="item.category && xGearCategory(item.category) && xGearCategory(item.category).icon" :size="LGI" class="x-avatar">
                 <x-img
                   :src="xGearCategory(item.category).icon"
-                  :tooltipText="xGearCategory(item.category).title"
+                  :tooltipText="$t(`categories.${xGearCategory(item.category).title}.title`)"
                 />
               </v-avatar>
             </template>
@@ -134,12 +130,14 @@
 
 <script>
 
+  import XText from "@/components/inputs/fields/XText";
   import XImg from "@/components/elements/XImg";
   import MobileOnlyFeature from "@/components/elements/MobileOnlyFeature";
 
   export default {
     name: 'items-import-form',
     components: {
+      XText,
       XImg,
       MobileOnlyFeature
     },
@@ -152,7 +150,7 @@
       gearHeaders() {
         return [
           {text: 'Category', value: 'type', align: 'start'},
-          {text: 'Title/Model', value: 'title'},
+          {text: 'Title', value: 'title'},
           {text: 'Description', value: 'description'},
           {text: 'Brand', value: 'brand'},
           {text: 'Weight (g)', value: 'weight'},

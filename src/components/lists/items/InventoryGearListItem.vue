@@ -1,7 +1,7 @@
 <template>
 
   <v-list-item
-    v-on:click="$emit('itemAction',gear)"
+    v-on:click="$emit('itemAction', gear)"
     v-bind:class="[
       'x-checklist-item',
       {'px-3':isMobile}
@@ -13,17 +13,17 @@
 
     <v-list-item-avatar
       v-bind:class="['x-avatar my-0 mr-2 d-flex justify-center']"
-      width="32"
-      min-width="32"
-      height="32"
-      :style="'border: 2px solid '+(gear.quantity_owned === 0 ? xInputColor : categoryColor(gear.category))+' !important;'"
+      :width="XXLI"
+      :min-width="XXLI"
+      :height="XXLI"
+      :style="gear.category ? 'border: 2px solid '+(gear.quantity_owned === 0 ? xInputColor : categoryColor(gear.category))+' !important;' : ''"
     >
       <x-img
         v-if="gear.category && xGearCategory(gear.category)"
         :src="xGearCategory(gear.category).icon"
-        :tooltipText="xGearCategory(gear.category).title"
-        :width="16"
-        :height="16"
+        :tooltipText="gear.category"
+        :width="XSI"
+        :height="XSI"
         isCategory
       ></x-img>
 
@@ -34,14 +34,12 @@
       <v-row align="center" justify="center" :class="[{'text--disabled':gear.quantity_owned === 0}]">
         <v-col :cols="isMobile ? 6 : 3" class="py-0">
           <div>
-            <v-list-item-title v-bind:class="['mb-1',{'text-body-2' : isMobile}]">
-              {{gear.title}}
-            </v-list-item-title>
+            <v-list-item-title v-bind:class="['mb-1',{'text-body-2' : isMobile}]" v-text="xCap(gear.title)" />
 
             <v-list-item-subtitle
               v-if="!isMobile"
               v-bind:class="[(gear.quantity_owned === 0 ? 'text--disabled' : 'text-caption')]"
-              v-text="gear.brand ? xGearBrand(gear.brand).title : '.'"
+              v-text="gear.brand && xGearBrand(gear.brand) ? xCap(xGearBrand(gear.brand).title) : '.'"
             ></v-list-item-subtitle>
 
             <v-list-item-subtitle
@@ -86,7 +84,7 @@
                 v-on="on"
               ></v-icon>
             </template>
-            <span v-text="xGearState(gear.state).title" />
+            <span v-text="$t(`states.${xGearState(gear.state).title}`)" />
           </v-tooltip>
           <empty-data solo v-else />
         </v-col>
@@ -136,7 +134,7 @@
 
     <v-list-item-action style="margin-right: 0 !important;">
       <v-btn
-        :class="[{'primary-gradient-color-text':inventoryGearList.includes(gear.id)}]"
+        :class="[{'primary-gradient-color-text-vertical':inventoryGearList.includes(gear.id)}]"
         :disabled="!inventoryGearList.includes(gear.id)"
         @click.stop="inventoryGearList.includes(gear.id) ? selectInventoryGear(gear) : null"
         icon
@@ -150,24 +148,16 @@
 
 <script>
 
-  import XImg from "@/components/elements/XImg";
-  import XWeightCol from "@/components/xcols/XWeightCol";
-  import XChecker from "@/components/inputs/XChecker";
-  import EmptyData from "@/components/elements/EmptyData";
-  import XWornIcon from "@/components/elements/Icons/XWornIcon";
-  import XConsumableIcon from "@/components/elements/Icons/XConsumableIcon";
-  import XUnknownCategoryIcon from "@/components/elements/Icons/XUnknownCategoryIcon";
-
   export default {
     name: 'inventory-gear-list-item',
     components: {
-      XImg,
-      XWeightCol,
-      XChecker,
-      EmptyData,
-      XWornIcon,
-      XConsumableIcon,
-      XUnknownCategoryIcon,
+      XImg: () => import('@/components/elements/XImg'),
+      XWeightCol: () => import('@/components/xcols/XWeightCol'),
+      XChecker: () => import('@/components/inputs/XChecker'),
+      EmptyData: () => import('@/components/elements/EmptyData'),
+      XWornIcon: () => import('@/components/elements/Icons/XWornIcon'),
+      XConsumableIcon: () => import('@/components/elements/Icons/XConsumableIcon'),
+      XUnknownCategoryIcon: () => import('@/components/elements/Icons/XUnknownCategoryIcon'),
     },
     props: {
       gear: Object,

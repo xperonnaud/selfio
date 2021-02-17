@@ -2,7 +2,7 @@
 
   <v-sheet v-if="isMounted" class="x-simple-selector x-check-form max-width" :color="xTabsColor">
     <div v-if="isEditing" class="d-flex align-content-space-between">
-      <v-subheader class="mt-2 ml-2" v-text="label" />
+      <v-subheader class="mt-2 ml-2">{{$t(`global.${label}`) | capitalizeFilter}}</v-subheader>
 
       <v-spacer/>
 
@@ -28,8 +28,8 @@
             @click.stop="toggleEditor()"
           >
             <v-text-field
-              :label="label"
-              :value="pickerValue ? pickerValue : null"
+              :label="xCap($t(`global.${label}`))"
+              :value="pickerValue ? xCap(dataType ? $t(`${dataType}.${pickerValue}.title`) : pickerValue) : null"
               :color="currentColor"
               hide-details="auto"
               append-icon="mdi-menu-down"
@@ -85,13 +85,8 @@
                     <v-icon v-text="`mdi-weather-${item}`" />
                   </div>
 
-                  <div
-                    v-bind:class="[
-                      'text-caption',
-                      'text-center',
-                    ]"
-                  >
-                    {{ item | noDashFilter | capitalizeFilter }}
+                  <div class="text-caption text-center">
+                    {{ (dataType ? $t(`${dataType}.${item}.title`) : item) | capitalizeFilter }}
                   </div>
                 </div>
               </v-card>
@@ -112,6 +107,7 @@
       list: Array,
       label: String,
       value: String,
+      dataType: String,
       iconSize: {
         type: Number,
         default: 48

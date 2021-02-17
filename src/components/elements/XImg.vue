@@ -19,7 +19,17 @@
           contain
         ></v-img>
       </template>
-      <span class="ma-0 pa-0" v-if="tooltipText" v-html="tooltipText" />
+
+      <template v-if="tooltipText">
+        <span
+          class="ma-0 pa-0"
+          v-if="isCategory"
+          v-html="xGearCategory(tooltipText) ? xCap($t(`categories.${xGearCategory(tooltipText).title}.title`))
+          + '<br>'
+           + xCap($t(`categories.${xGearCategory(tooltipText).title}.desc`)) : null"
+        ></span>
+        <span class="ma-0 pa-0" v-else v-html="tooltipText" />
+      </template>
     </v-tooltip>
   </v-sheet>
 
@@ -36,7 +46,7 @@
         default: false,
       },
       tooltipText: {
-        type: String,
+        type: [Number, String],
         default: null,
       },
       noMargin: {

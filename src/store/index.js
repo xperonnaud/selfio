@@ -23,8 +23,6 @@ export default new Vuex.Store({
             brandReferences: {},
             landscapes: [],
             landscapeReferences: {},
-            weatherReferences: {},
-            gearStateReferences: {},
             gearCategories: [],
             gearCategoryReferences: {},
             activities: [],
@@ -69,138 +67,17 @@ export default new Vuex.Store({
 
             isAppLoading: false,
             isConfigurationReady: false,
-            navigationCollapse: true,
+            navigationCollapse: false,
 
             isItemRoute: false,
-
-            navigationRoutes: [
-                'gear',
-                'inventories',
-                'adventures',
-                'home',
-                'account',
-                'brands',
-                'tags',
-                'import_export',
-                'settings',
-                'feedback',
-                'info',
-            ],
-            navigationItems: {
-                home: {
-                    title: 'Home',
-                    icon: 'mdi-view-dashboard',
-                    type: 'misc',
-                },
-                gear: {
-                    title: 'Gear',
-                    icon: 'mdi-knife-military',
-                    color: 'blue',
-                    type: 'items'
-                },
-                inventories: {
-                    title: 'Inventories',
-                    icon: 'mdi-semantic-web',
-                    color: 'purple',
-                    type: 'items'
-                },
-                adventures: {
-                    title: 'Adventures',
-                    icon: 'mdi-image-filter-hdr',
-                    color: 'teal',
-                    type: 'items'
-                },
-                account: {
-                    title: 'Account',
-                    icon: 'mdi-account-circle',
-                    type: 'account',
-                },
-                brands: {
-                    title: 'Brands',
-                    icon: 'mdi-label-multiple',
-                    type: 'configuration',
-                },
-                tags: {
-                    title: 'Tags',
-                    icon: 'mdi-tag-multiple',
-                    type: 'settings',
-                },
-                settings: {
-                    title: 'Settings',
-                    icon: 'mdi-cog',
-                    type: 'settings',
-                },
-                feedback: {
-                    title: 'Feedback',
-                    icon: 'mdi-comment-text',
-                    type: 'misc',
-                },
-                import_export: {
-                    title: 'Import / Export',
-                    icon: 'mdi-database',
-                    type: 'misc',
-                },
-                info: {
-                    title: 'Info',
-                    icon: 'mdi-chart-timeline-variant-shimmer',
-                    type: 'undefined',
-                },
-            },
 
             tempInventoryGear: [],
 
             tempGearInventories: [],
-
-            weathers: [
-                'cloudy',
-                'fog',
-                'hail',
-                'hazy',
-                'lightning',
-                'lightning-rainy',
-                'partly-cloudy',
-                'partly-rainy',
-                'partly-snowy',
-                'partly-snowy-rainy',
-                'pouring',
-                'rainy',
-                'snowy',
-                'snowy-heavy',
-                'snowy-rainy',
-                'sunny',
-                'windy',
-            ],
-            gearStates: [
-                { id: 1, title: 'Poor', color: 'red' },
-                { id: 2, title: 'Used', color: 'orange' },
-                { id: 3, title: 'Ok', color: 'green' },
-                { id: 4, title: 'New', color: 'blue' },
-            ],
-            
-            colors: [
-                'red',
-                'pink',
-                'purple',
-                'deep-purple',
-                'indigo',
-                'blue',
-                'cyan',
-                'teal',
-                'green',
-                'light-green',
-                'yellow',
-                'orange',
-                'deep-orange',
-                'brown',
-                'blue-grey',
-            ],
         },
     },
     mutations: {
         // Api
-        updateApiAuthTimer(state, authTimer) {
-            state.api.authTimer = authTimer;
-        },
         updateApiLogin(state, login) {
             state.api.login = login;
         },
@@ -293,7 +170,7 @@ export default new Vuex.Store({
             }
         },
         updateInventoryGear(state, inventoryIndex) {
-            if(typeof inventoryIndex == 'number' && state.selfio.inventories[inventoryIndex]) {
+            if(typeof inventoryIndex == 'number' && state.selfio.inventories[inventoryIndex] && state.selfio.inventories[inventoryIndex]['inventory_gear']) {
                 while(state.selfio.inventories[inventoryIndex]['inventory_gear'].length > 0) state.selfio.inventories[inventoryIndex]['inventory_gear'].pop();
                 Object.assign(state.selfio.inventories[inventoryIndex]['inventory_gear'], state.ui.tempInventoryGear);
             }

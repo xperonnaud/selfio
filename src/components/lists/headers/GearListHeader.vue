@@ -9,30 +9,27 @@
         @click.stop="sortItems('title')"
         v-ripple
       >
-        <div class="d-flex">
-          <div class="text-tiny">
-            <div v-text="'Title / Model'" />
-            <div v-text="'Brand'" />
-          </div>
+        <div :class="['d-flex', {isMobile: 'flex-column'}]">
+          <div v-bind:class="['text-tiny']">{{$t('global.title') | capitalizeFirstFilter}}</div>
           <x-sort-icon prop="title" />
         </div>
       </v-col>
 
-      <x-col text="Weight" prop="weight" />
+      <x-col text="weight" prop="weight" />
 
       <template v-if="!isMobile">
-        <x-col text="Price" prop="price" />
+        <x-col text="price" prop="price" />
 
-        <x-col text="Purchase" prop="purchase_date" />
+        <x-col text="purchase" prop="purchase_date" />
 
-        <x-col text="Update" prop="date_updated" />
+        <x-col text="update" prop="date_updated" />
 
-        <x-col text="State" prop="state" />
+        <x-col text="state" prop="state" />
       </template>
 
-      <x-col :text="isMobile ? 'Cons.' : 'Consumable'" prop="Consumable" />
+      <x-col text="consumable" mini prop="consumable" />
 
-      <x-col :text="isMobile ? 'Qty.' : 'Quantity'" prop="quantity_owned" />
+      <x-col :text="isMobile ? 'qty' : 'quantity'" prop="quantity_owned" />
 
       <v-col cols="1" class="pa-0">
         <div class="text-tiny" v-text="''" />

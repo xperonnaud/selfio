@@ -8,10 +8,10 @@
       :fixed-tabs="isMobile"
     >
       <v-tab>
-        <span v-text="'Export'" />
+        <span v-text="$t('global.export')" />
       </v-tab>
       <v-tab>
-        <span v-text="'Import'" />
+        <span v-text="$t('global.import')" />
       </v-tab>
 
       <v-tab-item>

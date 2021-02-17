@@ -1,6 +1,4 @@
 
-import C from '@/constants'
-
 export default {
     data () {
         return {
@@ -9,7 +7,115 @@ export default {
                 'gear',
                 'inventories',
                 'adventures'
-            ]
+            ],
+            NAVIGATION_ROUTES: [
+                'gear',
+                'inventories',
+                'adventures',
+                'home',
+                'account',
+                'brands',
+                'tags',
+                'import_export',
+                'settings',
+                'feedback',
+                'info',
+            ],
+            NAVIGATION_ITEMS: {
+                home: {
+                    title: 'Home',
+                    id: 'home',
+                    icon: 'mdi-view-dashboard',
+                    type: 'misc',
+                },
+                gear: {
+                    title: 'Gear',
+                    id: 'gear',
+                    icon: 'mdi-knife-military',
+                    color: 'blue',
+                    type: 'items'
+                },
+                inventories: {
+                    title: 'Inventories',
+                    id: 'inventories',
+                    icon: 'mdi-semantic-web',
+                    color: 'purple',
+                    type: 'items'
+                },
+                adventures: {
+                    title: 'Adventures',
+                    id: 'adventures',
+                    icon: 'mdi-image-filter-hdr',
+                    color: 'teal',
+                    type: 'items'
+                },
+                account: {
+                    title: 'Account',
+                    id: 'account',
+                    icon: 'mdi-account-circle',
+                    type: 'account',
+                },
+                brands: {
+                    title: 'Brands',
+                    id: 'brands',
+                    icon: 'mdi-label-multiple',
+                    type: 'configuration',
+                },
+                tags: {
+                    title: 'Tags',
+                    id: 'tags',
+                    icon: 'mdi-tag-multiple',
+                    type: 'settings',
+                },
+                settings: {
+                    title: 'Settings',
+                    id: 'settings',
+                    icon: 'mdi-cog',
+                    type: 'settings',
+                },
+                feedback: {
+                    title: 'Feedback',
+                    id: 'feedback',
+                    icon: 'mdi-comment-text',
+                    type: 'misc',
+                },
+                import_export: {
+                    title: 'Import / Export',
+                    id: 'import-export',
+                    icon: 'mdi-database',
+                    type: 'misc',
+                },
+                info: {
+                    title: 'Info',
+                    id: 'info',
+                    icon: 'mdi-chart-timeline-variant-shimmer',
+                    type: 'undefined',
+                },
+            },
+            WEATHERS: [
+                'cloudy',
+                'fog',
+                'hail',
+                'hazy',
+                'lightning',
+                'lightning-rainy',
+                'partly-cloudy',
+                'partly-rainy',
+                'partly-snowy',
+                'pouring',
+                'rainy',
+                'snowy',
+                'snowy-heavy',
+                'snowy-rainy',
+                'sunny',
+                'windy',
+            ],
+            GEAR_STATES: [
+                { id: 1, title: 'poor', color: 'red' },
+                { id: 2, title: 'used', color: 'orange' },
+                { id: 3, title: 'ok', color: 'green' },
+                { id: 4, title: 'new', color: 'blue' },
+            ],
         }
     },
     computed: {
@@ -30,9 +136,6 @@ export default {
         },
         xFilters() {
             return this.$options.filters
-        },
-        assetUrl() {
-            return this.store.api.baseUrl+'assets/'
         },
         itemOrderBy: {
             get() {
@@ -124,7 +227,22 @@ export default {
         },
         weathers: {
             get() {
-                return this.xUi.weathers
+                return this.WEATHERS
+            },
+        },
+        navigationRoutes: {
+            get() {
+                return this.NAVIGATION_ROUTES
+            },
+        },
+        navigationItems: {
+            get() {
+                return this.NAVIGATION_ITEMS;
+            },
+        },
+        gearStates: {
+            get() {
+                return this.GEAR_STATES
             },
         },
         user: {
@@ -195,11 +313,6 @@ export default {
                 return this.xSelfio.gearCategories
             },
         },
-        gearStates: {
-            get() {
-                return this.xUi.gearStates
-            },
-        },
         gearReferences: {
             get() {
                 return this.xSelfio.gearReferences
@@ -220,16 +333,6 @@ export default {
                 return this.xSelfio.landscapeReferences
             },
         },
-        weatherReferences: {
-            get() {
-                return this.xSelfio.weatherReferences
-            },
-        },
-        gearStateReferences: {
-            get() {
-                return this.xSelfio.gearStateReferences
-            },
-        },
         gearCategoryReferences: {
             get() {
                 return this.xSelfio.gearCategoryReferences
@@ -245,16 +348,6 @@ export default {
                 return this.xSelfio.inventoryReferences
             },
         },
-        navigationRoutes: {
-            get() {
-                return this.xUi.navigationRoutes
-            },
-        },
-        navigationItems: {
-            get() {
-                return this.xUi.navigationItems
-            },
-        },
         tempInventoryGear: {
             get() {
                 return this.xUi.tempInventoryGear
@@ -265,11 +358,6 @@ export default {
                 return this.xUi.selectedItemRelations
             },
         },
-        vuetifyColors: {
-            get() {
-                return this.xUi.colors
-            },
-        },
         itemSearch: {
             get() {
                 return this.xUi.itemSearch
@@ -278,40 +366,17 @@ export default {
                 this.$store.commit("updateUiItemSearch", value)
             }
         },
-        currentRouteName() {
-            if(this.isStoreMounted && this.$route)
-                return this.$route.name;
-            return 'home';
-        },
-        currentRouteTitle() {
-            if(this.isStoreMounted && this.$router)
-                return this.xFilters.capitalizeFilter(this.currentRouteName);
-        },
     },
     methods: {
-        dynamicWeightUnit(weight) {
-            switch(this.weightUnit) {
-                case 'g':
-                    return (weight >= 1000 ? 'kg' : this.weightUnit);
-
-                case 'oz':
-                    return (((Math.round(weight * C.G_TO_OZ * 10) / 10) >= 96) ? 'lb' : this.weightUnit);
-
-                default:
-                    return this.weightUnit;
-            }
+        xCap(str) {
+            if(!str) return '';
+            if(typeof str == 'number') return str;
+            return this.xFilters.capitalizeFilter(str);
         },
-        sortItems(by, option = "asc") {
-            if (this.itemOrderBy == by) {
-                if (this.itemOrderOption == "asc") {
-                    this.itemOrderOption = "desc";
-                } else if (this.itemOrderOption == "desc") {
-                    this.itemOrderOption = "asc";
-                }
-            } else {
-                this.itemOrderOption = option;
-                this.itemOrderBy = by;
-            }
+        xCapFirst(str) {
+            if(!str) return '';
+            if(typeof str == 'number') return str;
+            return this.xFilters.capitalizeFirstFilter(str);
         },
         xGear(gearId) {
             if(gearId && this.gearList)
@@ -348,16 +413,6 @@ export default {
                 return (this.landscapesList[this.landscapeReferences[landscapeId]]);
             return null;
         },
-        objFilter(object, prop, value) {
-            if(object) {
-                let result = object.filter(obj => {
-                    return obj[prop] === value
-                });
-                return result;
-            } else {
-                return null
-            }
-        },
         clearMenuFilters() {
             this.$store.commit("updateUiItemSearch", '');
             this.$store.commit("updateUiItemOwned", null);
@@ -373,71 +428,11 @@ export default {
             this.$store.commit("updateUiItemLandscape", null);
             this.$store.commit("updateUiItemWeather", null);
         },
-        updateSnackbar(type, text, icon) {
+        updateSnackbar(type, text) {
             this.snackbarDisplay = true;
             this.snackbarType = type;
             this.snackbarText = text;
         },
-        stateIcon(title) {
-            let icon = 'battery-off';
-
-            switch(title) {
-                case 'New':
-                    icon =  'battery-high';
-                    break;
-                case 'Ok':
-                    icon =  'battery-medium';
-                    break;
-                case 'Used':
-                    icon =  'battery-low';
-                    break;
-                case 'Poor':
-                    icon =  'battery-off-outline';
-                    break;
-                default:
-                    return null;
-            }
-
-            return icon;
-        },
-        sumInventoryProperty(inventoryGear, prop) {
-            let self = this;
-            let sum = 0;
-
-            inventoryGear.forEach(function(gear) {
-                if(typeof gear.gear_quantity_packed == 'number' && gear.gear_quantity_packed > 0) {
-                    if(prop === 'quantity_packed') {
-                        sum += 1;
-                    } else {
-                        let gearIndex = self.gearReferences[gear.gear_id];
-
-                        if(self.gearList[gearIndex] && (typeof self.gearList[gearIndex][prop] == 'number'))
-                            sum += (self.gearList[gearIndex][prop] * gear.gear_quantity_packed);
-                    }
-                }
-            });
-
-            return sum;
-        },
-        sumInventoryPrice(inventoryGear) {
-            return this.sumInventoryProperty(inventoryGear, 'price').toFixed(2);
-        },
-        sumInventoryWeight(inventoryGear) {
-            return this.sumInventoryProperty(inventoryGear, 'weight');
-        },
-        sumInventoryQuantityPacked(inventoryGear) {
-            return this.sumInventoryProperty(inventoryGear, 'quantity_packed');
-        },
-        randomId(length = 16) {
-            let result = '';
-            let characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-            for (let i = 0; i < length; i++) {
-                result += characters.charAt(Math.floor(Math.random() * characters.length));
-            }
-            return result;
-        },
-    },
-    watch: {
 
     },
     mounted() {

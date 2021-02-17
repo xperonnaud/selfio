@@ -1,12 +1,12 @@
 <template>
 
-  <v-form v-model="valid">
-    <v-container
-      v-bind:class="[
-        'pa-0',
-        {'pb-3 pt-0':!isMobile},
-      ]"
-    >
+  <v-container
+    v-bind:class="[
+      'pa-0',
+      {'pb-3 pt-0':!isMobile},
+    ]"
+  >
+    <v-form v-model="valid">
       <v-tabs
         v-if="isMounted"
         v-model="tab"
@@ -15,10 +15,10 @@
         fixed-tabs
       >
         <v-tab :key="'gear-general'">
-          <span v-text="'General'" />
+          <span v-text="$t('global.general')" />
         </v-tab>
         <v-tab :key="'gear-purchase'">
-          <span v-text="'Purchase'" />
+          <span v-text="$t('global.purchase')" />
         </v-tab>
 
         <v-tabs-items v-model="tab" :style="xBackgroundStyleColorStr">
@@ -31,47 +31,44 @@
               <v-card flat :color="xBackgroundColor">
                 <v-card-text :class="{'py-1':isMobile}">
                   <v-row>
-                    <v-col cols="12">
+                    <v-col cols="12" class="pb-0">
                       <x-title-field
-                        label="Title / Model"
+                        label="title"
+                        v-bind:valid.sync="validTitle"
                         v-bind:value.sync="updatedItem.title"
                       ></x-title-field>
                     </v-col>
 
                     <v-col cols="12">
                       <x-selector
-                        label="Category"
-                        :list="typesList"
+                        label="category"
+                        dataType="categories"
+                        :list="categoriesList"
                         :listReferences="gearCategoryReferences"
                         v-bind:value.sync="updatedItem.category"
                         :iconSize="LGI"
-                        isCategory
                       ></x-selector>
                     </v-col>
 
                     <v-col cols="12">
                       <x-checkbox
-                        label="Consumable"
+                        label="consumable"
                         v-bind:value.sync="updatedItem.consumable"
                       ></x-checkbox>
                     </v-col>
 
                     <v-col cols="12">
-                      <v-text-field
-                        label="Weight"
-                        v-model="updatedItem.weight"
+                      <x-text
+                        :label="$t('global.weight')"
+                        v-bind:value.sync="updatedItem.weight"
                         :rules="xRules.decimal"
-                        :color="currentColor"
-                        hide-details="auto"
                         :suffix="weightUnit"
-                        dense
-                        filled
-                      ></v-text-field>
+                      ></x-text>
                     </v-col>
 
                     <v-col cols="12">
                       <x-increment
-                        label="Quantity owned"
+                        label="quantity-owned"
                         v-bind:value.sync="updatedItem.quantity_owned"
                         :rules="xRules.decimal"
                         :color="currentColor"
@@ -82,7 +79,7 @@
 
                     <v-col cols="12">
                       <x-combobox
-                        label="Tags"
+                        label="tags"
                         v-bind:value.sync="updatedItem.tags"
                         v-bind:items="preferences.gear_tags"
                         v-bind:route="'gear'"
@@ -108,16 +105,12 @@
                     </v-col>
 
                     <v-col cols="12">
-                      <v-text-field
-                        label="Price"
-                        v-model="updatedItem.price"
+                      <x-text
+                        :label="$t('global.price')"
+                        v-bind:value.sync="updatedItem.price"
                         :rules="xRules.decimal"
-                        :color="currentColor"
-                        filled
-                        dense
-                        hide-details="auto"
                         :suffix="priceUnit"
-                      ></v-text-field>
+                      ></x-text>
                     </v-col>
 
                     <v-col cols="12">
@@ -126,25 +119,21 @@
 
                     <v-col cols="12">
                       <x-date-picker
-                        label="Purchase date"
+                        label="purchase"
                         v-bind:value.sync="updatedItem.purchase_date"
                       ></x-date-picker>
                     </v-col>
 
                     <v-col cols="12">
-                      <v-text-field
-                        label="Size"
-                        v-model="updatedItem.size"
-                        :color="currentColor"
-                        filled
-                        dense
-                        hide-details="auto"
-                      ></v-text-field>
+                      <x-text
+                        :label="$t('global.size')"
+                        v-bind:value.sync="updatedItem.size"
+                      ></x-text>
                     </v-col>
 
                     <v-col cols="12">
                       <v-textarea
-                        label="Description"
+                        :label="xCapFirst($t('global.description'))"
                         v-model="updatedItem.description"
                         :color="currentColor"
                         hide-details="auto"
@@ -161,8 +150,16 @@
           </v-tab-item>
         </v-tabs-items>
       </v-tabs>
-    </v-container>
-  </v-form>
+
+      <v-overlay v-if="!isMobile && (!isMounted || isLoading)">
+        <v-progress-circular
+          indeterminate
+          size="64"
+        ></v-progress-circular>
+      </v-overlay>
+      <v-text-field v-show="false" v-model="validTitle" :rules="xRules.boolean" />
+    </v-form>
+  </v-container>
 
 </template>
 
@@ -170,6 +167,7 @@
 
   import Vue from 'vue'
 
+  import XText from "@/components/inputs/fields/XText";
   import XTitleField from "@/components/inputs/fields/XTitleField";
   import XBrandSelector from "@/components/inputs/fields/XBrandSelector";
   import XStateSelector from "@/components/inputs/fields/XStateSelector";
@@ -182,6 +180,7 @@
   export default {
     name: 'gear-form',
     components: {
+      XText,
       XTitleField,
       XStateSelector,
       XBrandSelector,
@@ -200,7 +199,7 @@
       },
       isFormLoading: {
         type: Boolean,
-        default: false
+        default: true
       },
       isFormValid: {
         type: Boolean,
@@ -221,8 +220,9 @@
     },
     data: () => ({
       isMounted: false,
-      isLoading: false,
+      isLoading: null,
       valid: false,
+      validTitle: false,
       tab: 'gear-general',
 
       updatedItem: {},
@@ -259,11 +259,9 @@
           this.$emit('update:isFormMounted',newVal);
       },
       isLoading(val) {
-        if(this.isMounted)
           this.$emit('update:isFormLoading',val);
       },
       isFormLoading(val) {
-        if(this.isMounted)
           this.isLoading = val;
       },
       async postItem(val) {
@@ -305,9 +303,8 @@
       },
     },
     async mounted() {
-      this.isLoading = true;
       if(this.item)
-        Object.assign(this.updatedItem, this.item);
+        this.updatedItem = this.copyVar(this.item);
 
       await this.fixUpdatedItem();
 

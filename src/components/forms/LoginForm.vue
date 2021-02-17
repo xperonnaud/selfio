@@ -7,7 +7,7 @@
   >
     <v-card dark flat max-width="369" class="login-card mx-2">
       <v-card-title>
-        <span v-text="'PackHub.io'" class="primary-gradient-color-text" />
+        <span v-text="$t('global.app-name')" class="text-h5 primary-gradient-color-text" />
       </v-card-title>
 
       <v-card-text>
@@ -17,7 +17,7 @@
 
               <v-col cols="12" class="py-0">
                 <v-text-field
-                  label="Login"
+                  :label="xCapFirst($t('global.email'))"
                   v-model="userLogin"
                   :rules="xRules.email"
                   filled
@@ -29,7 +29,7 @@
 
               <v-col cols="12" class="py-0">
                 <v-text-field
-                  label="Password"
+                  :label="$t('routes.login.password')"
                   v-model="userPassword"
                   :rules="xRules.password"
                   type="password"
@@ -41,25 +41,19 @@
               </v-col>
 
               <v-col cols="12" class="py-0">
-                <v-btn
+                <primary-btn
+                  label="login"
+                  v-on:btnAction="login()"
+                  :valid.sync="valid"
+                  :isLoading.sync="isLoading"
                   block
                   large
-                  :class="['elevation-0', {'primary-gradient-color': !(!valid || isLoading)}]"
-                  @click="login()"
-                  @keyup.enter="login()"
-                  :disabled="!valid || isLoading"
-                  :loading="isLoading"
-                >
-                  <span
-                    v-bind:class="[{'text-disabled': !valid}]"
-                    v-text="'Login'"
-                  ></span>
-                </v-btn>
+                ></primary-btn>
               </v-col>
 
               <v-col cols="12" class="py-0">
                 <v-btn
-                  class="my-1 elevation-0"
+                  class="mt-1 elevation-0"
                   @click="forgotPassword()"
                   :disabled="isLoading"
                   block
@@ -68,8 +62,8 @@
                 >
                   <span
                     style="font-size: 10px;"
-                    :class="['text--disabled']"
-                    v-text="'Forgot password ?'"
+                    class="text-tiny-dimmed"
+                    v-text="$t('routes.login.forgot-password')"
                   ></span>
                 </v-btn>
               </v-col>
@@ -85,8 +79,13 @@
 
 <script>
 
+  import PrimaryBtn from "@/components/elements/Btns/PrimaryBtn";
+
   export default {
     name: 'login-form',
+    components: {
+      PrimaryBtn
+    },
     data: () => ({
       valid: false,
       isLoading: false,

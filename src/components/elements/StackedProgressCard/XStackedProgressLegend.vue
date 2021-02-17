@@ -16,7 +16,7 @@
                         x-small
                     />
 
-                    <span v-text="item.label" style="margin: 0 2px;" />
+                    <span v-if="item.label && item.label!==''" style="margin: 0 2px;">{{$t(`global.${item.label}`) | capitalizeFirstFilter}}</span>
                 </template>
 
                 <template v-else>
@@ -36,7 +36,7 @@
                     />
                 </template>
 
-                <template v-if="item.percentage <= toggleLimit">
+                <template v-if="!((item.percentage > toggleLimit) || (!isMobile && item.percentage > (toggleLimit/3)))">
                     <span :class="[fontShadeColor]">{{item.value | weightUnitFilter(weightUnit)}}</span>
                     <span :class="fontShadeColor" v-text="dynamicWeightUnit(item.value)" :key="`weight-unit-${randomId()}-${item.value}`" />
                 </template>

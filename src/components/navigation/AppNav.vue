@@ -13,13 +13,15 @@
         <v-list-item-icon v-bind:class="[{'mr-7':!isMobile}]">
           <v-icon
             v-text="'mdi-cogs'"
-            class="primary-gradient-color-text"
+            :color="shadeColor"
             :size="LGI"
           ></v-icon>
         </v-list-item-icon>
 
         <v-list-item-content>
-          <v-list-item-title class="text-h5" v-text="'PackHub'" />
+          <v-list-item-title>
+            <span v-text="$t('global.app-name')" class="text-h5 primary-gradient-color-text" />
+          </v-list-item-title>
         </v-list-item-content>
       </v-list-item>
     </template>
@@ -43,7 +45,9 @@
         </v-list-item-icon>
 
         <v-list-item-content>
-          <v-list-item-title v-text="navigationItems[item].title" />
+          <v-list-item-title>
+            {{$t(`global.${navigationItems[item].id}`) | capitalizeFilter}}
+          </v-list-item-title>
         </v-list-item-content>
       </v-list-item>
     </template>
@@ -69,7 +73,7 @@
 
         <v-list-item-content>
           <v-list-item-title>
-            <span v-text="navigationItems[item].title" />
+            <span>{{$t(`global.${navigationItems[item].id}`) | capitalizeFilter}}</span>
           </v-list-item-title>
         </v-list-item-content>
       </v-list-item>
@@ -88,7 +92,9 @@
       </v-list-item-icon>
 
       <v-list-item-content>
-        <v-list-item-title v-text="'Theme'" />
+        <v-list-item-title>
+          {{$t(`global.theme`) | capitalizeFilter}}
+        </v-list-item-title>
       </v-list-item-content>
     </v-list-item>
 
@@ -97,7 +103,7 @@
 
       <v-list-item
         v-bind:class="[(isMobile ? 'my-1' : 'my-2')]"
-        @click.stop="logout()"
+        @click.stop="api_logout()"
         link
         dense
       >
@@ -109,7 +115,9 @@
         </v-list-item-icon>
 
         <v-list-item-content>
-          <v-list-item-title v-text="'Logout'" />
+          <v-list-item-title>
+            {{$t(`global.logout`) | capitalizeFilter}}
+          </v-list-item-title>
         </v-list-item-content>
       </v-list-item>
     </template>
@@ -121,12 +129,6 @@
 
   export default {
     name: 'app-nav',
-    components: {
-
-    },
-    methods: {
-
-    }
   }
 
 </script>

@@ -9,12 +9,12 @@
         v-ripple
       >
         <div class="d-flex">
-          <div class="text-caption" v-text="'Title'" />
+          <div class="text-tiny">{{$t('global.title') | capitalizeFirstFilter}}</div>
           <x-sort-icon prop="title" />
         </div>
       </v-col>
 
-      <x-col text="Action" prop="user_created" />
+      <x-col text="action" prop="user_created" />
     </v-row>
   </v-list-item-content>
 

@@ -1,9 +1,9 @@
 <template>
 
   <v-app-bar
-    app
     v-bind:class="['rounded-0', ('elevation-1')]"
     :color="xTabsColor"
+    app
   >
     <v-app-bar-nav-icon
       class="mr-1"
@@ -16,8 +16,7 @@
         'pl-0'
       ]"
     >
-      <span v-if="isItemRoute" v-text="'My '" />
-      <span>{{ currentRouteName | convertSpecialCharsFilter | capitalizeFilter }}</span>
+      <span>{{ $t(`global.${currentRouteId}`) | capitalizeFilter }}</span>
     </v-toolbar-title>
 
     <template v-if="isItemRoute || isConfigurationRoute">
@@ -27,7 +26,7 @@
         <v-text-field
           v-show="!isMobile || displayItemSearch"
           v-model="itemSearch"
-          label="Search"
+          :label="xCap($t('global.search'))"
           :append-icon="!isMobile ? 'mdi-magnify' : null"
           hide-details="auto"
           clearable
@@ -52,77 +51,31 @@
         class="ml-1"
       ></filter-menu>
 
-      <form-post-btn
-        v-if="!isMobile && isItemRoute"
-        isFab
-        isSmall
-        class="ml-2 mr-1 elevation-0"
-      ></form-post-btn>
+      <template v-if="!isMobile">
+        <form-post-btn
+          v-if="isItemRoute"
+          isFab
+          isSmall
+          class="ml-2 mr-1 elevation-0"
+        ></form-post-btn>
 
-      <v-btn
-        v-if="!isMobile && isConfigurationRoute"
-        v-bind:class="['px-2 ml-3 mr-1 elevation-0 primary-gradient-color']"
-        @click="brandPostDialog = !brandPostDialog"
-        :width="48"
-        :height="48"
-        fab
-      >
-        <v-icon v-text="'mdi-plus'" />
-      </v-btn>
+        <v-btn
+          v-if="isConfigurationRoute"
+          v-bind:class="['px-2 ml-3 mr-1 elevation-0 primary-gradient-color']"
+          @click="brandPostDialog = !brandPostDialog"
+          :width="48"
+          :height="48"
+          fab
+        >
+          <v-icon color="white" v-text="'mdi-plus'" />
+        </v-btn>
 
-      <v-dialog
-        v-if="!isMobile && isConfigurationRoute"
-        v-model="brandPostDialog"
-        max-width="750px"
-        :hide-overlay="isMobile"
-        :transition="isMobile ? 'slide-x-transition' : 'fade-transition'"
-        persistent
-      >
-        <v-card>
-          <v-card-title class="headline">
-            <span v-text="'New Brand'" />
-          </v-card-title>
+        <new-brand-dialog
+          v-if="isConfigurationRoute"
+          v-bind:dialog.sync="brandPostDialog"
+        ></new-brand-dialog>
+      </template>
 
-          <v-card-text>
-            <v-row>
-              <v-col cols="12">
-                <v-form v-model="validBrand">
-                  <v-text-field
-                    label="Title"
-                    v-model="defaultBrand.title"
-                    :rules="xRules.text"
-                    :color="darkColor('primary')"
-                    @keyup.enter="postBrand()"
-                    filled
-                    dense
-                    hide-details="auto"
-                    required
-                  ></v-text-field>
-                </v-form>
-              </v-col>
-            </v-row>
-          </v-card-text>
-
-          <v-card-actions>
-            <v-spacer />
-
-            <v-btn
-              @click="brandPostDialog = false"
-              v-text="'Cancel'"
-              text
-            ></v-btn>
-
-            <v-btn
-              @click="postBrand()"
-              :disabled="!validBrand"
-              depressed
-              v-bind:class="[{'primary-gradient-color': validBrand}, reversedFontShadeColor]"
-            >
-              <span v-text="'Add brand'" />
-            </v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
     </template>
 
     <template v-if="isItemRoute || isConfigurationRoute" v-slot:extension>
@@ -187,15 +140,18 @@
 
 <script>
 
+  import XText from "@/components/inputs/fields/XText";
+  import NewBrandDialog from "@/components/elements/Dialogs/NewBrandDialog";
   import XSortIcon from "@/components/elements/Icons/XSortIcon";
 
   export default {
     name: 'app-header',
     components: {
+      XText,
       XSortIcon,
+      NewBrandDialog,
       FormPostBtn: () => import('@/components/elements/Btns/FormPostBtn'),
       FilterMenu: () => import('@/components/elements/FilterMenu/FilterMenu'),
-      SaveBtn: () => import('@/components/elements/Btns/SaveBtn'),
     },
     data: () => ({
       filterMode: false,
@@ -214,15 +170,15 @@
     computed: {
       headerLoader() {
         let self = this;
-        let listId = this.xFilters.capitalizeFilter(this.currentRouteName);
+        let listId = this.xCap(this.currentRouteName);
         self.listHeaderComponentCalled = `@/components/lists/headers/${listId}ListHeader.vue`;
         return () => import(`@/components/lists/headers/${listId}ListHeader.vue`)
       },
       avatarSortProp() {
-        if(this.currentRouteTitle === 'Gear')
+        if(this.currentRouteId === 'gear')
           return 'type';
 
-        if(this.currentRouteTitle === 'Adventures')
+        if(this.currentRouteId === 'adventures')
           return 'activity';
 
         return null

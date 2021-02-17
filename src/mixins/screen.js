@@ -1,20 +1,68 @@
 
-import C from '@/constants'
+import CONSTANTS from '@/constants'
 import vuetifyColors from 'vuetify/lib/util/colors'
 
 export default {
+    data () {
+        return {
+            window: {
+                width: 0,
+                height: 0
+            },
+            COLORS: [
+                'red',
+                'pink',
+                'purple',
+                'deep-purple',
+                'indigo',
+                'blue',
+                'cyan',
+                'teal',
+                'green',
+                'light-green',
+                'yellow',
+                'orange',
+                'deep-orange',
+                'brown',
+                'blue-grey',
+            ],
+        }
+    },
     computed: {
+        skeletonItemWidth() {
+            return (this.isMobile ? 20 : 60);
+        },
+        xListHeight() {
+            return (this.xListItemsHeight * this.xListMaxItems);
+        },
+        xListMaxItems() {
+            return (this.isMobile ? 7 : 17);
+        },
+        xListItemsHeight() {
+            return (this.isMobile ? 61 : 64);
+        },
+        vuetifyColors: {
+            get() {
+                return this.COLORS
+            },
+        },
+        XSI() {
+            return CONSTANTS.XSI;
+        },
         SMI() {
-            return C.SMI;
+            return CONSTANTS.SMI;
         },
         MDI() {
-            return C.MDI;
+            return CONSTANTS.MDI;
         },
         LGI() {
-            return C.LGI;
+            return CONSTANTS.LGI;
         },
         XLI() {
-            return C.XLI;
+            return CONSTANTS.XLI;
+        },
+        XXLI() {
+            return CONSTANTS.XXLI;
         },
         currentWindowHeight() {
             return (window.innerHeight - 92);
@@ -27,6 +75,9 @@ export default {
         },
         xTabsColor() {
             return ('grey '+(this.isDark ? 'darken-4' : 'lighten-5'));
+        },
+        xCheckerColor() {
+            return (this.isDark ? 'grey lighten-4' : 'grey darken-2');
         },
         xCardColor() {
             return (this.isDark ? 'grey darken-4' : 'white');
@@ -64,27 +115,6 @@ export default {
         currentColor() {
             return this.darkColor(this.currentRawColor);
         },
-        currentNavItem() {
-            return this.navigationItems[this.currentRouteName]
-        },
-        currentTitle() {
-            return (this.currentNavItem.title);
-        },
-        currentIcon() {
-            return (this.currentNavItem.icon);
-        },
-        currentType() {
-            return (this.currentNavItem.type);
-        },
-        isItemRoute() {
-            return (this.currentType === 'items');
-        },
-        isConfigurationRoute() {
-            return (this.currentType === 'configuration');
-        },
-        isSettingsRoute() {
-            return (this.currentType === 'settings');
-        },
         isDark() {
             return this.$vuetify.theme.dark;
         },
@@ -97,111 +127,72 @@ export default {
         dialogContentHeight() {
             return (this.currentWindowHeight < 500 ? this.currentWindowHeight : 500);
         },
-        xRules() {
-            return {
-                phone: [
-                    v => !!v || 'phone is required',
-                    v => (v && v.length === 12) || 'phone length',
-                ],
-                niv: [
-                    v => (v && v.length === 17) || 'niv length',
-                ],
-                card: [
-                    v => !!v || v === 'unknown' || 'card required'
-                ],
-                password: [
-                    v => !!v || 'password required',
-                ],
-                text: [
-                    v => !!v || 'text required',
-                ],
-                object: [
-                    v => !!v || 'object required',
-                ],
-                message: [
-                    v => !!v || 'message required',
-                    v => (v.length <= 500) || 'message length'
-                ],
-                firstname: [
-                    v => !!v || 'firstname required',
-                    v => (v && v.length <= 25) || 'firstname length'
-                ],
-                lastname: [
-                    v => !!v || 'lastname required',
-                    v => (v && v.length <= 25) || 'lastname length'
-                ],
-                email: [
-                    v => !!v || 'email required',
-                    v => /^\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b$/
-                        .test(v.toUpperCase()) || 'email syntax'
-                ],
-                id: [
-                    v => (v === null)
-                        || /^([0-9]{1,5}])*$/.test(v)
-                        || 'id syntax'
-                ],
-                temperature: [
-                    v => (v === '')
-                        || (v === null)
-                        || /^(-?[0-9]+(\.[0-9][0-9]?)?)*$/.test(v)
-                        || 'temperature only (-50, 50)'
-                ],
-                elevation: [
-                    v => (v === '')
-                        || (v === null)
-                        || /^(-?[0-9]+(\.[0-9][0-9]?)?)*$/.test(v)
-                        || '-+ integers && decimals only'
-                ],
-                integer: [
-                    v => (v === '')
-                        || (v === null)
-                        || /^([0-9]+)*$/.test(v)
-                        || 'integers only'
-                ],
-                decimal: [
-                    v => (v === '')
-                        || (v === null)
-                        || /^([0-9]+(\.[0-9][0-9]?)?)*$/.test(v)
-                        || 'decimals only'
-                ],
-                date: [
-                    v => (v === '')
-                        || (v === null)
-                        || /^(\d{4})-(\d{2})-(\d{2})$/.test(v)
-                        || 'date syntax'
-                ],
-                time: [
-                    v => (v === '')
-                        || (v === null)
-                        || /^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/.test(v)
-                        || /^([0-1]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]$/.test(v)
-                        || 'time syntax'
-                ],
-                select: [
-                    v => !!v || v === 'na' || v === 'unknown' || 'select required'
-                ],
-                null: [
-                    v => (typeof v != 'undefined') || 'empty required'
-                ],
-                expansion: [
-                    v => !!v || 'expansion required'
-                ],
-                postalCode: [
-                    v => !!v || 'zipcode required',
-                    v => /^(?!.*[dfioquDFIOQU])[a-vxyA-VXY][0-9][a-zA-Z] ?[0-9][a-zA-Z][0-9]$/.test(v) || 'zipcode.value',
-                ],
-                test: [
-                    v => (v > 1) || 'test value'
-                ],
-                boolean: [
-                    v => !!v || v === 'unknown' || 'boolean required',
-                    v => (v === true) || 'boolean value',
-                    v => (typeof v === "boolean") || 'boolean type',
-                ],
-            }
-        },
     },
     methods: {
+        openItemDialog(item) {
+            if(item) {
+                this.isAppLoading = true;
+                let self = this;
+
+                let references = null;
+                if(this.currentRouteName === 'gear') {
+                    references = this.gearReferences;
+
+                } else if(this.currentRouteName === 'inventories') {
+                    references = this.inventoryReferences;
+
+                } else if(this.currentRouteName === 'adventures') {
+                    references = this.adventureReferences;
+                }
+
+                if(references) {
+                    let itemIndex = references[item.id];
+
+                    setTimeout(function(){
+                        self.selectedItem = item;
+                        self.selectedItemIndex = itemIndex;
+                        self.formDialog = true;
+                        self.formDialogType = 'update';
+                    }, 50);
+                } else {
+                    self.formDialog = false;
+                }
+            }
+        },
+        stateIcon(title) {
+            let icon = 'battery-off';
+
+            switch(title) {
+                case 'new':
+                    icon =  'battery-high';
+                    break;
+                case 'ok':
+                    icon =  'battery-medium';
+                    break;
+                case 'used':
+                    icon =  'battery-low';
+                    break;
+                case 'poor':
+                    icon =  'battery-off-outline';
+                    break;
+                default:
+                    return null;
+            }
+
+            return icon;
+        },
+        dynamicWeightUnit(weight) {
+            switch(this.weightUnit) {
+                case 'g':
+                    return (weight >= 1000 ? 'kg' : this.weightUnit);
+
+                case 'oz':
+                    return (((Math.round(weight * CONSTANTS.G_TO_OZ * 10) / 10) >= 96) ? 'lb' : this.weightUnit);
+
+                default:
+                    return this.weightUnit;
+            }
+        },
         weightUnitConverter(weight, sup = true) {
             if(!weight || !this.weightUnit)
                 return null;
@@ -327,16 +318,19 @@ export default {
                 + (d === 0 && m !== 0 ? '<span class="text-tiny-dimmed">m</span>' : '')
             );
         },
-        arrayUnique(array) {
-            let a = array.concat();
-            for(let i=0; i<a.length; ++i) {
-                for(let j=i+1; j<a.length; ++j) {
-                    if(a[i] === a[j])
-                        a.splice(j--, 1);
-                }
-            }
-
-            return a;
+        handleScreenResize() {
+            this.window.width = window.innerWidth;
+            this.window.height = window.innerHeight;
         },
-    }
+        scrollToTop() {
+            window.scrollTo(0, 0);
+        }
+    },
+    created() {
+        window.addEventListener('resize', this.handleScreenResize);
+        this.handleScreenResize();
+    },
+    destroyed() {
+        window.removeEventListener('resize', this.handleScreenResize);
+    },
 }

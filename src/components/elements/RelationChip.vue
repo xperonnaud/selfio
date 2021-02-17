@@ -5,7 +5,11 @@
     && selectedItemRelations[relationType]
     && selectedItemRelations[relationType].length > 0"
   >
-    <div><strong>{{ navigationItems[relationType].title }}</strong> relation(s):</div>
+    <div class=" text-caption">
+      <span class="font-weight-bold">{{ $t(`global.${navigationItems[relationType].id}`) | capitalizeFirstFilter }}</span>
+      <span v-html="'&nbsp;'" />
+      <span>({{ t('relations') }})</span>
+    </div>
 
     <template v-for="itemId in selectedItemRelations[relationType]">
       <v-chip
@@ -35,6 +39,11 @@
         default: null
       },
     },
+    methods: {
+      t(str) {
+        return this.$t(`components.relation-chip.${str}`);
+      }
+    }
   }
 
 </script>

@@ -4,6 +4,7 @@
     <v-menu
       v-model="filterModeOn"
       :close-on-content-click="false"
+      min-width="310"
       :nudge-width="200"
       left
     >
@@ -15,14 +16,14 @@
           v-on="on"
           icon
         >
-          <v-icon v-text="filterMode?'mdi-filter-variant-minus':'mdi-filter-variant'" />
+          <v-icon v-text="`mdi-filter-variant${filterMode?'-minus':''}`" />
         </v-btn>
       </template>
 
       <v-card>
         <v-list class="py-1">
           <v-list-item>
-            <v-list-item-title v-text="'Filters'" />
+            <v-list-item-title>{{$t('global.filters') | capitalizeFirstFilter}}</v-list-item-title>
 
             <v-spacer />
 
@@ -53,15 +54,15 @@
             :color="errorColor"
             text
           >
-            <span v-text="'Reset'" />
+            <span v-text="$t('global.reset')" />
           </v-btn>
 
           <v-spacer />
 
           <v-btn
             @click="closeFilterMenu()"
-            text
             class="primary-gradient-color-text"
+            text
             icon
           >
             <v-icon v-text="'mdi-check'" />
@@ -96,7 +97,7 @@
       loader() {
         let self = this;
         let listName = self.forcedRouteName ? self.forcedRouteName : this.currentRouteName;
-        let listId = this.xFilters.capitalizeFilter(listName);
+        let listId = this.xCap(listName);
         self.filterComponentCalled = `./${listId}Filters.vue`;
         return () => import(`./${listId}Filters.vue`)
       },

@@ -1,0 +1,26 @@
+<template>
+
+  <div class="max-width d-flex align-center justify-center">
+    <v-avatar
+      :size="48"
+      :color="errorColor"
+      style="position: absolute; top: -26px;"
+    >
+      <v-icon
+        :size="MDI"
+        :color="reversedShadeColor"
+        v-text="'mdi-trash-can-outline'"
+        style="margin-top: 22px;"
+      ></v-icon>
+    </v-avatar>
+  </div>
+
+</template>
+
+<script>
+
+  export default {
+    name: 'x-delete-avatar'
+  }
+
+</script>

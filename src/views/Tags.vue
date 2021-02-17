@@ -9,13 +9,13 @@
       :color="navItemColor(itemRoutes[tab])"
     >
       <v-tab :key="'gear-tags'">
-        <span v-text="'Gear'" />
+        {{$t('global.gear') | capitalizeFirstFilter}}
       </v-tab>
       <v-tab :key="'inventory-tags'">
-        <span v-text="'Inventories'" />
+        {{$t('global.inventories') | capitalizeFirstFilter}}
       </v-tab>
       <v-tab :key="'adventure-tags'">
-        <span v-text="'Adventures'" />
+        {{$t('global.adventures') | capitalizeFirstFilter}}
       </v-tab>
 
       <v-tabs-items v-model="tab">
@@ -48,17 +48,12 @@
     <v-container fluid v-bind:class="(isMobile ? 'px-4' : 'px-8')">
       <v-row style="max-width: 750px">
         <v-col cols="12" class="py-0">
-          <v-btn
-            v-bind:class="[
-              'elevation-0',
-              {'max-width': isMobile},
-              reversedFontShadeColor,
-              'primary-gradient-color'
-            ]"
-            @click.stop="updatePreferences()"
-          >
-            <span v-text="'Save'" />
-          </v-btn>
+          <primary-btn
+            label="save"
+            :block="isMobile"
+            valid
+            v-on:btnAction="updatePreferences()"
+          ></primary-btn>
         </v-col>
       </v-row>
     </v-container>
@@ -68,6 +63,7 @@
 
 <script>
 
+  import PrimaryBtn from "@/components/elements/Btns/PrimaryBtn";
   import GearTagsForm from "@/components/forms/GearTagsForm";
   import InventoryTagsForm from "@/components/forms/InventoryTagsForm";
   import AdventureTagsForm from "@/components/forms/AdventureTagsForm";
@@ -75,6 +71,7 @@
   export default {
     name: "settings",
     components: {
+      PrimaryBtn,
       GearTagsForm,
       InventoryTagsForm,
       AdventureTagsForm
