@@ -11,7 +11,7 @@
     <v-app id="inspire">
       <app-header v-if="displayApp" />
 
-      <app-nav v-if="displayApp"/>
+      <app-nav v-if="displayApp" />
 
       <app-body v-show="!isMobile || (isMobile && !isAppLoading)" />
 

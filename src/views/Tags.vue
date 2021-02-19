@@ -45,7 +45,7 @@
       </v-tabs-items>
     </v-tabs>
 
-    <v-container fluid v-bind:class="(isMobile ? 'px-4' : 'px-8')">
+    <v-container fluid v-bind:class="(isMobile ? 'px-4 py-0' : 'px-8 py-0')">
       <v-row style="max-width: 750px">
         <v-col cols="12" class="py-0">
           <primary-btn

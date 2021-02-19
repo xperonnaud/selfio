@@ -1,7 +1,7 @@
 <template>
 
   <v-form v-model="valid">
-    <v-container fluid v-bind:class="(isMobile ? 'pt-3 px-4' : 'pt-7 px-8')">
+    <v-container fluid v-bind:class="(isMobile ? 'px-4 py-2' : 'px-8 py-6')">
       <v-row>
         <v-col v-if="!isMobile" cols="12">
           <v-data-table
@@ -48,7 +48,7 @@
                         'v-btn v-size--default',
                         {'theme--dark':isDark},
                         {'theme--light':!isDark},
-                        'x-primary-btn',
+                        'x-primary-btn white--text',
                         'mr-2',
                         'primary-gradient-color'
                     ]"
@@ -66,7 +66,7 @@
                         'v-btn v-size--default',
                         {'theme--dark':isDark},
                         {'theme--light':!isDark},
-                        'x-primary-btn',
+                        'x-primary-btn white--text',
                         'primary-gradient-color'
                     ]"
                 ></vue-blob-json-csv>

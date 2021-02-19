@@ -3,7 +3,7 @@
 
   <v-sheet
     v-if="isMounted"
-    v-bind:class="[(isMobile ? 'px-4 py-0' : 'pa-8')]"
+    v-bind:class="[(isMobile ? 'px-4 py-0' : 'px-8 py-6')]"
     height="100%"
     max-width="100%"
     color="transparent"
@@ -15,7 +15,7 @@
             <v-card
               v-if="navigationItems[item].type === 'items'"
               :key="index"
-              v-bind:class="['shadow-bottom', (isMobile ? 'my-2' : 'mb-3 mr-3')]"
+              v-bind:class="['shadow-bottom', (isMobile ? 'my-2' : 'mb-4 mr-4')]"
               :width="cardSize(300)"
               :color="xCardColor"
             >

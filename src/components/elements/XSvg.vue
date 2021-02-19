@@ -1,6 +1,7 @@
 <template>
 
   <v-sheet
+    v-if="isMounted"
     :class="[{'mt-1':!noMargin}]"
     style="border-radius: 32px;"
     color="transparent"
@@ -52,6 +53,12 @@
         default: '18',
       },
     },
+    data: () => ({
+      isMounted: false,
+    }),
+    mounted() {
+      this.isMounted = true;
+    }
   }
 
 </script>

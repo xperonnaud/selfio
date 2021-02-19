@@ -113,7 +113,6 @@
     import XWeightCol from "@/components/xcols/XWeightCol";
     import EmptyData from "@/components/elements/EmptyData";
     import EditIcon from "@/components/elements/Icons/EditIcon";
-    import XSvg from "@/components/elements/XSvg";
     import XUnknownCategoryIcon from "@/components/elements/Icons/XUnknownCategoryIcon";
 
   export default {
@@ -124,7 +123,7 @@
       XWeightCol,
       EmptyData,
       EditIcon,
-        XSvg,
+      XSvg: () => import('@/components/elements/XSvg'),
       XUnknownCategoryIcon
     },
     props: {

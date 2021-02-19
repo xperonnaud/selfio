@@ -7,11 +7,11 @@
         max-width="100%"
         color="transparent"
       >
-        <v-container fluid v-bind:class="(isMobile ? 'pa-4' : 'pa-8')">
+        <v-container fluid v-bind:class="(isMobile ? 'px-4 py-2' : 'px-8 py-6')">
           <v-row class="row-max-width">
             <v-col cols="12">
               <v-card
-                v-bind:class="['shadow-bottom', (isMobile ? 'my-0' : 'mr-3')]"
+                v-bind:class="['shadow-bottom', (isMobile ? 'my-0' : 'mr-4')]"
                 :width="cardSize(600)"
                 :color="xCardColor"
               >
