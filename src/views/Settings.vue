@@ -1,9 +1,9 @@
 
 <template>
 
-  <div v-if="isMounted">
+  <v-sheet v-if="isMounted">
     <v-form v-model="valid">
-      <v-sheet
+      <div
         max-width="100%"
         color="transparent"
       >
@@ -16,6 +16,23 @@
                   :items="languages"
                   v-model="preferences.language"
                   @change="setLang(preferences.language)"
+                  prepend-inner-icon="mdi-translate"
+                  item-text="title"
+                  item-value="id"
+                  hide-details
+                  filled
+                  dense
+                ></v-select>
+              </div>
+            </v-col>
+            <v-col cols="12">
+              <div>
+                <v-select
+                  :label="xCap($t('global.theme'))"
+                  :items="themes"
+                  v-model="preferences.theme"
+                  @change="toggleTheme(preferences.theme)"
+                  prepend-inner-icon="mdi-theme-light-dark"
                   item-text="title"
                   item-value="id"
                   hide-details
@@ -26,8 +43,9 @@
             </v-col>
 
             <v-col cols="12">
-              <div>
-                <div class="my-1">
+              <v-sheet :color="xCardColor" rounded class="pa-2">
+                <div class="mb-1">
+                  <v-icon class="mr-1" v-text="'mdi-weight'" />
                   <span class="text-subtitle-2">{{$t('global.weight') | capitalizeFilter}}</span>
                   <span class="text-tiny">&nbsp;({{$t('global.unit')}})</span>
                 </div>
@@ -41,12 +59,13 @@
                     large
                   ></v-btn>
                 </v-btn-toggle>
-              </div>
+              </v-sheet>
             </v-col>
 
             <v-col cols="12">
-              <div>
-                <div class="my-1">
+              <v-sheet :color="xCardColor" rounded class="pa-2">
+                <div class="mb-1">
+                  <v-icon class="mr-1" v-text="'mdi-thermometer'" />
                   <span class="text-subtitle-2">{{$t('global.temperature') | capitalizeFilter}}</span>
                   <span class="text-tiny">&nbsp;({{$t('global.unit')}})</span>
                 </div>
@@ -60,12 +79,13 @@
                     large
                   ></v-btn>
                 </v-btn-toggle>
-              </div>
+              </v-sheet>
             </v-col>
 
             <v-col cols="12">
-              <div>
-                <div class="my-1">
+              <v-sheet :color="xCardColor" rounded class="pa-2">
+                <div class="mb-1">
+                  <v-icon class="mr-1" v-text="'mdi-map-marker-distance'" />
                 <span class="text-subtitle-2">{{$t('global.distance') | capitalizeFilter}}</span>
                 <span class="text-tiny">&nbsp;({{$t('global.unit')}})</span>
               </div>
@@ -79,12 +99,13 @@
                     large
                   ></v-btn>
                 </v-btn-toggle>
-              </div>
+              </v-sheet>
             </v-col>
 
             <v-col cols="12">
-              <div>
-                <div class="my-1">
+              <v-sheet :color="xCardColor" rounded class="pa-2">
+                <div class="mb-1">
+                  <v-icon class="mr-1" v-text="'mdi-elevation-rise'" />
                   <span class="text-subtitle-2">{{$t('global.elevation') | capitalizeFilter}}/{{$t('global.depth') | capitalizeFilter}}</span>
                   <span class="text-tiny">&nbsp;({{$t('global.unit')}})</span>
                 </div>
@@ -98,12 +119,13 @@
                     large
                   ></v-btn>
                 </v-btn-toggle>
-              </div>
+              </v-sheet>
             </v-col>
 
             <v-col cols="12">
-              <div>
-                <div class="my-1">
+              <v-sheet :color="xCardColor" rounded class="pa-2">
+                <div class="mb-1">
+                  <v-icon class="mr-1" v-text="'mdi-cash'" />
                   <span class="text-subtitle-2">{{$t('global.price') | capitalizeFilter}}</span>
                   <span class="text-tiny">&nbsp;({{$t('global.unit')}})</span>
                 </div>
@@ -117,12 +139,13 @@
                     large
                   ></v-btn>
                 </v-btn-toggle>
-              </div>
+              </v-sheet>
             </v-col>
 
             <v-col cols="12">
-              <div>
-                <div class="my-1">
+              <v-sheet :color="xCardColor" rounded class="pa-2">
+                <div class="mb-1">
+                  <v-icon class="mr-1" v-text="'mdi-calendar'" />
                   <span class="text-subtitle-2">{{$t('global.date') | capitalizeFilter}}</span>
                   <span class="text-tiny">&nbsp;({{$t('global.format')}})</span>
                 </div>
@@ -136,7 +159,7 @@
                     large
                   ></v-btn>
                 </v-btn-toggle>
-              </div>
+              </v-sheet>
             </v-col>
 
             <v-col cols="12">
@@ -149,9 +172,9 @@
             </v-col>
           </v-row>
         </v-container>
-      </v-sheet>
+      </div>
     </v-form>
-  </div>
+  </v-sheet>
 
 </template>
 
@@ -171,6 +194,10 @@
       languages: [
         {id: 'en', title: 'English'},
         {id: 'fr', title: 'Français'},
+      ],
+      themes: [
+        {id: 'light', title: 'Light'},
+        {id: 'dark', title: 'Dark'},
       ],
       priceUnits: ['$', '€', '£', '¥'],
       distanceUnits: ['km', 'mi'],
