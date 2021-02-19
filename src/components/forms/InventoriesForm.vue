@@ -395,6 +395,8 @@
                   <v-menu
                     v-model="gearFilterModeOn"
                     :close-on-content-click="false"
+                    min-width="333"
+                    max-width="333"
                     :nudge-width="200"
                     left
                   >
@@ -672,7 +674,7 @@
                   <x-increment
                     label="quantity-packed"
                     v-bind:value.sync="selectedInventoryGear['gear_quantity_packed']"
-                    :rules="xRules.decimal"
+                    :rules="xRules.decimals"
                     :color="currentColor"
                     :max="selectedInventoryGearMaxQuantity"
                     :min="0"

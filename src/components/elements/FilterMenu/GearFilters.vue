@@ -8,7 +8,7 @@
     <v-list-item class="mb-3">
       <v-autocomplete
         v-if="filterMode"
-        :label="$t('global.tags')"
+        :label="xCapFirst($t('global.tags'))"
         v-model="itemTag"
         :items="preferences.gear_tags"
         :color="currentColor"
@@ -38,7 +38,7 @@
       <x-increment
         label="quantity-owned"
         v-bind:value.sync="itemQuantityOwned"
-        :rules="xRules.decimal"
+        :rules="xRules.decimals"
         :color="currentColor"
         :max="100"
         :min="0"

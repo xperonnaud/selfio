@@ -2,7 +2,7 @@
 
   <v-sheet v-if="isMounted" class="x-simple-selector x-check-form max-width" :color="xTabsColor">
     <div v-if="isEditing" class="d-flex align-content-space-between">
-      <v-subheader class="mt-2 ml-2">{{$t(`global.${label}`) | capitalizeFilter}}</v-subheader>
+      <v-subheader class="mt-2 ml-2">{{$t(`global.weather`) | capitalizeFilter}}</v-subheader>
 
       <v-spacer/>
 
@@ -28,8 +28,8 @@
             @click.stop="toggleEditor()"
           >
             <v-text-field
-              :label="xCap($t(`global.${label}`))"
-              :value="pickerValue ? xCap(dataType ? $t(`${dataType}.${pickerValue}.title`) : pickerValue) : null"
+              :label="xCap($t(`global.weather`))"
+              :value="pickerValue ? xCap($t(`weathers.${pickerValue}.title`)) : null"
               :color="currentColor"
               hide-details="auto"
               append-icon="mdi-menu-down"
@@ -43,7 +43,6 @@
                 v-slot:prepend-inner style="margin-top: 0"
               >
                 <v-icon
-                  v-if="dataType === 'weathers'"
                   :width="iconSize"
                   :height="iconSize"
                   v-text="`mdi-weather-${pickerValue}`"
@@ -63,10 +62,10 @@
         ]"
       >
         <v-row>
-          <template v-for="(item, itemIndex) in list">
+          <template v-for="(item, itemIndex) in weathers">
             <v-col
               :key="itemIndex"
-              :cols="dataType === 'weathers' ? (isInFilter ? 6 : (isMobile ? 4 : 3)) : (isMobile ? 4 : 3)"
+              :cols="(isInFilter ? 6 : (isMobile ? 4 : 3))"
               class="pa-1"
             >
               <v-card
@@ -84,11 +83,11 @@
               >
                 <div>
                   <div v-if="hasIcon" class="d-flex justify-space-around align-self-center">
-                    <v-icon v-if="dataType === 'weathers'" v-text="`mdi-weather-${item}`" />
+                    <v-icon v-text="`mdi-weather-${item}`" />
                   </div>
 
                   <div class="text-caption text-center">
-                    {{ (dataType ? $t(`${dataType}.${item}.title`) : item) | capitalizeFilter }}
+                    {{ $t(`weathers.${item}.title`) | capitalizeFilter }}
                   </div>
                 </div>
               </v-card>
@@ -104,12 +103,9 @@
 <script>
 
   export default {
-    name: 'x-simple-selector',
+    name: 'x-weather-selector',
     props: {
-      list: Array,
-      label: String,
       value: [Number, String],
-      dataType: String,
       iconSize: {
         type: Number,
         default: 48

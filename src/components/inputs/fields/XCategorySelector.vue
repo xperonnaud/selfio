@@ -92,15 +92,15 @@
                                     <div class="d-flex justify-space-around align-self-center">
                                         <v-avatar
                                             class="x-avatar"
-                                            :width="36"
-                                            :height="36"
+                                            :width="40"
+                                            :height="40"
                                             :style="((itemIndex !== 14) ? 'border: 2px solid '+categoryColor(itemIndex)+' !important;' : '')+'min-width: unset;'"
                                         >
                                             <x-svg
                                                 :src="item"
                                                 svgPath="gearcategories/"
-                                                :width="XSI"
-                                                :height="XSI"
+                                                :width="SMI"
+                                                :height="SMI"
                                                 :tooltipText="xCap($t(`categories.${item}.desc`))"
                                             ></x-svg>
                                         </v-avatar>

@@ -54,7 +54,7 @@
                       <x-text
                         :label="$t('global.weight')"
                         v-bind:value.sync="updatedItem.weight"
-                        :rules="xRules.decimal"
+                        :rules="xRules.decimals"
                         :suffix="weightUnit"
                       ></x-text>
                     </v-col>
@@ -63,7 +63,7 @@
                       <x-increment
                         label="quantity-owned"
                         v-bind:value.sync="updatedItem.quantity_owned"
-                        :rules="xRules.decimal"
+                        :rules="xRules.decimals"
                         :color="currentColor"
                         :max="100"
                         :min="0"
@@ -101,7 +101,7 @@
                       <x-text
                         :label="$t('global.price')"
                         v-bind:value.sync="updatedItem.price"
-                        :rules="xRules.decimal"
+                        :rules="xRules.decimals"
                         :suffix="priceUnit"
                       ></x-text>
                     </v-col>

@@ -2,8 +2,7 @@
 
   <v-sheet
     v-if="isMounted"
-    :class="[{'mt-1':!noMargin}]"
-    style="border-radius: 32px;"
+    :style="'border-radius: 32px; ' + (margin ? 'margin-bottom: 2px; margin-right: 1px;' : '')"
     color="transparent"
   >
     <v-tooltip bottom>
@@ -40,7 +39,7 @@
         type: [Number, String],
         default: null,
       },
-      noMargin: {
+      margin: {
         type: Boolean,
         default: false,
       },

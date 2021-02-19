@@ -55,15 +55,12 @@
     </v-list-item>
 
     <v-list-item class="mb-3">
-      <x-simple-selector
-          label="weather"
-          dataType="weathers"
-          :list="weathers"
-          v-bind:value.sync="itemWeather"
-          :iconSize="LGI"
-          hasIcon
-          isInFilter
-      ></x-simple-selector>
+      <x-weather-selector
+        v-bind:value.sync="itemWeather"
+        :iconSize="LGI"
+        hasIcon
+        isInFilter
+      ></x-weather-selector>
     </v-list-item>
   </v-list>
 
@@ -72,13 +69,13 @@
 <script>
 
   import XText from "@/components/inputs/fields/XText";
-  import XSimpleSelector from "@/components/inputs/XSimpleSelector";
+  import XWeatherSelector from "@/components/inputs/fields/XWeatherSelector";
   import XPicker from "@/components/inputs/XPicker";
 
   export default {
     name: 'adventures-filter',
     components: {
-      XSimpleSelector,
+      XWeatherSelector,
       XText,
       XPicker,
     },

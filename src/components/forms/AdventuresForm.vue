@@ -81,7 +81,7 @@
 
                         <v-col cols="12">
                           <x-combobox
-                            label="Tags"
+                            label="tags"
                             v-bind:value.sync="updatedItem.tags"
                             v-bind:items="preferences.adventure_tags"
                             v-bind:route="'adventures'"
@@ -182,7 +182,7 @@
                           <x-text
                             :label="`${$t('global.elevation')}/${$t('global.depth')}`"
                             v-bind:value.sync="updatedItem.elevation"
-                            :rules="xRules.decimal"
+                            :rules="xRules.decimals"
                             :suffix="elevationUnit"
                           ></x-text>
                         </v-col>
@@ -191,20 +191,17 @@
                           <x-text
                             :label="$t('global.distance')"
                             v-bind:value.sync="updatedItem.distance"
-                            :rules="xRules.decimal"
+                            :rules="xRules.decimals"
                             :suffix="distanceUnit"
                           ></x-text>
                         </v-col>
 
                         <v-col cols="12">
-                          <x-simple-selector
-                            label="weather"
-                            dataType="weathers"
-                            :list="weathers"
+                          <x-weather-selector
                             v-bind:value.sync="updatedItem.weather"
                             :iconSize="LGI"
                             hasIcon
-                          ></x-simple-selector>
+                          ></x-weather-selector>
                         </v-col>
 
                         <v-col cols="12">
@@ -298,6 +295,8 @@
                     <v-menu
                       v-model="gearFilterModeOn"
                       :close-on-content-click="false"
+                      min-width="333"
+                      max-width="333"
                       :nudge-width="200"
                       left
                     >
@@ -543,6 +542,7 @@
       AdventureGearListItem,
       XTitleField: () => import('@/components/inputs/fields/XTitleField'),
       XCheckbox: () => import('@/components/inputs/XCheckbox'),
+      XWeatherSelector: () => import('@/components/inputs/fields/XWeatherSelector'),
       XBrandSelector: () => import('@/components/inputs/fields/XBrandSelector'),
       XStateSelector: () => import('@/components/inputs/fields/XStateSelector'),
       XSortIcon: () => import('@/components/elements/Icons/XSortIcon'),
@@ -553,7 +553,6 @@
       XDatePicker: () => import('@/components/inputs/XDatePicker'),
       XCategorySelector: () => import('@/components/inputs/fields/XCategorySelector'),
       XSelector: () => import('@/components/inputs/XSelector'),
-      XSimpleSelector: () => import('@/components/inputs/XSimpleSelector'),
     },
     props: {
       item: Object,
