@@ -3,19 +3,19 @@
     v-if="isMounted"
     v-bind:class="[
       'back',
-      {'is-logged-in':apiAccessToken},
+      {'is-logged-in':displayApp},
       {'is-small':isMobile},
       {'is-dark':isDark},
     ]"
   >
     <v-app id="inspire">
-      <app-header v-if="apiAccessToken" />
+      <app-header v-if="displayApp" />
 
-      <app-nav v-if="apiAccessToken"/>
+      <app-nav v-if="displayApp"/>
 
       <app-body v-show="!isMobile || (isMobile && !isAppLoading)" />
 
-      <app-footer v-if="apiAccessToken" />
+      <app-footer v-if="displayApp" />
 
       <v-overlay :value="isAppLoading">
         <v-progress-circular
@@ -26,7 +26,7 @@
 
       <snack-bar />
 
-      <session-dialog v-if="apiAccessToken" :dialog.sync="isSessionExpired" />
+      <session-dialog v-if="displayApp" :dialog.sync="isSessionExpired" />
     </v-app>
   </div>
 </template>
@@ -57,6 +57,11 @@
         get() {
           return this.xUi.isSessionExpired
         },
+      },
+      displayApp: {
+        get() {
+          return this.xUi.displayApp
+        },
       }
     },
     methods: {
@@ -68,6 +73,7 @@
         if(this.preferences && this.preferences.theme)
           await this.toggleTheme(this.preferences.theme);
 
+        this.$store.commit('updateUiDisplayApp',true);
         await this.api_get_brands();
         await this.api_get_landscapes();
         await this.api_get_gear();

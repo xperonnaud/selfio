@@ -63,6 +63,7 @@ export default new Vuex.Store({
 
             isAppLoading: false,
             isConfigurationReady: false,
+            displayApp: false,
             navigationCollapse: false,
 
             isItemRoute: false,
@@ -383,6 +384,9 @@ export default new Vuex.Store({
         },
         updateUiIsAppLoading(state, isAppLoading) {
             state.ui.isAppLoading = isAppLoading;
+        },
+        updateUiDisplayApp(state, displayApp) {
+            state.ui.displayApp = displayApp;
         },
         updateUiIsConfigurationReady(state, isConfigurationReady) {
             state.ui.isConfigurationReady = isConfigurationReady;
