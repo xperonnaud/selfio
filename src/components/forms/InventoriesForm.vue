@@ -720,26 +720,39 @@
   const _ = require('lodash');
 
   import InventoryGearListItem from "@/components/lists/items/InventoryGearListItem";
+  import InventoryGearCard from "@/components/elements/Cards/InventoryGearCard";
+  import XCategorySelector from "@/components/inputs/fields/XCategorySelector";
+  import XBrandSelector from "@/components/inputs/fields/XBrandSelector";
+  import XStateSelector from "@/components/inputs/fields/XStateSelector";
+  import XTitleField from "@/components/inputs/fields/XTitleField";
+  import XCombobox from "@/components/inputs/XCombobox";
+  import XSortIcon from "@/components/elements/Icons/XSortIcon";
+  import XCheckbox from "@/components/inputs/XCheckbox";
+  import XIncrement from "@/components/inputs/XIncrement";
+  import XSvg from "@/components/elements/XSvg";
+  import XDivider from "@/components/elements/XDivider";
+  import EmptyList from "@/components/elements/EmptyList";
+  import XUnknownCategoryIcon from "@/components/elements/Icons/XUnknownCategoryIcon";
 
   export default {
     name: 'inventories-form',
     components: {
       InventoryGearListItem,
-      EmptyList: () => import('@/components/elements/EmptyList'),
-      InventoryGearCard: () => import('@/components/elements/Cards/InventoryGearCard'),
-      XStackedProgressCard: () => import('@/components/elements/StackedProgressCard/XStackedProgressCard'),
-      XTitleField: () => import('@/components/inputs/fields/XTitleField'),
-      XUnknownCategoryIcon: () => import('@/components/elements/Icons/XUnknownCategoryIcon'),
-      XCategorySelector: () => import('@/components/inputs/fields/XCategorySelector'),
-      XBrandSelector: () => import('@/components/inputs/fields/XBrandSelector'),
-      XStateSelector: () => import('@/components/inputs/fields/XStateSelector'),
-      XIncrement: () => import('@/components/inputs/XIncrement'),
-      XCheckbox: () => import('@/components/inputs/XCheckbox'),
-      XSortIcon: () => import('@/components/elements/Icons/XSortIcon'),
+      EmptyList,
+      InventoryGearCard,
+      XTitleField,
+      XUnknownCategoryIcon,
+      XCategorySelector,
+      XBrandSelector,
+      XStateSelector,
+      XIncrement,
+      XCheckbox,
+      XSortIcon,
+      XCombobox,
+      XDivider,
+      XSvg,
       XPieChart: () => import('@/components/charts/XPieChart'),
-      XCombobox: () => import('@/components/inputs/XCombobox'),
-      XDivider: () => import('@/components/elements/XDivider'),
-      XSvg: () => import('@/components/elements/XSvg')
+      XStackedProgressCard: () => import('@/components/elements/StackedProgressCard/XStackedProgressCard'),
     },
     props: {
       item: Object,

@@ -533,26 +533,41 @@
 
   import Vue from 'vue'
   import AdventureGearListItem from "@/components/lists/items/AdventureGearListItem";
+  import AdventureGearCard from "@/components/elements/Cards/AdventureGearCard";
+  import XText from "@/components/inputs/fields/XText";
+  import XTitleField from "@/components/inputs/fields/XTitleField";
+  import XWeatherSelector from "@/components/inputs/fields/XWeatherSelector";
+  import XBrandSelector from "@/components/inputs/fields/XBrandSelector";
+  import XStateSelector from "@/components/inputs/fields/XStateSelector";
+  import XIncrement from "@/components/inputs/XIncrement";
+  import XDatePicker from "@/components/inputs/XDatePicker";
+  import XTimePicker from "@/components/inputs/XTimePicker";
+  import XPicker from "@/components/inputs/XPicker";
+  import XCategorySelector from "@/components/inputs/fields/XCategorySelector";
+  import XCombobox from "@/components/inputs/XCombobox";
+  import XSelector from "@/components/inputs/XSelector";
+  import XSortIcon from "@/components/elements/Icons/XSortIcon";
+  import XCheckbox from "@/components/inputs/XCheckbox";
 
   export default {
     name: 'adventures-form',
     components: {
-      XText: () => import('@/components/inputs/fields/XText'),
-      AdventureGearCard: () => import('@/components/elements/Cards/AdventureGearCard'),
       AdventureGearListItem,
-      XTitleField: () => import('@/components/inputs/fields/XTitleField'),
-      XCheckbox: () => import('@/components/inputs/XCheckbox'),
-      XWeatherSelector: () => import('@/components/inputs/fields/XWeatherSelector'),
-      XBrandSelector: () => import('@/components/inputs/fields/XBrandSelector'),
-      XStateSelector: () => import('@/components/inputs/fields/XStateSelector'),
-      XSortIcon: () => import('@/components/elements/Icons/XSortIcon'),
-      XCombobox: () => import('@/components/inputs/XCombobox'),
-      XIncrement: () => import('@/components/inputs/XIncrement'),
-      XPicker: () => import('@/components/inputs/XPicker'),
-      XTimePicker: () => import('@/components/inputs/XTimePicker'),
-      XDatePicker: () => import('@/components/inputs/XDatePicker'),
-      XCategorySelector: () => import('@/components/inputs/fields/XCategorySelector'),
-      XSelector: () => import('@/components/inputs/XSelector'),
+      AdventureGearCard,
+      XText,
+      XTitleField,
+      XCheckbox,
+      XWeatherSelector,
+      XBrandSelector,
+      XStateSelector,
+      XSortIcon,
+      XCombobox,
+      XIncrement,
+      XPicker,
+      XTimePicker,
+      XDatePicker,
+      XCategorySelector,
+      XSelector,
     },
     props: {
       item: Object,
@@ -880,9 +895,6 @@
             this.clearAdventureMenuFilters();
         }
       },
-      updatedItem(val) {
-        console.log('watching updatedItem',val);
-      }
     },
     async mounted() {
       this.initWindowHeight();
