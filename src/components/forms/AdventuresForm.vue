@@ -836,16 +836,16 @@
 
           if(finalArray)
             await this.api_patch_preference_tag(finalArray, 'adventure');
+
           await this.api_post_adventure(this.updatedItem);
           Object.assign(this.updatedItem, {});
-          this.isLoading = false;
+
           this.formDialog = false;
+          this.isLoading = false;
         }
       },
       async patchItem(val) {
-        if(this.valid===true && val===true
-            && (this.item !== this.updatedItem)
-        ) {
+        if(this.valid===true && val===true) {
           this.isLoading = true;
           let finalArray = this.initPreferenceTagArray(this.updatedItem.tags, 'adventure');
 
@@ -853,10 +853,10 @@
             await this.api_patch_preference_tag(finalArray, 'adventure');
 
           await this.api_patch_adventure(this.updatedItem, this.itemIndex, this.item.adventure_inventory);
+
+          this.formDialog = false;
           this.isLoading = false;
         }
-        if(this.valid===true && val===true)
-          this.formDialog = false;
       },
       async deleteItem(val) {
         if(val===true) {
@@ -878,6 +878,9 @@
             this.clearAdventureMenuFilters();
         }
       },
+      updatedItem(val) {
+        console.log('watching updatedItem',val);
+      }
     },
     async mounted() {
       this.initWindowHeight();
