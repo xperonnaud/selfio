@@ -1169,14 +1169,12 @@
 
           await this.api_post_inventory(this.updatedItem, this.originalGearList, this.inventoryGearList, this.gearInventoryRelations);
           Object.assign(this.updatedItem, {});
-          this.isLoading = false;
           this.formDialog = false;
+          this.isLoading = false;
         }
       },
       async patchItem(val) {
-        if(this.valid===true && val===true
-            && (this.item !== this.updatedItem)
-        ) {
+        if(this.valid===true && val===true) {
           this.isLoading = true;
           let finalArray = this.initPreferenceTagArray(this.updatedItem.tags, 'inventory');
 
@@ -1184,16 +1182,17 @@
             await this.api_patch_preference_tag(finalArray, 'inventory');
 
           await this.api_patch_inventory(this.updatedItem, this.itemIndex, this.originalGearList, this.inventoryGearList, this.gearInventoryRelations);
+          this.formDialog = false;
           this.isLoading = false;
         }
-        if(this.valid===true && val===true)
-          this.formDialog = false;
       },
       async deleteItem(val) {
         if(val===true) {
+          this.isLoading = true;
           await this.api_remove_inventory(this.item.id, this.itemIndex, this.originalGearList, this.gearInventoryRelations);
           Object.assign(this.updatedItem, {});
           this.formDialog = false;
+          this.isLoading = false;
         }
       },
       async editMode(val) {

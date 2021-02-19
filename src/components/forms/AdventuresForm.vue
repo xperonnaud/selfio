@@ -860,9 +860,11 @@
       },
       async deleteItem(val) {
         if(val===true) {
+          this.isLoading = true;
           await this.api_remove_adventure(this.item.id, this.itemIndex);
           Object.assign(this.updatedItem, {});
           this.formDialog = false;
+          this.isLoading = false;
         }
       },
       async isEditing(newVal) {
