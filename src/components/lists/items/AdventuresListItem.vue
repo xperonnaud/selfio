@@ -127,7 +127,7 @@
                 <v-tooltip v-if="source.weather" bottom>
                   <template v-slot:activator="{ on, attrs }">
                     <v-sheet
-                      :color="isDark ? 'black' : 'grey lighten-4'"
+                      :color="isDark ? '#121212' : 'grey lighten-4'"
                       class="list-icon-wrapper"
                       v-bind="attrs"
                       v-on="on"
@@ -204,6 +204,7 @@
               <v-sheet
                 v-if="source.start_date"
                 class="list-icon-wrapper"
+                color="transparent"
               >
                 <v-tooltip bottom>
                   <template v-slot:activator="{ on, attrs }">

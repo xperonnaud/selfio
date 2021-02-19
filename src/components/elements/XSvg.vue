@@ -2,8 +2,10 @@
 
   <v-sheet
     v-if="isMounted"
-    :style="'border-radius: 32px; ' + (margin ? 'margin-bottom: 2px; margin-right: 1px;' : '')"
+    :style="'border-radius: 36px; ' + (margin ? 'margin-bottom: 2px; margin-right: 1px;' : '')"
     color="transparent"
+    :width="width"
+    :height="height"
   >
     <v-tooltip bottom>
       <template v-slot:activator="{ on, attrs }">
