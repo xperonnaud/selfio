@@ -149,13 +149,13 @@
             <div class="d-flex justify-center">
               <div class="text-caption stacked-item-data text-center max-width">
                 <div v-if="source.temp_max">
-                  <span>{{ source.temp_max | temperatureUnitFilter(temperatureUnit) }}</span>
+                  <span>{{ temperatureUnitConverter(source.temp_max) }}</span>
                   <span class="text-tiny-dimmed" v-html="' '+temperatureUnit" />
                 </div>
                 <empty-data v-else />
 
                 <div v-if="source.temp_min">
-                  <span>{{ source.temp_min | temperatureUnitFilter(temperatureUnit) }}</span>
+                  <span>{{ temperatureUnitConverter(source.temp_min) }}</span>
                   <span class="text-tiny-dimmed" v-html="' '+temperatureUnit" />
                 </div>
                 <empty-data v-else />
