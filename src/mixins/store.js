@@ -106,7 +106,6 @@ export default {
                 'rainy',
                 'snowy',
                 'snowy-heavy',
-                'snowy-rainy',
                 'sunny',
                 'windy',
             ],
@@ -115,6 +114,22 @@ export default {
                 { id: 2, title: 'used', color: 'orange' },
                 { id: 3, title: 'ok', color: 'green' },
                 { id: 4, title: 'new', color: 'blue' },
+            ],
+            GEAR_CATEGORIES: [
+                'activity',
+                'clothing',
+                'cooking',
+                'documents',
+                'electronics',
+                'emergency',
+                'food-snacks',
+                'hydration',
+                'hygiene',
+                'miscellanous',
+                'packs-bags',
+                'shelter',
+                'sleeping',
+                'tools',
             ],
         }
     },
@@ -245,6 +260,11 @@ export default {
                 return this.GEAR_STATES
             },
         },
+        gearCategories: {
+            get() {
+                return this.GEAR_CATEGORIES
+            },
+        },
         user: {
             get() {
                 return this.xSelfio.user
@@ -306,11 +326,6 @@ export default {
                 if(this.preferences && this.preferences.temperature_unit)
                     return this.preferences.temperature_unit;
                 return '&#8457;'
-            },
-        },
-        gearCategories: {
-            get() {
-                return this.xSelfio.gearCategories
             },
         },
         gearReferences: {

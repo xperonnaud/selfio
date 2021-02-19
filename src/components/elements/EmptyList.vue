@@ -13,7 +13,7 @@
             ></v-icon>
           </div>
 
-          <div class="ma-3" v-text="$t('global.empty-list')" />
+          <div class="ma-3" v-text="xCapFirst($t('global.empty-list'))" />
 
           <div v-if="label" class="text-caption">{{label | capitalizeFirstFilter}}</div>
         </div>

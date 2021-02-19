@@ -7,20 +7,22 @@
         <v-list-item-avatar
             v-bind:class="[
               'x-avatar py-0 d-flex  justify-center',
-               (isMobile ? 'my-0 mr-3' : 'ml-2 mr-5'),
+               (isMobile ? 'my-0 ml-1 mr-4' : 'ml-3 mr-5'),
             ]"
-                :style="(source.category ? `border: 2px solid ${categoryColor(source.category)} !important;` : '')"
+            :width="XXLI"
+            :height="XXLI"
+            :style="(typeof source.category == 'number' ? `border: 2px solid ${categoryColor(source.category)} !important;` : '')+'min-width: unset;'"
         >
-            <x-img
-                v-if="source.category && xGearCategory(source.category)"
-                :src="xGearCategory(source.category).icon"
-                :tooltipText="source.category"
-                :width="SMI"
-                :height="SMI"
-                isCategory
-            ></x-img>
+            <x-svg
+                v-if="typeof source.category == 'number' && gearCategories[source.category]"
+                :src="gearCategories[source.category]"
+                svgPath="gearcategories/"
+                :width="XSI"
+                :height="XSI"
+                :tooltipText="xCap($t(`categories.${gearCategories[source.category]}.desc`))"
+            ></x-svg>
 
-            <x-unknown-category-icon v-else-if="currentRouteId === 'gear'" />
+            <x-unknown-category-icon v-else :size="MDI" />
         </v-list-item-avatar>
 
         <v-list-item-content>
@@ -111,7 +113,7 @@
     import XWeightCol from "@/components/xcols/XWeightCol";
     import EmptyData from "@/components/elements/EmptyData";
     import EditIcon from "@/components/elements/Icons/EditIcon";
-    import XImg from "@/components/elements/XImg";
+    import XSvg from "@/components/elements/XSvg";
     import XUnknownCategoryIcon from "@/components/elements/Icons/XUnknownCategoryIcon";
 
   export default {
@@ -122,7 +124,7 @@
       XWeightCol,
       EmptyData,
       EditIcon,
-      XImg,
+        XSvg,
       XUnknownCategoryIcon
     },
     props: {

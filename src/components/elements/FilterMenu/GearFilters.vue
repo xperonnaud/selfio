@@ -2,11 +2,7 @@
 
   <v-list>
     <v-list-item class="mb-3">
-      <x-picker
-        label="category"
-        :list="categoriesList"
-        v-bind:value.sync="itemGearCategory"
-      ></x-picker>
+      <x-category-selector v-bind:value.sync="itemGearCategory" isInFilter />
     </v-list-item>
 
     <v-list-item class="mb-3">
@@ -55,19 +51,19 @@
 <script>
 
   import XCheckbox from "@/components/inputs/XCheckbox";
+  import XCategorySelector from "@/components/inputs/fields/XCategorySelector";
   import XBrandSelector from "@/components/inputs/fields/XBrandSelector";
   import XStateSelector from "@/components/inputs/fields/XStateSelector";
   import XIncrement from "@/components/inputs/XIncrement";
-  import XPicker from "@/components/inputs/XPicker";
 
   export default {
     name: 'gear-filter',
     components: {
       XCheckbox,
+      XCategorySelector,
       XBrandSelector,
       XStateSelector,
       XIncrement,
-      XPicker,
     },
     props: {
       filterMode: Boolean

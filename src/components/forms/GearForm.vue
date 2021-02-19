@@ -40,14 +40,7 @@
                     </v-col>
 
                     <v-col cols="12">
-                      <x-selector
-                        label="category"
-                        dataType="categories"
-                        :list="categoriesList"
-                        :listReferences="gearCategoryReferences"
-                        v-bind:value.sync="updatedItem.category"
-                        :iconSize="LGI"
-                      ></x-selector>
+                      <x-category-selector v-bind:value.sync="updatedItem.category" />
                     </v-col>
 
                     <v-col cols="12">
@@ -173,7 +166,9 @@
   import XStateSelector from "@/components/inputs/fields/XStateSelector";
   import XIncrement from "@/components/inputs/XIncrement";
   import XDatePicker from "@/components/inputs/XDatePicker";
-  import XSelector from "@/components/inputs/XSelector";
+  import XCategorySelector from "@/components/inputs/fields/XCategorySelector";
+  // import XSelector from "@/components/inputs/XSelector";
+  // import XSimpleSelector from "@/components/inputs/XSimpleSelector";
   import XCombobox from "@/components/inputs/XCombobox";
   import XCheckbox from "@/components/inputs/XCheckbox";
 
@@ -188,7 +183,9 @@
       XCombobox,
       XIncrement,
       XDatePicker,
-      XSelector,
+      XCategorySelector
+      // XSelector,
+      // XSimpleSelector,
     },
     props: {
       item: Object,

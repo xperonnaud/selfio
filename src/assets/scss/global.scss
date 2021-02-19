@@ -179,7 +179,7 @@
   }
 
   &.is-in-filter {
-    &:not(.x-state-selector), &:not(.x-simple-selector) {
+    &:not(.x-state-selector), &:not(.x-simple-selector), &:not(.x-category-selector) {
       .v-text-field--filled > .v-input__control > .v-input__slot {
         background: unset;
       }

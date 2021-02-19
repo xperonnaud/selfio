@@ -81,7 +81,7 @@
 
                         <v-col cols="12">
                           <x-combobox
-                            label="tags"
+                            label="Tags"
                             v-bind:value.sync="updatedItem.tags"
                             v-bind:items="preferences.adventure_tags"
                             v-bind:route="'adventures'"
@@ -255,12 +255,12 @@
           <div v-show="isEditing">
             <v-card class="mx-auto" flat :color="xBackgroundColor">
               <v-card-text :class="['pa-0']">
-                <v-toolbar class="edition-toolbar">
+                <v-toolbar :class="['edition-toolbar', (isMobile ? 'px-0' : 'px-2')]">
                   <v-btn @click="closeEditor()" icon>
                     <v-icon v-text="'mdi-arrow-left'" />
                   </v-btn>
 
-                  <v-toolbar-title v-bind:class="[{'pa-0':isMobile}]">
+                  <v-toolbar-title v-bind:class="[{'px-0':isMobile}]">
                     <v-list-item two-line class="px-0">
                       <v-list-item-content class="pa-0">
                         <v-list-item-title>{{$t('components.adventure-gear-card.gear-checklist') | capitalizeFirstFilter}}</v-list-item-title>
@@ -333,17 +333,13 @@
 
                         <v-list>
                           <v-list-item class="mb-3">
-                            <x-picker
-                              label="category"
-                              :list="categoriesList"
-                              v-bind:value.sync="gearCategoryFilter"
-                            ></x-picker>
+                            <x-category-selector v-bind:value.sync="gearCategoryFilter" isInFilter />
                           </v-list-item>
 
                           <v-list-item class="mb-3">
                             <v-autocomplete
                               v-if="gearFilterModeOn"
-                              :label="$t('global.tags')"
+                              :label="xCapFirst($t('global.tags'))"
                               v-model="gearTagsFilter"
                               :items="preferences.gear_tags"
                               :color="currentColor"
@@ -552,9 +548,10 @@
       XSortIcon: () => import('@/components/elements/Icons/XSortIcon'),
       XCombobox: () => import('@/components/inputs/XCombobox'),
       XIncrement: () => import('@/components/inputs/XIncrement'),
+      XPicker: () => import('@/components/inputs/XPicker'),
       XTimePicker: () => import('@/components/inputs/XTimePicker'),
       XDatePicker: () => import('@/components/inputs/XDatePicker'),
-      XPicker: () => import('@/components/inputs/XPicker'),
+      XCategorySelector: () => import('@/components/inputs/fields/XCategorySelector'),
       XSelector: () => import('@/components/inputs/XSelector'),
       XSimpleSelector: () => import('@/components/inputs/XSimpleSelector'),
     },

@@ -70,7 +70,6 @@
 
         await this.api_get_brands();
         await this.api_get_landscapes();
-        await this.api_get_gear_categories();
         await this.api_get_gear();
         await this.api_get_inventories();
         await this.api_get_activities();
@@ -106,6 +105,7 @@
       },
     },
     mounted() {
+      this.setLang(this.getNavigatorLanguage());
       this.isMounted = true;
     }
   };

@@ -38,8 +38,12 @@
               clearable
               @click:clear="resetValue()"
             >
-              <template v-if="(typeof pickerValue != 'undefined') && hasIcon" v-slot:prepend-inner style="margin-top: 0">
+              <template
+                v-if="(typeof pickerValue != 'undefined') && hasIcon"
+                v-slot:prepend-inner style="margin-top: 0"
+              >
                 <v-icon
+                  v-if="dataType === 'weathers'"
                   :width="iconSize"
                   :height="iconSize"
                   v-text="`mdi-weather-${pickerValue}`"
@@ -82,7 +86,7 @@
               >
                 <div>
                   <div v-if="hasIcon" class="d-flex justify-space-around align-self-center">
-                    <v-icon v-text="`mdi-weather-${item}`" />
+                    <v-icon v-if="dataType === 'weathers'" v-text="`mdi-weather-${item}`" />
                   </div>
 
                   <div class="text-caption text-center">
@@ -106,7 +110,7 @@
     props: {
       list: Array,
       label: String,
-      value: String,
+      value: [Number, String],
       dataType: String,
       iconSize: {
         type: Number,

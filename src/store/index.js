@@ -16,13 +16,10 @@ export default new Vuex.Store({
         selfio: {
             user: {},
             preferences: {},
-            relations: [],
-            files: [],
             brands: [],
             brandReferences: {},
             landscapes: [],
             landscapeReferences: {},
-            gearCategories: [],
             gearCategoryReferences: {},
             activities: [],
             activityReferences: {},
@@ -124,13 +121,6 @@ export default new Vuex.Store({
             for(const b of landscapes) {
                 state.selfio.landscapes.push(b);
                 Object.assign(state.selfio.landscapeReferences, { [b.id] : (state.selfio.landscapes.length - 1) });
-            }
-        },
-        updateGearCategories(state, gearCategories) {
-            while(state.selfio.gearCategories.length > 0) state.selfio.gearCategories.pop();
-            for(const gt of gearCategories) {
-                state.selfio.gearCategories.push(gt);
-                Object.assign(state.selfio.gearCategoryReferences, { [gt.id] : (state.selfio.gearCategories.length - 1) });
             }
         },
         updateUser(state, user) {
