@@ -608,7 +608,7 @@
                     key-field="id"
                     v-slot="{ index }"
                   >
-                    <template v-if="typeof index == 'number'">
+                    <template v-if="typeof index == 'number' && filteredGear[index] && filteredGear[index].id">
                       <inventory-gear-list-item
                         :key="`inventory-gear-${filteredGear[index]}-${index}`"
                         :gear="filteredGear[index]"

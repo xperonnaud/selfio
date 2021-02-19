@@ -500,7 +500,7 @@
                       key-field="id"
                       v-slot="{ index }"
                     >
-                      <template v-if="typeof index == 'number'">
+                      <template v-if="typeof index == 'number' && filteredGear[index] && filteredGear[index].gear_id">
                         <adventure-gear-list-item
                           :key="`adventure-gear-${filteredGear[index].gear_id}-${index}`"
                           :source.sync="filteredGear[index]"
