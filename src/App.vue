@@ -3,19 +3,19 @@
     v-if="isMounted"
     v-bind:class="[
       'back',
-      {'is-logged-in':displayApp},
+      {'is-logged-in':displayApp && apiAccessToken},
       {'is-small':isMobile},
       {'is-dark':isDark},
     ]"
   >
     <v-app id="inspire">
-      <app-header v-if="displayApp" />
+      <app-header v-if="displayApp && apiAccessToken" />
 
-      <app-nav v-if="displayApp" />
+      <app-nav v-if="displayApp && apiAccessToken" />
 
       <app-body v-show="!isMobile || (isMobile && !isAppLoading)" />
 
-      <app-footer v-if="displayApp" />
+      <app-footer v-if="displayApp && apiAccessToken" />
 
       <v-overlay :value="isAppLoading">
         <v-progress-circular
@@ -26,7 +26,7 @@
 
       <snack-bar />
 
-      <session-dialog v-if="displayApp" :dialog.sync="isSessionExpired" />
+      <session-dialog v-if="displayApp && apiAccessToken" :dialog.sync="isSessionExpired" />
     </v-app>
   </div>
 </template>
