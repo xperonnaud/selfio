@@ -79,7 +79,7 @@
       </v-list-item>
     </template>
 
-    <v-divider v-bind:class="[(isMobile ? 'my-1' : 'my-2')]" />
+<!--    <v-divider v-bind:class="[(isMobile ? 'my-1' : 'my-2')]" />-->
 
 <!--    <v-list-item-->
 <!--      active-class="primary-gradient-color-text"-->
