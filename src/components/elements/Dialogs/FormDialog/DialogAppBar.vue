@@ -4,13 +4,23 @@
       v-if="isMounted"
       :color="editMode ? xOverlayColor : xTabsColor"
       :dense="editMode"
-      :class="[(isMobile ? 'px-0' : 'px-3')]"
+      :class="[
+        {'pt-1 px-2' : (!isMobile && !editMode)},
+        {'px-0' : (isMobile && !editMode)},
+        {'px-3' : (!isMobile && editMode)},
+        {'px-2' : (isMobile && editMode)},
+      ]"
     >
       <v-btn
         @click="leftArrowAction()"
         :disabled="editMode || !isFormMounted"
         :small="editMode"
-        class="mr-1"
+        :class="[
+          {'mr-0' : (!isMobile && !editMode)},
+          {'mr-4' : (!isMobile && editMode)},
+          {'mr-3' : (isMobile && editMode)},
+          {'mr-1' : (isMobile && !editMode)},
+        ]"
         icon
       >
         <v-icon :small="editMode" v-text="'mdi-arrow-left'" />
@@ -18,7 +28,7 @@
 
       <v-toolbar-title v-bind:class="['pl-0',{'pa-0':isMobile}]">
         <template>
-          <v-list-item two-line>
+          <v-list-item two-line v-bind:class="[{'px-0':isMobile}]">
             <v-list-item-content class="pa-0">
               <v-list-item-title>
                 <span v-if="item" :class="[{'text-body-2 text--disabled':editMode}]">{{item.title | capitalizeFilter}}</span>

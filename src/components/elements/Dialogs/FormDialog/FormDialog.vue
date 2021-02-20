@@ -1,7 +1,7 @@
 <template>
   <v-dialog
     v-model="formDialog"
-    max-width="750px"
+    max-width="900px"
     :fullscreen="isMobile"
     :hide-overlay="isMobile"
     :transition="isMobile ? 'slide-x-transition' : 'fade-transition'"

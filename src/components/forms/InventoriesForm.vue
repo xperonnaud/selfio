@@ -126,23 +126,23 @@
                                       :height="XXLI"
                                       :style="gearCategoryStat.id ? `border: 1px solid ${categoryColor(gearCategoryStat.id)} !important;` : ''"
                                     >
-                                      <x-img
-                                        v-if="gearCategoryStat.id && xGearCategory(gearCategoryStat.id) && objFilter(gearCategories, 'id', parseInt(gearCategoryStat.id))[0]"
-                                        :src="objFilter(gearCategories, 'id', parseInt(gearCategoryStat.id))[0].icon"
-                                        :tooltipText="gearCategoryStat.id"
+                                      <x-svg
+                                        v-if="gearCategoryStat.id && gearCategories[gearCategoryStat.id]"
+                                        :src="gearCategories[gearCategoryStat.id]"
+                                        svgPath="gearcategories/"
                                         :width="XSI"
                                         :height="XSI"
-                                        isCategory
-                                      ></x-img>
+                                        :tooltipText="xCap($t(`categories.${gearCategories[gearCategoryStat.id]}.desc`))"
+                                      ></x-svg>
 
-                                      <x-unknown-category-icon v-else />
+                                      <x-unknown-category-icon v-else :size="MDI" />
                                     </v-list-item-avatar>
 
                                     <v-list-item-title class="mb-1">
                                       <div class="d-flex">
                                         <div class="text-caption" style="width: 80px;">
-                                          <div v-if="gearCategoryStat.id && objFilter(gearCategories, 'id', parseInt(gearCategoryStat.id))[0]"
-                                          >{{ $t(`categories.${objFilter(gearCategories, 'id', parseInt(gearCategoryStat.id))[0].title}.title`) | capitalizeFilter }}</div>
+                                          <div v-if="gearCategoryStat.id && gearCategories[gearCategoryStat.id]"
+                                          >{{ $t(`categories.${gearCategories[gearCategoryStat.id]}.title`) | capitalizeFilter }}</div>
                                           <div v-else v-text="xCap($t('global.unknown'))" />
                                         </div>
 
@@ -172,7 +172,7 @@
 
                                       <v-progress-linear
                                         :value="gearCategoryStat.weight | percentageFilter(inventoryGearList, inventoryTotalWeight)"
-                                        :color="getVuetifyColor((gearCategoryStat.id ? gearCategoryStat.id : 0))"
+                                        :color="getVuetifyColor((gearCategoryStat.id ? gearCategoryStat.id : 14))"
                                         :height="3"
                                         :background-color="xProgressColor"
                                         class="rounded"
@@ -231,7 +231,7 @@
 
                           <empty-list
                             v-if="inventoryGearList.length <= 0"
-                            label="empty-list"
+                            :label="t('add-gear')"
                             :color="navItemColor('gear')"
                           ></empty-list>
 
@@ -284,14 +284,14 @@
                                         v-bind:class="['x-avatar my-0 ml-3 mr-1 d-flex justify-center']"
                                         :style="gearCategoryStat.id ? 'border: 2px solid '+categoryColor(gearCategoryStat.id)+' !important;' : ''"
                                       >
-                                        <x-img
-                                          v-if="gearCategoryStat.id && xGearCategory(gearCategoryStat.id) && objFilter(gearCategories, 'id', parseInt(gearCategoryStat.id))[0]"
-                                          :src="objFilter(gearCategories, 'id', parseInt(gearCategoryStat.id))[0].icon"
-                                          :tooltipText="gearCategoryStat.id"
+                                        <x-svg
+                                          v-if="gearCategoryStat.id && gearCategories[gearCategoryStat.id]"
+                                          :src="gearCategories[gearCategoryStat.id]"
+                                          svgPath="gearcategories/"
                                           :width="XSI"
                                           :height="XSI"
-                                          isCategory
-                                        ></x-img>
+                                          :tooltipText="xCap($t(`categories.${gearCategories[gearCategoryStat.id]}.desc`))"
+                                        ></x-svg>
 
                                         <x-unknown-category-icon v-else />
                                       </v-list-item-avatar>
@@ -299,8 +299,8 @@
                                       <v-list-item-title class="mb-1">
                                         <div class="d-flex">
                                           <div class="text-caption" style="width: 80px;">
-                                            <div v-if="gearCategoryStat.id && objFilter(gearCategories, 'id', parseInt(gearCategoryStat.id))[0]"
-                                            >{{ $t(`categories.${objFilter(gearCategories, 'id', parseInt(gearCategoryStat.id))[0].title}.title`) | capitalizeFilter }}</div>
+                                            <div v-if="gearCategoryStat.id && gearCategories[gearCategoryStat.id]"
+                                            >{{ $t(`categories.${gearCategories[gearCategoryStat.id]}.title`) | capitalizeFilter }}</div>
 
                                             <div v-else v-text="xCapFirst($t('global.unknown'))" />
                                           </div>
@@ -332,7 +332,7 @@
 
                                         <v-progress-linear
                                           :value="gearCategoryStat.weight | percentageFilter(inventoryGearList, inventoryTotalWeight)"
-                                          :color="getVuetifyColor((gearCategoryStat.id ? gearCategoryStat.id : 0))"
+                                          :color="getVuetifyColor((gearCategoryStat.id ? gearCategoryStat.id : 14))"
                                           :height="6"
                                           :background-color="xProgressColor"
                                           class="rounded"
@@ -359,12 +359,12 @@
         <div v-show="isEditing">
           <v-card class="mx-auto" flat :color="xBackgroundColor">
             <v-card-text :class="['pa-0']">
-              <v-toolbar :class="['edition-toolbar', (isMobile ? 'px-0' : 'px-3')]">
+              <v-toolbar :class="['edition-toolbar', (isMobile ? 'px-0' : 'px-2')]">
                 <v-btn @click="closeEditor()" icon>
                   <v-icon v-text="'mdi-arrow-left'" />
                 </v-btn>
 
-                <v-list-item two-line class="px-0">
+                <v-list-item two-line :class="[{'px-0':isMobile}]">
                   <v-list-item-content class="pa-0">
                     <v-list-item-title>{{t(`gear-list`) | capitalizeFirstFilter}}</v-list-item-title>
 
@@ -395,6 +395,8 @@
                   <v-menu
                     v-model="gearFilterModeOn"
                     :close-on-content-click="false"
+                    min-width="333"
+                    max-width="333"
                     :nudge-width="200"
                     left
                   >
@@ -430,11 +432,7 @@
 
                       <v-list>
                         <v-list-item class="mb-3">
-                          <x-picker
-                            label="category"
-                            :list="categoriesList"
-                            v-bind:value.sync="gearCategoryFilter"
-                          ></x-picker>
+                          <x-category-selector v-bind:value.sync="gearCategoryFilter" isInFilter />
                         </v-list-item>
 
                         <v-list-item class="mb-3">
@@ -610,7 +608,7 @@
                     key-field="id"
                     v-slot="{ index }"
                   >
-                    <template v-if="typeof index == 'number'">
+                    <template v-if="typeof index == 'number' && filteredGear[index] && filteredGear[index].id">
                       <inventory-gear-list-item
                         :key="`inventory-gear-${filteredGear[index]}-${index}`"
                         :gear="filteredGear[index]"
@@ -676,7 +674,7 @@
                   <x-increment
                     label="quantity-packed"
                     v-bind:value.sync="selectedInventoryGear['gear_quantity_packed']"
-                    :rules="xRules.decimal"
+                    :rules="xRules.decimals"
                     :color="currentColor"
                     :max="selectedInventoryGearMaxQuantity"
                     :min="0"
@@ -722,26 +720,39 @@
   const _ = require('lodash');
 
   import InventoryGearListItem from "@/components/lists/items/InventoryGearListItem";
+  import InventoryGearCard from "@/components/elements/Cards/InventoryGearCard";
+  import XCategorySelector from "@/components/inputs/fields/XCategorySelector";
+  import XBrandSelector from "@/components/inputs/fields/XBrandSelector";
+  import XStateSelector from "@/components/inputs/fields/XStateSelector";
+  import XTitleField from "@/components/inputs/fields/XTitleField";
+  import XCombobox from "@/components/inputs/XCombobox";
+  import XSortIcon from "@/components/elements/Icons/XSortIcon";
+  import XCheckbox from "@/components/inputs/XCheckbox";
+  import XIncrement from "@/components/inputs/XIncrement";
+  import XSvg from "@/components/elements/XSvg";
+  import XDivider from "@/components/elements/XDivider";
+  import EmptyList from "@/components/elements/EmptyList";
+  import XUnknownCategoryIcon from "@/components/elements/Icons/XUnknownCategoryIcon";
 
   export default {
     name: 'inventories-form',
     components: {
       InventoryGearListItem,
-      EmptyList: () => import('@/components/elements/EmptyList'),
-      InventoryGearCard: () => import('@/components/elements/Cards/InventoryGearCard'),
-      XStackedProgressCard: () => import('@/components/elements/StackedProgressCard/XStackedProgressCard'),
-      XTitleField: () => import('@/components/inputs/fields/XTitleField'),
-      XUnknownCategoryIcon: () => import('@/components/elements/Icons/XUnknownCategoryIcon'),
-      XBrandSelector: () => import('@/components/inputs/fields/XBrandSelector'),
-      XStateSelector: () => import('@/components/inputs/fields/XStateSelector'),
-      XPicker: () => import('@/components/inputs/XPicker'),
-      XIncrement: () => import('@/components/inputs/XIncrement'),
-      XCheckbox: () => import('@/components/inputs/XCheckbox'),
-      XSortIcon: () => import('@/components/elements/Icons/XSortIcon'),
+      EmptyList,
+      InventoryGearCard,
+      XTitleField,
+      XUnknownCategoryIcon,
+      XCategorySelector,
+      XBrandSelector,
+      XStateSelector,
+      XIncrement,
+      XCheckbox,
+      XSortIcon,
+      XCombobox,
+      XDivider,
+      XSvg,
       XPieChart: () => import('@/components/charts/XPieChart'),
-      XCombobox: () => import('@/components/inputs/XCombobox'),
-      XDivider: () => import('@/components/elements/XDivider'),
-      XImg: () => import('@/components/elements/XImg')
+      XStackedProgressCard: () => import('@/components/elements/StackedProgressCard/XStackedProgressCard'),
     },
     props: {
       item: Object,
@@ -955,11 +966,11 @@
           let data = [];
 
           for (const [key, value] of Object.entries(gearCategoryStats)) {
-            let gearCategory = value.id === 0 ? null : this.xGearCategory(value.id);
+            let gearCategory = value.id === 14 ? null : this.gearCategories[value.id];
             let percentage = this.xFilters.percentageFilter(value.weight, this.inventoryGearList, this.inventoryTotalWeight);
 
-            let chartLabel = (gearCategory && gearCategory.title ? this.$t(`categories.${gearCategory.title}.title`) : this.$t('global.unknown')) + `, ${percentage}%, ${this.$t('global.weight')}(${this.dynamicWeightUnit(value.weight)})`;
-            let color = this.categoryColor(gearCategory && gearCategory.id ? gearCategory.id : 14);
+            let chartLabel = (value.id ? this.$t(`categories.${gearCategory}.title`) : this.$t('global.unknown')) + `, ${percentage}%, ${this.$t('global.weight')}(${this.dynamicWeightUnit(value.weight)})`;
+            let color = this.categoryColor(value && value.id ? value.id : 14);
             let displayedWeight = this.weightUnitConverter(value.weight, false);
 
             labels.push(this.xCapFirst(chartLabel));
@@ -1171,14 +1182,12 @@
 
           await this.api_post_inventory(this.updatedItem, this.originalGearList, this.inventoryGearList, this.gearInventoryRelations);
           Object.assign(this.updatedItem, {});
-          this.isLoading = false;
           this.formDialog = false;
+          this.isLoading = false;
         }
       },
       async patchItem(val) {
-        if(this.valid===true && val===true
-            && (this.item !== this.updatedItem)
-        ) {
+        if(this.valid===true && val===true) {
           this.isLoading = true;
           let finalArray = this.initPreferenceTagArray(this.updatedItem.tags, 'inventory');
 
@@ -1186,16 +1195,17 @@
             await this.api_patch_preference_tag(finalArray, 'inventory');
 
           await this.api_patch_inventory(this.updatedItem, this.itemIndex, this.originalGearList, this.inventoryGearList, this.gearInventoryRelations);
+          this.formDialog = false;
           this.isLoading = false;
         }
-        if(this.valid===true && val===true)
-          this.formDialog = false;
       },
       async deleteItem(val) {
         if(val===true) {
+          this.isLoading = true;
           await this.api_remove_inventory(this.item.id, this.itemIndex, this.originalGearList, this.gearInventoryRelations);
           Object.assign(this.updatedItem, {});
           this.formDialog = false;
+          this.isLoading = false;
         }
       },
       async editMode(val) {

@@ -79,24 +79,24 @@
       </v-list-item>
     </template>
 
-    <v-divider v-bind:class="[(isMobile ? 'my-1' : 'my-2')]" />
+<!--    <v-divider v-bind:class="[(isMobile ? 'my-1' : 'my-2')]" />-->
 
-    <v-list-item
-      active-class="primary-gradient-color-text"
-      link
-      dense
-      @click.stop="toggleTheme()"
-    >
-      <v-list-item-icon>
-        <v-icon :size="LGI" v-text="'mdi-lightbulb'" />
-      </v-list-item-icon>
+<!--    <v-list-item-->
+<!--      active-class="primary-gradient-color-text"-->
+<!--      link-->
+<!--      dense-->
+<!--      @click.stop="toggleTheme()"-->
+<!--    >-->
+<!--      <v-list-item-icon>-->
+<!--        <v-icon :size="LGI" v-text="'mdi-lightbulb'" />-->
+<!--      </v-list-item-icon>-->
 
-      <v-list-item-content>
-        <v-list-item-title>
-          {{$t(`global.theme`) | capitalizeFilter}}
-        </v-list-item-title>
-      </v-list-item-content>
-    </v-list-item>
+<!--      <v-list-item-content>-->
+<!--        <v-list-item-title>-->
+<!--          {{$t(`global.theme`) | capitalizeFilter}}-->
+<!--        </v-list-item-title>-->
+<!--      </v-list-item-content>-->
+<!--    </v-list-item>-->
 
     <template v-slot:append>
       <v-divider />

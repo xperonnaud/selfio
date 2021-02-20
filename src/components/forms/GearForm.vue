@@ -40,14 +40,7 @@
                     </v-col>
 
                     <v-col cols="12">
-                      <x-selector
-                        label="category"
-                        dataType="categories"
-                        :list="categoriesList"
-                        :listReferences="gearCategoryReferences"
-                        v-bind:value.sync="updatedItem.category"
-                        :iconSize="LGI"
-                      ></x-selector>
+                      <x-category-selector v-bind:value.sync="updatedItem.category" />
                     </v-col>
 
                     <v-col cols="12">
@@ -61,7 +54,7 @@
                       <x-text
                         :label="$t('global.weight')"
                         v-bind:value.sync="updatedItem.weight"
-                        :rules="xRules.decimal"
+                        :rules="xRules.decimals"
                         :suffix="weightUnit"
                       ></x-text>
                     </v-col>
@@ -70,7 +63,7 @@
                       <x-increment
                         label="quantity-owned"
                         v-bind:value.sync="updatedItem.quantity_owned"
-                        :rules="xRules.decimal"
+                        :rules="xRules.decimals"
                         :color="currentColor"
                         :max="100"
                         :min="0"
@@ -108,7 +101,7 @@
                       <x-text
                         :label="$t('global.price')"
                         v-bind:value.sync="updatedItem.price"
-                        :rules="xRules.decimal"
+                        :rules="xRules.decimals"
                         :suffix="priceUnit"
                       ></x-text>
                     </v-col>
@@ -173,7 +166,7 @@
   import XStateSelector from "@/components/inputs/fields/XStateSelector";
   import XIncrement from "@/components/inputs/XIncrement";
   import XDatePicker from "@/components/inputs/XDatePicker";
-  import XSelector from "@/components/inputs/XSelector";
+  import XCategorySelector from "@/components/inputs/fields/XCategorySelector";
   import XCombobox from "@/components/inputs/XCombobox";
   import XCheckbox from "@/components/inputs/XCheckbox";
 
@@ -188,7 +181,7 @@
       XCombobox,
       XIncrement,
       XDatePicker,
-      XSelector,
+      XCategorySelector
     },
     props: {
       item: Object,
@@ -274,14 +267,12 @@
 
           await this.api_post_gear(this.updatedItem);
           Object.assign(this.updatedItem, {});
-          this.isLoading = false;
           this.formDialog = false;
+          this.isLoading = false;
         }
       },
       async patchItem(val) {
-        if(this.valid===true && val===true
-          && (this.item !== this.updatedItem)
-        ) {
+        if(this.valid===true && val===true) {
           this.isLoading = true;
           let finalArray = this.initPreferenceTagArray(this.updatedItem.tags, 'gear');
 
@@ -289,16 +280,17 @@
             await this.api_patch_preference_tag(finalArray, 'gear');
 
           await this.api_patch_gear(this.updatedItem, this.itemIndex);
+          this.formDialog = false;
           this.isLoading = false;
         }
-        if(this.valid===true && val===true)
-          this.formDialog = false;
       },
       async deleteItem(val) {
         if(val===true) {
+          this.isLoading = true;
           await this.api_remove_gear(this.item.id, this.itemIndex);
           Object.assign(this.updatedItem, {});
           this.formDialog = false;
+          this.isLoading = false;
         }
       },
     },

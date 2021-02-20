@@ -259,11 +259,11 @@ export default {
             }
             return color;
         },
-        getVuetifyColor(categoryId) {
-            return this.activityColor(this.vuetifyColors[this.gearCategoryReferences[categoryId]]);
+        getVuetifyColor(categoryIndex) {
+            return this.activityColor(this.vuetifyColors[categoryIndex]);
         },
-        getReversedVuetifyColor(categoryId) {
-            return this.reversedActivityColor(this.vuetifyColors[this.gearCategoryReferences[categoryId]]);
+        getReversedVuetifyColor(categoryIndex) {
+            return this.reversedActivityColor(this.vuetifyColors[categoryIndex]);
         },
         darkColorText(color) {
             if(typeof color == 'undefined' || !color || color === 'black')

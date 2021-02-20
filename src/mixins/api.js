@@ -73,11 +73,6 @@ export default {
                 return this.$store.state.selfio.gear;
             }
         },
-        categoriesList: {
-            get() {
-                return this.$store.state.selfio.gearCategories;
-            }
-        },
         inventoriesList: {
             get() {
                 return this.$store.state.selfio.inventories;
@@ -117,7 +112,7 @@ export default {
             }
         },
         async handleResponse(responseType, message, response, action) {
-            if(this.isSessionExpiredResponse(responseType, message) || action === 'login') {
+            if(this.isSessionExpiredResponse(responseType, message)) {
                 this.$store.commit("updateUiIsSessionExpired", true);
 
                 if(action === 'login')
@@ -247,7 +242,6 @@ export default {
         reset_api_data() {
             this.$store.commit("updateBrands",[]);
             this.$store.commit("updateLandscapes",[]);
-            this.$store.commit("updateGearCategories",[]);
             this.$store.commit("updateGear",[]);
             this.$store.commit("updateInventories",[]);
             this.$store.commit("updateActivities",[]);
@@ -314,16 +308,6 @@ export default {
                 await self.handleResponse('error', error.message, error);
             })
         },
-        async api_get_gear_categories() {
-            let self = this;
-
-            await directus.items('gear_categories').read()
-            .then(function (response) {
-                self.$store.commit("updateGearCategories",response.data);
-            }).catch(async function (error) {
-                await self.handleResponse('error', error.message, error);
-            })
-        },
         async api_get_activities() {
             let self = this;
 
@@ -348,16 +332,10 @@ export default {
             }
             return [];
         },
-        async api_get_preferences(userId) {
+        async api_get_preferences() {
             let self = this;
 
-            await directus.items('preferences').read({
-                filter: {
-                    user_created: {
-                        _eq: userId,
-                    },
-                },
-            })
+            await directus.items('preferences').read()
             .then(async function (response) {
                 if(response.data && response.data.length > 0) {
                     self.$store.commit("updatePreferences", response.data[0]);
@@ -372,14 +350,6 @@ export default {
         async api_init_preferences() {
             let self = this;
             let preferences = {
-                distance_unit:"km",
-                elevation_unit:"m",
-                price_unit:"$",
-                weight_unit:"g",
-                temperature_unit:"&#8451;",
-                date_format:"DD-MM-YY",
-                theme:"light",
-                language: this.getNavigatorLanguage(),
                 gear_tags:[],
                 inventory_tags:[],
                 adventure_tags:[],

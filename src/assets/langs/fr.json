@@ -1,6 +1,7 @@
 
 {
   "global": {
+    "null": "NA",
     "app-name": "PackHub.io",
 
     "gear":"matériel",
@@ -236,7 +237,7 @@
       "desc": "Couteau, hache, pelle, outil multi-fonction, ..."
     },
     "hydration": {
-      "title": "eau & boissons",
+      "title": "hydratation",
       "desc": "Eau, café, boisson énergisante, ..."
     }
   },

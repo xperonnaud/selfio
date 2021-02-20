@@ -55,7 +55,7 @@
  });
 
  Vue.filter("temperatureUnitFilter", function (value, unit = '&#8451;') {
-     if (!value) return '0';
+     if (!value) return 0;
 
      if(unit === '&#8451;') // celsius
          return value;

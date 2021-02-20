@@ -3,7 +3,7 @@
 
   <v-sheet
     v-if="isMounted"
-    v-bind:class="[(isMobile ? 'px-4 py-0' : 'pa-8')]"
+    v-bind:class="[(isMobile ? 'px-4 py-0' : 'px-8 py-6')]"
     height="100%"
     max-width="100%"
     color="transparent"
@@ -15,7 +15,7 @@
             <v-card
               v-if="navigationItems[item].type === 'items'"
               :key="index"
-              v-bind:class="['shadow-bottom', (isMobile ? 'my-2' : 'mb-3 mr-3')]"
+              v-bind:class="['shadow-bottom', (isMobile ? 'my-2' : 'mb-4 mr-4')]"
               :width="cardSize(300)"
               :color="xCardColor"
             >
@@ -30,38 +30,39 @@
                   </v-list-item-avatar>
 
                   <v-list-item-content>
-                    <v-list-item-title class="text-h6" v-text="countItems(navigationItems[item].title)" />
+                    <v-list-item-title class="text-h6">
+                      <span v-if="countersInitialized">{{countItems(navigationItems[item].title)}}</span>
+                      <v-skeleton-loader v-else :width="72" :height="24" type="heading" />
+                    </v-list-item-title>
                     <v-list-item-subtitle>{{$t(`global.${navigationItems[item].id}`) | capitalizeFilter}}</v-list-item-subtitle>
                   </v-list-item-content>
 
                   <v-list-item-action v-if="navigationItems[item].id !== 'inventories'">
-                    <v-list-item-action-text v-if="countersInitialized">
+                    <v-list-item-action-text>
                       <template v-if="navigationItems[item].id === 'gear'">
-                        <span :class="['text-subtitle-2', fontShadeColor]">{{ totalWeight | weightUnitFilter(weightUnit) }}</span>
-                        <span class="ml-1 text-caption" v-text="dynamicWeightUnit(totalWeight)" :key="`weight-unit-${randomId()}-${totalWeight}`" />
+                        <span v-if="countersInitialized" :class="['text-subtitle-2', fontShadeColor]">{{ totalWeight | weightUnitFilter(weightUnit) }}</span>
+                        <v-skeleton-loader v-else :width="48" type="text" />
+                        <span v-show="countersInitialized" class="ml-1 text-caption" v-text="dynamicWeightUnit(totalWeight)" :key="`weight-unit-${randomId()}-${totalWeight}`" />
                       </template>
 
                       <template v-else-if="navigationItems[item].id === 'adventures'">
-                        <span :class="['text-subtitle-2', fontShadeColor]">{{ totalDistance | distanceUnitFilter(distanceUnit) }}</span>
-                        <span class="ml-1 text-caption" v-text="distanceUnit" />
+                        <span v-if="countersInitialized" :class="['text-subtitle-2', fontShadeColor]">{{ totalDistance | distanceUnitFilter(distanceUnit) }}</span>
+                        <v-skeleton-loader v-else :width="48" type="text" />
+                        <span v-show="countersInitialized" class="ml-1 text-caption" v-text="distanceUnit" />
                       </template>
                     </v-list-item-action-text>
 
-                    <v-skeleton-loader
-                        v-else
-                        :height="16"
-                        type="text"
-                    ></v-skeleton-loader>
-
-                    <v-list-item-action-text v-if="countersInitialized">
+                    <v-list-item-action-text>
                       <template v-if="navigationItems[item].id === 'gear'">
-                        <span :class="['text-subtitle-2', fontShadeColor]" v-text="totalPrice" />
-                        <span class="ml-2 text-caption" v-text="priceUnit" />
+                        <span v-if="countersInitialized" :class="['text-subtitle-2', fontShadeColor]" v-text="totalPrice" />
+                        <v-skeleton-loader v-else :width="48" type="text" />
+                        <span v-show="countersInitialized" class="ml-2 text-caption" v-text="priceUnit" />
                       </template>
 
                       <template v-else-if="navigationItems[item].id === 'adventures'">
-                        <span :class="['text-subtitle-2', fontShadeColor]">{{ totalElevation | elevationUnitFilter(elevationUnit) }}</span>
-                        <span class="ml-2 text-caption" v-text="elevationUnit" />
+                        <span v-if="countersInitialized" :class="['text-subtitle-2', fontShadeColor]">{{ totalElevation | elevationUnitFilter(elevationUnit) }}</span>
+                        <v-skeleton-loader v-else :width="48" type="text" />
+                        <span v-show="countersInitialized" class="ml-2 text-caption" v-text="elevationUnit" />
                       </template>
                     </v-list-item-action-text>
                   </v-list-item-action>

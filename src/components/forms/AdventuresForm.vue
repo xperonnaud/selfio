@@ -182,7 +182,7 @@
                           <x-text
                             :label="`${$t('global.elevation')}/${$t('global.depth')}`"
                             v-bind:value.sync="updatedItem.elevation"
-                            :rules="xRules.decimal"
+                            :rules="xRules.decimals"
                             :suffix="elevationUnit"
                           ></x-text>
                         </v-col>
@@ -191,20 +191,17 @@
                           <x-text
                             :label="$t('global.distance')"
                             v-bind:value.sync="updatedItem.distance"
-                            :rules="xRules.decimal"
+                            :rules="xRules.decimals"
                             :suffix="distanceUnit"
                           ></x-text>
                         </v-col>
 
                         <v-col cols="12">
-                          <x-simple-selector
-                            label="weather"
-                            dataType="weathers"
-                            :list="weathers"
+                          <x-weather-selector
                             v-bind:value.sync="updatedItem.weather"
                             :iconSize="LGI"
                             hasIcon
-                          ></x-simple-selector>
+                          ></x-weather-selector>
                         </v-col>
 
                         <v-col cols="12">
@@ -255,12 +252,12 @@
           <div v-show="isEditing">
             <v-card class="mx-auto" flat :color="xBackgroundColor">
               <v-card-text :class="['pa-0']">
-                <v-toolbar class="edition-toolbar">
+                <v-toolbar :class="['edition-toolbar', (isMobile ? 'px-0' : 'px-2')]">
                   <v-btn @click="closeEditor()" icon>
                     <v-icon v-text="'mdi-arrow-left'" />
                   </v-btn>
 
-                  <v-toolbar-title v-bind:class="[{'pa-0':isMobile}]">
+                  <v-toolbar-title v-bind:class="[{'px-0':isMobile}]">
                     <v-list-item two-line class="px-0">
                       <v-list-item-content class="pa-0">
                         <v-list-item-title>{{$t('components.adventure-gear-card.gear-checklist') | capitalizeFirstFilter}}</v-list-item-title>
@@ -298,6 +295,8 @@
                     <v-menu
                       v-model="gearFilterModeOn"
                       :close-on-content-click="false"
+                      min-width="333"
+                      max-width="333"
                       :nudge-width="200"
                       left
                     >
@@ -333,17 +332,13 @@
 
                         <v-list>
                           <v-list-item class="mb-3">
-                            <x-picker
-                              label="category"
-                              :list="categoriesList"
-                              v-bind:value.sync="gearCategoryFilter"
-                            ></x-picker>
+                            <x-category-selector v-bind:value.sync="gearCategoryFilter" isInFilter />
                           </v-list-item>
 
                           <v-list-item class="mb-3">
                             <v-autocomplete
                               v-if="gearFilterModeOn"
-                              :label="$t('global.tags')"
+                              :label="xCapFirst($t('global.tags'))"
                               v-model="gearTagsFilter"
                               :items="preferences.gear_tags"
                               :color="currentColor"
@@ -505,7 +500,7 @@
                       key-field="id"
                       v-slot="{ index }"
                     >
-                      <template v-if="typeof index == 'number'">
+                      <template v-if="typeof index == 'number' && filteredGear[index] && filteredGear[index].gear_id">
                         <adventure-gear-list-item
                           :key="`adventure-gear-${filteredGear[index].gear_id}-${index}`"
                           :source.sync="filteredGear[index]"
@@ -538,25 +533,41 @@
 
   import Vue from 'vue'
   import AdventureGearListItem from "@/components/lists/items/AdventureGearListItem";
+  import AdventureGearCard from "@/components/elements/Cards/AdventureGearCard";
+  import XText from "@/components/inputs/fields/XText";
+  import XTitleField from "@/components/inputs/fields/XTitleField";
+  import XWeatherSelector from "@/components/inputs/fields/XWeatherSelector";
+  import XBrandSelector from "@/components/inputs/fields/XBrandSelector";
+  import XStateSelector from "@/components/inputs/fields/XStateSelector";
+  import XIncrement from "@/components/inputs/XIncrement";
+  import XDatePicker from "@/components/inputs/XDatePicker";
+  import XTimePicker from "@/components/inputs/XTimePicker";
+  import XPicker from "@/components/inputs/XPicker";
+  import XCategorySelector from "@/components/inputs/fields/XCategorySelector";
+  import XCombobox from "@/components/inputs/XCombobox";
+  import XSelector from "@/components/inputs/XSelector";
+  import XSortIcon from "@/components/elements/Icons/XSortIcon";
+  import XCheckbox from "@/components/inputs/XCheckbox";
 
   export default {
     name: 'adventures-form',
     components: {
-      XText: () => import('@/components/inputs/fields/XText'),
-      AdventureGearCard: () => import('@/components/elements/Cards/AdventureGearCard'),
       AdventureGearListItem,
-      XTitleField: () => import('@/components/inputs/fields/XTitleField'),
-      XCheckbox: () => import('@/components/inputs/XCheckbox'),
-      XBrandSelector: () => import('@/components/inputs/fields/XBrandSelector'),
-      XStateSelector: () => import('@/components/inputs/fields/XStateSelector'),
-      XSortIcon: () => import('@/components/elements/Icons/XSortIcon'),
-      XCombobox: () => import('@/components/inputs/XCombobox'),
-      XIncrement: () => import('@/components/inputs/XIncrement'),
-      XTimePicker: () => import('@/components/inputs/XTimePicker'),
-      XDatePicker: () => import('@/components/inputs/XDatePicker'),
-      XPicker: () => import('@/components/inputs/XPicker'),
-      XSelector: () => import('@/components/inputs/XSelector'),
-      XSimpleSelector: () => import('@/components/inputs/XSimpleSelector'),
+      AdventureGearCard,
+      XText,
+      XTitleField,
+      XCheckbox,
+      XWeatherSelector,
+      XBrandSelector,
+      XStateSelector,
+      XSortIcon,
+      XCombobox,
+      XIncrement,
+      XPicker,
+      XTimePicker,
+      XDatePicker,
+      XCategorySelector,
+      XSelector,
     },
     props: {
       item: Object,
@@ -840,16 +851,16 @@
 
           if(finalArray)
             await this.api_patch_preference_tag(finalArray, 'adventure');
+
           await this.api_post_adventure(this.updatedItem);
           Object.assign(this.updatedItem, {});
-          this.isLoading = false;
+
           this.formDialog = false;
+          this.isLoading = false;
         }
       },
       async patchItem(val) {
-        if(this.valid===true && val===true
-            && (this.item !== this.updatedItem)
-        ) {
+        if(this.valid===true && val===true) {
           this.isLoading = true;
           let finalArray = this.initPreferenceTagArray(this.updatedItem.tags, 'adventure');
 
@@ -857,16 +868,18 @@
             await this.api_patch_preference_tag(finalArray, 'adventure');
 
           await this.api_patch_adventure(this.updatedItem, this.itemIndex, this.item.adventure_inventory);
+
+          this.formDialog = false;
           this.isLoading = false;
         }
-        if(this.valid===true && val===true)
-          this.formDialog = false;
       },
       async deleteItem(val) {
         if(val===true) {
+          this.isLoading = true;
           await this.api_remove_adventure(this.item.id, this.itemIndex);
           Object.assign(this.updatedItem, {});
           this.formDialog = false;
+          this.isLoading = false;
         }
       },
       async isEditing(newVal) {

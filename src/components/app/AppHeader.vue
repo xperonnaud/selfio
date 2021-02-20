@@ -46,9 +46,8 @@
 
       <filter-menu
         v-bind:filterMode.sync="filterMode"
-        v-bind:class="[{'mr-1':!isMobile}]"
         :style="isMobile ? 'margin-right: -6px !important;' : ''"
-        class="ml-1"
+        v-bind:class="[{'ml-3':!isMobile}]"
       ></filter-menu>
 
       <template v-if="!isMobile">
@@ -56,12 +55,12 @@
           v-if="isItemRoute"
           isFab
           isSmall
-          class="ml-2 mr-1 elevation-0"
+          class="ml-1 elevation-0"
         ></form-post-btn>
 
         <v-btn
           v-if="isConfigurationRoute"
-          v-bind:class="['px-2 ml-3 mr-1 elevation-0 primary-gradient-color']"
+          v-bind:class="['px-2 ml-1 elevation-0 primary-gradient-color']"
           @click="brandPostDialog = !brandPostDialog"
           :width="48"
           :height="48"

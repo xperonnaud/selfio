@@ -89,11 +89,11 @@ export default {
                         || /^([0-9]+)*$/.test(v)
                         || this.$t('rules.integer')
                 ],
-                decimal: [
+                decimals: [
                     v => (v === '')
                         || (v === null)
                         || /^([0-9]+(\.[0-9][0-9]?)?)*$/.test(v)
-                        || this.$t('rules.decimal')
+                        || this.$t('rules.decimals')
                 ],
                 date: [
                     v => (v === '')

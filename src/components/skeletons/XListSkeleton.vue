@@ -10,7 +10,20 @@
       flat
     >
       <template v-for="index in xListMaxItems">
-        <v-list-item :key="`x-list-skeleton-${randomId()}-${index}`" class="x-list-item pl-3">
+        <v-list-item
+          :key="`x-list-skeleton-${randomId()}-${index}`"
+          class="x-list-item pl-3"
+        >
+          <v-list-item-avatar
+            v-if="currentRouteId === 'gear' || currentRouteId === 'adventures'"
+            class="ml-2"
+          >
+            <v-skeleton-loader
+              width="48"
+              type="avatar"
+            ></v-skeleton-loader>
+          </v-list-item-avatar>
+
           <v-list-item-content :class="[{'pl-1':currentRouteId === 'inventories'}]">
             <x-list-item-skeleton />
           </v-list-item-content>
@@ -21,7 +34,6 @@
           :key="index"
         ></v-divider>
       </template>
-
     </v-list>
   </v-card>
 
@@ -29,10 +41,12 @@
 
 <script>
 
+  import XListItemSkeleton from "@/components/skeletons/XListItemSkeleton";
+
   export default {
     name: "x-list-skeleton",
     components: {
-      XListItemSkeleton: () => import('@/components/skeletons/XListItemSkeleton'),
+      XListItemSkeleton,
     },
   }
 

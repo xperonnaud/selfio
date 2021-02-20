@@ -7,7 +7,7 @@ Vue.use(Vuetify);
 
 const themeCache = new LRU({
     max: 10,
-    maxAge: 1000 * 60 * 60, // 1 hour
+    maxAge: 1000 * 60 * 6000, // 100 hours
 });
 
 const vuetify = new Vuetify({
@@ -23,7 +23,7 @@ const vuetify = new Vuetify({
         },
         options: {
             minifyTheme,
-            themeCache
+            // themeCache
         },
     }
 });

@@ -16,16 +16,16 @@
       :width="XXLI"
       :min-width="XXLI"
       :height="XXLI"
-      :style="gear.category ? 'border: 2px solid '+(gear.quantity_owned === 0 ? xInputColor : categoryColor(gear.category))+' !important;' : ''"
+      :style="typeof gear.category == 'number' ? 'border: 2px solid '+(gear.quantity_owned === 0 ? xInputColor : categoryColor(gear.category))+' !important;' : ''"
     >
-      <x-img
-        v-if="gear.category && xGearCategory(gear.category)"
-        :src="xGearCategory(gear.category).icon"
-        :tooltipText="gear.category"
+      <x-svg
+        v-if="typeof gear.category == 'number' && gearCategories[gear.category]"
+        :src="gearCategories[gear.category]"
+        svgPath="gearcategories/"
         :width="XSI"
         :height="XSI"
-        isCategory
-      ></x-img>
+        :tooltipText="xCap($t(`categories.${gearCategories[gear.category]}.desc`))"
+      ></x-svg>
 
       <x-unknown-category-icon v-else :size="SMI" />
     </v-list-item-avatar>
@@ -148,16 +148,24 @@
 
 <script>
 
+  import XSvg from "@/components/elements/XSvg";
+  import XWeightCol from "@/components/xcols/XWeightCol";
+  import XChecker from "@/components/inputs/XChecker";
+  import EmptyData from "@/components/elements/EmptyData";
+  import XWornIcon from "@/components/elements/Icons/XWornIcon";
+  import XConsumableIcon from "@/components/elements/Icons/XConsumableIcon";
+  import XUnknownCategoryIcon from "@/components/elements/Icons/XUnknownCategoryIcon";
+
   export default {
     name: 'inventory-gear-list-item',
     components: {
-      XImg: () => import('@/components/elements/XImg'),
-      XWeightCol: () => import('@/components/xcols/XWeightCol'),
-      XChecker: () => import('@/components/inputs/XChecker'),
-      EmptyData: () => import('@/components/elements/EmptyData'),
-      XWornIcon: () => import('@/components/elements/Icons/XWornIcon'),
-      XConsumableIcon: () => import('@/components/elements/Icons/XConsumableIcon'),
-      XUnknownCategoryIcon: () => import('@/components/elements/Icons/XUnknownCategoryIcon'),
+      XSvg,
+      XWeightCol,
+      XChecker,
+      EmptyData,
+      XWornIcon,
+      XConsumableIcon,
+      XUnknownCategoryIcon,
     },
     props: {
       gear: Object,

@@ -2,17 +2,13 @@
 
   <v-list>
     <v-list-item class="mb-3">
-      <x-picker
-        label="category"
-        :list="categoriesList"
-        v-bind:value.sync="itemGearCategory"
-      ></x-picker>
+      <x-category-selector v-bind:value.sync="itemGearCategory" isInFilter />
     </v-list-item>
 
     <v-list-item class="mb-3">
       <v-autocomplete
         v-if="filterMode"
-        :label="$t('global.tags')"
+        :label="xCapFirst($t('global.tags'))"
         v-model="itemTag"
         :items="preferences.gear_tags"
         :color="currentColor"
@@ -42,7 +38,7 @@
       <x-increment
         label="quantity-owned"
         v-bind:value.sync="itemQuantityOwned"
-        :rules="xRules.decimal"
+        :rules="xRules.decimals"
         :color="currentColor"
         :max="100"
         :min="0"
@@ -55,19 +51,19 @@
 <script>
 
   import XCheckbox from "@/components/inputs/XCheckbox";
+  import XCategorySelector from "@/components/inputs/fields/XCategorySelector";
   import XBrandSelector from "@/components/inputs/fields/XBrandSelector";
   import XStateSelector from "@/components/inputs/fields/XStateSelector";
   import XIncrement from "@/components/inputs/XIncrement";
-  import XPicker from "@/components/inputs/XPicker";
 
   export default {
     name: 'gear-filter',
     components: {
       XCheckbox,
+      XCategorySelector,
       XBrandSelector,
       XStateSelector,
       XIncrement,
-      XPicker,
     },
     props: {
       filterMode: Boolean

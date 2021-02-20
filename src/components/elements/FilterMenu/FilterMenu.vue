@@ -4,7 +4,8 @@
     <v-menu
       v-model="filterModeOn"
       :close-on-content-click="false"
-      min-width="310"
+      min-width="333"
+      max-width="333"
       :nudge-width="200"
       left
     >
@@ -38,13 +39,18 @@
 
         <v-divider />
 
-        <component
-          v-if="filterComponent"
-          :is="filterComponent"
-          :ref="filterRef"
-          v-bind:filterMode.sync="filterMode"
-          class="pb-0"
-        ></component>
+        <v-responsive
+          class="overflow-y-auto"
+          :max-height="isMobile ? (currentWindowHeight - 100) : 600"
+        >
+          <component
+            v-if="filterComponent"
+            :is="filterComponent"
+            :ref="filterRef"
+            v-bind:filterMode.sync="filterMode"
+            class="pb-0"
+          ></component>
+        </v-responsive>
 
         <v-divider />
 

@@ -1,7 +1,7 @@
 <template>
 
   <v-form v-model="valid">
-    <v-container fluid v-bind:class="(isMobile ? 'pt-3 px-4' : 'pt-7 px-8')">
+    <v-container fluid v-bind:class="(isMobile ? 'px-4 py-2' : 'px-8 py-6')">
       <v-row style="max-width: 750px">
         <v-col cols="12">
           <x-combobox

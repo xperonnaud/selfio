@@ -1,6 +1,7 @@
 
 {
   "global": {
+    "null": "NA",
     "app-name": "PackHub.io",
 
     "gear":"gear",
@@ -236,7 +237,7 @@
       "desc": "Axe, shovel, knife, multi-tool, ..."
     },
     "hydration": {
-      "title": "water & drinks",
+      "title": "hydration",
       "desc": "Water, coffee, energy drink, ..."
     }
   },

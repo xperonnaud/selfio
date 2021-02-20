@@ -21,14 +21,14 @@
       :height="XXLI"
       :style="xGear(source.gear_id).category ? `border: 2px solid ${categoryColor(xGear(source.gear_id).category)} !important;` : ''"
     >
-      <x-img
-        v-if="xGear(source.gear_id) && xGear(source.gear_id).category"
-        :src="xGearCategory(xGear(source.gear_id).category).icon"
-        :tooltipText="source.gear_id"
+      <x-svg
+        v-if="xGear(source.gear_id) && typeof xGear(source.gear_id).category == 'number' && gearCategories[xGear(source.gear_id).category]"
+        :src="gearCategories[xGear(source.gear_id).category]"
+        svgPath="gearcategories/"
         :width="XSI"
         :height="XSI"
-        isCategory
-      ></x-img>
+        :tooltipText="xCap($t(`categories.${gearCategories[xGear(source.gear_id).category]}.desc`))"
+      ></x-svg>
 
       <x-unknown-category-icon v-else :size="SMI" />
     </v-list-item-avatar>
@@ -107,7 +107,7 @@
 
 <script>
 
-  import XImg from "@/components/elements/XImg";
+  import XSvg from "@/components/elements/XSvg";
   import XWeightCol from "@/components/xcols/XWeightCol";
   import XChecker from "@/components/inputs/XChecker";
   import EmptyData from "@/components/elements/EmptyData";
@@ -118,7 +118,7 @@
   export default {
     name: 'adventure-gear-list-item',
     components: {
-      XImg,
+      XSvg,
       XWeightCol,
       XChecker,
       EmptyData,

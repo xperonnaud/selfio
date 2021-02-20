@@ -81,9 +81,7 @@
                 <div>
                   <div class="d-flex justify-space-around align-self-center">
                     <v-avatar
-                      v-bind:class="[
-                        'x-avatar',
-                      ]"
+                      class="x-avatar"
                       :style="((isCategory && item.title!==$t('global.unknown')) ? 'border: 2px solid '+categoryColor(item.id)+' !important;' : '')"
                     >
                       <x-img
