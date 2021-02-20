@@ -10,7 +10,10 @@
       flat
     >
       <template v-for="index in xListMaxItems">
-        <v-list-item :key="`x-list-skeleton-${randomId()}-${index}`" class="x-list-item pl-3">
+        <v-list-item
+          :key="`x-list-skeleton-${randomId()}-${index}`"
+          class="x-list-item pl-3"
+        >
           <v-list-item-avatar
             v-if="currentRouteId === 'gear' || currentRouteId === 'adventures'"
             class="ml-2"
@@ -31,7 +34,6 @@
           :key="index"
         ></v-divider>
       </template>
-
     </v-list>
   </v-card>
 
