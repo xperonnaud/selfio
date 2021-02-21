@@ -4,7 +4,7 @@ module.exports = {
     "vuetify"
   ],
   outputDir: 'dist/',
-  indexPath: 'public/index.html',
+  indexPath: 'index.html',
   assetsDir: 'assets/',
     pages: {
         index: {
