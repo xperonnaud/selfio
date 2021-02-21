@@ -3,9 +3,6 @@ module.exports = {
   "transpileDependencies": [
     "vuetify"
   ],
-  devServer: {
-      proxy: 'https://servo-13475.nodechef.com/'
-  },
   outputDir: 'dist/',
   indexPath: 'index.html',
   assetsDir: 'assets/',

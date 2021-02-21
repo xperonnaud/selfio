@@ -502,7 +502,7 @@ export default {
             // await directus.items('inventories').read()
             await axios.get(
                 self.apiBaseUrl
-                +'items/inventories?access_token='
+                +'/items/inventories?access_token='
                 +self.apiAccessToken
                 +'&fields=*,inventory_gear.*'
                 +'&sort=title',
