@@ -1,4 +1,9 @@
-# packhub
+# PackHub.io
+
+## Prerequisites
+
+[Node v10.8](https://nodejs.org/en/) (minimum)
+
 
 ## Project setup
 ```
