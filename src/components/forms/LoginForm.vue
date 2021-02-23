@@ -89,29 +89,14 @@
     data: () => ({
       valid: false,
       isLoading: false,
+
+      userLogin: '',
+      userPassword: null
     }),
-    computed: {
-      userLogin: {
-        get() {
-          return this.$store.state.api.login
-        },
-        set(value) {
-          this.$store.commit("updateApiLogin", value)
-        }
-      },
-      userPassword: {
-        get() {
-          return this.$store.state.api.password
-        },
-        set(value) {
-          this.$store.commit("updateApiPassword", value)
-        }
-      },
-    },
     methods: {
       async login() {
         this.isLoading = true;
-        await this.api_login();
+        await this.api_login(this.userLogin, this.userPassword);
 
         if(this.$router.currentRoute.path !== '/home')
           await this.$router.push('home');

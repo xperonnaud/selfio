@@ -6,9 +6,6 @@ Vue.use(Vuex);
 export default new Vuex.Store({
     state: {
         api: {
-            authTimer: null,
-            login: 'reivax@gmail.com',
-            password: 'poppers78',
             baseUrl: 'http://localhost:8055',
         },
         selfio: {
@@ -73,13 +70,6 @@ export default new Vuex.Store({
         },
     },
     mutations: {
-        // Api
-        updateApiLogin(state, login) {
-            state.api.login = login;
-        },
-        updateApiPassword(state, password) {
-            state.api.password = password;
-        },
         // Selfio
         updateRelations(state, relations) {
             while(state.selfio.relations.length > 0)state.selfio.relations.pop();

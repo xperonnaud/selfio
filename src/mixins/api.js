@@ -16,16 +16,6 @@ export default {
         assetUrl() {
             return this.store.api.baseUrl+'assets/'
         },
-        apiLogin: {
-            get() {
-                return this.$store.state.api.login;
-            }
-        },
-        apiPassword: {
-            get() {
-                return this.$store.state.api.password;
-            }
-        },
         apiBaseUrl: {
             get() {
                 return this.$store.state.api.baseUrl;
@@ -102,26 +92,25 @@ export default {
             return (responseType !== 'success' && (errorCode === '401' || errorCode === 401));
         },
 
-        async setDirectusTokens(data) {
-            this.$store.commit('updateApiAccessToken', data.access_token);
-            this.$store.commit('updateApiRefreshToken', data.refresh_token);
-        },
-        async api_login() {
+        async api_login(userLogin, userPassword) {
             let self = this;
 
             await directus.auth.login({
-                email: self.apiLogin,
-                password: self.apiPassword
+                email: userLogin,
+                password: userPassword
             })
             .then(async function (response) {
                 if(response && response.data) {
-                    await self.setDirectusTokens(response.data);
 
-                    let user = await directus.users.me.read();
-                    self.$store.commit('updateUser', user.data);
+                    await directus.users.me.read()
+                    .then(function (user) {
+                        self.$store.commit('updateUser', user.data);
+                    }).catch(async function (error) {
+                        await self.handleResponse('error', 'Could not find user', error);
+                    });
 
                     localforage.setItem('is-logged-in', true)
-                        .then(function () {
+                    .then(function () {
                             return localforage.getItem('is-logged-in');
                         }).then(function (value) {
                         self.$store.commit('updateUiIsLoggedIn', value);
@@ -187,12 +176,12 @@ export default {
 
             this.$store.commit("updateUiIsAppLoading", true);
 
-            await directus.auth.password.request(self.apiLogin)
-            .then(async function (response) {
-                await self.handleResponse('success', 'Reset Password', response);
-            }).catch(async function (error) {
-                await self.handleResponse('error', error.message, error);
-            });
+            // await directus.auth.password.request(self.apiLogin)
+            // .then(async function (response) {
+            //     await self.handleResponse('success', 'Reset Password', response);
+            // }).catch(async function (error) {
+            //     await self.handleResponse('error', error.message, error);
+            // });
 
             this.$store.commit("updateUiIsAppLoading", false);
         },
@@ -202,20 +191,17 @@ export default {
             this.$store.commit("updateUiIsAppLoading", true);
 
             // TODO :: pass in input password
-            await directus.auth.password.reset(self.apiLogin, newPassword)
-            .then(async function (response) {
-                await self.handleResponse('success', 'Forgot Password', response);
-            }).catch(async function (error) {
-                await self.handleResponse('error', error.message, error);
-            });
+            // await directus.auth.password.reset(self.apiLogin, newPassword)
+            // .then(async function (response) {
+            //     await self.handleResponse('success', 'Forgot Password', response);
+            // }).catch(async function (error) {
+            //     await self.handleResponse('error', error.message, error);
+            // });
 
             this.$store.commit("updateUiIsAppLoading", false);
         },
 
         reset_user_data() {
-            this.$store.commit("updateApiPassword", null);
-            this.$store.commit("updateApiAccessToken", null);
-            this.$store.commit("updateApiRefreshToken", null);
             this.$store.commit("updateUser", null);
         },
         reset_api_data() {
@@ -482,7 +468,6 @@ export default {
                 fields: ['*', 'inventory_gear.*']
             })
             .then(function (response) {
-                console.log('inventories',response);
                 self.$store.commit("updateInventories",response.data);
 
             }).catch(async function (error) {
