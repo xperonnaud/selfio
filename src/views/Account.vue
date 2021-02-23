@@ -129,11 +129,8 @@
       },
       userLogin: {
         get() {
-          return this.$store.state.api.login
+          return this.$store.state.selfio.user.email
         },
-        set(value) {
-          this.$store.commit("updateApiLogin", value)
-        }
       },
     },
     mounted() {

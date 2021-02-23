@@ -6,13 +6,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
     state: {
         api: {
-            authTimer: null,
-            login: '',
-            password: '',
-            accessToken: null,
-            refreshToken: null,
-            baseUrl: 'https://servo-13475.nodechef.com',
-            isTokenRefreshed: false
+            baseUrl: 'http://localhost:8055',
         },
         selfio: {
             user: {},
@@ -62,6 +56,7 @@ export default new Vuex.Store({
             snackbarType: null,
             snackbarText: null,
 
+            isLoggedIn: false,
             isAppLoading: false,
             isConfigurationReady: false,
             displayApp: false,
@@ -75,22 +70,6 @@ export default new Vuex.Store({
         },
     },
     mutations: {
-        // Api
-        updateApiLogin(state, login) {
-            state.api.login = login;
-        },
-        updateApiPassword(state, password) {
-            state.api.password = password;
-        },
-        updateApiAccessToken(state, accessToken) {
-            state.api.accessToken = accessToken;
-        },
-        updateApiRefreshToken(state, refreshToken) {
-            state.api.refreshToken = refreshToken;
-        },
-        updateApiIsTokenRefreshed(state, isTokenRefreshed) {
-            state.api.isTokenRefreshed = isTokenRefreshed;
-        },
         // Selfio
         updateRelations(state, relations) {
             while(state.selfio.relations.length > 0)state.selfio.relations.pop();
@@ -382,6 +361,9 @@ export default new Vuex.Store({
         },
         updateUiSnackbarText(state, snackbarText) {
             state.ui.snackbarText = snackbarText;
+        },
+        updateUiIsLoggedIn(state, isLoggedIn) {
+            state.ui.isLoggedIn = isLoggedIn;
         },
         updateUiIsAppLoading(state, isAppLoading) {
             state.ui.isAppLoading = isAppLoading;

@@ -2,7 +2,7 @@
 
   <v-snackbar
     v-model="snackbarDisplay"
-    :dark="apiAccessToken ? !isDark : false"
+    :dark="isLoggedIn ? !isDark : false"
     :timeout="(snackbarTimeout !== 0) ? snackbarTimeout : -1"
     v-bind:class="[
       'x-snack-bar',

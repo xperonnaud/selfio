@@ -3,19 +3,19 @@
     v-if="isMounted"
     v-bind:class="[
       'back',
-      {'is-logged-in':displayApp && apiAccessToken},
+      {'is-logged-in':displayApp && isLoggedIn},
       {'is-small':isMobile},
       {'is-dark':isDark},
     ]"
   >
     <v-app id="inspire">
-      <app-header v-if="displayApp && apiAccessToken" />
+      <app-header v-if="displayApp && isLoggedIn" />
 
-      <app-nav v-if="displayApp && apiAccessToken" />
+      <app-nav v-if="displayApp && isLoggedIn" />
 
       <app-body v-show="!isMobile || (isMobile && !isAppLoading)" />
 
-      <app-footer v-if="displayApp && apiAccessToken" />
+      <app-footer v-if="displayApp && isLoggedIn" />
 
       <v-overlay :value="isAppLoading">
         <v-progress-circular
@@ -26,7 +26,7 @@
 
       <snack-bar />
 
-      <session-dialog v-if="displayApp && apiAccessToken" :dialog.sync="isSessionExpired" />
+      <session-dialog v-if="displayApp && isLoggedIn" :dialog.sync="isSessionExpired" />
     </v-app>
   </div>
 </template>
@@ -62,7 +62,12 @@
         get() {
           return this.xUi.displayApp
         },
-      }
+      },
+      isLoggedIn: {
+        get() {
+          return this.xUi.isLoggedIn;
+        }
+      },
     },
     methods: {
       async fetchSelfioItems() {
@@ -95,9 +100,10 @@
             this.navigationCollapse = !this.navigationCollapse;
         }
       },
-      async apiAccessToken(value) {
-        if(value && (typeof value === 'string'))
+      async isLoggedIn(value) {
+        if(value && (typeof value === 'boolean')) {
           await this.fetchSelfioItems();
+        }
       },
       formDialog(val) {
         if(this.isMounted && (val === false)) {
@@ -111,6 +117,7 @@
       },
     },
     mounted() {
+      let self = this;
       this.setLang(this.getNavigatorLanguage());
       this.isMounted = true;
     }
