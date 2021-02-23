@@ -2,6 +2,9 @@
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
 module.exports = {
+  output: {
+    publicPath: '/dist/',
+  },
   module: {
     rules: [
       {
