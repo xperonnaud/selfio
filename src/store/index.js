@@ -9,10 +9,7 @@ export default new Vuex.Store({
             authTimer: null,
             login: 'reivax@gmail.com',
             password: 'poppers78',
-            accessToken: null,
-            refreshToken: null,
             baseUrl: 'http://localhost:8055',
-            isTokenRefreshed: false
         },
         selfio: {
             user: {},
@@ -82,15 +79,6 @@ export default new Vuex.Store({
         },
         updateApiPassword(state, password) {
             state.api.password = password;
-        },
-        updateApiAccessToken(state, accessToken) {
-            state.api.accessToken = accessToken;
-        },
-        updateApiRefreshToken(state, refreshToken) {
-            state.api.refreshToken = refreshToken;
-        },
-        updateApiIsTokenRefreshed(state, isTokenRefreshed) {
-            state.api.isTokenRefreshed = isTokenRefreshed;
         },
         // Selfio
         updateRelations(state, relations) {

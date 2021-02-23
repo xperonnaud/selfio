@@ -16,16 +16,6 @@ export default {
         assetUrl() {
             return this.store.api.baseUrl+'assets/'
         },
-        apiAccessToken: {
-            get() {
-                return this.$store.state.api.accessToken;
-            }
-        },
-        apiRefreshToken: {
-            get() {
-                return this.$store.state.api.refreshToken;
-            }
-        },
         apiLogin: {
             get() {
                 return this.$store.state.api.login;
@@ -69,14 +59,6 @@ export default {
         adventuresList: {
             get() {
                 return this.$store.state.selfio.adventures;
-            }
-        },
-        isTokenRefreshed: {
-            get() {
-                return this.$store.state.selfio.isTokenRefreshed
-            },
-            set(value) {
-                this.$store.commit("updateApiIsTokenRefreshed", value)
             }
         },
     },
