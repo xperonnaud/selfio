@@ -6,7 +6,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
     state: {
         api: {
-            baseUrl: 'http://localhost:8055',
+            baseUrl: 'https://servo-13475.nodechef.com/',
         },
         selfio: {
             user: {},

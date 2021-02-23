@@ -1,5 +1,5 @@
 
-const axios = require('axios').default;
+import localforage from 'localforage';
 import DirectusSDK from '@directus/sdk-js';
 import CONSTANTS from '@/constants'
 
