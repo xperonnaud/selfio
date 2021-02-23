@@ -3,7 +3,7 @@ import Vuex from 'vuex'
 import App from './App.vue'
 import vuetify from './plugins/vuetify';
 import router from './router';
-import axios from 'axios';
+import localforage from 'localforage';
 import VueAxios from 'vue-axios';
 import VueBlobJsonCsv from 'vue-blob-json-csv';
 import VueI18n from 'vue-i18n';
@@ -60,12 +60,20 @@ new Vue({
   vuetify,
   i18n,
   store,
-  axios,
+  localforage,
   VueAxios,
   computed: mapState([
     'api',
     'selfio',
     'ui'
   ]),
+  created: async function () {
+    localforage.getItem('is-logged-in')
+    .then(function (value) {
+      store.commit('updateUiIsLoggedIn', value);
+    }).catch(function (err) {
+      console.log('is-logged-in',err)
+    });
+  },
   render: h => h(App)
 }).$mount('#app');

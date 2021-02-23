@@ -1,25 +1,13 @@
 
-const axios = require('axios').default;
+import localforage from 'localforage';
 import DirectusSDK from '@directus/sdk-js';
 import CONSTANTS from '@/constants'
 
-class MemoryStore {
-    constructor() {
-        this.values = {};
-    }
-    getItem(key) {
-        return this.values[key];
-    }
-    setItem(key, value) {
-        return this.values[key] = value;
-    }
-}
-
 const directus = new DirectusSDK('http://localhost:8055/', {
     auth: {
-        storage: new MemoryStore(), // Storage adapter where refresh tokens are stored in JSON mode
-        mode: 'json', // What login mode to use. One of `json`, `cookie`
-        // autoRefresh: true
+        storage: localforage, // Storage adapter where refresh tokens are stored in JSON mode
+        mode: 'cookie', // What login mode to use. One of `json`, `cookie`
+        autoRefresh: true
     },
 });
 
@@ -138,22 +126,26 @@ export default {
         },
         async api_login() {
             let self = this;
-            directus.auth; // let the constructor run
-            directus.auth.autoRefresh = true; // enable autoRefresh again
 
             await directus.auth.login({
-                    email: self.apiLogin,
-                    password: self.apiPassword
-                }
-            ).then(async function (response) {
+                email: self.apiLogin,
+                password: self.apiPassword
+            })
+            .then(async function (response) {
                 if(response && response.data) {
                     await self.setDirectusTokens(response.data);
 
-                    // refresh the App to Update access & refresh tokens & increase life-span
-                    await self.api_refresh(response.data.refresh_token);
-
                     let user = await directus.users.me.read();
                     self.$store.commit('updateUser', user.data);
+
+                    localforage.setItem('is-logged-in', true)
+                        .then(function () {
+                            return localforage.getItem('is-logged-in');
+                        }).then(function (value) {
+                        self.$store.commit('updateUiIsLoggedIn', value);
+                    }).catch(function (err) {
+                        console.log('is-logged-in',err)
+                    });
 
                     await self.handleResponse('success');
                 }
@@ -161,13 +153,12 @@ export default {
                 await self.handleResponse('error', self.xTranslate('api.incorrect-credentials'), error, 'login');
             })
         },
-        async api_refresh(refreshToken) {
-            let self = this;
-
-            await directus.auth.refresh({
-                refresh_token: refreshToken
-            }).then(async function (response) {
-                await self.setDirectusTokens(response.data);
+        async api_refresh() {
+            await directus.auth.refresh()
+            .then(async function (response) {
+                console.log('refresh success',response);
+            }).catch(async function (error) {
+                console.log('refresh error',error)
             });
         },
         async api_get_user() {
@@ -187,14 +178,20 @@ export default {
         async api_logout() {
             let self = this;
 
-            await axios.post(
-                self.apiBaseUrl+'auth/logout',
-                { refresh_token: self.apiRefreshToken }
-                )
+            await directus.auth.logout()
             .then(async function (response) {
                 await self.handleResponse('success', self.xTranslate('api.logged-out'), response);
                 self.reset_api_data();
                 self.reset_user_data();
+
+                localforage.setItem('is-logged-in', false)
+                    .then(function () {
+                        return localforage.getItem('is-logged-in');
+                    }).then(function (value) {
+                    self.$store.commit('updateUiIsLoggedIn', value);
+                }).catch(function (err) {
+                    console.log('is-logged-in',err)
+                });
             }).catch(async function (error) {
                 await self.handleResponse('error', error.message, error);
             });
@@ -499,16 +496,12 @@ export default {
         async api_get_inventories() {
             let self = this;
 
-            // await directus.items('inventories').read()
-            await axios.get(
-                self.apiBaseUrl
-                +'/items/inventories?access_token='
-                +self.apiAccessToken
-                +'&fields=*,inventory_gear.*'
-                +'&sort=title',
-            )
+            await directus.items('inventories').read({
+                fields: ['*', 'inventory_gear.*']
+            })
             .then(function (response) {
-                self.$store.commit("updateInventories",response.data.data);
+                console.log('inventories',response);
+                self.$store.commit("updateInventories",response.data);
 
             }).catch(async function (error) {
                 await self.handleResponse('error', error.message, error);

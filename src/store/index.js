@@ -62,6 +62,7 @@ export default new Vuex.Store({
             snackbarType: null,
             snackbarText: null,
 
+            isLoggedIn: false,
             isAppLoading: false,
             isConfigurationReady: false,
             displayApp: false,
@@ -382,6 +383,9 @@ export default new Vuex.Store({
         },
         updateUiSnackbarText(state, snackbarText) {
             state.ui.snackbarText = snackbarText;
+        },
+        updateUiIsLoggedIn(state, isLoggedIn) {
+            state.ui.isLoggedIn = isLoggedIn;
         },
         updateUiIsAppLoading(state, isAppLoading) {
             state.ui.isAppLoading = isAppLoading;

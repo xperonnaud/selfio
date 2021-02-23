@@ -232,6 +232,11 @@ export default {
                 this.$store.commit("updateUiNavigationCollapse", value)
             }
         },
+        isLoggedIn: {
+            get() {
+                return this.$store.state.ui.isLoggedIn;
+            }
+        },
         isAppLoading: {
             get() {
                 return this.xUi.isAppLoading

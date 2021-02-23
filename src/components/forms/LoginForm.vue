@@ -114,7 +114,7 @@
         await this.api_login();
 
         if(this.$router.currentRoute.path !== '/home')
-          this.$router.push('home');
+          await this.$router.push('home');
 
         this.isLoading = false;
       },
