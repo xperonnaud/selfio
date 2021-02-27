@@ -539,35 +539,35 @@
 
                           <v-col :cols="isMobile ? 6 : 3" class="py-2 col-border-r x-primary-btn rounded" @click.stop="sortGear('title')" v-ripple>
                             <div class="d-flex align-center">
-                              <div class="text-tiny">{{$t('global.title') | capitalizeFirstFilter}}</div>
+                              <div v-bind:class="['text-tiny', ((gearOrderBy === 'title') ? currentColorText : '')]">{{$t('global.title') | capitalizeFirstFilter}}</div>
                               <x-sort-icon prop="title" />
                             </div>
                           </v-col>
 
                           <v-col class="x-col px-0 py-2 col-border-r x-primary-btn rounded" @click.stop="sortGear('weight')" v-ripple>
                             <div class="d-flex justify-center align-center">
-                              <div class="text-tiny">{{$t('global.weight') | capitalizeFirstFilter}}</div>
+                              <div v-bind:class="['text-tiny', ((gearOrderBy === 'weight') ? currentColorText : '')]">{{$t('global.weight') | capitalizeFirstFilter}}</div>
                               <x-sort-icon prop="weight" />
                             </div>
                           </v-col>
 
                           <v-col v-if="!isMobile" class="x-col px-0 py-2 col-border-r x-primary-btn rounded" @click.stop="sortGear('price')" v-ripple>
                             <div class="d-flex justify-center align-center">
-                              <div class="text-tiny">{{$t('global.price') | capitalizeFirstFilter}}</div>
+                              <div v-bind:class="['text-tiny', ((gearOrderBy === 'price') ? currentColorText : '')]">{{$t('global.price') | capitalizeFirstFilter}}</div>
                               <x-sort-icon prop="price" />
                             </div>
                           </v-col>
 
                           <v-col v-if="!isMobile" class="x-col px-0 py-2 col-border-r x-primary-btn rounded" @click.stop="sortGear('state')" v-ripple>
                             <div class="d-flex justify-center align-center">
-                              <div class="text-tiny">{{$t('global.state') | capitalizeFirstFilter}}</div>
+                              <div v-bind:class="['text-tiny', ((gearOrderBy === 'state') ? currentColorText : '')]">{{$t('global.state') | capitalizeFirstFilter}}</div>
                               <x-sort-icon prop="state" />
                             </div>
                           </v-col>
 
                           <v-col v-if="!isMobile" class="x-col px-0 py-2 col-border-r x-primary-btn rounded" @click.stop="sortGear('consumable')" v-ripple>
                             <div class="d-flex justify-center align-center">
-                              <div class="text-tiny">{{$t('global.consumable') | minifyTextFilter | capitalizeFirstFilter}}</div>
+                              <div v-bind:class="['text-tiny', ((gearOrderBy === 'consumable') ? currentColorText : '')]">{{$t('global.consumable') | minifyTextFilter | capitalizeFirstFilter}}</div>
                               <x-sort-icon prop="consumable" />
                             </div>
                           </v-col>
@@ -578,7 +578,7 @@
 
                           <v-col class="x-col px-0 py-2 col-border-r x-primary-btn rounded" @click.stop="sortGear('quantity_owned')" v-ripple>
                             <div class="d-flex justify-center align-center">
-                              <div class="text-tiny text-center">{{$t('global.qty') | capitalizeFirstFilter}}</div>
+                              <div v-bind:class="['text-tiny text-center', ((gearOrderBy === 'quantity_owned') ? currentColorText : '')]">{{$t('global.qty') | capitalizeFirstFilter}}</div>
                               <x-sort-icon prop="state" />
                             </div>
                           </v-col>
