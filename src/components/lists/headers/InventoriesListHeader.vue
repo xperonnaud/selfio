@@ -5,7 +5,7 @@
 
       <v-col
         :cols="isMobile ? 7 : 6"
-        class="py-1 col-border-r x-primary-btn rounded"
+        class="py-2 col-border-r x-primary-btn rounded"
         @click.stop="sortItems('title')"
         v-ripple
       >

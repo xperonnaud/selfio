@@ -1,7 +1,7 @@
 <template>
 
   <v-col
-    class="x-col py-1 col-border-r x-primary-btn rounded"
+    class="x-col py-2 col-border-r x-primary-btn rounded"
     @click.stop="sortItems(prop)"
     v-ripple
   >
