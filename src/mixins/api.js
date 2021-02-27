@@ -171,32 +171,31 @@ export default {
             this.$store.commit("updateUiIsSessionExpired", false);
             this.$store.commit("updateUiIsAppLoading", false);
         },
-        async api_reset_password() {
+        async api_request_password() {
             let self = this;
 
             this.$store.commit("updateUiIsAppLoading", true);
 
-            // await directus.auth.password.request(self.apiLogin)
-            // .then(async function (response) {
-            //     await self.handleResponse('success', 'Reset Password', response);
-            // }).catch(async function (error) {
-            //     await self.handleResponse('error', error.message, error);
-            // });
+            await directus.auth.password.request(self.xSelfio.user.email)
+            .then(async function (response) {
+                await self.handleResponse('success', 'Reset Password', response);
+            }).catch(async function (error) {
+                await self.handleResponse('error', error.message, error);
+            });
 
             this.$store.commit("updateUiIsAppLoading", false);
         },
-        async api_forgot_password(newPassword = 'abcde12345') {
+        async api_reset_password(resetCode, newPassword) {
             let self = this;
 
             this.$store.commit("updateUiIsAppLoading", true);
 
-            // TODO :: pass in input password
-            // await directus.auth.password.reset(self.apiLogin, newPassword)
-            // .then(async function (response) {
-            //     await self.handleResponse('success', 'Forgot Password', response);
-            // }).catch(async function (error) {
-            //     await self.handleResponse('error', error.message, error);
-            // });
+            await directus.auth.password.reset(resetCode, newPassword)
+            .then(async function (response) {
+                await self.handleResponse('success', 'Forgot Password', response);
+            }).catch(async function (error) {
+                await self.handleResponse('error', error.message, error);
+            });
 
             this.$store.commit("updateUiIsAppLoading", false);
         },

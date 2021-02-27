@@ -95,6 +95,17 @@
               ></primary-btn>
             </v-col>
           </v-row>
+
+          <v-row class="row-max-width">
+            <v-col cols="12">
+              <v-btn
+                label="request password"
+                :block="isMobile"
+                :valid.sync="valid"
+                v-on:btnAction="api_request_password()"
+              ></v-btn>
+            </v-col>
+          </v-row>
         </v-container>
       </v-form>
     </v-sheet>
@@ -105,13 +116,11 @@
 <script>
 
   import PrimaryBtn from "@/components/elements/Btns/PrimaryBtn";
-  // import PasswordUpdateForm from "@/components/forms/PasswordUpdateForm";
 
   export default {
     name: "account",
     components: {
       PrimaryBtn,
-      // PasswordUpdateForm,
     },
     data: () => ({
       isMounted: false,
