@@ -55,6 +55,7 @@
         v-bind:isFormValid.sync="isFormValid"
         v-bind:hasItemRelations.sync="hasItemRelations"
         v-bind:deleteItem.sync="dialogDeleteItem"
+        :isActionLoading.sync="isActionLoading"
       ></x-delete-dialog>
 
       <v-btn
@@ -62,6 +63,7 @@
         v-bind:class="[{'primary-gradient-color-text': !(editMode || !isFormValid || !isFormMounted)}]"
         :disabled="editMode || !isFormValid || !isFormMounted"
         icon
+        :loading="isActionLoading"
       >
         <v-icon
           :size="editMode ? MDI : XLI"
@@ -87,6 +89,10 @@
         default: null
       },
       editMode: {
+        type: Boolean,
+        default: false
+      },
+      isActionLoading: {
         type: Boolean,
         default: false
       },

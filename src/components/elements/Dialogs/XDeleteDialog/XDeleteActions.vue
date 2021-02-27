@@ -1,12 +1,12 @@
 <template>
 
-
       <v-card-actions>
         <v-btn
           @click="pickerValue = false"
+          v-text="$t('global.cancel')"
+          :disabled="isActionLoading"
           depressed
           text
-          v-text="$t('global.cancel')"
         ></v-btn>
 
         <v-spacer />
@@ -15,6 +15,7 @@
           :color="errorColor"
           @click="deleteAction()"
           :disabled="hasItemRelations"
+          :loading="isActionLoading"
           depressed
         >
           <span v-bind:class="[reversedFontShadeColor]" v-text="$t('global.delete')" />
@@ -40,6 +41,10 @@
         type: Boolean,
         default: false
       },
+      isActionLoading: {
+        type: Boolean,
+        default: false
+      },
     },
     data: () => ({
       isMounted: false,
@@ -48,9 +53,7 @@
     }),
     methods: {
       deleteAction() {
-        if(this.item)
-          this.dialogDeleteItem = true;
-
+        this.dialogDeleteItem = true;
         this.pickerValue = false;
       },
     },

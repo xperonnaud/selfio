@@ -68,6 +68,7 @@
         v-bind:value.sync="pickerValue"
         v-bind:deleteItem.sync="dialogDeleteItem"
         :hasItemRelations.sync="hasItemRelations"
+        :isActionLoading.sync="isActionLoading"
       ></x-delete-actions>
     </v-card>
   </v-dialog>
@@ -115,6 +116,10 @@
         default: false
       },
       deleteItem: {
+        type: Boolean,
+        default: false
+      },
+      isActionLoading: {
         type: Boolean,
         default: false
       },
