@@ -16,7 +16,7 @@
               v-if="navigationItems[item].type === 'items'"
               :key="index"
               v-bind:class="['shadow-bottom', (isMobile ? 'my-2' : 'mb-4 mr-4')]"
-              :width="cardSize(300)"
+              :width="cardSize(600)"
               :color="xCardColor"
             >
               <v-list>
@@ -29,7 +29,7 @@
                     ></v-icon>
                   </v-list-item-avatar>
 
-                  <v-list-item-content>
+                  <v-list-item-content class="no-wrap">
                     <v-list-item-title class="text-h6">
                       <span v-if="countersInitialized">{{countItems(navigationItems[item].title)}}</span>
                       <v-skeleton-loader v-else :width="72" :height="24" type="heading" />
