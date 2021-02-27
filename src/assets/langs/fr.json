@@ -11,7 +11,7 @@
     "home":"accueil",
     "account":"compte",
     "brands":"marques",
-    "tags":"tags",
+    "tags":"étiquettes",
     "import-export":"import / export",
     "import":"importer",
     "export":"exporter",
@@ -19,7 +19,7 @@
     "feedback":"contactez nous",
     "theme":"thème",
 
-    "add-gear":"ajoutez de matériel",
+    "add-gear":"ajoutez du matériel",
     "add-inventories":"ajoutez un inventaire",
     "add-adventures":"ajoutez une aventure",
 
@@ -30,7 +30,7 @@
     "public": "public",
     "email": "email",
     "login": "se connecter",
-    "logout": "déconnexion",
+    "logout": "se déconnecter",
 
     "languages": "langues",
     "language": "langue",
@@ -112,9 +112,9 @@
     "leave":"quitter",
     "new":"nouveau",
 
-    "gear-tags": "tags de matériel",
-    "inventory-tags": "tags d'inventaire",
-    "adventure-tags": "tags d'aventure"
+    "gear-tags": "étiquesttes de matériel",
+    "inventory-tags": "étiquesttes d'inventaire",
+    "adventure-tags": "étiquesttes d'aventure"
   },
   "states": {
     "new":"neuf",
@@ -324,19 +324,19 @@
     "username-password": "Email / Mot de passe non valides",
     "logged-out": "Déconnecté",
     "feedback-sent": "Commentaire envoyé. Merci!",
-    "brand-added": "Brand ajoutée",
-    "brand-deleted": "Brand supprimée",
-    "tags-updated": "Tags modifiés",
-    "settings-added": "Settings modifiés",
-    "settings-updated": "Settings modifiés",
-    "gear-added": "Gear ajoutée",
-    "gear-updated": "Gear modifié",
-    "gear-deleted": "Gear supprimé",
-    "inventory-added": "Inventory ajouté",
-    "inventory-updated": "Inventory modifié",
-    "inventory-deleted": "Inventory supprimé",
-    "adventure-added": "Adventure ajoutée",
-    "adventure-updated": "Adventure modifiée",
-    "adventure-deleted": "Adventure supprimée"
+    "brand-added": "Marque ajoutée",
+    "brand-deleted": "Marque supprimée",
+    "tags-updated": "Étiquettes modifiés",
+    "settings-added": "Paramètres ajoutés",
+    "settings-updated": "Paramètres modifiés",
+    "gear-added": "Matériel ajoutée",
+    "gear-updated": "Matériel modifié",
+    "gear-deleted": "Matériel supprimé",
+    "inventory-added": "Inventaire ajouté",
+    "inventory-updated": "Inventaire modifié",
+    "inventory-deleted": "Inventaire supprimé",
+    "adventure-added": "Aventure ajoutée",
+    "adventure-updated": "Aventure modifiée",
+    "adventure-deleted": "Aventure supprimée"
   }
 }

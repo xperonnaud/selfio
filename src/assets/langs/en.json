@@ -28,8 +28,8 @@
     "private": "private",
     "public": "public",
     "email": "Email",
-    "login": "Login",
-    "logout": "Logout",
+    "login": "Log in",
+    "logout": "Log out",
 
     "languages": "languages",
     "language": "language",
