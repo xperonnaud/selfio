@@ -838,7 +838,7 @@
       gearStateFilter: null,
       gearBrandFilter: null,
       gearConsumableFilter: null,
-      gearQuantityOwnedFilter: null,
+      gearQuantityOwnedFilter: true,
 
       balance: {
         base: {
@@ -896,10 +896,10 @@
           return (this.sortedGear.filter(item => {
             if(
               !this.itemSearch
-              && !this.gearCategoryFilter
+              && typeof this.gearCategoryFilter != 'number'
               && !this.gearStateFilter
               && !this.gearTagsFilter
-              && !this.gearBrandFilter
+              && typeof this.gearBrandFilter != 'number'
               && !this.gearIsPackedFilter
               && !this.gearConsumableFilter
               && !this.gearQuantityOwnedFilter
@@ -907,11 +907,11 @@
 
             return (
                 (this.itemSearch ? (item.title && item.title.toLowerCase().includes(this.itemSearch.toLowerCase())) : true)
-                && (this.gearCategoryFilter ? (item.category && item.category === this.gearCategoryFilter) : true)
-                && (this.gearStateFilter ? (item.state && item.state === this.gearStateFilter) : true)
-                && (this.gearBrandFilter ? (item.brand && item.brand === this.gearBrandFilter) : true)
+                && (typeof this.gearCategoryFilter != 'number' ? (typeof this.gearCategoryFilter != 'number' && (item.category === this.gearCategoryFilter)) : true)
+                && (this.gearStateFilter ? (item.state && (item.state === this.gearStateFilter)) : true)
+                && (typeof this.gearBrandFilter != 'number' ? (typeof this.gearBrandFilter != 'number' && (item.brand === this.gearBrandFilter)) : true)
                 && (this.gearConsumableFilter ? (item.consumable === true) : true)
-                && (this.gearTagsFilter ? (item.tags.includes(this.gearTagsFilter)) : true)
+                && (this.gearTagsFilter ? (item.tags && item.tags.includes(this.gearTagsFilter)) : true)
                 && (this.gearIsPackedFilter ? (this.inventoryGearList && this.inventoryGearList.includes(item.id)) : true)
                 && (this.gearQuantityOwnedFilter ? (item.quantity_owned > 0) : true)
             )
