@@ -44,123 +44,108 @@
             </v-col>
 
             <v-col cols="12">
-              <v-sheet :color="xCardColor" rounded class="pa-2">
-                <div class="mb-1">
-                  <v-icon class="mr-1" v-text="'mdi-weight'" />
-                  <span class="text-subtitle-2">{{$t('global.weight') | capitalizeFilter}}</span>
-                  <span class="text-tiny">&nbsp;({{$t('global.unit')}})</span>
-                </div>
-                <v-btn-toggle v-model="preferences.weight_unit" mandatory dense tile>
-                  <v-btn
-                    v-for="weightUnit in weightUnits"
-                    :key="weightUnit"
-                    :value="weightUnit"
-                    v-text="weightUnit"
-                    class="lowercase"
-                    large
-                  ></v-btn>
-                </v-btn-toggle>
-              </v-sheet>
-            </v-col>
-
-            <v-col cols="12">
-              <v-sheet :color="xCardColor" rounded class="pa-2">
-                <div class="mb-1">
-                  <v-icon class="mr-1" v-text="'mdi-thermometer'" />
-                  <span class="text-subtitle-2">{{$t('global.temperature') | capitalizeFilter}}</span>
-                  <span class="text-tiny">&nbsp;({{$t('global.unit')}})</span>
-                </div>
-                <v-btn-toggle v-model="preferences.temperature_unit" mandatory dense tile>
-                  <v-btn
-                    v-for="temperatureUnit in temperatureUnits"
-                    :key="temperatureUnit"
-                    :value="temperatureUnit"
-                    v-html="temperatureUnit"
-                    class="lowercase"
-                    large
-                  ></v-btn>
-                </v-btn-toggle>
-              </v-sheet>
-            </v-col>
-
-            <v-col cols="12">
-              <v-sheet :color="xCardColor" rounded class="pa-2">
-                <div class="mb-1">
-                  <v-icon class="mr-1" v-text="'mdi-map-marker-distance'" />
-                <span class="text-subtitle-2">{{$t('global.distance') | capitalizeFilter}}</span>
-                <span class="text-tiny">&nbsp;({{$t('global.unit')}})</span>
+              <div>
+                <v-select
+                  :label="xCap($t('global.weight'))+' ('+$t('global.unit')+')'"
+                  :items="weightUnits"
+                  v-model="preferences.weight_unit"
+                  prepend-inner-icon="mdi-weight"
+                  hide-details
+                  filled
+                  dense
+                ></v-select>
               </div>
-                <v-btn-toggle v-model="preferences.distance_unit" mandatory dense tile>
-                  <v-btn
-                    v-for="distanceUnit in distanceUnits"
-                    :key="distanceUnit"
-                    :value="distanceUnit"
-                    v-text="distanceUnit"
-                    class="lowercase"
-                    large
-                  ></v-btn>
-                </v-btn-toggle>
-              </v-sheet>
             </v-col>
 
             <v-col cols="12">
-              <v-sheet :color="xCardColor" rounded class="pa-2">
-                <div class="mb-1">
-                  <v-icon class="mr-1" v-text="'mdi-elevation-rise'" />
-                  <span class="text-subtitle-2">{{$t('global.elevation') | capitalizeFilter}}/{{$t('global.depth') | capitalizeFilter}}</span>
-                  <span class="text-tiny">&nbsp;({{$t('global.unit')}})</span>
-                </div>
-                <v-btn-toggle v-model="preferences.elevation_unit" mandatory dense tile>
-                  <v-btn
-                    v-for="elevationUnit in elevationUnits"
-                    :key="elevationUnit"
-                    :value="elevationUnit"
-                    v-text="elevationUnit"
-                    class="lowercase"
-                    large
-                  ></v-btn>
-                </v-btn-toggle>
-              </v-sheet>
+              <div>
+                <v-select
+                  :label="xCap($t('global.temperature'))+' ('+$t('global.unit')+')'"
+                  :items="temperatureUnits"
+                  v-model="preferences.temperature_unit"
+                  prepend-inner-icon="mdi-thermometer"
+                  hide-details
+                  filled
+                  dense
+                >
+                  <template v-slot:item="{ item }">
+                    <span v-html="item" />
+                  </template>
+                  <template v-slot:selection="{ item }">
+                    <span v-html="item" />
+                  </template>
+                </v-select>
+              </div>
             </v-col>
 
             <v-col cols="12">
-              <v-sheet :color="xCardColor" rounded class="pa-2">
-                <div class="mb-1">
-                  <v-icon class="mr-1" v-text="'mdi-cash'" />
-                  <span class="text-subtitle-2">{{$t('global.price') | capitalizeFilter}}</span>
-                  <span class="text-tiny">&nbsp;({{$t('global.unit')}})</span>
-                </div>
-                <v-btn-toggle v-model="preferences.price_unit" mandatory dense tile>
-                  <v-btn
-                    v-for="priceUnit in priceUnits"
-                    :key="priceUnit"
-                    :value="priceUnit"
-                    v-text="priceUnit"
-                    class="lowercase"
-                    large
-                  ></v-btn>
-                </v-btn-toggle>
-              </v-sheet>
+              <div>
+                <v-select
+                  :label="xCap($t('global.distance'))+' ('+$t('global.unit')+')'"
+                  :items="distanceUnits"
+                  v-model="preferences.distance_unit"
+                  prepend-inner-icon="mdi-map-marker-distance"
+                  hide-details
+                  filled
+                  dense
+                ></v-select>
+              </div>
             </v-col>
 
             <v-col cols="12">
-              <v-sheet :color="xCardColor" rounded class="pa-2">
-                <div class="mb-1">
-                  <v-icon class="mr-1" v-text="'mdi-calendar'" />
-                  <span class="text-subtitle-2">{{$t('global.date') | capitalizeFilter}}</span>
-                  <span class="text-tiny">&nbsp;({{$t('global.format')}})</span>
-                </div>
-                <v-btn-toggle v-model="preferences.date_format" mandatory dense tile>
-                  <v-btn
-                    v-for="dateFormat in dateFormats"
-                    :key="dateFormat"
-                    :value="dateFormat"
-                    v-text="dateFormat"
-                    class="lowercase"
-                    large
-                  ></v-btn>
-                </v-btn-toggle>
-              </v-sheet>
+              <div>
+                <v-select
+                  :label="xCap($t('global.elevation'))+' ('+$t('global.unit')+')'"
+                  :items="elevationUnits"
+                  v-model="preferences.elevation_unit"
+                  prepend-inner-icon="mdi-elevation-rise"
+                  hide-details
+                  filled
+                  dense
+                ></v-select>
+              </div>
+            </v-col>
+
+            <v-col cols="12">
+              <div>
+                <v-select
+                  :label="xCap($t('global.elevation'))+' ('+$t('global.unit')+')'"
+                  :items="elevationUnits"
+                  v-model="preferences.elevation_unit"
+                  prepend-inner-icon="mdi-elevation-rise"
+                  hide-details
+                  filled
+                  dense
+                ></v-select>
+              </div>
+            </v-col>
+
+            <v-col cols="12">
+              <div>
+                <v-select
+                  :label="xCap($t('global.price'))+' ('+$t('global.unit')+')'"
+                  :items="priceUnits"
+                  v-model="preferences.price_unit"
+                  prepend-inner-icon="mdi-cash"
+                  hide-details
+                  filled
+                  dense
+                ></v-select>
+              </div>
+            </v-col>
+
+            <v-col cols="12">
+              <div>
+                <v-select
+                  :label="xCap($t('global.date'))+' ('+$t('global.format')+')'"
+                  :items="dateFormats"
+                  v-model="preferences.date_format"
+                  prepend-inner-icon="mdi-calendar"
+                  hide-details
+                  filled
+                  dense
+                ></v-select>
+              </div>
             </v-col>
 
             <v-col cols="12">
