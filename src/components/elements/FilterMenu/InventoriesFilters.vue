@@ -6,7 +6,7 @@
         v-if="filterMode"
         :items="preferences.inventory_tags"
         :label="xCapFirst($t('global.tags'))"
-        v-model="itemTag"
+        v-model="tagFilter"
         filled
         dense
         clearable
@@ -30,12 +30,12 @@
       filterModeOn: false,
     }),
     computed: {
-      itemTag: {
+      tagFilter: {
         get() {
-          return this.$store.state.ui.itemTag
+          return this.$store.state.ui.filters.inventories.tag
         },
         set(value) {
-          this.$store.commit("updateUiItemTag", value)
+          this.$store.commit("updateTagInventoryFilter", value)
         }
       },
     },

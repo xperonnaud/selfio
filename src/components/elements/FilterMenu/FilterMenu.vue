@@ -1,6 +1,6 @@
 <template>
 
-  <div class="text-center">
+  <div class="filter-menu text-center">
     <v-menu
       v-model="filterModeOn"
       :close-on-content-click="false"
@@ -10,15 +10,21 @@
       left
     >
       <template v-slot:activator="{ on, attrs }">
-        <v-btn
-          v-if="isItemRoute || isConfigurationRoute"
-          @click="filterModeOn = !filterModeOn"
-          v-bind="attrs"
-          v-on="on"
-          icon
+        <v-badge
+          :color="nbActiveFilters ? shadeColor : 'transparent'"
+          :content="nbActiveFilters || null"
+          overlap
         >
-          <v-icon v-text="`mdi-filter-variant${filterMode?'-minus':''}`" />
-        </v-btn>
+          <v-btn
+            v-if="isItemRoute || isConfigurationRoute"
+            @click="filterModeOn = !filterModeOn"
+            v-bind="attrs"
+            v-on="on"
+            icon
+          >
+            <v-icon v-text="`mdi-filter-variant${filterMode?'-minus':''}`" />
+          </v-btn>
+        </v-badge>
       </template>
 
       <v-card>
@@ -107,6 +113,19 @@
         self.filterComponentCalled = `./${listId}Filters.vue`;
         return () => import(`./${listId}Filters.vue`)
       },
+      nbActiveFilters() {
+        let self = this;
+        let nbActiveFilters = 0;
+
+        if(typeof this.currentRouteId == 'string' && this.xUi.filters[this.currentRouteId]) {
+          Object.keys(this.xUi.filters[this.currentRouteId]).forEach(function(item) {
+            if(self.xUi.filters[self.currentRouteId][item]!==null && self.xUi.filters[self.currentRouteId][item]!==undefined)
+              nbActiveFilters++;
+          });
+        }
+
+        return nbActiveFilters;
+      }
     },
     methods: {
       componentLoad() {
@@ -160,3 +179,14 @@
   }
 
 </script>
+
+<style lang="scss">
+
+  .filter-menu {
+    .v-badge__wrapper {
+      left: -4px;
+      top: 4px;
+    }
+  }
+
+</style>

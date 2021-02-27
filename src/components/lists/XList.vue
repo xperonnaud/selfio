@@ -66,98 +66,120 @@
       color() {
         return this.currentColor
       },
-      itemOwned: {
+      gearTagFilter: {
         get() {
-          return this.$store.state.ui.itemOwned
+          return this.$store.state.ui.filters.gear.tag
         }
       },
-      itemTag: {
+      gearQuantityOwnedFilter: {
         get() {
-          return this.$store.state.ui.itemTag
+          return this.$store.state.ui.filters.gear.quantityOwned
         }
       },
-      itemLocation: {
+      gearStateFilter: {
         get() {
-          return this.$store.state.ui.itemLocation
+          return this.$store.state.ui.filters.gear.state
         }
       },
-      itemQuantityOwned: {
+      gearCategoryFilter: {
         get() {
-          return this.$store.state.ui.itemQuantityOwned
+          return this.$store.state.ui.filters.gear.category
         }
       },
-      itemConsumable: {
+      gearConsumableFilter: {
         get() {
-          return this.$store.state.ui.itemConsumable
+          return this.$store.state.ui.filters.gear.consumable
         }
       },
-      itemGearCategory: {
+      gearBrandFilter: {
         get() {
-          return this.$store.state.ui.itemGearCategory
+          return this.$store.state.ui.filters.gear.brand
         }
       },
-      itemGearState: {
+      inventoryTagFilter: {
         get() {
-          return this.$store.state.ui.itemGearState
+          return this.$store.state.ui.filters.inventories.tag
         }
       },
-      itemGearBrand: {
+      adventureTagFilter: {
         get() {
-          return this.$store.state.ui.itemGearBrand
+          return this.$store.state.ui.filters.adventures.tag
         }
       },
-      itemActivity: {
+      locationAdventureFilter: {
         get() {
-          return this.$store.state.ui.itemActivity
+          return this.$store.state.ui.filters.adventures.location
         }
       },
-      itemLandscape: {
+      landscapeAdventureFilter: {
         get() {
-          return this.$store.state.ui.itemLandscape
+          return this.$store.state.ui.filters.adventures.landscape
         }
       },
-      itemWeather: {
+      activityAdventureFilter: {
         get() {
-          return this.$store.state.ui.itemWeather
+          return this.$store.state.ui.filters.adventures.activity
         }
       },
-      itemInventory: {
+      weatherAdventureFilter: {
         get() {
-          return this.$store.state.ui.itemInventory
+          return this.$store.state.ui.filters.adventures.weather
+        }
+      },
+      inventoryAdventureFilter: {
+        get() {
+          return this.$store.state.ui.filters.adventures.inventory
+        }
+      },
+      ownedBrandFilter: {
+        get() {
+          return this.$store.state.ui.filters.brands.owned
         }
       },
       filteredItems() {
         return (this.sortedItems.filter(item => {
           if(
             !this.itemSearch
-            && !this.itemOwned
-            && !this.itemTag
-            && !this.itemLocation
-            && !this.itemQuantityOwned
-            && !this.itemConsumable
-            && !this.itemGearCategory
-            && !this.itemGearState
-            && !this.itemGearBrand
-            && !this.itemActivity
-            && !this.itemLandscape
-            && !this.itemWeather
-            && !this.itemInventory
+
+            && !this.gearTagFilter
+            && !this.gearQuantityOwnedFilter
+            && !this.gearStateFilter
+            && typeof this.gearCategoryFilter != 'number'
+            && !this.gearConsumableFilter
+            && typeof this.gearBrandFilter != 'number'
+
+            && !this.inventoryTagFilter
+
+            && !this.adventureTagFilter
+            && !this.locationAdventureFilter
+            && typeof this.activityAdventureFilter != 'number'
+            && typeof this.landscapeAdventureFilter != 'number'
+            && !this.weatherAdventureFilter
+            && typeof this.inventoryAdventureFilter != 'number'
+
+            && !this.ownedBrandFilter
           ) return this.items;
 
           return (
             (this.itemSearch ? item.title.toLowerCase().includes(this.itemSearch.toLowerCase()) : true)
-            && (this.itemLocation ? item.location.toLowerCase().includes(this.itemLocation.toLowerCase()) : true)
-            && (this.itemOwned ? (item.global === false) : true)
-            && (this.itemConsumable ? (item.consumable === true) : true)
-            && (this.itemTag ? (item.tags.includes(this.itemTag)) : true)
-            && (this.itemQuantityOwned ? (parseFloat(item.quantity_owned) === parseFloat(this.itemQuantityOwned)) : true)
-            && (this.itemGearCategory ? (item.category === this.itemGearCategory) : true)
-            && (this.itemGearState ? (item.state === this.itemGearState) : true)
-            && (this.itemGearBrand ? (item.brand === this.itemGearBrand) : true)
-            && (this.itemActivity ? (item.activity === this.itemActivity) : true)
-            && (this.itemLandscape ? (item.landscape === this.itemLandscape) : true)
-            && (this.itemWeather ? (item.weather === this.itemWeather) : true)
-            && (this.itemInventory ? (item.adventure_inventory === this.itemInventory) : true)
+
+            && (this.gearConsumableFilter ? (item.consumable === true) : true)
+            && (this.gearTagFilter ? (item.tags!==null && item.tags.includes(this.gearTagFilter)) : true)
+            && (this.gearQuantityOwnedFilter ? (parseFloat(item.quantity_owned) === parseFloat(this.gearQuantityOwnedFilter)) : true)
+            && (typeof this.gearCategoryFilter == 'number' ? (item.category === this.gearCategoryFilter) : true)
+            && (this.gearStateFilter ? (item.state === this.gearStateFilter) : true)
+            && (typeof this.gearBrandFilter == 'number' ? (item.brand === this.gearBrandFilter) : true)
+
+            && (this.inventoryTagFilter ? (item.tags!==null && item.tags.includes(this.inventoryTagFilter)) : true)
+
+            && (this.adventureTagFilter ? (item.tags!==null && item.tags.includes(this.adventureTagFilter)) : true)
+            && (typeof this.activityAdventureFilter == 'number' ? (item.activity === this.activityAdventureFilter) : true)
+            && (this.locationAdventureFilter ? item.location.toLowerCase().includes(this.locationAdventureFilter.toLowerCase()) : true)
+            && (typeof this.landscapeAdventureFilter == 'number' ? (item.landscape === this.landscapeAdventureFilter) : true)
+            && (this.weatherAdventureFilter ? (item.weather === this.weatherAdventureFilter) : true)
+            && (typeof this.inventoryAdventureFilter == 'number' ? (item.adventure_inventory === this.inventoryAdventureFilter) : true)
+
+            && (this.ownedBrandFilter ? (item.global === false) : true)
           )
         }));
       },

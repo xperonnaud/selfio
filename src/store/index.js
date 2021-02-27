@@ -35,19 +35,31 @@ export default new Vuex.Store({
             selectedItem: null,
             selectedItemIndex: null,
 
-            itemSearch: '',
-            itemOwned: null,
-            itemTag: null,
-            itemLocation: null,
-            itemQuantityOwned: null,
-            itemConsumable: null,
-            itemGearCategory: null,
-            itemGearState: null,
-            itemGearBrand: null,
-            itemActivity: null,
-            itemLandscape: null,
-            itemWeather: null,
-            itemInventory: null,
+            filters: {
+                title: '',
+                gear: {
+                    tag: null,
+                    quantityOwned: null,
+                    brand: null,
+                    state: null,
+                    category: null,
+                    consumable: null,
+                },
+                inventories: {
+                    tag: null,
+                },
+                adventures: {
+                    tag: null,
+                    location: null,
+                    activity: null,
+                    landscape: null,
+                    weather: null,
+                    inventory: null,
+                },
+                brands: {
+                    owned: null,
+                },
+            },
 
             itemOrderBy: "title",
             itemOrderOption: "asc",
@@ -65,7 +77,6 @@ export default new Vuex.Store({
             isItemRoute: false,
 
             tempInventoryGear: [],
-
             tempGearInventories: [],
         },
     },
@@ -308,44 +319,50 @@ export default new Vuex.Store({
         updateUiSelectedItemIndex(state, selectedItemIndex) {
             state.ui.selectedItemIndex = selectedItemIndex;
         },
-        updateUiItemSearch(state, itemSearch) {
-            state.ui.itemSearch = itemSearch;
+        updateTitleSearchFilter(state, title) {
+            state.ui.filters.title = title;
+        },
+        updateBrandGearFilter(state, brand) {
+            state.ui.filters.gear.brand = brand;
+        },
+        updateTagGearFilter(state, tag) {
+            state.ui.filters.gear.tag = tag;
+        },
+        updateQuantityOwnedGearFilter(state, quantityOwned) {
+            state.ui.filters.gear.quantityOwned = quantityOwned;
+        },
+        updateStateGearFilter(state, gearState) {
+            state.ui.filters.gear.state = gearState;
+        },
+        updateCategoryGearFilter(state, gearCategory) {
+            state.ui.filters.gear.category = gearCategory;
+        },
+        updateConsumableGearFilter(state, consumable) {
+            state.ui.filters.gear.consumable = consumable;
+        },
+        updateTagInventoryFilter(state, tag) {
+            state.ui.filters.inventories.tag = tag;
+        },
+        updateTagAdventureFilter(state, tag) {
+            state.ui.filters.adventures.tag = tag;
+        },
+        updateLocationAdventureFilter(state, location) {
+            state.ui.filters.adventures.location = location;
+        },
+        updateActivityAdventureFilter(state, activity) {
+            state.ui.filters.adventures.activity = activity;
+        },
+        updateLandscapeAdventureFilter(state, landscape) {
+            state.ui.filters.adventures.landscape = landscape;
+        },
+        updateWeatherAdventureFilter(state, weather) {
+            state.ui.filters.adventures.weather = weather;
+        },
+        updateInventoryAdventureFilter(state, inventory) {
+            state.ui.filters.adventures.inventory = inventory;
         },
         updateUiItemOwned(state, itemOwned) {
             state.ui.itemOwned = itemOwned;
-        },
-        updateUiItemGearCategory(state, itemGearCategory) {
-            state.ui.itemGearCategory = itemGearCategory;
-        },
-        updateUiItemTag(state, itemTag) {
-            state.ui.itemTag = itemTag;
-        },
-        updateUiItemLocation(state, itemLocation) {
-            state.ui.itemLocation = itemLocation;
-        },
-        updateUiItemQuantityOwned(state, itemQuantityOwned) {
-            state.ui.itemQuantityOwned = itemQuantityOwned;
-        },
-        updateUiItemConsumable(state, itemConsumable) {
-            state.ui.itemConsumable = itemConsumable;
-        },
-        updateUiItemGearState(state, itemGearState) {
-            state.ui.itemGearState = itemGearState;
-        },
-        updateUiItemGearBrand(state, itemGearBrand) {
-            state.ui.itemGearBrand = itemGearBrand;
-        },
-        updateUiItemActivity(state, itemActivity) {
-            state.ui.itemActivity = itemActivity;
-        },
-        updateUiItemLandscape(state, itemLandscape) {
-            state.ui.itemLandscape = itemLandscape;
-        },
-        updateUiItemWeather(state, itemWeather) {
-            state.ui.itemWeather = itemWeather;
-        },
-        updateUiItemInventory(state, itemInventory) {
-            state.ui.itemInventory = itemInventory;
         },
         updateUiItemOrderBy(state, itemOrderBy) {
             state.ui.itemOrderBy = itemOrderBy;
