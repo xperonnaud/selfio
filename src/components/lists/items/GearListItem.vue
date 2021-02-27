@@ -11,7 +11,7 @@
             ]"
             :width="XXLI"
             :height="XXLI"
-            :style="(typeof source.category == 'number' ? `border: 2px solid ${categoryColor(source.category)} !important;` : '')+'min-width: unset;'"
+            :style="(typeof source.category == 'number' ? `border: 2px solid ${categoryColor(source.category)} !important;` : '')+'min-width: unset; padding-bottom: 2px !important;'"
         >
             <x-svg
                 v-if="typeof source.category == 'number' && gearCategories[source.category]"

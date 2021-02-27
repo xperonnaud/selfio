@@ -124,7 +124,7 @@
                                       :width="XXLI"
                                       :min-width="XXLI"
                                       :height="XXLI"
-                                      :style="gearCategoryStat.id ? `border: 1px solid ${categoryColor(gearCategoryStat.id)} !important;` : ''"
+                                      :style="gearCategoryStat.id ? `border: 2px solid ${categoryColor(gearCategoryStat.id)} !important;` : ''"
                                     >
                                       <x-svg
                                         v-if="gearCategoryStat.id && gearCategories[gearCategoryStat.id]"
