@@ -11,8 +11,7 @@
       {'is-small':isMobile},
       {'is-dark':isDark},
     ]"
-    :top="!isLoggedIn"
-    :bottom="isLoggedIn"
+    bottom
     pill
   >
     <span :class="reversedFontShadeColor" v-text="snackbarText" />
