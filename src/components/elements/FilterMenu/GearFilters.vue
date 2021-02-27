@@ -2,14 +2,14 @@
 
   <v-list>
     <v-list-item class="mb-3">
-      <x-category-selector v-bind:value.sync="itemGearCategory" isInFilter />
+      <x-category-selector v-bind:value.sync="gearCategoryFilter" isInFilter />
     </v-list-item>
 
     <v-list-item class="mb-3">
       <v-autocomplete
         v-if="filterMode"
         :label="xCapFirst($t('global.tags'))"
-        v-model="itemTag"
+        v-model="tagFilter"
         :items="preferences.gear_tags"
         :color="currentColor"
         filled
@@ -20,24 +20,24 @@
     </v-list-item>
 
     <v-list-item class="mb-3">
-      <x-brand-selector v-bind:value.sync="itemGearBrand" isInFilter />
+      <x-brand-selector v-bind:value.sync="brandFilter" isInFilter />
     </v-list-item>
 
     <v-list-item class="mb-3">
-      <x-state-selector v-bind:value.sync="itemGearState" isInFilter />
+      <x-state-selector v-bind:value.sync="gearStateFilter" isInFilter />
     </v-list-item>
 
     <v-list-item class="mb-3">
       <x-checkbox
         label="consumable"
-        v-bind:value.sync="itemConsumable"
+        v-bind:value.sync="consumableFilter"
       ></x-checkbox>
     </v-list-item>
 
     <v-list-item class="mb-3">
       <x-increment
         label="quantity-owned"
-        v-bind:value.sync="itemQuantityOwned"
+        v-bind:value.sync="quantityOwnedFilter"
         :rules="xRules.decimals"
         :color="currentColor"
         :max="100"
@@ -73,52 +73,52 @@
       filterModeOn: false,
     }),
     computed: {
-      itemTag: {
+      tagFilter: {
         get() {
-          return this.$store.state.ui.itemTag
+          return this.$store.state.ui.filters.gear.tag
         },
         set(value) {
-          this.$store.commit("updateUiItemTag", value)
+          this.$store.commit("updateTagGearFilter", value)
         }
       },
-      itemQuantityOwned: {
+      quantityOwnedFilter: {
         get() {
-          return this.$store.state.ui.itemQuantityOwned
+          return this.$store.state.ui.filters.gear.quantityOwned
         },
         set(value) {
-          this.$store.commit("updateUiItemQuantityOwned", value)
+          this.$store.commit("updateQuantityOwnedGearFilter", value)
         }
       },
-      itemGearCategory: {
+      gearStateFilter: {
         get() {
-          return this.$store.state.ui.itemGearCategory
+          return this.$store.state.ui.filters.gear.state
         },
         set(value) {
-          this.$store.commit("updateUiItemGearCategory", value)
+          this.$store.commit("updateStateGearFilter", value)
         }
       },
-      itemGearState: {
+      gearCategoryFilter: {
         get() {
-          return this.$store.state.ui.itemGearState
+          return this.$store.state.ui.filters.gear.category
         },
         set(value) {
-          this.$store.commit("updateUiItemGearState", value)
+          this.$store.commit("updateCategoryGearFilter", value)
         }
       },
-      itemConsumable: {
+      consumableFilter: {
         get() {
-          return this.$store.state.ui.itemConsumable
+          return this.$store.state.ui.filters.gear.consumable
         },
         set(value) {
-          this.$store.commit("updateUiItemConsumable", value)
+          this.$store.commit("updateConsumableGearFilter", value)
         }
       },
-      itemGearBrand: {
+      brandFilter: {
         get() {
-          return this.$store.state.ui.itemGearBrand
+          return this.$store.state.ui.filters.gear.brand
         },
         set(value) {
-          this.$store.commit("updateUiItemGearBrand", value)
+          this.$store.commit("updateBrandGearFilter", value)
         }
       },
     },

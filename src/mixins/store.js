@@ -380,10 +380,10 @@ export default {
         },
         itemSearch: {
             get() {
-                return this.xUi.itemSearch
+                return this.xUi.filters.title
             },
             set(value) {
-                this.$store.commit("updateUiItemSearch", value)
+                this.$store.commit("updateTitleSearchFilter", value)
             }
         },
     },
@@ -434,19 +434,25 @@ export default {
             return null;
         },
         clearMenuFilters() {
-            this.$store.commit("updateUiItemSearch", '');
+            this.$store.commit("updateTitleSearchFilter", '');
+
+            this.$store.commit("updateTagGearFilter", null);
+            this.$store.commit("updateQuantityOwnedGearFilter", null);
+            this.$store.commit("updateStateGearFilter", null);
+            this.$store.commit("updateCategoryGearFilter", null);
+            this.$store.commit("updateConsumableGearFilter", null);
+            this.$store.commit("updateBrandGearFilter", null);
+
+            this.$store.commit("updateTagInventoryFilter", null);
+
+            this.$store.commit("updateTagAdventureFilter", null);
+            this.$store.commit("updateLocationAdventureFilter", null);
+            this.$store.commit("updateActivityAdventureFilter", null);
+            this.$store.commit("updateInventoryAdventureFilter", null);
+            this.$store.commit("updateLandscapeAdventureFilter", null);
+            this.$store.commit("updateWeatherAdventureFilter", null);
+
             this.$store.commit("updateUiItemOwned", null);
-            this.$store.commit("updateUiItemLocation", null);
-            this.$store.commit("updateUiItemTag", null);
-            this.$store.commit("updateUiItemQuantityOwned", null);
-            this.$store.commit("updateUiItemConsumable", null);
-            this.$store.commit("updateUiItemGearCategory", null);
-            this.$store.commit("updateUiItemGearState", null);
-            this.$store.commit("updateUiItemGearBrand", null);
-            this.$store.commit("updateUiItemActivity", null);
-            this.$store.commit("updateUiItemInventory", null);
-            this.$store.commit("updateUiItemLandscape", null);
-            this.$store.commit("updateUiItemWeather", null);
         },
         updateSnackbar(type, text) {
             this.snackbarDisplay = true;

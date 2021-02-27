@@ -5,7 +5,7 @@
       <x-picker
         label="activity"
         :list="activitiesList"
-        v-bind:value.sync="itemActivity"
+        v-bind:value.sync="activityFilter"
       ></x-picker>
     </v-list-item>
 
@@ -14,7 +14,7 @@
         v-if="filterMode"
         :label="xCapFirst($t('global.tags'))"
         :items="preferences.adventure_tags"
-        v-model="itemTag"
+        v-model="tagFilter"
         filled
         dense
         clearable
@@ -26,7 +26,7 @@
     <v-list-item class="mb-3">
       <x-text
         :label="$t('global.location')"
-        v-bind:value.sync="itemLocation"
+        v-bind:value.sync="locationFilter"
       ></x-text>
     </v-list-item>
 
@@ -34,7 +34,7 @@
       <x-picker
         label="landscape"
         :list="landscapesList"
-        v-bind:value.sync="itemLandscape"
+        v-bind:value.sync="landscapeFilter"
         logo
       ></x-picker>
     </v-list-item>
@@ -43,7 +43,7 @@
       <v-autocomplete
         :label="xCapFirst($t('global.inventories'))"
         :items="inventoriesList"
-        v-model="itemInventory"
+        v-model="inventoryFilter"
         filled
         dense
         clearable
@@ -56,7 +56,7 @@
 
     <v-list-item class="mb-3">
       <x-weather-selector
-        v-bind:value.sync="itemWeather"
+        v-bind:value.sync="weatherFilter"
         :iconSize="LGI"
         hasIcon
         isInFilter
@@ -87,52 +87,52 @@
       filterModeOn: false,
     }),
     computed: {
-      itemTag: {
+      tagFilter: {
         get() {
-          return this.$store.state.ui.itemTag
+          return this.$store.state.ui.filters.adventures.tag
         },
         set(value) {
-          this.$store.commit("updateUiItemTag", value)
+          this.$store.commit("updateTagAdventureFilter", value)
         }
       },
-      itemLocation: {
+      locationFilter: {
         get() {
-          return this.$store.state.ui.itemLocation
+          return this.$store.state.ui.filters.adventures.location
         },
         set(value) {
-          this.$store.commit("updateUiItemLocation", value)
+          this.$store.commit("updateLocationAdventureFilter", value)
         }
       },
-      itemInventory: {
+      inventoryFilter: {
         get() {
-          return this.$store.state.ui.itemInventory
+          return this.$store.state.ui.filters.adventures.inventory
         },
         set(value) {
-          this.$store.commit("updateUiItemInventory", value)
+          this.$store.commit("updateInventoryAdventureFilter", value)
         }
       },
-      itemActivity: {
+      activityFilter: {
         get() {
-          return this.$store.state.ui.itemActivity
+          return this.$store.state.ui.filters.adventures.activity
         },
         set(value) {
-          this.$store.commit("updateUiItemActivity", value)
+          this.$store.commit("updateActivityAdventureFilter", value)
         }
       },
-      itemLandscape: {
+      landscapeFilter: {
         get() {
-          return this.$store.state.ui.itemLandscape
+          return this.$store.state.ui.filters.adventures.landscape
         },
         set(value) {
-          this.$store.commit("updateUiItemLandscape", value)
+          this.$store.commit("updateLandscapeAdventureFilter", value)
         }
       },
-      itemWeather: {
+      weatherFilter: {
         get() {
-          return this.$store.state.ui.itemWeather
+          return this.$store.state.ui.filters.adventures.weather
         },
         set(value) {
-          this.$store.commit("updateUiItemWeather", value)
+          this.$store.commit("updateWeatherAdventureFilter", value)
         }
       },
     },
