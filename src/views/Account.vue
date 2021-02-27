@@ -102,7 +102,7 @@
                 label="request password"
                 :block="isMobile"
                 :valid.sync="valid"
-                v-on:btnAction="api_request_password()"
+                @click.stop="api_request_password()"
               ></v-btn>
             </v-col>
           </v-row>
