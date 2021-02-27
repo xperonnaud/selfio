@@ -11,7 +11,7 @@
       <x-checker
         :key="`gear-packed-checker-${source.gear_id}-${updatedItem && updatedItem.packed_gear ? updatedItem.packed_gear.length : 0}`"
         :value="(updatedItem && updatedItem.packed_gear && updatedItem.packed_gear.includes(source.gear_id))"
-      />
+      ></x-checker>
     </v-list-item-action>
 
     <v-list-item-avatar
@@ -19,7 +19,7 @@
       :width="XXLI"
       :min-width="XXLI"
       :height="XXLI"
-      :style="xGear(source.gear_id).category ? `border: 2px solid ${categoryColor(xGear(source.gear_id).category)} !important;` : ''"
+      :style="xGear(source.gear_id) && typeof xGear(source.gear_id).category == 'number' ? `border: 2px solid ${categoryColor(xGear(source.gear_id).category)} !important;` : ''"
     >
       <x-svg
         v-if="xGear(source.gear_id) && typeof xGear(source.gear_id).category == 'number' && gearCategories[xGear(source.gear_id).category]"

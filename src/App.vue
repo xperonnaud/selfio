@@ -117,7 +117,6 @@
       },
     },
     mounted() {
-      let self = this;
       this.setLang(this.getNavigatorLanguage());
       this.isMounted = true;
     }

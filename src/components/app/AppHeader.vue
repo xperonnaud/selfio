@@ -90,8 +90,7 @@
           <v-list-item-avatar
             v-if="avatarSortProp"
             v-bind:class="[
-              'x-avatar',
-              'my-0 py-0',
+              'x-avatar my-0 py-0',
                (isMobile ? 'mr-3' : 'ml-1 mr-4'),
             ]"
             :style="isMobile ? 'margin-left: -4px;' : ''"

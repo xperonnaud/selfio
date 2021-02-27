@@ -147,7 +147,7 @@
           return (
             (this.itemSearch ? item.title.toLowerCase().includes(this.itemSearch.toLowerCase()) : true)
             && (this.itemLocation ? item.location.toLowerCase().includes(this.itemLocation.toLowerCase()) : true)
-            && (this.itemOwned ? (item.user_created === this.userId) : true)
+            && (this.itemOwned ? (item.global === false) : true)
             && (this.itemConsumable ? (item.consumable === true) : true)
             && (this.itemTag ? (item.tags.includes(this.itemTag)) : true)
             && (this.itemQuantityOwned ? (parseFloat(item.quantity_owned) === parseFloat(this.itemQuantityOwned)) : true)
