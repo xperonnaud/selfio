@@ -103,7 +103,7 @@
       </v-list-item>
     </template>
 
-    <template v-else v-slot:append>
+    <template v-if="!isMobile" v-slot:append>
       <v-divider />
 
       <v-list-item
