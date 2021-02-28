@@ -96,16 +96,16 @@
             </v-col>
           </v-row>
 
-          <v-row class="row-max-width">
-            <v-col cols="12">
-              <v-btn
-                label="request password"
-                :block="isMobile"
-                :valid.sync="valid"
-                @click.stop="api_request_password()"
-              ></v-btn>
-            </v-col>
-          </v-row>
+<!--          <v-row class="row-max-width">-->
+<!--            <v-col cols="12">-->
+<!--              <v-btn-->
+<!--                label="request password"-->
+<!--                :block="isMobile"-->
+<!--                :valid.sync="valid"-->
+<!--                @click.stop="api_request_password()"-->
+<!--              ></v-btn>-->
+<!--            </v-col>-->
+<!--          </v-row>-->
         </v-container>
       </v-form>
     </v-sheet>

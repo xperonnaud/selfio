@@ -124,7 +124,7 @@
                                       :width="XXLI"
                                       :min-width="XXLI"
                                       :height="XXLI"
-                                      :style="gearCategoryStat.id ? `border: 1px solid ${categoryColor(gearCategoryStat.id)} !important;` : ''"
+                                      :style="gearCategoryStat.id ? `border: 2px solid ${categoryColor(gearCategoryStat.id)} !important;` : ''"
                                     >
                                       <x-svg
                                         v-if="gearCategoryStat.id && gearCategories[gearCategoryStat.id]"
@@ -539,35 +539,35 @@
 
                           <v-col :cols="isMobile ? 6 : 3" class="py-2 col-border-r x-primary-btn rounded" @click.stop="sortGear('title')" v-ripple>
                             <div class="d-flex align-center">
-                              <div class="text-tiny">{{$t('global.title') | capitalizeFirstFilter}}</div>
+                              <div v-bind:class="['text-tiny', ((gearOrderBy === 'title') ? currentColorText : '')]">{{$t('global.title') | capitalizeFirstFilter}}</div>
                               <x-sort-icon prop="title" />
                             </div>
                           </v-col>
 
                           <v-col class="x-col px-0 py-2 col-border-r x-primary-btn rounded" @click.stop="sortGear('weight')" v-ripple>
                             <div class="d-flex justify-center align-center">
-                              <div class="text-tiny">{{$t('global.weight') | capitalizeFirstFilter}}</div>
+                              <div v-bind:class="['text-tiny', ((gearOrderBy === 'weight') ? currentColorText : '')]">{{$t('global.weight') | capitalizeFirstFilter}}</div>
                               <x-sort-icon prop="weight" />
                             </div>
                           </v-col>
 
                           <v-col v-if="!isMobile" class="x-col px-0 py-2 col-border-r x-primary-btn rounded" @click.stop="sortGear('price')" v-ripple>
                             <div class="d-flex justify-center align-center">
-                              <div class="text-tiny">{{$t('global.price') | capitalizeFirstFilter}}</div>
+                              <div v-bind:class="['text-tiny', ((gearOrderBy === 'price') ? currentColorText : '')]">{{$t('global.price') | capitalizeFirstFilter}}</div>
                               <x-sort-icon prop="price" />
                             </div>
                           </v-col>
 
                           <v-col v-if="!isMobile" class="x-col px-0 py-2 col-border-r x-primary-btn rounded" @click.stop="sortGear('state')" v-ripple>
                             <div class="d-flex justify-center align-center">
-                              <div class="text-tiny">{{$t('global.state') | capitalizeFirstFilter}}</div>
+                              <div v-bind:class="['text-tiny', ((gearOrderBy === 'state') ? currentColorText : '')]">{{$t('global.state') | capitalizeFirstFilter}}</div>
                               <x-sort-icon prop="state" />
                             </div>
                           </v-col>
 
                           <v-col v-if="!isMobile" class="x-col px-0 py-2 col-border-r x-primary-btn rounded" @click.stop="sortGear('consumable')" v-ripple>
                             <div class="d-flex justify-center align-center">
-                              <div class="text-tiny">{{$t('global.consumable') | minifyTextFilter | capitalizeFirstFilter}}</div>
+                              <div v-bind:class="['text-tiny', ((gearOrderBy === 'consumable') ? currentColorText : '')]">{{$t('global.consumable') | minifyTextFilter | capitalizeFirstFilter}}</div>
                               <x-sort-icon prop="consumable" />
                             </div>
                           </v-col>
@@ -578,7 +578,7 @@
 
                           <v-col class="x-col px-0 py-2 col-border-r x-primary-btn rounded" @click.stop="sortGear('quantity_owned')" v-ripple>
                             <div class="d-flex justify-center align-center">
-                              <div class="text-tiny text-center">{{$t('global.qty') | capitalizeFirstFilter}}</div>
+                              <div v-bind:class="['text-tiny text-center', ((gearOrderBy === 'quantity_owned') ? currentColorText : '')]">{{$t('global.qty') | capitalizeFirstFilter}}</div>
                               <x-sort-icon prop="state" />
                             </div>
                           </v-col>
@@ -673,7 +673,7 @@
                 <v-list-item class="mb-3">
                   <x-increment
                     label="quantity-packed"
-                    v-bind:value.sync="selectedInventoryGear['gear_quantity_packed']"
+                    v-bind:value.sync="temporaryInventoryGear.gear_quantity_packed"
                     :rules="xRules.decimals"
                     :color="currentColor"
                     :max="selectedInventoryGearMaxQuantity"
@@ -684,7 +684,7 @@
                 <v-list-item>
                   <x-checkbox
                     label="worn"
-                    v-bind:value.sync="selectedInventoryGear['gear_worn']"
+                    v-bind:value.sync="temporaryInventoryGear.gear_worn"
                   ></x-checkbox>
                 </v-list-item>
               </v-list>
@@ -696,7 +696,7 @@
                 <v-spacer />
 
                 <v-btn
-                  @click.stop="unSelectInventoryGear()"
+                  @click.stop="saveInventoryGear()"
                   icon
                   class="primary-gradient-color-text"
                 >
@@ -807,6 +807,13 @@
         inventory_gear:[]
       },
 
+      temporaryInventoryGear: {
+        inventory_id: null,
+        gear_id: null,
+        gear_quantity_packed: null,
+        gear_worn: null
+      },
+
       inventoryGearList: [],
       inventoryGearReferenceList: [],
       inventoryTotalItems: 0,
@@ -838,7 +845,7 @@
       gearStateFilter: null,
       gearBrandFilter: null,
       gearConsumableFilter: null,
-      gearQuantityOwnedFilter: null,
+      gearQuantityOwnedFilter: true,
 
       balance: {
         base: {
@@ -896,10 +903,10 @@
           return (this.sortedGear.filter(item => {
             if(
               !this.itemSearch
-              && !this.gearCategoryFilter
+              && typeof this.gearCategoryFilter != 'number'
               && !this.gearStateFilter
               && !this.gearTagsFilter
-              && !this.gearBrandFilter
+              && typeof this.gearBrandFilter != 'number'
               && !this.gearIsPackedFilter
               && !this.gearConsumableFilter
               && !this.gearQuantityOwnedFilter
@@ -907,11 +914,11 @@
 
             return (
                 (this.itemSearch ? (item.title && item.title.toLowerCase().includes(this.itemSearch.toLowerCase())) : true)
-                && (this.gearCategoryFilter ? (item.category && item.category === this.gearCategoryFilter) : true)
-                && (this.gearStateFilter ? (item.state && item.state === this.gearStateFilter) : true)
-                && (this.gearBrandFilter ? (item.brand && item.brand === this.gearBrandFilter) : true)
+                && (typeof this.gearCategoryFilter != 'number' ? (typeof this.gearCategoryFilter != 'number' && (item.category === this.gearCategoryFilter)) : true)
+                && (this.gearStateFilter ? (item.state && (item.state === this.gearStateFilter)) : true)
+                && (typeof this.gearBrandFilter != 'number' ? (typeof this.gearBrandFilter != 'number' && (item.brand === this.gearBrandFilter)) : true)
                 && (this.gearConsumableFilter ? (item.consumable === true) : true)
-                && (this.gearTagsFilter ? (item.tags.includes(this.gearTagsFilter)) : true)
+                && (this.gearTagsFilter ? (item.tags && item.tags.includes(this.gearTagsFilter)) : true)
                 && (this.gearIsPackedFilter ? (this.inventoryGearList && this.inventoryGearList.includes(item.id)) : true)
                 && (this.gearQuantityOwnedFilter ? (item.quantity_owned > 0) : true)
             )
@@ -929,6 +936,12 @@
     methods: {
       t(str) {
         return this.$t(`routes.inventories.${str}`);
+      },
+      resetTemporaryInventoryGear() {
+        this.temporaryInventoryGear.inventory_id = null;
+        this.temporaryInventoryGear.gear_id = null;
+        this.temporaryInventoryGear.gear_quantity_packed = null;
+        this.temporaryInventoryGear.gear_worn = null;
       },
       clearMenuFilters() {
         this.gearCategoryFilter = null;
@@ -987,6 +1000,14 @@
       async closeEditor() {
         await this.initGearList();
         this.isEditing = false;
+      },
+      saveInventoryGear() {
+        this.currentInventoryGear[this.selectedInventoryGearIndex].inventory_id = this.temporaryInventoryGear.inventory_id;
+        this.currentInventoryGear[this.selectedInventoryGearIndex].gear_id = this.temporaryInventoryGear.gear_id;
+        this.currentInventoryGear[this.selectedInventoryGearIndex].gear_quantity_packed = this.temporaryInventoryGear.gear_quantity_packed;
+        this.currentInventoryGear[this.selectedInventoryGearIndex].gear_worn = this.temporaryInventoryGear.gear_worn;
+
+        this.unSelectInventoryGear();
       },
       unSelectInventoryGear() {
         this.selectedInventoryGearIndex = null;
@@ -1142,6 +1163,17 @@
       }
     },
     watch: {
+      selectedInventoryGearIndex(newVal, oldVal) {
+        if(!newVal || (newVal === oldVal)) {
+          this.resetTemporaryInventoryGear();
+        } else {
+          let invGear = this.currentInventoryGear[this.selectedInventoryGearIndex];
+          this.temporaryInventoryGear.inventory_id = invGear.inventory_id;
+          this.temporaryInventoryGear.gear_id = invGear.gear_id;
+          this.temporaryInventoryGear.gear_quantity_packed = invGear.gear_quantity_packed;
+          this.temporaryInventoryGear.gear_worn = invGear.gear_worn;
+        }
+      },
       isLoading(val) {
         if(this.isMounted)
           this.$emit('update:isFormLoading',val);

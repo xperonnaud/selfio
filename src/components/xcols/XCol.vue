@@ -6,7 +6,7 @@
     v-ripple
   >
     <div :class="['d-flex justify-center', {isMobile: 'flex-column'}]">
-      <div v-bind:class="['text-tiny']">
+      <div v-bind:class="['text-tiny', ((itemOrderBy === prop) ? currentColorText : '')]">
         <span v-if="!mini">{{$t(`global.${text}`) | capitalizeFirstFilter}}</span>
         <span v-else>{{$t(`global.${text}`) | minifyTextFilter | capitalizeFirstFilter}}</span>
       </div>

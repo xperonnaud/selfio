@@ -2,13 +2,11 @@
 
   <div class="d-flex align-center justify-center">
     <v-icon
-      v-text="(itemOrderBy !== prop)
+      v-text="((itemOrderBy !== prop) || (itemOrderOption === 'asc'))
         ? 'mdi-menu-down'
-        : (itemOrderOption === 'asc'
-          ? 'mdi-menu-down'
-          : 'mdi-menu-up')"
+        : 'mdi-menu-up'"
       :size="14"
-      class="my-auto"
+      v-bind:class="['my-auto', ((itemOrderBy === prop) ? currentColorText : '')]"
     ></v-icon>
   </div>
 

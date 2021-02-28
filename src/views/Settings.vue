@@ -148,7 +148,7 @@
               </div>
             </v-col>
 
-            <v-col cols="12">
+            <v-col v-if="!isMobile" cols="12">
               <primary-btn
                 label="save"
                 :block="isMobile"

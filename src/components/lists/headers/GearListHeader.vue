@@ -10,7 +10,7 @@
         v-ripple
       >
         <div :class="['d-flex', {isMobile: 'flex-column'}]">
-          <div v-bind:class="['text-tiny']">{{$t('global.title') | capitalizeFirstFilter}}</div>
+          <div v-bind:class="['text-tiny', ((itemOrderBy === 'title') ? currentColorText : '')]">{{$t('global.title') | capitalizeFirstFilter}}</div>
           <x-sort-icon prop="title" />
         </div>
       </v-col>

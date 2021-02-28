@@ -465,14 +465,14 @@
 
                             <v-col class="x-col px-0 py-2 col-border-r x-primary-btn rounded" @click.stop="sortGear('gear_worn')" v-ripple>
                               <div class="d-flex justify-center align-center">
-                                <div class="text-tiny text-center">{{$t('global.worn') | capitalizeFirstFilter}}</div>
+                                <div v-bind:class="['text-tiny text-center', ((gearOrderBy === 'gear_worn') ? currentColorText : '')]">{{$t('global.worn') | capitalizeFirstFilter}}</div>
                                 <x-sort-icon prop="gear_worn" />
                               </div>
                             </v-col>
 
                             <v-col class="x-col px-0 py-2 col-border-r x-primary-btn rounded" @click.stop="sortGear('gear_quantity_packed')" v-ripple>
                               <div class="d-flex justify-center align-center">
-                                <div class="text-tiny text-center">{{$t('global.qty') | capitalizeFirstFilter}}</div>
+                                <div v-bind:class="['text-tiny text-center', ((gearOrderBy === 'gear_quantity_packed') ? currentColorText : '')]">{{$t('global.qty') | capitalizeFirstFilter}}</div>
                                 <x-sort-icon prop="gear_quantity_packed" />
                               </div>
                             </v-col>
