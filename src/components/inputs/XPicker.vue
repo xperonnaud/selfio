@@ -58,7 +58,7 @@
           <x-divider />
 
           <div class="text-center" :style="'width: '+(isMobile?'40':'70')+'px;'">
-            <span>{{ sumInventoryWeight(data.item.inventory_gear) }}</span>
+            <span>{{ sumInventoryWeight(data.item.inventory_gear) | weightUnitFilter(weightUnit) }}</span>
             <span class="text-tiny-dimmed" v-text="supWeightUnit" />
           </div>
 
