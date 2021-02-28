@@ -673,7 +673,7 @@
                 <v-list-item class="mb-3">
                   <x-increment
                     label="quantity-packed"
-                    v-bind:value.sync="selectedInventoryGear['gear_quantity_packed']"
+                    v-bind:value.sync="temporaryInventoryGear.gear_quantity_packed"
                     :rules="xRules.decimals"
                     :color="currentColor"
                     :max="selectedInventoryGearMaxQuantity"
@@ -684,7 +684,7 @@
                 <v-list-item>
                   <x-checkbox
                     label="worn"
-                    v-bind:value.sync="selectedInventoryGear['gear_worn']"
+                    v-bind:value.sync="temporaryInventoryGear.gear_worn"
                   ></x-checkbox>
                 </v-list-item>
               </v-list>
@@ -696,7 +696,7 @@
                 <v-spacer />
 
                 <v-btn
-                  @click.stop="unSelectInventoryGear()"
+                  @click.stop="saveInventoryGear()"
                   icon
                   class="primary-gradient-color-text"
                 >
@@ -805,6 +805,13 @@
 
       updatedItem: {
         inventory_gear:[]
+      },
+
+      temporaryInventoryGear: {
+        inventory_id: null,
+        gear_id: null,
+        gear_quantity_packed: null,
+        gear_worn: null
       },
 
       inventoryGearList: [],
@@ -930,6 +937,12 @@
       t(str) {
         return this.$t(`routes.inventories.${str}`);
       },
+      resetTemporaryInventoryGear() {
+        this.temporaryInventoryGear.inventory_id = null;
+        this.temporaryInventoryGear.gear_id = null;
+        this.temporaryInventoryGear.gear_quantity_packed = null;
+        this.temporaryInventoryGear.gear_worn = null;
+      },
       clearMenuFilters() {
         this.gearCategoryFilter = null;
         this.gearTagsFilter = null;
@@ -987,6 +1000,14 @@
       async closeEditor() {
         await this.initGearList();
         this.isEditing = false;
+      },
+      saveInventoryGear() {
+        this.currentInventoryGear[this.selectedInventoryGearIndex].inventory_id = this.temporaryInventoryGear.inventory_id;
+        this.currentInventoryGear[this.selectedInventoryGearIndex].gear_id = this.temporaryInventoryGear.gear_id;
+        this.currentInventoryGear[this.selectedInventoryGearIndex].gear_quantity_packed = this.temporaryInventoryGear.gear_quantity_packed;
+        this.currentInventoryGear[this.selectedInventoryGearIndex].gear_worn = this.temporaryInventoryGear.gear_worn;
+
+        this.unSelectInventoryGear();
       },
       unSelectInventoryGear() {
         this.selectedInventoryGearIndex = null;
@@ -1142,6 +1163,17 @@
       }
     },
     watch: {
+      selectedInventoryGearIndex(newVal, oldVal) {
+        if(!newVal || (newVal === oldVal)) {
+          this.resetTemporaryInventoryGear();
+        } else {
+          let invGear = this.currentInventoryGear[this.selectedInventoryGearIndex];
+          this.temporaryInventoryGear.inventory_id = invGear.inventory_id;
+          this.temporaryInventoryGear.gear_id = invGear.gear_id;
+          this.temporaryInventoryGear.gear_quantity_packed = invGear.gear_quantity_packed;
+          this.temporaryInventoryGear.gear_worn = invGear.gear_worn;
+        }
+      },
       isLoading(val) {
         if(this.isMounted)
           this.$emit('update:isFormLoading',val);
