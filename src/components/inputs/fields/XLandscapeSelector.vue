@@ -53,6 +53,7 @@
                                     svgPath="landscapes/"
                                     :width="XLI"
                                     :height="XLI"
+                                    logo
                                 ></x-svg>
                             </v-avatar>
                         </template>
@@ -99,6 +100,7 @@
                                                 svgPath="landscapes/"
                                                 :width="XLI"
                                                 :height="XLI"
+                                                logo
                                             ></x-svg>
                                         </v-avatar>
                                     </div>

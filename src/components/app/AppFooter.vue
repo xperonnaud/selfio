@@ -16,7 +16,7 @@
 
       <v-btn
         v-show="isConfigurationRoute"
-        :class="['px-0 floating-button primary-gradient-color']"
+        :class="['px-0 floating-button primary-gradient-color white--text']"
         @click="brandPostDialog = !brandPostDialog"
         :width="48"
         :height="48"

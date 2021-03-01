@@ -12,9 +12,12 @@
       <template v-slot:activator="{ on, attrs }">
         <v-badge
           :color="nbActiveFilters ? shadeColor : 'transparent'"
-          :content="nbActiveFilters || null"
           overlap
         >
+          <template v-if="nbActiveFilters" v-slot:badge>
+            <span v-bind:class="reversedFontShadeColor" v-text="nbActiveFilters" />
+          </template>
+
           <v-btn
             v-if="isItemRoute || isConfigurationRoute"
             @click="filterModeOn = !filterModeOn"

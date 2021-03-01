@@ -5,7 +5,7 @@
     :color="xBackgroundColor"
   >
     <virtual-list
-      v-if="isMounted && listItemComponent"
+      v-if="listItemComponent"
       style="height: 100%; overflow-y: auto;"
       :data-key="'id'"
       :data-sources.sync="filteredItems"
@@ -17,10 +17,10 @@
 
     <x-list-skeleton v-else />
 
-    <v-list v-if="items.length <= 0 || (filteredItems.length <= 0) && !(filteredItems.length <= 0)">
+    <v-list v-if="!isAppLoading && (items.length <= 0 || ((filteredItems.length <= 0) && !(items.length <= 0)))">
       <item-empty-list-item v-if="(items.length <= 0)" />
 
-      <no-result-empty-list-item v-else-if="(filteredItems.length <= 0) && !(filteredItems.length <= 0)" />
+      <no-result-empty-list-item v-else-if="(filteredItems.length <= 0) && !(items.length <= 0)" />
     </v-list>
   </v-card>
 
@@ -174,7 +174,7 @@
 
             && (this.adventureTagFilter ? (item.tags!==null && item.tags.includes(this.adventureTagFilter)) : true)
             && (typeof this.activityAdventureFilter == 'number' ? (item.activity === this.activityAdventureFilter) : true)
-            && (this.locationAdventureFilter ? item.location.toLowerCase().includes(this.locationAdventureFilter.toLowerCase()) : true)
+            && (this.locationAdventureFilter && item.location ? item.location.toLowerCase().includes(this.locationAdventureFilter.toLowerCase()) : true)
             && (typeof this.landscapeAdventureFilter == 'number' ? (item.landscape === this.landscapeAdventureFilter) : true)
             && (this.weatherAdventureFilter ? (item.weather === this.weatherAdventureFilter) : true)
             && (typeof this.inventoryAdventureFilter == 'number' ? (item.adventure_inventory === this.inventoryAdventureFilter) : true)

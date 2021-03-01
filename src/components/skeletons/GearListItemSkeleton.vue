@@ -1,6 +1,6 @@
 <template>
 
-  <v-row>
+  <v-row class="gear-list-item-skeleton">
     <v-col :cols="isMobile ? 4 : 3" class="pa-0">
       <v-skeleton-loader
         height="36"

@@ -195,10 +195,8 @@ export default {
         },
         reset_api_data() {
             this.$store.commit("updateBrands",[]);
-            this.$store.commit("updateLandscapes",[]);
             this.$store.commit("updateGear",[]);
             this.$store.commit("updateInventories",[]);
-            this.$store.commit("updateActivities",[]);
             this.$store.commit("updateAdventures",[]);
         },
 
