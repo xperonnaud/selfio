@@ -6,7 +6,7 @@
   >
     <v-list-item-content>
       <empty-list
-        :label="`add-${currentRouteName}`"
+        :label="xCapFirst($t(`global.add-${currentRouteName}`))"
         :color="navItemColor(currentRouteName)"
       ></empty-list>
     </v-list-item-content>
