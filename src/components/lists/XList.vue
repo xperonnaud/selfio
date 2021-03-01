@@ -5,7 +5,7 @@
     :color="xBackgroundColor"
   >
     <virtual-list
-      v-if="isMounted && listItemComponent"
+      v-if="listItemComponent"
       style="height: 100%; overflow-y: auto;"
       :data-key="'id'"
       :data-sources.sync="filteredItems"
@@ -17,10 +17,10 @@
 
     <x-list-skeleton v-else />
 
-    <v-list v-if="items.length <= 0 || (filteredItems.length <= 0) && !(filteredItems.length <= 0)">
+    <v-list v-if="!isAppLoading && (items.length <= 0 || ((filteredItems.length <= 0) && !(items.length <= 0)))">
       <item-empty-list-item v-if="(items.length <= 0)" />
 
-      <no-result-empty-list-item v-else-if="(filteredItems.length <= 0) && !(filteredItems.length <= 0)" />
+      <no-result-empty-list-item v-else-if="(filteredItems.length <= 0) && !(items.length <= 0)" />
     </v-list>
   </v-card>
 
