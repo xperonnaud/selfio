@@ -62,13 +62,12 @@
         <x-delete-sure v-else />
       </v-card-text>
 
-      <v-divider />
-
       <x-delete-actions
         v-bind:value.sync="pickerValue"
         v-bind:deleteItem.sync="dialogDeleteItem"
         :hasItemRelations.sync="hasItemRelations"
         :isActionLoading.sync="isActionLoading"
+        class="mt-1"
       ></x-delete-actions>
     </v-card>
   </v-dialog>

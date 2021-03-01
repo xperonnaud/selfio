@@ -19,11 +19,9 @@
 
         <v-card-subtitle>{{t('please-login') | capitalizeFirstFilter}}</v-card-subtitle>
 
-        <v-divider />
-
-        <v-card-actions>
+        <v-card-actions class="mt-1">
           <v-btn
-            @click="api_logout()"
+            @click="disconnect_session()"
             depressed
             text
             v-text="$t('global.leave')"
@@ -32,7 +30,7 @@
           <v-spacer />
 
           <v-btn
-            @click="api_login()"
+            @click="reloadPage()"
             class="primary-gradient-color"
             depressed
             dark

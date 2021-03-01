@@ -142,17 +142,7 @@ export default {
             await directus.auth.logout()
             .then(async function (response) {
                 await self.handleResponse('success', self.xTranslate('api.logged-out'), response);
-                self.reset_api_data();
-                self.reset_user_data();
-
-                localforage.setItem('is-logged-in', false)
-                    .then(function () {
-                        return localforage.getItem('is-logged-in');
-                    }).then(function (value) {
-                    self.$store.commit('updateUiIsLoggedIn', value);
-                }).catch(function (err) {
-                    console.log('is-logged-in',err)
-                });
+                await self.disconnect_session();
             }).catch(async function (error) {
                 await self.handleResponse('error', error.message, error);
             });
@@ -160,6 +150,20 @@ export default {
             directus.auth.token = null;
             this.$store.commit("updateUiIsSessionExpired", false);
             this.$store.commit("updateUiIsAppLoading", false);
+        },
+        async disconnect_session() {
+            let self = this;
+            self.reset_api_data();
+            self.reset_user_data();
+
+            localforage.setItem('is-logged-in', false)
+                .then(function () {
+                    return localforage.getItem('is-logged-in');
+                }).then(function (value) {
+                self.$store.commit('updateUiIsLoggedIn', value);
+            }).catch(function (err) {
+                console.log('is-logged-in',err)
+            });
         },
         async api_request_password() {
             let self = this;

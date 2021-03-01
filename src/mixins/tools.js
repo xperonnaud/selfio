@@ -123,6 +123,9 @@ export default {
         },
     },
     methods: {
+        reloadPage() {
+            location.reload();
+        },
         sumInventoryProperty(inventoryGear, prop) {
             let self = this;
             let sum = 0;
