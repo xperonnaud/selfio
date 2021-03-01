@@ -174,7 +174,7 @@
 
             && (this.adventureTagFilter ? (item.tags!==null && item.tags.includes(this.adventureTagFilter)) : true)
             && (typeof this.activityAdventureFilter == 'number' ? (item.activity === this.activityAdventureFilter) : true)
-            && (this.locationAdventureFilter ? item.location.toLowerCase().includes(this.locationAdventureFilter.toLowerCase()) : true)
+            && (this.locationAdventureFilter && item.location ? item.location.toLowerCase().includes(this.locationAdventureFilter.toLowerCase()) : true)
             && (typeof this.landscapeAdventureFilter == 'number' ? (item.landscape === this.landscapeAdventureFilter) : true)
             && (this.weatherAdventureFilter ? (item.weather === this.weatherAdventureFilter) : true)
             && (typeof this.inventoryAdventureFilter == 'number' ? (item.adventure_inventory === this.inventoryAdventureFilter) : true)
