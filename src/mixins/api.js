@@ -3,7 +3,7 @@ import localforage from 'localforage';
 import DirectusSDK from '@directus/sdk-js';
 import CONSTANTS from '@/constants'
 
-const directus = new DirectusSDK('https://servo-13475.nodechef.com/', {
+const directus = new DirectusSDK('http://localhost:8055/', {
     auth: {
         storage: localforage, // Storage adapter where refresh tokens are stored in JSON mode
         mode: 'cookie', // What login mode to use. One of `json`, `cookie`
@@ -21,19 +21,9 @@ export default {
                 return this.$store.state.api.baseUrl;
             }
         },
-        activitiesList: {
-            get() {
-                return this.$store.state.selfio.activities;
-            }
-        },
         brandsList: {
             get() {
                 return this.$store.state.selfio.brands;
-            }
-        },
-        landscapesList: {
-            get() {
-                return this.$store.state.selfio.landscapes;
             }
         },
         gearList: {
@@ -258,26 +248,6 @@ export default {
                 self.$store.commit("removeBrand", brandIndex);
                 await self.handleResponse('success', self.xTranslate('api.brand-deleted'));
 
-            }).catch(async function (error) {
-                await self.handleResponse('error', error.message, error);
-            })
-        },
-
-        async api_get_landscapes() {
-            let self = this;
-            await directus.items('landscapes').read()
-            .then(function (response) {
-                self.$store.commit("updateLandscapes",response.data);
-            }).catch(async function (error) {
-                await self.handleResponse('error', error.message, error);
-            })
-        },
-        async api_get_activities() {
-            let self = this;
-
-            await directus.items('activities').read()
-            .then(function (response) {
-                self.$store.commit("updateActivities", response.data);
             }).catch(async function (error) {
                 await self.handleResponse('error', error.message, error);
             })

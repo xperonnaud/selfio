@@ -109,6 +109,49 @@ export default {
                 'sunny',
                 'windy',
             ],
+            ACTIVITIES: [
+                'running',
+                'hiking',
+                'trekking',
+                'mountaineering',
+                'alpinism',
+                'hunting',
+                'camping',
+                'backpacking',
+                'off-road',
+                'trip',
+                'sightseeing',
+                'photography',
+                'airsoft-paintball',
+                'climbing',
+                'fishing',
+                'diving',
+            ],
+            LANDSCAPES: [
+                'arctic',
+                'arial',
+                'badland',
+                'beach',
+                'city-indoor',
+                'city-outdoor',
+                'coastal',
+                'desert',
+                'fields',
+                'forest',
+                'hills',
+                'island',
+                'mixed',
+                'mountains',
+                'offshore',
+                'park',
+                'plateau',
+                'riverside',
+                'savannah',
+                'taiga',
+                'toundra',
+                'tropical',
+                'volcano',
+            ],
             GEAR_STATES: [
                 { id: 1, title: 'poor', color: 'red' },
                 { id: 2, title: 'used', color: 'orange' },
@@ -250,6 +293,16 @@ export default {
                 return this.WEATHERS
             },
         },
+        activities: {
+            get() {
+                return this.ACTIVITIES
+            },
+        },
+        landscapes: {
+            get() {
+                return this.LANDSCAPES
+            },
+        },
         navigationRoutes: {
             get() {
                 return this.NAVIGATION_ROUTES
@@ -343,29 +396,14 @@ export default {
                 return this.xSelfio.adventureReferences
             },
         },
-        brandReferences: {
-            get() {
-                return this.xSelfio.brandReferences
-            },
-        },
-        landscapeReferences: {
-            get() {
-                return this.xSelfio.landscapeReferences
-            },
-        },
-        gearCategoryReferences: {
-            get() {
-                return this.xSelfio.gearCategoryReferences
-            },
-        },
-        activityReferences: {
-            get() {
-                return this.xSelfio.activityReferences
-            },
-        },
         inventoryReferences: {
             get() {
                 return this.xSelfio.inventoryReferences
+            },
+        },
+        brandReferences: {
+            get() {
+                return this.xSelfio.brandReferences
             },
         },
         tempInventoryGear: {
@@ -408,11 +446,6 @@ export default {
                 return (this.brandsList[this.brandReferences[brandId]]);
             return null;
         },
-        xGearCategory(gearCategoryId) {
-            if(gearCategoryId && this.gearCategories)
-                return (this.gearCategories[this.gearCategoryReferences[gearCategoryId]]);
-            return null;
-        },
         xGearState(gearStateId) {
             if(gearStateId && this.gearStates)
                 return (this.gearStates[gearStateId - 1]);
@@ -421,16 +454,6 @@ export default {
         xInventory(inventoryId) {
             if(inventoryId && this.inventoriesList)
                 return (this.inventoriesList[this.inventoryReferences[inventoryId]]);
-            return null;
-        },
-        xActivity(activityId) {
-            if(activityId && this.activitiesList)
-                return (this.activitiesList[this.activityReferences[activityId]]);
-            return null;
-        },
-        xLandscape(landscapeId) {
-            if(landscapeId && this.landscapesList)
-                return (this.landscapesList[this.landscapeReferences[landscapeId]]);
             return null;
         },
         clearMenuFilters() {

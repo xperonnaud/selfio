@@ -81,18 +81,21 @@
 
             <template v-slot:item.brand="{ item }">
               <span
-                v-if="item.brand && xGearCategory(item.brand)"
+                v-if="item.brand && xGearBrand(item.brand)"
                 v-text="xGearBrand(item.brand).title"
                 :size="LGI"
               ></span>
             </template>
 
             <template v-slot:item.category="{ item }">
-              <v-avatar v-if="item.category && xGearCategory(item.category) && xGearCategory(item.category).icon" :size="LGI" class="x-avatar">
-                <x-img
-                  :src="xGearCategory(item.category).icon"
-                  :tooltipText="$t(`categories.${xGearCategory(item.category).title}.title`)"
-                />
+              <v-avatar v-if="typeof item.category == 'number' && gearCategories[item.category]" :size="LGI" class="x-avatar">
+                <x-svg
+                  :src="gearCategories[item.category]"
+                  svgPath="activities/"
+                  :width="XLI"
+                  :height="XLI"
+                  :tooltipText="xCap($t(`categories.${gearCategories[item.category]}.desc`))"
+                ></x-svg>
               </v-avatar>
             </template>
 
@@ -106,9 +109,15 @@
             </template>
 
             <template v-slot:item.activity="{ item }">
-              <v-chip v-if="item.activity && xActivity(item.activity) && xActivity(item.activity).icon" ripple label>
+              <v-chip v-if="typeof item.activity == 'number'" ripple label>
                 <v-avatar left class="x-avatar">
-                  <v-img :src="assetUrl+xActivity(item.activity).icon" />
+                  <x-svg
+                    :src="activities[item.activity]"
+                    svgPath="activities/"
+                    :width="XLI"
+                    :height="XLI"
+                    :tooltipText="xCap($t(`activities.${activities[item.activity]}.desc`))"
+                  ></x-svg>
                 </v-avatar>
 
                 {{item.activity.title}}
@@ -131,14 +140,14 @@
 <script>
 
   import XText from "@/components/inputs/fields/XText";
-  import XImg from "@/components/elements/XImg";
+  import XSvg from "@/components/elements/XSvg";
   import MobileOnlyFeature from "@/components/elements/MobileOnlyFeature";
 
   export default {
     name: 'items-import-form',
     components: {
       XText,
-      XImg,
+      XSvg,
       MobileOnlyFeature
     },
     data: () => ({

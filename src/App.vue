@@ -80,10 +80,8 @@
 
         this.$store.commit('updateUiDisplayApp',true);
         await this.api_get_brands();
-        await this.api_get_landscapes();
         await this.api_get_gear();
         await this.api_get_inventories();
-        await this.api_get_activities();
         await this.api_get_adventures();
         this.$store.commit('updateUiIsConfigurationReady',true);
 

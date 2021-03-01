@@ -19,7 +19,7 @@
                 svgPath="gearcategories/"
                 :width="XSI"
                 :height="XSI"
-                :tooltipText="xCap($t(`categories.${gearCategories[source.category]}.desc`))"
+                :tooltipText="xCapFirst($t(`categories.${gearCategories[source.category]}.desc`))"
             ></x-svg>
 
             <x-unknown-category-icon v-else :size="MDI" />

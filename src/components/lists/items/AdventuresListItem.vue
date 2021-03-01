@@ -9,14 +9,17 @@
         'x-avatar py-0 d-flex  justify-center',
          (isMobile ? 'my-0 mr-3' : 'ml-2 mr-5'),
       ]"
+      :width="XXLI"
+      :height="XXLI"
     >
-      <x-img
-        v-if="source.activity && xActivity(source.activity)"
-        :src="xActivity(source.activity).icon"
-        :tooltipText="xActivity(source.activity).title"
-        :width="LGI"
-        :height="LGI"
-      ></x-img>
+      <x-svg
+        v-if="typeof source.activity == 'number' && activities[source.activity]"
+        :src="activities[source.activity]"
+        svgPath="activities/"
+        :tooltipText="xCapFirst($t(`activities.${activities[source.activity]}.desc`))"
+        :width="XLI"
+        :height="XLI"
+      ></x-svg>
     </v-list-item-avatar>
 
     <v-list-item-content>
@@ -82,17 +85,17 @@
             <div class="d-flex justify-center">
               <div v-bind:class="['text-center max-width']">
                 <div
-                  v-if="source.landscape"
+                  v-if="typeof source.landscape == 'number'"
                   class="list-icon-wrapper"
                 >
-                  <x-img
-                    :src="xLandscape(source.landscape).icon"
-                    :width="35"
-                    :height="35"
-                    :tooltipText="xCap($t(`landscapes.${xLandscape(source.landscape).title}.title`))"
-                    noMargin
-                    logo
-                  ></x-img>
+                  <x-svg
+                    v-if="typeof source.landscape == 'number' && landscapes[source.landscape]"
+                    :src="landscapes[source.landscape]"
+                    svgPath="landscapes/"
+                    :width="XXLI"
+                    :height="XXLI"
+                    :tooltipText="xCapFirst($t(`landscapes.${landscapes[source.landscape]}.title`))"
+                  ></x-svg>
                 </div>
 
                 <empty-data solo v-else />
@@ -251,7 +254,7 @@
       XUpdateCol,
       EmptyData,
       EditIcon,
-      XImg: () => import('@/components/elements/XImg'),
+      XSvg: () => import('@/components/elements/XSvg'),
     },
     props: {
       source: {

@@ -2,11 +2,7 @@
 
   <v-list>
     <v-list-item class="mb-3">
-      <x-picker
-        label="activity"
-        :list="activitiesList"
-        v-bind:value.sync="activityFilter"
-      ></x-picker>
+      <x-activity-selector v-bind:value.sync="activityFilter" isInFilter />
     </v-list-item>
 
     <v-list-item class="mb-3">
@@ -37,6 +33,7 @@
         v-bind:value.sync="landscapeFilter"
         logo
       ></x-picker>
+      <x-landscape-selector v-bind:value.sync="landscapeFilter" isInFilter />
     </v-list-item>
 
     <v-list-item class="mb-3">
@@ -69,15 +66,17 @@
 <script>
 
   import XText from "@/components/inputs/fields/XText";
+  import XActivitySelector from "@/components/inputs/fields/XActivitySelector";
+  import XLandscapeSelector from "@/components/inputs/fields/XLandscapeSelector";
   import XWeatherSelector from "@/components/inputs/fields/XWeatherSelector";
-  import XPicker from "@/components/inputs/XPicker";
 
   export default {
     name: 'adventures-filter',
     components: {
+      XActivitySelector,
       XWeatherSelector,
       XText,
-      XPicker,
+      XLandscapeSelector,
     },
     props: {
       filterMode: Boolean

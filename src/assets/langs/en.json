@@ -166,22 +166,70 @@
     "park": {"title": "park"}
   },
   "activities": {
-    "running": {"title": "running"},
-    "hiking": {"title": "hiking"},
-    "trekking": {"title": "trekking"},
-    "mountaineering": {"title": "mountaineering"},
-    "alpinism": {"title": "alpinism"},
-    "hunting": {"title": "hunting"},
-    "camping": {"title": "camping"},
-    "backpacking": {"title": "backpacking"},
-    "off-road": {"title": "off road"},
-    "trip": {"title": "trip"},
-    "sightseeing": {"title": "sightseeing"},
-    "photography": {"title": "photography"},
-    "airsoft": {"title": "airsoft"},
-    "climbing": {"title": "climbing"},
-    "fishing": {"title": "fishing"},
-    "diving": {"title": "diving"}
+    "running": {
+      "title": "running",
+      "desc": "Lightweight, fast paced, reasonable elevation."
+    },
+    "hiking": {
+      "title": "hiking",
+      "desc": "On-trail walking with varied elevation and distance for 1 day max. No sleeping."
+    },
+    "trekking": {
+      "title": "trekking",
+      "desc": "Walking on varied trails & offtrails, elevation and distance for more than 1 day. Sleeping included."
+    },
+    "mountaineering": {
+      "title": "mountaineering",
+      "desc": "Steep mountainous terrain, for 1 or more days. A mix of Trekking and Climbing."
+    },
+    "alpinism": {
+      "title": "alpinism",
+      "desc": "Vertical mountainous terrain, for 1 day max. Fast and Lightweight. Ice Climbing."
+    },
+    "hunting": {
+      "title": "hunting",
+      "desc": "Rifle or Bow/Crossbow hunting"
+    },
+    "camping": {
+      "title": "camping",
+      "desc": "Relaxing camping activity. Does not include physical activity."
+    },
+    "backpacking": {
+      "title": "backpacking",
+      "desc": "Multi-terrain traveling with a backpack. Multiple days and long distances by foot or transports."
+    },
+    "off-road": {
+      "title": "off road",
+      "desc": "Off Road trip with a vehicle as means of transport."
+    },
+    "trip": {
+      "title": "trip",
+      "desc": "Abroad trip. May include flights, car rental and physical activities for multiple days/weeks."
+    },
+    "sightseeing": {
+      "title": "sightseeing",
+      "desc": ""
+    },
+    "photography": {
+      "title": "photography",
+      "desc": ""
+    },
+    "airsoft-paintball": {
+      "title": "airsoft / paintball",
+      "desc": "Realistic role playing military simulation games. For 1 day or more. Varying terrain conditions."
+    },
+    "climbing": {
+      "title": "climbing",
+      "desc": "Regroups all types of Climbing activities (excluding Alpinism)."
+    },
+    "fishing": {
+      "title": "fishing",
+      "desc": ""
+    },
+    "diving": {
+      "title": "diving",
+      "desc": ""
+    }
   },
   "categories": {
     "activity": {

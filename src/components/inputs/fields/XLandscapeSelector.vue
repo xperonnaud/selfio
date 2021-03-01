@@ -2,7 +2,7 @@
 
     <v-sheet v-if="isMounted" :class="['x-category-selector x-check-form max-width']" :color="xTabsColor">
         <div v-if="isEditing" class="d-flex align-content-space-between">
-            <v-subheader class="mt-2 ml-2">{{$t('global.category') | capitalizeFirstFilter}}</v-subheader>
+            <v-subheader class="mt-2 ml-2">{{$t('global.landscape') | capitalizeFirstFilter}}</v-subheader>
 
             <v-spacer/>
 
@@ -28,8 +28,8 @@
                     @click.stop="toggleEditor()"
                 >
                     <v-text-field
-                        :label="xCapFirst($t('global.category'))"
-                        :value="listedPickedValue ? xCap(gearCategories[pickerValue]) : null"
+                        :label="xCapFirst($t('global.landscape'))"
+                        :value="listedPickedValue ? xCapFirst(landscapes[pickerValue]) : null"
                         :color="currentColor"
                         hide-details="auto"
                         append-icon="mdi-menu-down"
@@ -47,14 +47,12 @@
                                 class="x-avatar"
                                 :width="XXLI"
                                 :height="XXLI"
-                                :style="((pickerValue !== 14) ? 'border: 2px solid '+categoryColor(pickerValue)+' !important;' : '')+'min-width: unset;'"
                             >
                                 <x-svg
-                                    :src="gearCategories[pickerValue]"
-                                    svgPath="gearcategories/"
-                                    :width="XSI"
-                                    :height="XSI"
-                                    :tooltipText="xCap($t(`categories.${gearCategories[pickerValue]}.desc`))"
+                                    :src="landscapes[pickerValue]"
+                                    svgPath="landscapes/"
+                                    :width="XLI"
+                                    :height="XLI"
                                 ></x-svg>
                             </v-avatar>
                         </template>
@@ -69,9 +67,10 @@
                 v-bind:class="['py-0 elevation-0']"
             >
                 <v-row class="px-1">
-                    <template v-for="(item, itemIndex) in gearCategories">
+                    <template v-for="(item, itemIndex) in landscapes">
                         <v-col
-                            :key="`category-selector-${itemIndex}`"
+                            v-if="item"
+                            :key="`landscape-selector-${itemIndex}`"
                             :cols="isMobile || isInFilter ? 6 : 3"
                             v-bind:class="[(isMobile ? 'pa-1' : 'pt-0 pb-2 px-1')]"
                         >
@@ -92,21 +91,19 @@
                                     <div class="d-flex justify-space-around align-self-center">
                                         <v-avatar
                                             class="x-avatar"
-                                            :width="40"
-                                            :height="40"
-                                            :style="((itemIndex !== 14) ? 'border: 2px solid '+categoryColor(itemIndex)+' !important;' : '')+'min-width: unset;'"
+                                            :width="XXLI"
+                                            :height="XXLI"
                                         >
                                             <x-svg
                                                 :src="item"
-                                                svgPath="gearcategories/"
-                                                :width="SMI"
-                                                :height="SMI"
-                                                :tooltipText="xCap($t(`categories.${item}.desc`))"
+                                                svgPath="landscapes/"
+                                                :width="XLI"
+                                                :height="XLI"
                                             ></x-svg>
                                         </v-avatar>
                                     </div>
 
-                                    <div class="text-caption text-center">{{xCapFirst($t(`categories.${item}.title`))}}</div>
+                                    <div class="text-caption text-center">{{xCapFirst($t(`landscapes.${item}.title`))}}</div>
                                 </div>
                             </v-card>
                         </v-col>
@@ -123,7 +120,7 @@
     import XSvg from "@/components/elements/XSvg";
 
     export default {
-        name: 'x-category-selector',
+        name: 'x-landscape-selector',
         components: {
             XSvg
         },
@@ -146,7 +143,7 @@
 
                 return (
                     typeof this.pickerValue==='number'
-                    && typeof this.gearCategories[this.pickerValue]==='string'
+                    && typeof this.landscapes[this.pickerValue]==='string'
                 );
             }
         },

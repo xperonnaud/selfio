@@ -22,7 +22,7 @@
         ></v-img>
       </template>
 
-      <template v-if="tooltipText">
+      <template v-if="tooltipText && (tooltipText !== '')">
         <span class="ma-0 pa-0"  v-html="tooltipText" />
       </template>
     </v-tooltip>

@@ -85,20 +85,22 @@
 
             <template v-slot:item.category="{ item }">
               <v-avatar
-                v-if="item.category && xGearCategory(item.category) && xGearCategory(item.category).icon"
+                v-if="typeof item.category == 'number' && gearCategories[item.category]"
                 v-bind:class="[
                   'x-avatar',
                   'py-0',
                    (isMobile ? 'my-0 mr-3' : 'ml-2 mr-5'),
-                   (item.category ? getReversedVuetifyColor(item.category) : ''),
+                   (typeof item.category == 'number' ? getReversedVuetifyColor(item.category) : ''),
                 ]"
                 size="32"
               >
-                <x-img
-                  :src="xGearCategory(item.category).icon"
-                  :tooltipText="item.category"
-                  isCategory
-                ></x-img>
+                <x-svg
+                  :src="item"
+                  svgPath="gearcategories/"
+                  :width="SMI"
+                  :height="SMI"
+                  :tooltipText="xCap($t(`categories.${item}.desc`))"
+                ></x-svg>
               </v-avatar>
             </template>
 
@@ -112,9 +114,15 @@
             </template>
 
             <template v-slot:item.activity="{ item }">
-              <v-chip v-if="item.activity && xActivity(item.activity) && xActivity(item.activity).icon" ripple label>
+              <v-chip v-if="typeof item.activity == 'number'" ripple label>
                 <v-avatar left class="x-avatar">
-                  <v-img :src="assetUrl+xActivity(item.activity).icon" />
+                  <x-svg
+                    :src="activities[item.activity]"
+                    svgPath="activities/"
+                    :width="XLI"
+                    :height="XLI"
+                    :tooltipText="xCap($t(`activities.${activities[item.activity]}.desc`))"
+                  ></x-svg>
                 </v-avatar>
 
                 {{item.activity.title}}
@@ -140,7 +148,6 @@
   export default {
     name: 'items-import-form',
     components: {
-      XImg: () => import('@/components/elements/XImg'),
       MobileOnlyFeature: () => import('@/components/elements/MobileOnlyFeature'),
       XText,
     },
