@@ -5,8 +5,12 @@
   margin: auto;
 }
 
-.v-skeleton-loader__list-item-two-line.v-skeleton-loader__bone {
-  height: 36px !important;
+.v-skeleton-loader .v-skeleton-loader__list-item-two-line {
+  background: transparent !important;
+
+  &.v-skeleton-loader__bone {
+    height: 36px !important;
+  }
 }
 
 .edition-toolbar {
