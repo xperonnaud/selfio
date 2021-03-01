@@ -14,9 +14,9 @@
           </v-avatar>
         </div>
 
-        <v-card-title class="headline mt-3" v-text="'Your session has expired.'" />
+        <v-card-title class="headline mt-3" v-text="xCapFirst(t('session-expired'))" />
 
-        <v-card-subtitle v-text="'Please log back in.'" />
+        <v-card-subtitle v-text="xCapFirst(t('please-login'))" />
 
         <v-divider />
 
@@ -25,11 +25,11 @@
           <v-spacer />
 
           <v-btn
-            @click="logout()"
+            @click="api_logout()"
             class="primary-gradient-color"
             depressed
           >
-            <span v-text="'Logout'" />
+            <span v-text="xCapFirst(t('log-back'))" />
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -49,6 +49,11 @@
     data: () => ({
       isMounted: false,
     }),
+    method: {
+      t(str) {
+        return this.$t(`components.session-dialog.${str}`);
+      }
+    },
     mounted() {
       this.isMounted = true;
     }
