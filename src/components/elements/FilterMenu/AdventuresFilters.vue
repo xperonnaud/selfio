@@ -27,12 +27,6 @@
     </v-list-item>
 
     <v-list-item class="mb-3">
-      <x-picker
-        label="landscape"
-        :list="landscapesList"
-        v-bind:value.sync="landscapeFilter"
-        logo
-      ></x-picker>
       <x-landscape-selector v-bind:value.sync="landscapeFilter" isInFilter />
     </v-list-item>
 

@@ -3,7 +3,7 @@ import localforage from 'localforage';
 import DirectusSDK from '@directus/sdk-js';
 import CONSTANTS from '@/constants'
 
-const directus = new DirectusSDK('http://localhost:8055/', {
+const directus = new DirectusSDK('https://servo-13475.nodechef.com/', {
     auth: {
         storage: localforage, // Storage adapter where refresh tokens are stored in JSON mode
         mode: 'cookie', // What login mode to use. One of `json`, `cookie`
