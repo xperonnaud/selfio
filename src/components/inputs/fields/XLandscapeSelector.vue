@@ -53,6 +53,7 @@
                                     svgPath="landscapes/"
                                     :width="XLI"
                                     :height="XLI"
+                                    :tooltipText="xCapFirst($t(`landscapes.${landscapes[pickerValue]}.title`))"
                                     logo
                                 ></x-svg>
                             </v-avatar>
@@ -100,6 +101,7 @@
                                                 svgPath="landscapes/"
                                                 :width="XLI"
                                                 :height="XLI"
+                                                :tooltipText="xCapFirst($t(`landscapes.${landscapes[pickerValue]}.title`))"
                                                 logo
                                             ></x-svg>
                                         </v-avatar>
