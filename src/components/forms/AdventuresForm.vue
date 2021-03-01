@@ -46,14 +46,7 @@
                         </v-col>
 
                         <v-col cols="12">
-                          <x-selector
-                            label="activity"
-                            dataType="activities"
-                            :list="activitiesList"
-                            :listReferences="activityReferences"
-                            v-bind:value.sync="updatedItem.activity"
-                            :iconSize="LGI"
-                          ></x-selector>
+                          <x-activity-selector v-bind:value.sync="updatedItem.activity" />
                         </v-col>
 
                         <v-col cols="12">
@@ -116,16 +109,7 @@
                     <v-card-text :class="{'py-1':isMobile}">
                       <v-row>
                         <v-col cols="12">
-                          <x-selector
-                            label="landscape"
-                            dataType="landscapes"
-                            :list="landscapesList"
-                            :listReferences="landscapeReferences"
-                            v-bind:value.sync="updatedItem.landscape"
-                            :iconSize="36"
-                            :avatarSize="XLI"
-                            logo
-                          ></x-selector>
+                          <x-landscape-selector v-bind:value.sync="updatedItem.landscape" />
                         </v-col>
 
                         <v-col cols="12">
@@ -544,8 +528,9 @@
   import XTimePicker from "@/components/inputs/XTimePicker";
   import XPicker from "@/components/inputs/XPicker";
   import XCategorySelector from "@/components/inputs/fields/XCategorySelector";
+  import XActivitySelector from "@/components/inputs/fields/XActivitySelector";
+  import XLandscapeSelector from "@/components/inputs/fields/XLandscapeSelector";
   import XCombobox from "@/components/inputs/XCombobox";
-  import XSelector from "@/components/inputs/XSelector";
   import XSortIcon from "@/components/elements/Icons/XSortIcon";
   import XCheckbox from "@/components/inputs/XCheckbox";
 
@@ -567,7 +552,8 @@
       XTimePicker,
       XDatePicker,
       XCategorySelector,
-      XSelector,
+      XActivitySelector,
+      XLandscapeSelector,
     },
     props: {
       item: Object,

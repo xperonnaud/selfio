@@ -13,11 +13,6 @@ export default new Vuex.Store({
             preferences: {},
             brands: [],
             brandReferences: {},
-            landscapes: [],
-            landscapeReferences: {},
-            gearCategoryReferences: {},
-            activities: [],
-            activityReferences: {},
             gear: [],
             gearReferences: {},
             inventories: [],
@@ -107,13 +102,6 @@ export default new Vuex.Store({
         removeBrand(state, brandIndex) {
             if (state.selfio.brands[brandIndex])
                 state.selfio.brands.splice(brandIndex,1);
-        },
-        updateLandscapes(state, landscapes) {
-            while(state.selfio.landscapes.length > 0)state.selfio.landscapes.pop();
-            for(const b of landscapes) {
-                state.selfio.landscapes.push(b);
-                Object.assign(state.selfio.landscapeReferences, { [b.id] : (state.selfio.landscapes.length - 1) });
-            }
         },
         updateUser(state, user) {
             Object.assign(state.selfio.user, user);
@@ -213,13 +201,6 @@ export default new Vuex.Store({
             let len = state.selfio.inventories[payload.inventory_ref].inventory_gear.length;
             if (len === 0 || (payload.inventory_gear !== state.selfio.inventories[payload.inventory_ref].inventory_gear[len - 1])) {
                 Vue.set(state.selfio.inventories[payload.inventory_ref].inventory_gear, len, payload.inventory_gear);
-            }
-        },
-        updateActivities(state, activities) {
-            while(state.selfio.activities.length > 0) state.selfio.activities.pop();
-            for(const a of activities) {
-                state.selfio.activities.push(a);
-                Object.assign(state.selfio.activityReferences, { [a.id] : (state.selfio.activities.length - 1) });
             }
         },
         updateAdventures(state, adventures) {
