@@ -95,6 +95,7 @@
                     :width="XXLI"
                     :height="XXLI"
                     :tooltipText="xCapFirst($t(`landscapes.${landscapes[source.landscape]}.title`))"
+                    logo
                   ></x-svg>
                 </div>
 

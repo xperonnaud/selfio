@@ -13,7 +13,7 @@
           v-if="src"
           :src="require(`@/assets/images/${svgPath}${src}.svg`)"
           :lazy-src="require(`@/assets/images/${svgPath}${src}.svg`)"
-          class="svg-image"
+          v-bind:class="[(logo ? '' : 'svg-image')]"
           :width="width"
           :height="height"
           v-bind="attrs"
@@ -40,6 +40,10 @@
       tooltipText: {
         type: [Number, String],
         default: null,
+      },
+      logo: {
+        type: Boolean,
+        default: false,
       },
       margin: {
         type: Boolean,
