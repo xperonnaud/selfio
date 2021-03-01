@@ -33,9 +33,7 @@
           </v-row>
         </v-card-text>
 
-        <v-divider />
-
-        <v-card-actions>
+        <v-card-actions class="mt-1">
           <v-btn
             @click="brandDialog = false"
             depressed
