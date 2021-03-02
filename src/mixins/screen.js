@@ -10,7 +10,6 @@ export default {
                 height: 0
             },
             COLORS: [
-                'red',
                 'pink',
                 'purple',
                 'deep-purple',
@@ -23,6 +22,7 @@ export default {
                 'yellow',
                 'orange',
                 'deep-orange',
+                'red',
                 'brown',
                 'blue-grey',
             ],
@@ -83,7 +83,7 @@ export default {
             return (this.isDark ? 'grey darken-4' : 'white');
         },
         xBackgroundStyleColorStr() {
-            return 'background-color: #'+(this.isDark ? '000000' : 'eeeeee');
+            return 'background-color: #'+(this.isDark ? '000000' : 'EEEEEE');
         },
         xBackgroundColor() {
             return (this.isDark ? 'black' : 'grey lighten-3');
@@ -101,10 +101,10 @@ export default {
             return (this.isDark ? 'black' : 'white');
         },
         fontShadeColor() {
-            return (this.isDark ? 'white--text' : 'black--text');
+            return (this.shadeColor+'--text');
         },
         reversedFontShadeColor() {
-            return (this.isDark ? 'black--text' : 'white--text');
+            return (this.reversedShadeColor+'--text');
         },
         currentColorText() {
             return this.darkColorText(this.currentNavItem.color);
@@ -128,13 +128,16 @@ export default {
             return (this.isMobile ? '300' : '450');
         },
         maxDialogContentHeight() {
-            return (this.currentWindowHeight < 660 ? this.currentWindowHeight : 660);
+            return this.currentWindowHeightOrValue(660)
         },
         dialogContentHeight() {
-            return (this.currentWindowHeight < 500 ? this.currentWindowHeight : 500);
+            return this.currentWindowHeightOrValue(500);
         },
     },
     methods: {
+        currentWindowHeightOrValue(value) {
+            return (this.currentWindowHeight < value ? this.currentWindowHeight : value);
+        },
         openItemDialog(item) {
             if(item) {
                 this.isAppLoading = true;
