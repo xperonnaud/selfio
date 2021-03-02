@@ -515,8 +515,8 @@
 
   const _ = require('lodash');
 
-  import PolyIcon from "@/components/elements/Icons/PolyIcon";
   import Vue from 'vue'
+  import PolyIcon from "@/components/elements/Icons/PolyIcon";
   import AdventureGearListItem from "@/components/lists/items/AdventureGearListItem";
   import AdventureGearCard from "@/components/elements/Cards/AdventureGearCard";
   import XText from "@/components/inputs/fields/XText";
