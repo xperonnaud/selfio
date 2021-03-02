@@ -134,12 +134,15 @@
 
     <v-list-item-action style="margin-right: 0 !important;">
       <v-btn
-        :class="[{'primary-gradient-color-text-vertical':inventoryGearList.includes(gear.id)}]"
         :disabled="!inventoryGearList.includes(gear.id)"
         @click.stop="inventoryGearList.includes(gear.id) ? selectInventoryGear(gear) : null"
         icon
       >
-        <v-icon v-text="'mdi-dots-vertical'" />
+        <poly-icon
+          :disabled="!inventoryGearList.includes(gear.id)"
+          icon="mdi-dots-vertical"
+        ></poly-icon>
+<!--        <v-icon v-text="'mdi-dots-vertical'" />-->
       </v-btn>
     </v-list-item-action>
   </v-list-item>
@@ -148,6 +151,7 @@
 
 <script>
 
+  import PolyIcon from "@/components/elements/Icons/PolyIcon";
   import XSvg from "@/components/elements/XSvg";
   import XWeightCol from "@/components/xcols/XWeightCol";
   import XChecker from "@/components/inputs/XChecker";
@@ -159,6 +163,7 @@
   export default {
     name: 'inventory-gear-list-item',
     components: {
+      PolyIcon,
       XSvg,
       XWeightCol,
       XChecker,

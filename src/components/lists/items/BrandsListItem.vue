@@ -38,9 +38,9 @@
 
       <v-dialog
           v-model="deleteDialog"
-          :max-width="isMobile ? '300' : '450'"
+          :max-width="maxDialogWidth"
           :hide-overlay="isMobile"
-          :transition="isMobile ? 'slide-x-transition' : 'fade-transition'"
+          :transition="dialogTransition"
           persistent
       >
         <v-card :style="'border-top: 2px solid '+errorColor+' !important;'">

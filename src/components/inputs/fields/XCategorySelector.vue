@@ -29,7 +29,7 @@
                 >
                     <v-text-field
                         :label="xCapFirst($t('global.category'))"
-                        :value="listedPickedValue ? xCap(gearCategories[pickerValue]) : null"
+                        :value="listedPickedValue ? xCap($t(`categories.${gearCategories[pickerValue]}.title`)) : null"
                         :color="currentColor"
                         hide-details="auto"
                         append-icon="mdi-menu-down"
@@ -39,7 +39,7 @@
                         @click:clear="pickerValue = null"
                     >
                         <template
-                            v-if="typeof pickerValue == 'number'"
+                            v-if="listedPickedValue"
                             v-slot:prepend-inner
                             style="margin-top: 0"
                         >

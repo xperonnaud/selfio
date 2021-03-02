@@ -98,8 +98,8 @@
         this.isLoading = true;
         await this.api_login(this.userLogin, this.userPassword);
 
-        if(this.$router.currentRoute.path !== '/home')
-          await this.$router.push('home');
+        if(this.$router.currentRoute.path !== '/')
+          await this.$router.push('/');
 
         this.isLoading = false;
       },

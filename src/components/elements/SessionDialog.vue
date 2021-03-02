@@ -3,7 +3,7 @@
   <v-dialog
     v-if="isMounted"
     v-model="dialog"
-    :max-width="isMobile ? '300' : '450'"
+    :max-width="maxDialogWidth"
     persistent
   >
     <div class="session-dialog">

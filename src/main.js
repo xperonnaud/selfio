@@ -9,6 +9,7 @@ import VueBlobJsonCsv from 'vue-blob-json-csv';
 import VueI18n from 'vue-i18n';
 import {mapState} from 'vuex';
 
+import VueObserveVisibility from 'vue-observe-visibility'
 import 'vue-virtual-scroller/dist/vue-virtual-scroller.css'
 import { RecycleScroller, DynamicScroller, DynamicScrollerItem } from 'vue-virtual-scroller'
 
@@ -27,6 +28,7 @@ import './filters'
 Vue.use(Vuex);
 Vue.use(VueBlobJsonCsv);
 Vue.use(VueI18n);
+Vue.use(VueObserveVisibility);
 
 //Config
 Vue.config.productionTip = false;

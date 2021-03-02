@@ -212,32 +212,12 @@
   }
 }
 
-.v-stepper__step {
-  padding-top: 16px !important;
-}
-
-.v-stepper__step__step {
-  color: white !important;
-}
-
 .app-nav-list-item {
   &.v-list-item--active {
     background: white;
 
     &::before {
       background: transparent;
-    }
-
-    .v-list-item__icon {
-      @extend .primary-gradient-color-text;
-    }
-
-    .v-list-item__content {
-      .v-list-item__title {
-        span {
-          @extend .primary-gradient-color-text;
-        }
-      }
     }
   }
 }

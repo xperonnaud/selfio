@@ -495,10 +495,9 @@
                         <v-btn
                           @click="closeGearFilterMenu()"
                           text
-                          class="primary-gradient-color-text"
                           icon
                         >
-                          <v-icon v-text="'mdi-check'" />
+                          <poly-icon icon="mdi-check" />
                         </v-btn>
                       </v-card-actions>
                     </v-card>
@@ -507,10 +506,12 @@
 
                 <v-btn
                   @click="closeGearList()"
-                  class="primary-gradient-color-text"
                   icon
                 >
-                  <v-icon :size="XLI" v-text="'mdi-check'" />
+                  <poly-icon
+                    :size="XLI"
+                    icon="mdi-check"
+                  ></poly-icon>
                 </v-btn>
 
                 <template v-slot:extension>
@@ -607,6 +608,8 @@
                     :minItemSize="xListItemsHeight"
                     key-field="id"
                     v-slot="{ index }"
+                    :prerender="xListMaxItems"
+                    :page-mode="isMobile"
                   >
                     <template v-if="typeof index == 'number' && filteredGear[index] && filteredGear[index].id">
                       <inventory-gear-list-item
@@ -698,9 +701,8 @@
                 <v-btn
                   @click.stop="saveInventoryGear()"
                   icon
-                  class="primary-gradient-color-text"
                 >
-                  <v-icon v-text="'mdi-check'" />
+                  <poly-icon icon="mdi-check" />
                 </v-btn>
               </v-card-actions>
             </v-card>
@@ -719,6 +721,7 @@
 
   const _ = require('lodash');
 
+  import PolyIcon from "@/components/elements/Icons/PolyIcon";
   import InventoryGearListItem from "@/components/lists/items/InventoryGearListItem";
   import InventoryGearCard from "@/components/elements/Cards/InventoryGearCard";
   import XCategorySelector from "@/components/inputs/fields/XCategorySelector";
@@ -737,6 +740,7 @@
   export default {
     name: 'inventories-form',
     components: {
+      PolyIcon,
       InventoryGearListItem,
       EmptyList,
       InventoryGearCard,
@@ -934,6 +938,9 @@
       }
     },
     methods: {
+      test() {
+        console.log('test!');
+      },
       t(str) {
         return this.$t(`routes.inventories.${str}`);
       },
