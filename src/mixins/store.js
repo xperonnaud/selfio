@@ -26,7 +26,7 @@ export default {
                     title: 'Home',
                     id: 'home',
                     icon: 'mdi-view-dashboard',
-                    type: 'misc',
+                    type: 'undefined',
                 },
                 gear: {
                     title: 'Gear',

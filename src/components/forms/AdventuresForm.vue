@@ -379,10 +379,9 @@
                           <v-btn
                             @click="closeGearFilterMenu()"
                             text
-                            class="primary-gradient-color-text"
                             icon
                           >
-                            <v-icon v-text="'mdi-check'" />
+                            <poly-icon icon="mdi-check" />
                           </v-btn>
                         </v-card-actions>
                       </v-card>
@@ -391,10 +390,9 @@
 
                   <v-btn
                     @click="closeGearList()"
-                    class="primary-gradient-color-text"
                     icon
                   >
-                    <v-icon :size="XLI" v-text="'mdi-check'" />
+                    <poly-icon :size="XLI" icon="mdi-check" />
                   </v-btn>
 
                   <template v-slot:extension>
@@ -517,6 +515,7 @@
 
   const _ = require('lodash');
 
+  import PolyIcon from "@/components/elements/Icons/PolyIcon";
   import Vue from 'vue'
   import AdventureGearListItem from "@/components/lists/items/AdventureGearListItem";
   import AdventureGearCard from "@/components/elements/Cards/AdventureGearCard";
@@ -539,6 +538,7 @@
   export default {
     name: 'adventures-form',
     components: {
+      PolyIcon,
       AdventureGearListItem,
       AdventureGearCard,
       XText,

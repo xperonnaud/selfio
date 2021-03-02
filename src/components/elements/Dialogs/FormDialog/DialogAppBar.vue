@@ -60,15 +60,15 @@
 
       <v-btn
         @click="formDialogAction()"
-        v-bind:class="[{'primary-gradient-color-text': !(editMode || !isFormValid || !isFormMounted)}]"
         :disabled="editMode || !isFormValid || !isFormMounted"
-        icon
         :loading="isActionLoading"
+        icon
       >
-        <v-icon
+        <poly-icon
+          :disabled="(editMode || !isFormValid || !isFormMounted)"
           :size="editMode ? MDI : XLI"
-          v-text="'mdi-check'"
-        />
+          icon="mdi-check"
+        ></poly-icon>
       </v-btn>
     </v-app-bar>
 
@@ -76,11 +76,13 @@
 
 <script>
 
+  import PolyIcon from "@/components/elements/Icons/PolyIcon";
   import XDeleteDialog from "@/components/elements/Dialogs/XDeleteDialog/XDeleteDialog";
 
   export default {
     name: "dialog-app-bar",
     components: {
+      PolyIcon,
       XDeleteDialog
     },
     props: {

@@ -495,10 +495,9 @@
                         <v-btn
                           @click="closeGearFilterMenu()"
                           text
-                          class="primary-gradient-color-text"
                           icon
                         >
-                          <v-icon v-text="'mdi-check'" />
+                          <poly-icon icon="mdi-check" />
                         </v-btn>
                       </v-card-actions>
                     </v-card>
@@ -507,10 +506,12 @@
 
                 <v-btn
                   @click="closeGearList()"
-                  class="primary-gradient-color-text"
                   icon
                 >
-                  <v-icon :size="XLI" v-text="'mdi-check'" />
+                  <poly-icon
+                    :size="XLI"
+                    icon="mdi-check"
+                  ></poly-icon>
                 </v-btn>
 
                 <template v-slot:extension>
@@ -700,9 +701,8 @@
                 <v-btn
                   @click.stop="saveInventoryGear()"
                   icon
-                  class="primary-gradient-color-text"
                 >
-                  <v-icon v-text="'mdi-check'" />
+                  <poly-icon icon="mdi-check" />
                 </v-btn>
               </v-card-actions>
             </v-card>
@@ -721,6 +721,7 @@
 
   const _ = require('lodash');
 
+  import PolyIcon from "@/components/elements/Icons/PolyIcon";
   import InventoryGearListItem from "@/components/lists/items/InventoryGearListItem";
   import InventoryGearCard from "@/components/elements/Cards/InventoryGearCard";
   import XCategorySelector from "@/components/inputs/fields/XCategorySelector";
@@ -739,6 +740,7 @@
   export default {
     name: 'inventories-form',
     components: {
+      PolyIcon,
       InventoryGearListItem,
       EmptyList,
       InventoryGearCard,
