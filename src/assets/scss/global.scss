@@ -230,6 +230,7 @@
 }
 
 .primary-gradient-color-text, .primary-gradient-color-text-vertical {
+  color: red;
   -webkit-background-clip: text !important;
   -webkit-text-fill-color: transparent;
 }
@@ -245,6 +246,10 @@
 .is-dark {
   .primary-gradient-color {
     color: white !important;
+  }
+
+  .primary-gradient-color-text, .primary-gradient-color-text-vertical {
+    color: green;
   }
 
   .primary-gradient-color-text,  {
