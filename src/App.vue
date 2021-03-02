@@ -4,6 +4,7 @@
     v-bind:class="[
       'back',
       {'is-logged-in':displayApp && isLoggedIn},
+      {'is-ios':isIOS()},
       {'is-small':isMobile},
       {'is-dark':isDark},
     ]"
