@@ -607,6 +607,8 @@
                     :minItemSize="xListItemsHeight"
                     key-field="id"
                     v-slot="{ index }"
+                    :prerender="xListMaxItems"
+                    :page-mode="isMobile"
                   >
                     <template v-if="typeof index == 'number' && filteredGear[index] && filteredGear[index].id">
                       <inventory-gear-list-item
@@ -934,6 +936,9 @@
       }
     },
     methods: {
+      test() {
+        console.log('test!');
+      },
       t(str) {
         return this.$t(`routes.inventories.${str}`);
       },

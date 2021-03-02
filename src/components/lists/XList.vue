@@ -13,6 +13,7 @@
       page-mode
       wrap-class="x-list"
       item-class="x-list-item"
+      :keeps="xListMaxItems"
     ></virtual-list>
 
     <x-list-skeleton v-else />
@@ -226,6 +227,7 @@
 <style lang="scss">
 
   .x-list {
+    background-color: #FFFFFF;
 
     .x-list-item {
       background-color: #FFFFFF;
@@ -239,6 +241,7 @@
 
   .is-dark {
     .x-list {
+      background-color: #181818;
 
       .x-list-item {
         background-color: #181818;

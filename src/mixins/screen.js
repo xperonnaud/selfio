@@ -36,7 +36,7 @@ export default {
             return (this.xListItemsHeight * this.xListMaxItems);
         },
         xListMaxItems() {
-            return (this.isMobile ? 7 : 17);
+            return (this.isMobile ? 20 : 50);
         },
         xListItemsHeight() {
             return (this.isMobile ? 61 : 64);
@@ -120,6 +120,12 @@ export default {
         },
         isMobile() {
             return this.$vuetify.breakpoint.mobile;
+        },
+        dialogTransition() {
+            return (this.isMobile ? 'slide-x-transition' : 'fade-transition');
+        },
+        maxDialogWidth() {
+            return (this.isMobile ? '300' : '450');
         },
         maxDialogContentHeight() {
             return (this.currentWindowHeight < 660 ? this.currentWindowHeight : 660);

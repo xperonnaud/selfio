@@ -483,6 +483,8 @@
                       :minItemSize="xListItemsHeight"
                       key-field="id"
                       v-slot="{ index }"
+                      :prerender="xListMaxItems"
+                      :page-mode="isMobile"
                     >
                       <template v-if="typeof index == 'number' && filteredGear[index] && filteredGear[index].gear_id">
                         <adventure-gear-list-item

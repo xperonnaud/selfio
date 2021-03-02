@@ -4,7 +4,7 @@
     max-width="900px"
     :fullscreen="isMobile"
     :hide-overlay="isMobile"
-    :transition="isMobile ? 'slide-x-transition' : 'fade-transition'"
+    :transition="dialogTransition"
     persistent
     style="overflow-y: unset;"
   >

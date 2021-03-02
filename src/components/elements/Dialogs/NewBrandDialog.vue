@@ -3,8 +3,8 @@
   <v-dialog
     v-if="isMounted"
     v-model="brandDialog"
-    :max-width="isMobile ? '300' : '450'"
-    :transition="isMobile ? 'slide-x-transition' : 'fade-transition'"
+    :max-width="maxDialogWidth"
+    :transition="dialogTransition"
     persistent
   >
     <div class="new-brand-dialog">
