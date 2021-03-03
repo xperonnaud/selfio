@@ -938,9 +938,6 @@
       }
     },
     methods: {
-      test() {
-        console.log('test!');
-      },
       t(str) {
         return this.$t(`routes.inventories.${str}`);
       },
