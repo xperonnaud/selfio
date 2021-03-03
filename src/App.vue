@@ -116,6 +116,7 @@
       },
     },
     mounted() {
+      this.initCloseGuard();
       this.setLang(this.getNavigatorLanguage());
       this.isMounted = true;
     }

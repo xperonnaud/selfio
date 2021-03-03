@@ -3,6 +3,7 @@
   "global": {
     "null": "NA",
     "app-name": "PackHub.io",
+    "close-guard": "En continuant vous perdrez toute progression non sauvegardée. Souhaitez vous vraiment fermer cette page?",
 
     "gear":"matériel",
     "inventories":"inventaires",

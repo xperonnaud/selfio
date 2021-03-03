@@ -138,6 +138,17 @@ export default {
         },
     },
     methods: {
+        initCloseGuard() {
+            if(this.xUi.closeGuard === true) {
+                let self = this;
+                window.onbeforeunload = function () {
+                    return self.$t('global.close-guard');
+                };
+            } else {
+                // reset event handler to "empty"
+                window.onbeforeunload = function () {};
+            }
+        },
         isIOS() {
             return [
                 'iPad Simulator',
