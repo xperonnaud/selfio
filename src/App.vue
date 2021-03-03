@@ -16,7 +16,7 @@
 
       <app-body v-show="!isMobile || (isMobile && !isAppLoading)" />
 
-      <app-footer v-if="false && displayApp && isLoggedIn" />
+      <app-footer v-if="displayApp && isLoggedIn" />
 
       <v-overlay :value="isAppLoading">
         <v-progress-circular

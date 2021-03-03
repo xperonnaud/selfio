@@ -77,8 +77,8 @@
     background-position: center !important;
 
     &.is-small {
-      background-size: cover !important;
-      background:linear-gradient(0deg, rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url(../images/mountain_bgd_mobile.jpg);
+      //background-size: cover !important;
+      //background:linear-gradient(0deg, rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url(../images/mountain_bgd_mobile.jpg);
     }
 
     &:not(.is-small) {
