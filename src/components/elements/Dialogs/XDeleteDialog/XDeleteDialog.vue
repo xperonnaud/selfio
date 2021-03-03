@@ -21,11 +21,11 @@
     <v-card :style="`border-top: 2px solid ${errorColor} !important;`">
       <x-delete-avatar />
 
-      <v-card-title class="text-subtitle-2 mt-3">
-        <span>{{t(`deleting-${currentRouteId}`) | capitalizeFirstFilter}}</span>
+      <v-card-title class=" mt-6">
+        <span class="text-h6">{{t(`deleting-${currentRouteId}`) | capitalizeFirstFilter}}</span>
         <span v-html="':&nbsp;'" />
-        <span v-if="hasItemRelations">{{t('not-allowed') | capitalizeFilter}}</span>
-        <span v-else v-text="item.title">{{item.title | capitalizeFirstFilter}}</span>
+        <span class="headline" v-if="hasItemRelations">{{t('not-allowed') | capitalizeFilter}}</span>
+        <span v-else class="headline" v-text="item.title">{{item.title | capitalizeFirstFilter}}</span>
       </v-card-title>
 
       <v-card-subtitle v-if="hasItemRelations">{{t('remove-relations') | capitalizeFirstFilter}}</v-card-subtitle>

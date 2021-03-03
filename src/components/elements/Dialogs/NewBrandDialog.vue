@@ -15,7 +15,7 @@
           </v-avatar>
         </div>
 
-        <v-card-title class="headline mt-3">
+        <v-card-title class="text-h6 mt-6">
           {{t('new-brand') | capitalizeFilter}}
         </v-card-title>
 

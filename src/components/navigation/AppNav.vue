@@ -12,7 +12,7 @@
       <v-list-item one-line :to="'/'" class="app-nav-list-item">
         <v-list-item-icon v-bind:class="[{'mr-7':!isMobile}]">
           <v-icon
-            v-text="'mdi-cogs'"
+            v-text="'mdi-electron-framework'"
             :color="shadeColor"
             :size="LGI"
           ></v-icon>
