@@ -8,7 +8,7 @@
     >
       <v-icon
         :size="MDI"
-        :color="reversedShadeColor"
+        :color="xDimmedCheckerColor"
         v-text="'mdi-trash-can-outline'"
         style="margin-top: 22px;"
       ></v-icon>

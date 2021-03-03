@@ -79,6 +79,9 @@ export default {
         xCheckerColor() {
             return (this.isDark ? 'grey lighten-4' : 'grey darken-2');
         },
+        xDimmedCheckerColor() {
+            return (this.isDark ? 'grey lighten-1' : 'grey darken-2');
+        },
         xCardColor() {
             return (this.isDark ? 'grey darken-4' : 'white');
         },
