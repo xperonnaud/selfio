@@ -72,10 +72,10 @@
             :disabledClass="null"
             :size="LGI"
             :icon="(navigationItems[item].icon==='mdi-database')
-              ? 'mdi-database'+(currentIcon==='mdi-database' ? '-outline' : '')
+              ? 'mdi-database'+(currentIcon==='mdi-database' ? '' : '-outline')
               : navigationItems[item].icon + ((navigationItems[item].id !== currentRouteId)
-               ? ''
-               : '-outline')"
+               ? '-outline'
+               : '')"
           ></poly-icon>
         </v-list-item-icon>
 
