@@ -23,7 +23,7 @@ const vuetify = new Vuetify({
         },
         options: {
             minifyTheme,
-            themeCache
+            // themeCache
         },
     }
 });
