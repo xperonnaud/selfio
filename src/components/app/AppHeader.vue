@@ -122,14 +122,14 @@
 
       <v-btn
         v-bind:class="[{'mr-1':!isMobile}]"
-        icon
         @click.stop="updatePreferences()"
-        class="primary-gradient-color-text"
+        icon
       >
         <v-icon
           :size="XLI"
           v-text="'mdi-check'"
-        />
+          :class="fontShadeColor"
+        ></v-icon>
       </v-btn>
     </template>
   </v-app-bar>
