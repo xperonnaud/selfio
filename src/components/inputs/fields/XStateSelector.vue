@@ -8,10 +8,10 @@
 
             <v-btn
                 @click="toggleEditor()"
-                class="mr-1 primary-gradient-color-text"
+                class="mr-1"
                 icon
             >
-                <v-icon  v-text="'mdi-check'" />
+                <v-icon v-bind:class="[fontShadeColor]" v-text="'mdi-check'" />
             </v-btn>
         </div>
 
@@ -29,7 +29,7 @@
                 >
                     <v-text-field
                         :label="xCapFirst($t('global.state'))"
-                        :value="listedPickedValue ? (gearStates[pickerValue-1].title) : null"
+                        :value="listedPickedValue ? xCap((gearStates[pickerValue-1].title)) : null"
                         :color="currentColor"
                         hide-details="auto"
                         append-icon="mdi-menu-down"
@@ -77,22 +77,21 @@
                                 ]"
                                 @click.stop="assignValue(item.id)"
                             >
-                                <div class="d-flex justify-space-around align-self-center">
-                                    <v-avatar tile left min-width="21" width="21" height="21">
-                                        <v-icon
-                                            :color="item.color"
-                                            v-text="'mdi-'+stateIcon(item.title)"
-                                            :size="SMI"
-                                            style="padding-bottom: 6px;"
-                                        ></v-icon>
-                                    </v-avatar>
+                                <div>
+                                    <div class="d-flex justify-space-around align-self-center">
+                                        <v-avatar tile left min-width="21" width="21" height="21">
+                                            <v-icon
+                                                :color="item.color"
+                                                v-text="'mdi-'+stateIcon(item.title)"
+                                                :size="SMI"
+                                                style="padding-bottom: 6px;"
+                                            ></v-icon>
+                                        </v-avatar>
+                                    </div>
 
                                     <div
-                                        v-bind:class="[
-                                            'text-caption',
-                                            'text-center',
-                                        ]"
-                                        v-html="$t(`states.${item.title}`)"
+                                        class="text-caption text-center"
+                                        v-html="xCap($t(`states.${item.title}`))"
                                     ></div>
                                 </div>
                             </v-card>

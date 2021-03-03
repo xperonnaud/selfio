@@ -8,10 +8,10 @@
 
             <v-btn
                 @click="toggleEditor()"
-                class="mr-1 primary-gradient-color-text"
+                class="mr-1"
                 icon
             >
-                <v-icon  v-text="'mdi-check'" />
+                <v-icon v-bind:class="[fontShadeColor]" v-text="'mdi-check'" />
             </v-btn>
         </div>
 
