@@ -27,7 +27,7 @@
 
       <snack-bar />
 
-      <session-dialog v-if="displayApp && isLoggedIn" :dialog.sync="isSessionExpired" />
+      <session-dialog v-if="false && displayApp && isLoggedIn" :dialog.sync="isSessionExpired" />
     </v-app>
   </div>
 </template>
