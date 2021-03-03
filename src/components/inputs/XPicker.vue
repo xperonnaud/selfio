@@ -58,8 +58,8 @@
           <x-divider />
 
           <div class="text-center" :style="'width: '+(isMobile?'40':'70')+'px;'">
-            <span>{{ sumInventoryWeight(data.item.inventory_gear) | weightUnitFilter(weightUnit) }}</span>
-            <span class="text-tiny-dimmed" v-text="supWeightUnit" />
+            <span class="text-caption">{{ sumInventoryWeight(data.item.inventory_gear) | weightUnitFilter(weightUnit) }}</span>
+            <span class="text-tiny-dimmed" v-text="dynamicWeightUnit(sumInventoryWeight(data.item.inventory_gear))" />
           </div>
 
           <v-divider v-show="!isMobile" vertical class="mx-2" />
