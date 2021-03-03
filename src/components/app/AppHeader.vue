@@ -20,6 +20,7 @@
     </v-toolbar-title>
 
     <template v-if="isItemRoute || isConfigurationRoute">
+
       <v-spacer />
 
       <v-expand-x-transition>
@@ -29,7 +30,6 @@
           :label="xCap($t('global.search'))"
           :append-icon="!isMobile ? 'mdi-magnify' : null"
           hide-details="auto"
-          clearable
           small
           :color="shadeColor"
           style="max-width: 222px;"
