@@ -135,14 +135,14 @@
     <v-list-item-action style="margin-right: 0 !important;">
       <v-btn
         :disabled="!inventoryGearList.includes(gear.id)"
-        @click.stop="inventoryGearList.includes(gear.id) ? selectInventoryGear(gear) : null"
+        @click.stop="inventoryGearAction(gear)"
+        :loading="isMenuLoading"
         icon
       >
         <poly-icon
           :disabled="!inventoryGearList.includes(gear.id)"
           icon="mdi-dots-vertical"
         ></poly-icon>
-<!--        <v-icon v-text="'mdi-dots-vertical'" />-->
       </v-btn>
     </v-list-item-action>
   </v-list-item>
@@ -187,15 +187,26 @@
     data: () => ({
       isMounted: false,
 
+      isMenuLoading: false,
       inventoryGearMenu: false,
       selectedInventoryGearIndex: null,
       selectedInventoryGearMaxQuantity: null,
     }),
     methods: {
-      selectInventoryGear(gear) {
+      async inventoryGearAction(gear) {
+        if(this.inventoryGearList.includes(gear.id)) {
+          this.isMenuLoading = true;
+          await this.selectInventoryGear(gear);
+          await this.toggleGearMenu();
+          this.isMenuLoading = false;
+        }
+      },
+      async selectInventoryGear(gear) {
         let gearIndex = this.inventoryGearList.indexOf(gear.id);
         this.selectedInventoryGearIndex = gearIndex;
         this.selectedInventoryGearMaxQuantity = gear.quantity_owned;
+      },
+      async toggleGearMenu() {
         this.inventoryGearMenu = true;
       },
     },

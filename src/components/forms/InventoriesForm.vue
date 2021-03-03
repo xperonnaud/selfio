@@ -9,7 +9,7 @@
     ]"
   >
     <v-form v-model="valid">
-      <v-expand-transition>
+<!--      <v-expand-transition>-->
         <v-tabs
           v-show="!isEditing"
           v-model="tab"
@@ -353,9 +353,9 @@
             </v-tab-item>
           </v-tabs-items>
         </v-tabs>
-      </v-expand-transition>
+<!--      </v-expand-transition>-->
 
-      <v-expand-transition>
+<!--      <v-expand-transition>-->
         <div v-show="isEditing">
           <v-card class="mx-auto" flat :color="xBackgroundColor">
             <v-card-text :class="['pa-0']">
@@ -663,14 +663,13 @@
                   <v-btn
                     @click.stop="unSelectInventoryGear()"
                     icon
+                    :disabled="isGearMenuLoading"
                   >
                     <v-icon v-text="'mdi-close'" />
                   </v-btn>
 
                 </v-list-item>
               </v-list>
-
-              <v-divider />
 
               <v-list>
                 <v-list-item class="mb-3">
@@ -692,8 +691,6 @@
                 </v-list-item>
               </v-list>
 
-              <v-divider />
-
               <v-card-actions>
 
                 <v-spacer />
@@ -701,6 +698,8 @@
                 <v-btn
                   @click.stop="saveInventoryGear()"
                   icon
+                  class="mr-2"
+                  :loading="isGearMenuLoading"
                 >
                   <poly-icon icon="mdi-check" />
                 </v-btn>
@@ -709,7 +708,7 @@
 
           </v-dialog>
         </div>
-      </v-expand-transition>
+<!--      </v-expand-transition>-->
 
       <v-text-field v-show="false" v-model="validTitle" :rules="xRules.boolean" />
     </v-form>
@@ -792,6 +791,7 @@
     },
     data: () => ({
       isMounted: false,
+      isGearMenuLoading: false,
       valid: false,
       validTitle: false,
       tab: 'inventory-general',
@@ -941,7 +941,7 @@
       t(str) {
         return this.$t(`routes.inventories.${str}`);
       },
-      resetTemporaryInventoryGear() {
+      async resetTemporaryInventoryGear() {
         this.temporaryInventoryGear.inventory_id = null;
         this.temporaryInventoryGear.gear_id = null;
         this.temporaryInventoryGear.gear_quantity_packed = null;
@@ -1005,15 +1005,19 @@
         await this.initGearList();
         this.isEditing = false;
       },
-      saveInventoryGear() {
+      async saveInventoryGear() {
+        this.isGearMenuLoading = true;
+        await this.tempToCurrentInventoryGear();
+        await this.unSelectInventoryGear();
+        this.isGearMenuLoading = false;
+      },
+      async tempToCurrentInventoryGear() {
         this.currentInventoryGear[this.selectedInventoryGearIndex].inventory_id = this.temporaryInventoryGear.inventory_id;
         this.currentInventoryGear[this.selectedInventoryGearIndex].gear_id = this.temporaryInventoryGear.gear_id;
         this.currentInventoryGear[this.selectedInventoryGearIndex].gear_quantity_packed = this.temporaryInventoryGear.gear_quantity_packed;
         this.currentInventoryGear[this.selectedInventoryGearIndex].gear_worn = this.temporaryInventoryGear.gear_worn;
-
-        this.unSelectInventoryGear();
       },
-      unSelectInventoryGear() {
+      async unSelectInventoryGear() {
         this.selectedInventoryGearIndex = null;
         this.inventoryGearMenu = false;
       },
@@ -1167,9 +1171,9 @@
       }
     },
     watch: {
-      selectedInventoryGearIndex(newVal, oldVal) {
+      async selectedInventoryGearIndex(newVal, oldVal) {
         if(!newVal || (newVal === oldVal)) {
-          this.resetTemporaryInventoryGear();
+          await this.resetTemporaryInventoryGear();
         } else {
           let invGear = this.currentInventoryGear[this.selectedInventoryGearIndex];
           this.temporaryInventoryGear.inventory_id = invGear.inventory_id;
