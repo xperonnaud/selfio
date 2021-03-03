@@ -14,11 +14,11 @@
 
       <app-nav v-if="displayApp && isLoggedIn" />
 
-      <app-body v-show="!isMobile || (isMobile && !isAppLoading)" />
+      <app-body v-if="false" v-show="!isMobile || (isMobile && !isAppLoading)" />
 
       <app-footer v-if="displayApp && isLoggedIn" />
 
-      <v-overlay v-if="false" :value="isAppLoading">
+      <v-overlay :value="isAppLoading">
         <v-progress-circular
           indeterminate
           size="64"
