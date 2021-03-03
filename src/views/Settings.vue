@@ -123,7 +123,7 @@
             <v-col cols="12">
               <div>
                 <v-select
-                  :label="xCap($t('global.price'))+' ('+$t('global.unit')+')'"
+                  :label="xCap($t('global.price'))+' ('+$t('global.currency')+')'"
                   :items="priceUnits"
                   v-model="preferences.price_unit"
                   prepend-inner-icon="mdi-cash"

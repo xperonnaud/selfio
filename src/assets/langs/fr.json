@@ -38,6 +38,7 @@
     "object": "objet",
     "message": "message",
     "unit": "unité",
+    "currency": "devise",
     "format": "format",
     "weight": "poids",
     "temperature": "température",
