@@ -89,7 +89,7 @@
       </v-list-item>
     </template>
 
-    <template v-if="isMobile">
+    <template v-slot:append>
       <v-divider />
 
       <v-list-item
@@ -100,31 +100,7 @@
       >
         <v-list-item-icon>
           <v-icon
-            v-text="'mdi-logout'"
-            :color="darkColor()"
-          ></v-icon>
-        </v-list-item-icon>
-
-        <v-list-item-content>
-          <v-list-item-title>
-            {{$t(`global.logout`) | capitalizeFilter}}
-          </v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
-    </template>
-
-    <template v-if="!isMobile" v-slot:append>
-      <v-divider />
-
-      <v-list-item
-        v-bind:class="[(isMobile ? 'my-1' : 'my-2')]"
-        @click.stop="api_logout()"
-        link
-        dense
-      >
-        <v-list-item-icon>
-          <v-icon
-            v-text="'mdi-logout'"
+            v-text="'mdi-logout-variant'"
             :color="darkColor()"
           ></v-icon>
         </v-list-item-icon>
