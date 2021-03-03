@@ -67,7 +67,18 @@
           dense
       >
         <v-list-item-icon>
+          <v-icon
+            v-if="isIOS()"
+            :disabled="navigationItems[item].id !== currentRouteId"
+            :size="LGI"
+            :icon="(navigationItems[item].icon==='mdi-database')
+              ? 'mdi-database'+(currentIcon==='mdi-database' ? '-outline' : '')
+              : navigationItems[item].icon + ((navigationItems[item].id !== currentRouteId)
+               ? ''
+               : '-outline')"
+          ></v-icon>
           <poly-icon
+            v-else
             :disabled="navigationItems[item].id !== currentRouteId"
             :disabledClass="null"
             :size="LGI"
