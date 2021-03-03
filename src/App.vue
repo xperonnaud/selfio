@@ -18,7 +18,7 @@
 
       <app-footer v-if="displayApp && isLoggedIn" />
 
-      <v-overlay :value="isAppLoading">
+      <v-overlay v-if="false" :value="isAppLoading">
         <v-progress-circular
           indeterminate
           size="64"
@@ -27,7 +27,7 @@
 
       <snack-bar />
 
-      <session-dialog v-if="false && displayApp && isLoggedIn" :dialog.sync="isSessionExpired" />
+      <session-dialog v-if="displayApp && isLoggedIn" :dialog.sync="isSessionExpired" />
     </v-app>
   </div>
 </template>
