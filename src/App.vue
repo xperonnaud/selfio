@@ -25,7 +25,7 @@
         ></v-progress-circular>
       </v-overlay>
 
-      <snack-bar />
+      <snack-bar v-if="false" />
 
       <session-dialog v-if="displayApp && isLoggedIn" :dialog.sync="isSessionExpired" />
     </v-app>
