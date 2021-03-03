@@ -9,7 +9,7 @@
       {'is-dark':isDark},
     ]"
   >
-    <v-app id="inspire">
+    <v-app id="inspire">coucou
       <!--
       <app-header v-if="displayApp && isLoggedIn" />
 
