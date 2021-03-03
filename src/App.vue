@@ -10,15 +10,16 @@
     ]"
   >
     <v-app id="inspire">
-      <app-header v-if="false && displayApp && isLoggedIn" />
+      <!--
+      <app-header v-if="displayApp && isLoggedIn" />
 
-      <app-nav v-if="false && displayApp && isLoggedIn" />
+      <app-nav v-if="displayApp && isLoggedIn" />
 
-      <app-body v-if="false" v-show="!isMobile || (isMobile && !isAppLoading)" />
+      <app-body v-show="!isMobile || (isMobile && !isAppLoading)" />
 
-      <app-footer v-if="false && displayApp && isLoggedIn" />
+      <app-footer v-if="displayApp && isLoggedIn" />
 
-      <v-overlay v-if="false" :value="isAppLoading">
+      <v-overlay :value="isAppLoading">
         <v-progress-circular
           indeterminate
           size="64"
@@ -27,7 +28,8 @@
 
       <snack-bar />
 
-      <session-dialog v-if="false && displayApp && isLoggedIn" :dialog.sync="isSessionExpired" />
+      <session-dialog v-if="displayApp && isLoggedIn" :dialog.sync="isSessionExpired" />
+      -->
     </v-app>
   </div>
 </template>
