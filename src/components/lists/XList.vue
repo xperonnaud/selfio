@@ -21,7 +21,7 @@
     </v-card>
 
     <v-sheet
-      v-if="!isAppLoading && ((filteredItems.length <= 0) && !(items.length <= 0) || (items.length <= 0))"
+      v-if="isItemRoute && !isAppLoading && ((filteredItems.length <= 0) && !(items.length <= 0) || (items.length <= 0))"
       class="rounded-0"
       height="100%"
     >
