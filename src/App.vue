@@ -9,8 +9,7 @@
       {'is-dark':isDark},
     ]"
   >
-    <v-app id="inspire">coucou
-      <!--
+    <v-app id="inspire">
       <app-header v-if="displayApp && isLoggedIn" />
 
       <app-nav v-if="displayApp && isLoggedIn" />
@@ -29,28 +28,27 @@
       <snack-bar />
 
       <session-dialog v-if="displayApp && isLoggedIn" :dialog.sync="isSessionExpired" />
-      -->
     </v-app>
   </div>
 </template>
 
 <script>
-/*
+
   import AppHeader from "@/components/app/AppHeader";
   import AppNav from "@/components/navigation/AppNav";
   import AppFooter from "@/components/app/AppFooter";
   import SessionDialog from "@/components/elements/Dialogs/SessionDialog";
   import SnackBar from "@/components/elements/SnackBar";
-*/
+
   export default {
     name: 'App',
     components: {
-      // AppHeader,
-      // AppNav,
-      // AppBody: () => import('@/components/app/AppBody'),
-      // AppFooter,
-      // SnackBar,
-      // SessionDialog
+      AppHeader,
+      AppNav,
+      AppBody: () => import('@/components/app/AppBody'),
+      AppFooter,
+      SnackBar,
+      SessionDialog
     },
     data: () => ({
       isMounted: false,
