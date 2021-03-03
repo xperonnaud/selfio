@@ -67,6 +67,9 @@ export default {
         currentWindowHeight() {
             return (window.innerHeight - 92);
         },
+        currentDialogHeight() {
+            return (this.currentWindowHeight - 60);
+        },
         xOverlayColor() {
             return ('grey '+(this.isDark ? 'darken-1' : 'lighten-1'));
         },

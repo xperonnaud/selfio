@@ -9,7 +9,6 @@
     ]"
   >
     <v-form v-model="valid">
-<!--      <v-expand-transition>-->
         <v-tabs
           v-show="!isEditing"
           v-model="tab"
@@ -353,9 +352,7 @@
             </v-tab-item>
           </v-tabs-items>
         </v-tabs>
-<!--      </v-expand-transition>-->
 
-<!--      <v-expand-transition>-->
         <div v-show="isEditing">
           <v-card class="mx-auto" flat :color="xBackgroundColor">
             <v-card-text :class="['pa-0']">
@@ -633,18 +630,12 @@
                 </v-responsive>
               </v-list>
 
-              <v-list
+              <empty-list
                 v-else
-                subheader
-                dense
-              >
-                <v-subheader>{{t(`gear-list`) | capitalizeFirstFilter}}</v-subheader>
-                <v-list-item>
-                  <v-list-item-content>
-                    <v-list-item-title v-text="$t('global.empty')" />
-                  </v-list-item-content>
-                </v-list-item>
-              </v-list>
+                :height="currentDialogHeight"
+                :label="t(`add-inventory-gear`)"
+                :color="navItemColor('gear')"
+              ></empty-list>
             </v-card-text>
           </v-card>
 
@@ -708,7 +699,6 @@
 
           </v-dialog>
         </div>
-<!--      </v-expand-transition>-->
 
       <v-text-field v-show="false" v-model="validTitle" :rules="xRules.boolean" />
     </v-form>

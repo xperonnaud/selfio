@@ -107,7 +107,7 @@
 
         <v-list-item-content>
           <v-list-item-title>
-            {{$t(`global.logout`) | capitalizeFilter}}
+            {{$t(`global.logout`) | capitalizeFirstFilter}}
           </v-list-item-title>
         </v-list-item-content>
       </v-list-item>
