@@ -35,22 +35,22 @@
 </template>
 
 <script>
-
+/*
   import AppHeader from "@/components/app/AppHeader";
   import AppNav from "@/components/navigation/AppNav";
   import AppFooter from "@/components/app/AppFooter";
   import SessionDialog from "@/components/elements/Dialogs/SessionDialog";
   import SnackBar from "@/components/elements/SnackBar";
-
+*/
   export default {
     name: 'App',
     components: {
-      AppHeader,
-      AppNav,
-      AppBody: () => import('@/components/app/AppBody'),
-      AppFooter,
-      SnackBar,
-      SessionDialog
+      // AppHeader,
+      // AppNav,
+      // AppBody: () => import('@/components/app/AppBody'),
+      // AppFooter,
+      // SnackBar,
+      // SessionDialog
     },
     data: () => ({
       isMounted: false,
