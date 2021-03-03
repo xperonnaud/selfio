@@ -1271,14 +1271,3 @@
   }
 
 </script>
-
-<style lang="scss">
-
-  .inventories-form {
-
-    .scroller {
-      height: 100%;
-    }
-  }
-
-</style>

@@ -1,5 +1,12 @@
 
 
+.inventories-form, .adventures-form {
+
+  .scroller {
+    height: 100%;
+  }
+}
+
 .empty-data {
   @extend .text-tiny-dimmed;
   margin: auto;

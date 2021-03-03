@@ -899,18 +899,3 @@
     }
   }
 </script>
-
-<style lang="scss">
-
-  .adventures-form {
-
-    .scroller {
-      height: 100%;
-    }
-
-    .v-subheader {
-      max-height: 24px !important;
-    }
-  }
-
-</style>
