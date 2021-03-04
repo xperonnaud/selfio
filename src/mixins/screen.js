@@ -70,6 +70,9 @@ export default {
         currentDialogHeight() {
             return (this.currentWindowHeight - 60);
         },
+        xSheetColor() {
+            return ('grey '+(this.isDark ? 'darken-3' : 'lighten-1'));
+        },
         xOverlayColor() {
             return ('grey '+(this.isDark ? 'darken-1' : 'lighten-1'));
         },
