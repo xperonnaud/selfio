@@ -257,8 +257,9 @@ export default {
         nullOrZeroColorText(prop) {
             return ((!prop || prop===0) ? this.darkColorText('error') : '');
         },
-        categoryColor(categoryId = 14) {
-            return this.hexColor(this.getVuetifyColor(categoryId));
+        categoryColor(category = 'unknown') {
+            let index = category === 'unknown' ? 14 : this.gearCategories.indexOf(category);
+            return this.hexColor(this.getVuetifyColor(index));
         },
         hexColor(colorStr) {
             const [nameFamily, nameModifier] = colorStr.split(' ');

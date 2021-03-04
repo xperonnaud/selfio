@@ -18,7 +18,7 @@
             >
                 <v-text-field
                     :label="xCapFirst($t('global.category'))"
-                    :value="listedPickedValue ? xCap($t(`categories.${gearCategories[pickerValue]}.title`)) : null"
+                    :value="listedPickedValue ? xCap($t(`categories.${pickerValue}.title`)) : null"
                     :color="currentColor"
                     hide-details="auto"
                     append-icon="mdi-menu-down"
@@ -36,14 +36,14 @@
                             class="x-avatar"
                             :width="XXLI"
                             :height="XXLI"
-                            :style="((pickerValue !== 14) ? 'border: 2px solid '+categoryColor(pickerValue)+' !important;' : '')+'min-width: unset;'"
+                            :style="((pickerValue !== 'unknown') ? 'border: 2px solid '+categoryColor(pickerValue)+' !important;' : '')+'min-width: unset;'"
                         >
                             <x-svg
-                                :src="gearCategories[pickerValue]"
+                                :src="pickerValue"
                                 svgPath="gearcategories/"
                                 :width="XSI"
                                 :height="XSI"
-                                :tooltipText="xCap($t(`categories.${gearCategories[pickerValue]}.desc`))"
+                                :tooltipText="xCap($t(`categories.${pickerValue}.desc`))"
                             ></x-svg>
                         </v-avatar>
                     </template>
@@ -66,10 +66,10 @@
                               'justify-space-around',
                               'align-self-center',
                               'pt-2 pb-1 elevation-0',
-                              {'is-dark': ((isDark && !(gearCategories[pickerValue]) === item) || (!isDark && (gearCategories[pickerValue]) === item))},
+                              {'is-dark': ((isDark && !(pickerValue === item)) || (!isDark && (pickerValue === item)))},
                             ]"
-                            :dark="(isDark && !(gearCategories[pickerValue]) === item) || (!isDark && (gearCategories[pickerValue]) === item)"
-                            @click.stop="assignValue(itemIndex)"
+                            :dark="((isDark && !(pickerValue === item)) || (!isDark && (pickerValue === item)))"
+                            @click.stop="assignValue(item)"
                         >
                             <div>
                                 <div class="d-flex justify-space-around align-self-center">
@@ -77,7 +77,7 @@
                                         class="x-avatar"
                                         :width="40"
                                         :height="40"
-                                        :style="((itemIndex !== 14) ? 'border: 2px solid '+categoryColor(itemIndex)+' !important;' : '')+'min-width: unset;'"
+                                        :style="((item !== 'unknown') ? 'border: 2px solid '+categoryColor(item)+' !important;' : '')+'min-width: unset;'"
                                     >
                                         <x-svg
                                             :src="item"
@@ -112,7 +112,7 @@
             XSvg
         },
         props: {
-            value: Number,
+            value: String,
             isInFilter: {
                 type: Boolean,
                 default: false
@@ -128,10 +128,7 @@
                 if(!this.isMounted)
                     return false;
 
-                return (
-                    typeof this.pickerValue==='number'
-                    && typeof this.gearCategories[this.pickerValue]==='string'
-                );
+                return (typeof this.pickerValue==='string');
             }
         },
         methods: {
@@ -141,11 +138,11 @@
             resetValue() {
                 this.pickerValue = null;
             },
-            assignValue(itemId) {
-                if(this.pickerValue === itemId) {
+            assignValue(item) {
+                if(this.pickerValue === item) {
                     this.resetValue();
                 } else {
-                    this.pickerValue = itemId;
+                    this.pickerValue = item;
                 }
 
                 if(this.isEditing === true)

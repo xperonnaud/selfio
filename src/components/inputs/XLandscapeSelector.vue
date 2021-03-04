@@ -18,7 +18,7 @@
             >
                 <v-text-field
                     :label="xCapFirst($t('global.landscape'))"
-                    :value="listedPickedValue ? xCap($t(`landscapes.${landscapes[pickerValue]}.title`)) : null"
+                    :value="listedPickedValue ? xCap($t(`landscapes.${pickerValue}.title`)) : null"
                     :color="currentColor"
                     hide-details="auto"
                     append-icon="mdi-menu-down"
@@ -38,11 +38,11 @@
                             :height="XXLI"
                         >
                             <x-svg
-                                :src="landscapes[pickerValue]"
+                                :src="pickerValue"
                                 svgPath="landscapes/"
                                 :width="XLI"
                                 :height="XLI"
-                                :tooltipText="xCapFirst($t(`landscapes.${landscapes[pickerValue]}.title`))"
+                                :tooltipText="xCapFirst($t(`landscapes.${pickerValue}.title`))"
                                 logo
                             ></x-svg>
                         </v-avatar>
@@ -68,10 +68,10 @@
                               'align-self-center',
                               'pt-2 pb-1',
                               'elevation-0',
-                              {'is-dark': ((isDark && !(landscapes[pickerValue]) === item) || (!isDark && (landscapes[pickerValue]) === item))},
+                              {'is-dark': (isDark && !([pickerValue] === item)) || (!isDark && ([pickerValue] === item))},
                             ]"
-                            :dark="(isDark && !(landscapes[pickerValue]) === item) || (!isDark && (landscapes[pickerValue]) === item)"
-                            @click.stop="assignValue(itemIndex)"
+                            :dark="(isDark && !([pickerValue] === item)) || (!isDark && ([pickerValue] === item))"
+                            @click.stop="assignValue(item)"
                         >
                             <div v-if="item">
                                 <div class="d-flex justify-space-around align-self-center">
@@ -114,7 +114,7 @@
             XSvg
         },
         props: {
-            value: Number,
+            value: String,
             isInFilter: {
                 type: Boolean,
                 default: false
@@ -130,10 +130,7 @@
                 if(!this.isMounted)
                     return false;
 
-                return (
-                    typeof this.pickerValue==='number'
-                    && typeof this.landscapes[this.pickerValue]==='string'
-                );
+                return (typeof this.pickerValue==='string');
             }
         },
         methods: {
@@ -143,11 +140,11 @@
             resetValue() {
                 this.pickerValue = null;
             },
-            assignValue(itemId) {
-                if(this.pickerValue === itemId) {
+            assignValue(item) {
+                if(this.pickerValue === item) {
                     this.resetValue();
                 } else {
-                    this.pickerValue = itemId;
+                    this.pickerValue = item;
                 }
 
                 if(this.isEditing === true)

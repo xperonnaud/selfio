@@ -24,7 +24,11 @@
                   fab
                   icon
                 >
-                  <v-icon v-bind:class="[fontShadeColor]" :size="XLI" v-text="'mdi-check'" />
+                  <v-icon
+                    v-bind:class="[fontShadeColor]"
+                    :size="XLI"
+                    v-text="'mdi-check'"
+                  ></v-icon>
                 </v-btn>
               </v-card>
             </v-col>

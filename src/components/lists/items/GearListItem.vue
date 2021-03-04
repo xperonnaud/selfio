@@ -11,15 +11,15 @@
             ]"
             :width="XXLI"
             :height="XXLI"
-            :style="(typeof source.category == 'number' ? `border: 2px solid ${categoryColor(source.category)} !important;` : '')+'min-width: unset; padding-bottom: 2px !important;'"
+            :style="(typeof source.category == 'string' ? `border: 2px solid ${categoryColor(source.category)} !important;` : '')+'min-width: unset; padding-bottom: 2px !important;'"
         >
             <x-svg
-                v-if="typeof source.category == 'number' && gearCategories[source.category]"
-                :src="gearCategories[source.category]"
+                v-if="typeof source.category == 'string'"
+                :src="source.category"
                 svgPath="gearcategories/"
                 :width="XSI"
                 :height="XSI"
-                :tooltipText="xCapFirst($t(`categories.${gearCategories[source.category]}.desc`))"
+                :tooltipText="xCapFirst($t(`categories.${source.category}.desc`))"
             ></x-svg>
 
             <x-unknown-category-icon v-else :size="MDI" />

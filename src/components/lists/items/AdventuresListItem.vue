@@ -13,10 +13,10 @@
       :height="XXLI"
     >
       <x-svg
-        v-if="typeof source.activity == 'number' && activities[source.activity]"
-        :src="activities[source.activity]"
+        v-if="typeof source.activity == 'string'"
+        :src="source.activity"
         svgPath="activities/"
-        :tooltipText="xCapFirst($t(`activities.${activities[source.activity]}.desc`))"
+        :tooltipText="xCapFirst($t(`activities.${source.activity}.desc`))"
         :width="XLI"
         :height="XLI"
       ></x-svg>
@@ -85,16 +85,16 @@
             <div class="d-flex justify-center">
               <div v-bind:class="['text-center max-width']">
                 <div
-                  v-if="typeof source.landscape == 'number'"
+                  v-if="typeof source.landscape == 'string'"
                   class="list-icon-wrapper"
                 >
                   <x-svg
-                    v-if="typeof source.landscape == 'number' && landscapes[source.landscape]"
-                    :src="landscapes[source.landscape]"
+                    v-if="typeof source.landscape == 'string'"
+                    :src="source.landscape"
                     svgPath="landscapes/"
                     :width="XXLI"
                     :height="XXLI"
-                    :tooltipText="xCapFirst($t(`landscapes.${landscapes[source.landscape]}.title`))"
+                    :tooltipText="xCapFirst($t(`landscapes.${source.landscape}.title`))"
                     logo
                   ></x-svg>
                 </div>
