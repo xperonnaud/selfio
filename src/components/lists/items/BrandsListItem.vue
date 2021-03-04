@@ -23,7 +23,7 @@
             <v-tooltip v-else left>
               <template v-slot:activator="{ on, attrs }">
                 <v-icon
-                  :color="xCheckerColor"
+                  class="text--disabled"
                   v-text="'mdi-lock-outline'"
                   v-bind="attrs"
                   v-on="on"

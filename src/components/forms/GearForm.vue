@@ -160,13 +160,13 @@
 
   import Vue from 'vue'
 
-  import XText from "@/components/inputs/fields/XText";
-  import XTitleField from "@/components/inputs/fields/XTitleField";
-  import XBrandSelector from "@/components/inputs/fields/XBrandSelector";
-  import XStateSelector from "@/components/inputs/fields/XStateSelector";
+  import XText from "@/components/inputs/XText";
+  import XTitleField from "@/components/inputs/XTitleField";
+  import XBrandSelector from "@/components/inputs/XBrandSelector";
+  import XStateSelector from "@/components/inputs/XStateSelector";
   import XIncrement from "@/components/inputs/XIncrement";
   import XDatePicker from "@/components/inputs/XDatePicker";
-  import XCategorySelector from "@/components/inputs/fields/XCategorySelector";
+  import XCategorySelector from "@/components/inputs/XCategorySelector";
   import XCombobox from "@/components/inputs/XCombobox";
   import XCheckbox from "@/components/inputs/XCheckbox";
 

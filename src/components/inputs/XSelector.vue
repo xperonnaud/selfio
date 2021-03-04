@@ -1,179 +1,72 @@
 <template>
 
-  <v-sheet v-if="isMounted" :class="['x-check-form max-width',{'is-in-filter':isInFilter}]" :color="xTabsColor">
-    <div v-if="isEditing" class="d-flex align-content-space-between">
-      <v-subheader class="mt-2 ml-2">{{$t(`global.${label}`)}}</v-subheader>
-
-      <v-spacer/>
-
-      <v-btn
-        @click="toggleEditor()"
-        class="mr-1 primary-gradient-color-text"
-        icon
-      >
-        <v-icon  v-text="'mdi-check'" />
-      </v-btn>
+  <v-sheet
+    v-if="isMounted"
+    :class="[`x-${title}-selector x-check-form max-width`]"
+    :color="xTabsColor"
+  >
+    <div>
+      <slot name="header" />
     </div>
 
-    <v-expand-transition>
-      <div v-show="!isEditing">
-          <v-card
-            v-bind:class="[
-              'x-check-form-card',
-              'mx-auto',
-              'elevation-0',
-              {'is-dark':isDark}
-           ]"
-            :color="xBackgroundColor"
-            @click.stop="toggleEditor()"
-          >
-            <v-text-field
-              :label="xCap($t(`global.${label}`))"
-              :value="listedPickedValue ? xCap(dataType ? $t(`${dataType}.${selectedItem.title}.title`) : selectedItem.title) : null"
-              :color="currentColor"
-              hide-details="auto"
-              append-icon="mdi-menu-down"
-              dense
-              filled
-              clearable
-              @click:clear="resetValue()"
-            >
-              <template v-slot:prepend-inner style="margin-top: 0">
-                <x-img
-                  v-if="selectedItem && selectedItem.icon"
-                  :src="selectedItem.icon"
-                  :tooltipText="xCap(dataType ? $t(`${dataType}.${selectedItem.title}.title`) : selectedItem.title)"
-                  :width="avatarSize ? avatarSize : iconSize"
-                  :height="avatarSize ? avatarSize : iconSize"
-                  :logo="logo"
-                ></x-img>
-              </template>
-            </v-text-field>
-          </v-card>
-      </div>
-    </v-expand-transition>
+    <v-dialog v-model="isEditing">
+      <v-sheet :color="xOverlayColor">
+        <v-container class="pt-0 pb-1 elevation-0">
+          <v-row>
+            <v-col cols="12" class="pa-0">
+              <v-card class="d-flex align-content-space-between rounded-0 mb-1">
+                <v-list-item-title class="pl-4">{{$t(`global.${title}`) | capitalizeFirstFilter}}</v-list-item-title>
 
-    <v-expand-transition>
-      <v-container
-        v-show="isEditing"
-        v-bind:class="['py-0 elevation-0']"
-      >
-        <v-row>
-          <template v-for="(item, itemIndex) in list">
-            <v-col
-              :key="itemIndex"
-              :cols="isMobile ? 4 : 3"
-              v-bind:class="[(isMobile ? 'pa-1' : 'pt-0 px-2')]"
-            >
-              <v-card
-                v-bind:class="[
-                  'selector-card',
-                  'd-flex',
-                  'justify-space-around',
-                  'align-self-center',
-                  'pt-2 pb-1',
-                  'elevation-0',
-                  {'is-dark': isDark},
-                  {'selected': (pickerValue === item.id)}
-                ]"
-                @click.stop="assignValue(item.id)"
-              >
-                <div>
-                  <div class="d-flex justify-space-around align-self-center">
-                    <v-avatar
-                      class="x-avatar"
-                      :style="((isCategory && item.title!==$t('global.unknown')) ? 'border: 2px solid '+categoryColor(item.id)+' !important;' : '')"
-                    >
-                      <x-img
-                        v-if="item.icon"
-                        :src="item.icon"
-                        :width="iconSize"
-                        :height="iconSize"
-                        :tooltipText="xCap(dataType ? $t(`${dataType}.${item.title}.title`) : item.title)"
-                        :logo="logo"
-                        :isCategory="isCategory"
-                      ></x-img>
-                    </v-avatar>
+                <v-spacer />
 
-                  </div>
-
-                  <div
-                    v-bind:class="[
-                      'text-caption',
-                      'text-center',
-                    ]"
-                    v-html="xCap(dataType ? $t(`${dataType}.${item.title}.title`) : item.title)"
-                  ></div>
-                </div>
+                <v-btn
+                  @click="toggleEditor()"
+                  fab
+                  icon
+                >
+                  <v-icon v-bind:class="[fontShadeColor]" :size="XLI" v-text="'mdi-check'" />
+                </v-btn>
               </v-card>
             </v-col>
-          </template>
-        </v-row>
-      </v-container>
-    </v-expand-transition>
+          </v-row>
+
+          <v-responsive
+            class="overflow-y-auto"
+            :max-height="isMobile ? (currentWindowHeight - 100) : 600"
+          >
+            <slot name="content" />
+          </v-responsive>
+        </v-container>
+      </v-sheet>
+    </v-dialog>
   </v-sheet>
 
 </template>
 
 <script>
 
-  import XImg from "@/components/elements/XImg";
-
   export default {
     name: 'x-selector',
-    components: {
-      XImg
-    },
     props: {
-      list: Array,
-      listReferences: Object,
-      label: String,
-      value: Number,
-      dataType: String,
-      iconSize: {
-        type: Number,
-        default: 48
-      },
-      avatarSize: {
-        type: Number,
-        default: null
-      },
-      logo: {
+      title: String,
+      value: [Number, String],
+      isInFilter: {
         type: Boolean,
         default: false
       },
-      isInFilter: {
+      isEditing: {
         type: Boolean,
         default: false
       },
     },
     data: () => ({
       isMounted: false,
-      isEditing: false,
+      editing: false,
       pickerValue: null,
     }),
-    computed: {
-      selectedItem() {
-        if(!this.listedPickedValue)
-          return null;
-        return this.list[this.listReferences[this.pickerValue]]
-      },
-      isCategory() {
-        return this.dataType === 'categories';
-      },
-      listedPickedValue() {
-        if(!this.isMounted)
-          return false;
-        return (typeof this.pickerValue==='number' && typeof this.listReferences[this.pickerValue]==='number');
-      }
-    },
     methods: {
       toggleEditor() {
-        this.isEditing = !this.isEditing;
-      },
-      clearValue() {
-        this.toggleEditor();
-        this.assignValue(null);
+        this.editing = !this.editing;
       },
       resetValue() {
         this.pickerValue = null;
@@ -185,7 +78,7 @@
           this.pickerValue = itemId;
         }
 
-        if(this.isEditing === true)
+        if(this.editing === true)
           this.toggleEditor();
       }
     },
@@ -197,6 +90,14 @@
       pickerValue(val) {
         if(this.isMounted)
           this.$emit('update:value',val);
+      },
+      isEditing(val) {
+        if(this.isMounted)
+          this.editing = val;
+      },
+      editing(val) {
+        if(this.isMounted)
+          this.$emit('update:isEditing',val);
       },
     },
     mounted() {

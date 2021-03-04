@@ -21,11 +21,11 @@
         <v-list-item-action class="d-flex no-wrap align-center justify-center">
           <v-btn
             v-bind:class="['elevation-0']"
-            x-small
+            small
             fab
-            depressed
+            :loading="isLoading"
           >
-            <v-icon class="primary-gradient-color-text" :size="SMI" v-text="'mdi-pencil'" />
+            <v-icon :class="fontShadeColor" :size="SMI" v-text="'mdi-pencil'" />
           </v-btn>
         </v-list-item-action>
       </v-list-item>
@@ -40,6 +40,10 @@
     name: 'x-action-card',
     props: {
       title: String,
+      isLoading: {
+        type: Boolean,
+        default: false,
+      }
     },
   }
 

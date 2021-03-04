@@ -519,18 +519,18 @@
   import PolyIcon from "@/components/elements/Icons/PolyIcon";
   import AdventureGearListItem from "@/components/lists/items/AdventureGearListItem";
   import AdventureGearCard from "@/components/elements/Cards/AdventureGearCard";
-  import XText from "@/components/inputs/fields/XText";
-  import XTitleField from "@/components/inputs/fields/XTitleField";
-  import XWeatherSelector from "@/components/inputs/fields/XWeatherSelector";
-  import XBrandSelector from "@/components/inputs/fields/XBrandSelector";
-  import XStateSelector from "@/components/inputs/fields/XStateSelector";
+  import XText from "@/components/inputs/XText";
+  import XTitleField from "@/components/inputs/XTitleField";
+  import XWeatherSelector from "@/components/inputs/XWeatherSelector";
+  import XBrandSelector from "@/components/inputs/XBrandSelector";
+  import XStateSelector from "@/components/inputs/XStateSelector";
   import XIncrement from "@/components/inputs/XIncrement";
   import XDatePicker from "@/components/inputs/XDatePicker";
   import XTimePicker from "@/components/inputs/XTimePicker";
   import XPicker from "@/components/inputs/XPicker";
-  import XCategorySelector from "@/components/inputs/fields/XCategorySelector";
-  import XActivitySelector from "@/components/inputs/fields/XActivitySelector";
-  import XLandscapeSelector from "@/components/inputs/fields/XLandscapeSelector";
+  import XCategorySelector from "@/components/inputs/XCategorySelector";
+  import XActivitySelector from "@/components/inputs/XActivitySelector";
+  import XLandscapeSelector from "@/components/inputs/XLandscapeSelector";
   import XCombobox from "@/components/inputs/XCombobox";
   import XSortIcon from "@/components/elements/Icons/XSortIcon";
   import XCheckbox from "@/components/inputs/XCheckbox";
@@ -899,18 +899,3 @@
     }
   }
 </script>
-
-<style lang="scss">
-
-  .adventures-form {
-
-    .scroller {
-      height: 100%;
-    }
-
-    .v-subheader {
-      max-height: 24px !important;
-    }
-  }
-
-</style>

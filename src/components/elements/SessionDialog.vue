@@ -4,6 +4,7 @@
     v-if="isMounted"
     v-model="dialog"
     :max-width="maxDialogWidth"
+    :transition="dialogTransition"
     persistent
   >
     <div class="session-dialog">
@@ -14,7 +15,7 @@
           </v-avatar>
         </div>
 
-        <v-card-title class="headline mt-3" v-text="xCapFirst(t('session-expired'))" />
+        <v-card-title class="text-h6 mt-6" v-text="xCapFirst(t('session-expired'))" />
 
         <v-card-subtitle v-text="xCapFirst(t('please-login'))" />
 

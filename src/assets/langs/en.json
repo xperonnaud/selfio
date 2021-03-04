@@ -3,6 +3,7 @@
   "global": {
     "null": "NA",
     "app-name": "PackHub.io",
+    "close-guard": "By proceeding you will lose all unsaved progressions. Do you really wish to leave this page?",
 
     "gear":"gear",
     "inventories":"inventories",
@@ -36,6 +37,7 @@
     "object": "object",
     "message": "message",
     "unit": "unit",
+    "currency": "currency",
     "format": "format",
     "weight": "weight",
     "temperature": "temperature",
@@ -296,7 +298,8 @@
       "gear-balance": "gear balance",
       "balance": "balance",
       "weight-by-gear-category": "weight by gear category",
-      "add-gear": "add gear to your inventory."
+      "add-gear": "add gear to your inventory.",
+      "add-inventory-gear": "add items to your gear list first."
     },
     "adventures": {
       "event": "event"

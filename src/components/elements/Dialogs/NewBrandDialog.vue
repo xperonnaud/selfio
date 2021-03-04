@@ -15,7 +15,7 @@
           </v-avatar>
         </div>
 
-        <v-card-title class="headline mt-3">
+        <v-card-title class="text-h6 mt-6">
           {{t('new-brand') | capitalizeFilter}}
         </v-card-title>
 
@@ -58,7 +58,7 @@
 <script>
 
   import PrimaryBtn from "@/components/elements/Btns/PrimaryBtn";
-  import XTitleField from "@/components/inputs/fields/XTitleField";
+  import XTitleField from "@/components/inputs/XTitleField";
 
   export default {
     name: 'new-brand-dialog',

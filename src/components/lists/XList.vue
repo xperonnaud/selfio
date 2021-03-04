@@ -1,29 +1,36 @@
 <template>
 
-  <v-card
-    v-bind:class="['x-list mx-auto elevation-0']"
-    :color="xBackgroundColor"
-  >
-    <virtual-list
-      v-if="listItemComponent"
-      style="height: 100%; overflow-y: auto;"
-      :data-key="'id'"
-      :data-sources.sync="filteredItems"
-      :data-component="listItemComponent"
-      page-mode
-      wrap-class="x-list"
-      item-class="x-list-item"
-      :keeps="xListMaxItems"
-    ></virtual-list>
+  <v-sheet height="100%" class="rounded-0">
+    <v-card
+      v-bind:class="['x-list mx-auto elevation-0']"
+      :color="xBackgroundColor"
+    >
+      <virtual-list
+        v-if="listItemComponent"
+        style="height: 100%; overflow-y: auto;"
+        :data-key="'id'"
+        :data-sources.sync="filteredItems"
+        :data-component="listItemComponent"
+        wrap-class="x-list"
+        item-class="x-list-item"
+        :keeps="xListMaxItems"
+        page-mode
+      ></virtual-list>
 
-    <x-list-skeleton v-else />
+      <x-list-skeleton v-else />
+    </v-card>
 
-    <v-list v-if="!isAppLoading && (items.length <= 0 || ((filteredItems.length <= 0) && !(items.length <= 0)))">
-      <item-empty-list-item v-if="(items.length <= 0)" />
-
-      <no-result-empty-list-item v-else-if="(filteredItems.length <= 0) && !(items.length <= 0)" />
-    </v-list>
-  </v-card>
+    <v-sheet
+      v-if="isItemRoute && !isAppLoading && ((filteredItems.length <= 0) && !(items.length <= 0) || (items.length <= 0))"
+      class="rounded-0"
+      height="100%"
+    >
+      <empty-list
+        :label="(filteredItems.length <= 0) && !(items.length <= 0) ? null : xCapFirst($t(`global.add-${currentRouteName}`))"
+        :color="navItemColor(currentRouteName)"
+      ></empty-list>
+    </v-sheet>
+  </v-sheet>
 
 </template>
 
@@ -39,8 +46,7 @@
     components: {
       'virtual-list': VirtualList,
       XListSkeleton,
-      ItemEmptyListItem: () => import('@/components/lists/items/ItemEmptyListItem'),
-      NoResultEmptyListItem: () => import('@/components/lists/items/NoResultEmptyListItem')
+      EmptyList: () => import('@/components/elements/EmptyList')
     },
     props: {
       title: String,

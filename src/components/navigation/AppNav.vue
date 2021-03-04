@@ -12,7 +12,7 @@
       <v-list-item one-line :to="'/'" class="app-nav-list-item">
         <v-list-item-icon v-bind:class="[{'mr-7':!isMobile}]">
           <v-icon
-            v-text="'mdi-cogs'"
+            v-text="'mdi-electron-framework'"
             :color="shadeColor"
             :size="LGI"
           ></v-icon>
@@ -72,10 +72,10 @@
             :disabledClass="null"
             :size="LGI"
             :icon="(navigationItems[item].icon==='mdi-database')
-              ? 'mdi-database'+(currentIcon==='mdi-database' ? '-outline' : '')
+              ? 'mdi-database'+(currentIcon==='mdi-database' ? '' : '-outline')
               : navigationItems[item].icon + ((navigationItems[item].id !== currentRouteId)
-               ? ''
-               : '-outline')"
+               ? '-outline'
+               : '')"
           ></poly-icon>
         </v-list-item-icon>
 
@@ -89,7 +89,7 @@
       </v-list-item>
     </template>
 
-    <template v-if="isMobile">
+    <template v-slot:append>
       <v-divider />
 
       <v-list-item
@@ -100,38 +100,14 @@
       >
         <v-list-item-icon>
           <v-icon
-            v-text="'mdi-logout'"
+            v-text="'mdi-logout-variant'"
             :color="darkColor()"
           ></v-icon>
         </v-list-item-icon>
 
         <v-list-item-content>
           <v-list-item-title>
-            {{$t(`global.logout`) | capitalizeFilter}}
-          </v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
-    </template>
-
-    <template v-if="!isMobile" v-slot:append>
-      <v-divider />
-
-      <v-list-item
-        v-bind:class="[(isMobile ? 'my-1' : 'my-2')]"
-        @click.stop="api_logout()"
-        link
-        dense
-      >
-        <v-list-item-icon>
-          <v-icon
-            v-text="'mdi-logout'"
-            :color="darkColor()"
-          ></v-icon>
-        </v-list-item-icon>
-
-        <v-list-item-content>
-          <v-list-item-title>
-            {{$t(`global.logout`) | capitalizeFilter}}
+            {{$t(`global.logout`) | capitalizeFirstFilter}}
           </v-list-item-title>
         </v-list-item-content>
       </v-list-item>

@@ -1,4 +1,24 @@
 
+.selector-card {
+
+  &.selected {
+    box-shadow: inset 2px 0 2px #000 !important;
+
+    &.is-dark {
+      border: 2px solid #FFF !important;
+    }
+  }
+
+  &:before {
+    opacity: 0.1;
+  }
+}
+
+.inventories-form, .adventures-form {
+  .scroller {
+    height: 100%;
+  }
+}
 
 .empty-data {
   @extend .text-tiny-dimmed;
@@ -165,21 +185,6 @@
 
   .v-list--dense .v-subheader {
     height: 18px !important;
-  }
-
-  .selector-card {
-
-    &.selected {
-      border: 1px solid #000 !important;
-
-      &.is-dark {
-        border: 1px solid #FFF !important;
-      }
-    }
-
-    &:before {
-      opacity: 0.1;
-    }
   }
 
   &.is-in-filter {

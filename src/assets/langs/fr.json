@@ -3,6 +3,7 @@
   "global": {
     "null": "NA",
     "app-name": "PackHub.io",
+    "close-guard": "En continuant vous perdrez toute progression non sauvegardée. Souhaitez vous vraiment fermer cette page?",
 
     "gear":"matériel",
     "inventories":"inventaires",
@@ -37,6 +38,7 @@
     "object": "objet",
     "message": "message",
     "unit": "unité",
+    "currency": "devise",
     "format": "format",
     "weight": "poids",
     "temperature": "température",
@@ -214,7 +216,7 @@
       "title": "photographie",
       "desc": ""
     },
-    "airsoft": {
+    "airsoft-paintball": {
       "title": "airsoft / paintball",
       "desc": ""
     },
@@ -234,7 +236,7 @@
   "categories": {
     "activity": {
       "title": "activité",
-      "desc": "Équipement spécifique: harnais d'escalade, câne à pêche, skis, ..."
+      "desc": "Équipement spécifique: harnais d'escalade, canne à pêche, skis, ..."
     },
     "clothing": {
       "title": "vêtements",
@@ -296,7 +298,8 @@
       "gear-balance": "répartition du matériel",
       "balance": "répartition",
       "weight-by-gear-category": "Poids par categories",
-      "add-gear": "ajoutez du matériel à votre inventaire."
+      "add-gear": "ajoutez du matériel à votre inventaire.",
+      "add-inventory-gear": "ajoutez d'abord des éléments à votre liste matériel."
     },
     "adventures": {
       "event": "évènement"

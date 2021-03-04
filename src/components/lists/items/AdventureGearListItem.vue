@@ -96,7 +96,9 @@
 
         <v-col class="x-col">
           <div>
-            <span class="text-caption" v-html="source.gear_quantity_packed ? source.gear_quantity_packed : 0" />
+            <span
+              v-bind:class="['text-caption', nullOrZeroColorText(source.gear_quantity_packed)]"
+              v-html="source.gear_quantity_packed || 0" />
           </div>
         </v-col>
       </v-row>

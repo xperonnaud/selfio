@@ -51,9 +51,9 @@
 <script>
 
   import XCheckbox from "@/components/inputs/XCheckbox";
-  import XCategorySelector from "@/components/inputs/fields/XCategorySelector";
-  import XBrandSelector from "@/components/inputs/fields/XBrandSelector";
-  import XStateSelector from "@/components/inputs/fields/XStateSelector";
+  import XCategorySelector from "@/components/inputs/XCategorySelector";
+  import XBrandSelector from "@/components/inputs/XBrandSelector";
+  import XStateSelector from "@/components/inputs/XStateSelector";
   import XIncrement from "@/components/inputs/XIncrement";
 
   export default {

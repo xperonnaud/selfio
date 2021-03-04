@@ -20,6 +20,7 @@
     </v-toolbar-title>
 
     <template v-if="isItemRoute || isConfigurationRoute">
+
       <v-spacer />
 
       <v-expand-x-transition>
@@ -29,7 +30,6 @@
           :label="xCap($t('global.search'))"
           :append-icon="!isMobile ? 'mdi-magnify' : null"
           hide-details="auto"
-          clearable
           small
           :color="shadeColor"
           style="max-width: 222px;"
@@ -122,14 +122,14 @@
 
       <v-btn
         v-bind:class="[{'mr-1':!isMobile}]"
-        icon
         @click.stop="updatePreferences()"
-        class="primary-gradient-color-text"
+        icon
       >
         <v-icon
           :size="XLI"
           v-text="'mdi-check'"
-        />
+          :class="fontShadeColor"
+        ></v-icon>
       </v-btn>
     </template>
   </v-app-bar>
@@ -138,7 +138,7 @@
 
 <script>
 
-  import XText from "@/components/inputs/fields/XText";
+  import XText from "@/components/inputs/XText";
   import NewBrandDialog from "@/components/elements/Dialogs/NewBrandDialog";
   import XSortIcon from "@/components/elements/Icons/XSortIcon";
 

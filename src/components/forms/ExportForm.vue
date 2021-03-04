@@ -143,7 +143,7 @@
 
 <script>
 
-  import XText from "@/components/inputs/fields/XText";
+  import XText from "@/components/inputs/XText";
 
   export default {
     name: 'items-import-form',

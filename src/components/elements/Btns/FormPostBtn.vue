@@ -10,7 +10,7 @@
     v-bind:class="[(isMobile ? 'px-0' : 'px-2 ml-3')]"
     @click="openPostFormDialog()"
   >
-    <v-icon v-bind:class="[reversedFontShadeColor]" v-text="'mdi-plus'" />
+    <v-icon :class="reversedFontShadeColor" v-text="'mdi-plus'" />
   </v-btn>
 
 </template>
