@@ -49,7 +49,7 @@
     name: 'x-selector',
     props: {
       title: String,
-      value: Number,
+      value: [Number, String],
       isInFilter: {
         type: Boolean,
         default: false
