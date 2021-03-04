@@ -59,10 +59,10 @@
 
 <script>
 
-  import XText from "@/components/inputs/fields/XText";
-  import XActivitySelector from "@/components/inputs/fields/XActivitySelector";
-  import XLandscapeSelector from "@/components/inputs/fields/XLandscapeSelector";
-  import XWeatherSelector from "@/components/inputs/fields/XWeatherSelector";
+  import XText from "@/components/inputs/XText";
+  import XActivitySelector from "@/components/inputs/XActivitySelector";
+  import XLandscapeSelector from "@/components/inputs/XLandscapeSelector";
+  import XWeatherSelector from "@/components/inputs/XWeatherSelector";
 
   export default {
     name: 'adventures-filter',

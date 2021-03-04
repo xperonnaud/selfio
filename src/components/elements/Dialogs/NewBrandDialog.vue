@@ -58,7 +58,7 @@
 <script>
 
   import PrimaryBtn from "@/components/elements/Btns/PrimaryBtn";
-  import XTitleField from "@/components/inputs/fields/XTitleField";
+  import XTitleField from "@/components/inputs/XTitleField";
 
   export default {
     name: 'new-brand-dialog',

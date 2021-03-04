@@ -138,7 +138,7 @@
 
 <script>
 
-  import XText from "@/components/inputs/fields/XText";
+  import XText from "@/components/inputs/XText";
   import NewBrandDialog from "@/components/elements/Dialogs/NewBrandDialog";
   import XSortIcon from "@/components/elements/Icons/XSortIcon";
 

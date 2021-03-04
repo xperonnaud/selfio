@@ -139,7 +139,7 @@
 
 <script>
 
-  import XText from "@/components/inputs/fields/XText";
+  import XText from "@/components/inputs/XText";
   import XSvg from "@/components/elements/XSvg";
   import MobileOnlyFeature from "@/components/elements/MobileOnlyFeature";
 

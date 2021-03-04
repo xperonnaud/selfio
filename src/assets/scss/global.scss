@@ -2,7 +2,7 @@
 .selector-card {
 
   &.selected {
-    border: 2px solid #000 !important;
+    box-shadow: inset 2px 0 2px #000 !important;
 
     &.is-dark {
       border: 2px solid #FFF !important;

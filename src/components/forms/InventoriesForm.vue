@@ -713,10 +713,10 @@
   import PolyIcon from "@/components/elements/Icons/PolyIcon";
   import InventoryGearListItem from "@/components/lists/items/InventoryGearListItem";
   import InventoryGearCard from "@/components/elements/Cards/InventoryGearCard";
-  import XCategorySelector from "@/components/inputs/fields/XCategorySelector";
-  import XBrandSelector from "@/components/inputs/fields/XBrandSelector";
-  import XStateSelector from "@/components/inputs/fields/XStateSelector";
-  import XTitleField from "@/components/inputs/fields/XTitleField";
+  import XCategorySelector from "@/components/inputs/XCategorySelector";
+  import XBrandSelector from "@/components/inputs/XBrandSelector";
+  import XStateSelector from "@/components/inputs/XStateSelector";
+  import XTitleField from "@/components/inputs/XTitleField";
   import XCombobox from "@/components/inputs/XCombobox";
   import XSortIcon from "@/components/elements/Icons/XSortIcon";
   import XCheckbox from "@/components/inputs/XCheckbox";

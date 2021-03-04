@@ -28,7 +28,7 @@
     name: 'empty-list',
     props: {
       height: {
-        type: String,
+        type: [Number, String],
         default: '100%'
       },
       label: {
