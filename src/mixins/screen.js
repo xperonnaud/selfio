@@ -67,6 +67,9 @@ export default {
         currentWindowHeight() {
             return (window.innerHeight - 92);
         },
+        currentDialogHeight() {
+            return (this.currentWindowHeight - 60);
+        },
         xOverlayColor() {
             return ('grey '+(this.isDark ? 'darken-1' : 'lighten-1'));
         },
@@ -78,6 +81,9 @@ export default {
         },
         xCheckerColor() {
             return (this.isDark ? 'grey lighten-4' : 'grey darken-2');
+        },
+        xDimmedCheckerColor() {
+            return (this.isDark ? 'grey lighten-1' : 'grey darken-2');
         },
         xCardColor() {
             return (this.isDark ? 'grey darken-4' : 'white');
@@ -135,6 +141,29 @@ export default {
         },
     },
     methods: {
+        isIOS() {
+            return [
+                'iPad Simulator',
+                'iPhone Simulator',
+                'iPod Simulator',
+                'iPad',
+                'iPhone',
+                'iPod'
+            ].includes(navigator.platform)
+            // iPad on iOS 13 detection
+            || (navigator.userAgent.includes("Mac") && "ontouchend" in document)
+        },
+        initCloseGuard() {
+            if(this.xUi.closeGuard === true) {
+                let self = this;
+                window.onbeforeunload = function () {
+                    return self.$t('global.close-guard');
+                };
+            } else {
+                // reset event handler to "empty"
+                window.onbeforeunload = function () {};
+            }
+        },
         isIOS() {
             return [
                 'iPad Simulator',

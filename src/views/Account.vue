@@ -24,8 +24,8 @@
                     </v-list-item-avatar>
 
                     <v-list-item-content class="no-wrap">
-                      <v-list-item-title class="text-h6" v-text="userLogin" />
-                      <v-list-item-subtitle v-text="$t('global.email')" />
+                      <v-list-item-title class="text-h6" v-text="xCap(`${user.first_name} ${user.last_name}`)" />
+                      <v-list-item-subtitle v-text="user.email" />
                     </v-list-item-content>
                   </v-list-item>
                 </v-list>

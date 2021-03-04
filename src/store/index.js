@@ -29,6 +29,7 @@ export default new Vuex.Store({
             selectedItemRelations: {},
             selectedItem: null,
             selectedItemIndex: null,
+            closeGuard: false,
 
             filters: {
                 title: '',
@@ -299,6 +300,9 @@ export default new Vuex.Store({
         },
         updateUiSelectedItemIndex(state, selectedItemIndex) {
             state.ui.selectedItemIndex = selectedItemIndex;
+        },
+        updateCloseGuard(state, closeGuard) {
+            state.ui.closeGuard = closeGuard;
         },
         updateTitleSearchFilter(state, title) {
             state.ui.filters.title = title;
