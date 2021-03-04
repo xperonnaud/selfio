@@ -29,7 +29,7 @@ export default new Vuex.Store({
             selectedItemRelations: {},
             selectedItem: null,
             selectedItemIndex: null,
-            closeGuard: false,
+            closeGuard: true,
 
             filters: {
                 title: '',
