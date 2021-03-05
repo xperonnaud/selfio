@@ -88,13 +88,13 @@
             </template>
 
             <template v-slot:item.category="{ item }">
-              <v-avatar v-if="typeof item.category == 'number' && gearCategories[item.category]" :size="LGI" class="x-avatar">
+              <v-avatar v-if="typeof item.category == 'string'" :size="LGI" class="x-avatar">
                 <x-svg
-                  :src="gearCategories[item.category]"
+                  :src="item.category"
                   svgPath="activities/"
                   :width="XLI"
                   :height="XLI"
-                  :tooltipText="xCap($t(`categories.${gearCategories[item.category]}.desc`))"
+                  :tooltipText="xCap($t(`categories.${item.category}.desc`))"
                 ></x-svg>
               </v-avatar>
             </template>

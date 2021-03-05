@@ -1,18 +1,4 @@
 
-.selector-card {
-
-  &.selected {
-    box-shadow: inset 2px 0 2px #000 !important;
-
-    &.is-dark {
-      border: 2px solid #FFF !important;
-    }
-  }
-
-  &:before {
-    opacity: 0.1;
-  }
-}
 
 .inventories-form, .adventures-form {
   .scroller {
@@ -255,7 +241,23 @@
   color: transparent;
 }
 
+.selector-card {
+  border: 2px solid #FFFFFF;
+
+  &.x-selected-card {
+    border: 2px solid #000000;
+  }
+}
+
 .is-dark {
+  .selector-card {
+    border: 2px solid #212121;
+
+    &.x-selected-card {
+      border: 2px solid #FFFFFF;
+    }
+  }
+
   .primary-gradient-color {
     color: white !important;
   }
