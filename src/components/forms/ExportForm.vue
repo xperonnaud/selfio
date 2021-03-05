@@ -85,21 +85,21 @@
 
             <template v-slot:item.category="{ item }">
               <v-avatar
-                v-if="typeof item.category == 'number' && gearCategories[item.category]"
+                v-if="typeof item.category == 'string'"
                 v-bind:class="[
                   'x-avatar',
                   'py-0',
                    (isMobile ? 'my-0 mr-3' : 'ml-2 mr-5'),
-                   (typeof item.category == 'number' ? getReversedVuetifyColor(item.category) : ''),
+                   (typeof item.category == 'string' ? getReversedVuetifyColor(item.category) : ''),
                 ]"
                 size="32"
               >
                 <x-svg
-                  :src="item"
+                  :src="item.category"
                   svgPath="gearcategories/"
                   :width="SMI"
                   :height="SMI"
-                  :tooltipText="xCap($t(`categories.${item}.desc`))"
+                  :tooltipText="xCap($t(`categories.${item.category}.desc`))"
                 ></x-svg>
               </v-avatar>
             </template>

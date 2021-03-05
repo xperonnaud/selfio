@@ -9,6 +9,7 @@
     ]"
   >
     <v-form v-model="valid">
+      <v-expand-transition>
         <v-tabs
           v-show="!isEditing"
           v-model="tab"
@@ -126,12 +127,12 @@
                                       :style="gearCategoryStat.id ? `border: 2px solid ${categoryColor(gearCategoryStat.id)} !important;` : ''"
                                     >
                                       <x-svg
-                                        v-if="gearCategoryStat.id && gearCategories[gearCategoryStat.id]"
-                                        :src="gearCategories[gearCategoryStat.id]"
+                                        v-if="typeof gearCategoryStat.id == 'string'"
+                                        :src="gearCategoryStat.id"
                                         svgPath="gearcategories/"
                                         :width="XSI"
                                         :height="XSI"
-                                        :tooltipText="xCap($t(`categories.${gearCategories[gearCategoryStat.id]}.desc`))"
+                                        :tooltipText="xCap($t(`categories.${gearCategoryStat.id}.desc`))"
                                       ></x-svg>
 
                                       <x-unknown-category-icon v-else :size="MDI" />
@@ -140,8 +141,8 @@
                                     <v-list-item-title class="mb-1">
                                       <div class="d-flex">
                                         <div class="text-caption" style="width: 80px;">
-                                          <div v-if="gearCategoryStat.id && gearCategories[gearCategoryStat.id]"
-                                          >{{ $t(`categories.${gearCategories[gearCategoryStat.id]}.title`) | capitalizeFilter }}</div>
+                                          <div v-if="typeof gearCategoryStat.id == 'string'"
+                                          >{{ $t(`categories.${gearCategoryStat.id}.title`) | capitalizeFilter }}</div>
                                           <div v-else v-text="xCap($t('global.unknown'))" />
                                         </div>
 
