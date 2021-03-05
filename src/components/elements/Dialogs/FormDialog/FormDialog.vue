@@ -25,7 +25,7 @@
         :isActionLoading.sync="isFormLoading"
       ></dialog-app-bar>
 
-      <v-card-text v-bind:class="['pb-0 px-0']" :style="isMobile ? 'margin-top: 56px;' : ''">
+      <v-card-text v-bind:class="['pb-0 px-0']">
         <component
           v-if="formComponent"
           v-show="!isLoading"

@@ -9,6 +9,7 @@
     ]"
   >
     <v-form v-model="valid">
+      <v-expand-transition>
         <v-tabs
           v-show="!isEditing"
           v-model="tab"
@@ -352,10 +353,12 @@
             </v-tab-item>
           </v-tabs-items>
         </v-tabs>
+      </v-expand-transition>
 
+      <v-expand-transition>
         <div v-show="isEditing">
           <v-card class="mx-auto" flat :color="xBackgroundColor">
-            <v-app-bar :app="isMobile" :class="['edition-toolbar', (isMobile ? 'px-0' : 'px-2')]">
+            <v-toolbar :class="['edition-toolbar', (isMobile ? 'px-0' : 'px-2')]">
               <v-btn @click="closeEditor()" icon>
                 <v-icon v-text="'mdi-arrow-left'" />
               </v-btn>
@@ -586,7 +589,7 @@
                   </v-list-item>
                 </v-list>
               </template>
-            </v-app-bar>
+            </v-toolbar>
 
             <v-card-text :class="['pa-0']">
               <v-list
@@ -693,6 +696,7 @@
 
           </v-dialog>
         </div>
+      </v-expand-transition>
 
       <v-text-field v-show="false" v-model="validTitle" :rules="xRules.boolean" />
     </v-form>
