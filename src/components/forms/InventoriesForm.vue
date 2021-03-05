@@ -231,6 +231,7 @@
 
                           <empty-list
                             v-if="inventoryGearList.length <= 0"
+                            :height="400"
                             :label="t('add-gear')"
                             :color="navItemColor('gear')"
                           ></empty-list>
@@ -1251,8 +1252,10 @@
           this.isEditing = val;
 
           if(val === false) {
+            this.isLoading = true;
             this.clearMenuFilters();
             await this.initGearCategoryStats();
+            this.isLoading = false;
           }
         }
       },
