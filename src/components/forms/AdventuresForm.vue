@@ -312,8 +312,6 @@
                           </v-list-item>
                         </v-list>
 
-                        <v-divider />
-
                         <v-list>
                           <v-list-item class="mb-3">
                             <x-category-selector v-bind:value.sync="gearCategoryFilter" isInFilter />
@@ -363,11 +361,9 @@
                           </v-list-item>
                         </v-list>
 
-                        <v-divider />
-
                         <v-card-actions>
                           <v-btn
-                            @click="clearAdventureMenuFilters()"
+                            @click.stop="clearAdventureMenuFilters()"
                             :color="errorColor"
                             text
                           >
@@ -377,11 +373,11 @@
                           <v-spacer />
 
                           <v-btn
-                            @click="closeGearFilterMenu()"
-                            text
+                            @click.stop="closeGearFilterMenu()"
                             icon
+                            class="mr-2"
                           >
-                            <poly-icon icon="mdi-check" />
+                            <poly-icon icon="mdi-check" :size="XLI" />
                           </v-btn>
                         </v-card-actions>
                       </v-card>
@@ -389,7 +385,7 @@
                   </div>
 
                   <v-btn
-                    @click="closeGearList()"
+                    @click.stop="closeGearList()"
                     icon
                   >
                     <poly-icon :size="XLI" icon="mdi-check" />

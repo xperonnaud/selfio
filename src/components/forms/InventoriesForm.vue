@@ -172,8 +172,8 @@
 
                                       <v-progress-linear
                                         :value="gearCategoryStat.weight | percentageFilter(inventoryGearList, inventoryTotalWeight)"
-                                        :color="getVuetifyColor((gearCategoryStat.id ? gearCategoryStat.id : 14))"
-                                        :height="3"
+                                        :color="getVuetifyColor((typeof gearCategoryStat.id == 'string' ? gearCategories.indexOf(gearCategoryStat.id) : 'unknown'))"
+                                        :height="4"
                                         :background-color="xProgressColor"
                                         class="rounded"
                                       ></v-progress-linear>
@@ -332,7 +332,7 @@
 
                                         <v-progress-linear
                                           :value="gearCategoryStat.weight | percentageFilter(inventoryGearList, inventoryTotalWeight)"
-                                          :color="getVuetifyColor((gearCategoryStat.id ? gearCategoryStat.id : 14))"
+                                          :color="getVuetifyColor((typeof gearCategoryStat.id == 'string' ? gearCategories.indexOf(gearCategoryStat.id) : 'unknown'))"
                                           :height="6"
                                           :background-color="xProgressColor"
                                           class="rounded"
@@ -378,8 +378,8 @@
 
                       <div>
                           <span
-                                  v-bind:class="[currentColorText]"
-                                  v-text="inventoryTotalItems || 0"
+                            v-bind:class="[currentColorText]"
+                            v-text="inventoryTotalItems || 0"
                           ></span>
                         <span class="text-tiny" v-text="' '+$t(`components.inventory-gear-card.unique-item${inventoryTotalItems > 1 ? 's' : ''}`)" />
                       </div>
@@ -392,21 +392,21 @@
 
               <div class="mr-1 text-center">
                 <v-menu
-                        v-model="gearFilterModeOn"
-                        :close-on-content-click="false"
-                        min-width="333"
-                        max-width="333"
-                        :nudge-width="200"
-                        left
+                  v-model="gearFilterModeOn"
+                  :close-on-content-click="false"
+                  min-width="333"
+                  max-width="333"
+                  :nudge-width="200"
+                  left
                 >
                   <template v-slot:activator="{ on, attrs }">
                     <v-btn
-                            @click="gearFilterModeOn = !gearFilterModeOn"
-                            v-bind="attrs"
-                            v-on="on"
-                            icon
+                      @click="gearFilterModeOn = !gearFilterModeOn"
+                      v-bind="attrs"
+                      v-on="on"
+                      icon
                     >
-                      <v-icon v-text="gearFilterModeOn?'mdi-filter-variant-minus':'mdi-filter-variant'" />
+                      <v-icon v-text="gearFilterModeOn ? 'mdi-filter-variant-minus' : 'mdi-filter-variant'" />
                     </v-btn>
                   </template>
 
@@ -418,16 +418,14 @@
                         <v-spacer />
 
                         <v-btn
-                                @click="closeGearFilterMenu()"
-                                icon
+                          @click="closeGearFilterMenu()"
+                          icon
                         >
                           <v-icon v-text="'mdi-close'" />
                         </v-btn>
 
                       </v-list-item>
                     </v-list>
-
-                    <v-divider />
 
                     <v-list>
                       <v-list-item class="mb-3">
@@ -436,15 +434,15 @@
 
                       <v-list-item class="mb-3">
                         <v-autocomplete
-                                v-if="gearFilterModeOn"
-                                :label="xCapFirst($t('global.tags'))"
-                                v-model="gearTagsFilter"
-                                :items="preferences.gear_tags"
-                                :color="currentColor"
-                                filled
-                                dense
-                                clearable
-                                hide-details="auto"
+                          v-if="gearFilterModeOn"
+                          :label="xCapFirst($t('global.tags'))"
+                          v-model="gearTagsFilter"
+                          :items="preferences.gear_tags"
+                          :color="currentColor"
+                          filled
+                          dense
+                          clearable
+                          hide-details="auto"
                         ></v-autocomplete>
                       </v-list-item>
 
@@ -458,33 +456,31 @@
 
                       <v-list-item class="mb-3">
                         <x-checkbox
-                                label="consumable"
-                                v-bind:value.sync="gearConsumableFilter"
+                          label="consumable"
+                          v-bind:value.sync="gearConsumableFilter"
                         ></x-checkbox>
                       </v-list-item>
 
                       <v-list-item class="mb-3">
                         <x-checkbox
-                                label="packed"
-                                v-bind:value.sync="gearIsPackedFilter"
+                          label="packed"
+                          v-bind:value.sync="gearIsPackedFilter"
                         ></x-checkbox>
                       </v-list-item>
 
                       <v-list-item class="mb-3">
                         <x-checkbox
-                                label="quantity-positive"
-                                v-bind:value.sync="gearQuantityOwnedFilter"
+                          label="quantity-positive"
+                          v-bind:value.sync="gearQuantityOwnedFilter"
                         ></x-checkbox>
                       </v-list-item>
                     </v-list>
 
-                    <v-divider />
-
                     <v-card-actions>
                       <v-btn
-                              @click="clearMenuFilters()"
-                              :color="errorColor"
-                              text
+                        @click="clearMenuFilters()"
+                        :color="errorColor"
+                        text
                       >
                         <span v-text="$t('global.reset')" />
                       </v-btn>
@@ -492,11 +488,11 @@
                       <v-spacer />
 
                       <v-btn
-                              @click="closeGearFilterMenu()"
-                              text
-                              icon
+                        @click="closeGearFilterMenu()"
+                        icon
+                        class="mr-2"
                       >
-                        <poly-icon icon="mdi-check" />
+                        <poly-icon icon="mdi-check" :size="XLI" />
                       </v-btn>
                     </v-card-actions>
                   </v-card>
@@ -504,28 +500,28 @@
               </div>
 
               <v-btn
-                      @click="closeGearList()"
-                      icon
+                @click="closeGearList()"
+                icon
               >
                 <poly-icon
-                        :size="XLI"
-                        icon="mdi-check"
+                  :size="XLI"
+                  icon="mdi-check"
                 ></poly-icon>
               </v-btn>
 
               <template v-slot:extension>
                 <v-list
-                        v-bind:class="['rounded-0 py-0 max-width']"
-                        one-line
-                        flat
-                        dense
-                        color="transparent"
+                  v-bind:class="['rounded-0 py-0 max-width']"
+                  one-line
+                  flat
+                  dense
+                  color="transparent"
                 >
                   <v-list-item :class="[(isMobile ? 'pl-13 pr-3' : 'pl-11')]">
                     <v-list-item-avatar
-                            v-bind:class="['x-avatar my-0 py-0 mr-1 d-flex justify-center']"
-                            width="40"
-                            height="40"
+                      v-bind:class="['x-avatar my-0 py-0 mr-1 d-flex justify-center']"
+                      width="40"
+                      height="40"
                     >
                       <v-col class="x-col py-2 x-primary-btn" @click.stop="sortGear('category')" v-ripple>
                         <div class="d-flex justify-center">

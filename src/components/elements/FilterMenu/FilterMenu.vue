@@ -46,8 +46,6 @@
           </v-list-item>
         </v-list>
 
-        <v-divider />
-
         <v-responsive
           class="overflow-y-auto"
           :max-height="isMobile ? (currentWindowHeight - 100) : 600"
@@ -61,8 +59,6 @@
           ></component>
         </v-responsive>
 
-        <v-divider />
-
         <v-card-actions>
           <v-btn
             @click="clearMenuFilters()"
@@ -75,12 +71,11 @@
           <v-spacer />
 
           <v-btn
-            @click="closeFilterMenu()"
-            class="primary-gradient-color-text"
-            text
+            @click.stop="closeFilterMenu()"
             icon
+            class="mr-2"
           >
-            <v-icon v-text="'mdi-check'" />
+            <poly-icon icon="mdi-check" :size="XLI" />
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -91,8 +86,13 @@
 
 <script>
 
+  import PolyIcon from "@/components/elements/Icons/PolyIcon";
+
   export default {
     name: 'filter-menu',
+    components: {
+      PolyIcon
+    },
     props: {
       filterMode: Boolean,
       forcedRouteName: {
