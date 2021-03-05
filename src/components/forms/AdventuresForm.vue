@@ -471,34 +471,30 @@
                   two-line
                   dense
                 >
-                  <v-responsive
-                    class="overflow-y-auto"
-                    :max-height="isMobile ? (listHeight) : 600"
-                  >
                     <DynamicScroller
-                      class="scroller"
+                      :style="`height: ${isMobile ? (listHeight) : 600}px`"
                       :items.sync="filteredGear"
                       :minItemSize="xListItemsHeight"
                       key-field="id"
-                      v-slot="{ index }"
-                      :prerender="xListMaxItems"
-                      :page-mode="isMobile"
                     >
-                      <template v-if="typeof index == 'number' && filteredGear[index] && filteredGear[index].gear_id">
-                        <adventure-gear-list-item
-                          :key="`adventure-gear-${filteredGear[index].gear_id}-${index}`"
-                          :source.sync="filteredGear[index]"
-                          :updatedItem.sync="updatedItem"
-                          v-on:itemAction="packGear(filteredGear[index].gear_id)"
-                        ></adventure-gear-list-item>
+                      <template v-slot="{ item, index, active }">
+                        <DynamicScrollerItem
+                          :item="item"
+                          :active="active"
+                          :size-dependencies="[item.title]"
+                          :data-index="index"
+                        >
+                          <adventure-gear-list-item
+                            :key="`adventure-gear-${item.gear_id}-${index}`"
+                            :source.sync="item"
+                            :updatedItem.sync="updatedItem"
+                            v-on:itemAction="packGear(item.gear_id)"
+                          ></adventure-gear-list-item>
 
-                        <v-divider
-                          v-if="(index < originalInventoryGear.length - 1)"
-                          :key="index"
-                        ></v-divider>
+                          <v-divider />
+                        </DynamicScrollerItem>
                       </template>
                     </DynamicScroller>
-                  </v-responsive>
                 </v-list>
               </v-card-text>
             </v-card>

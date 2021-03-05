@@ -19,15 +19,15 @@
       :width="XXLI"
       :min-width="XXLI"
       :height="XXLI"
-      :style="xGear(source.gear_id) && typeof xGear(source.gear_id).category == 'number' ? `border: 2px solid ${categoryColor(xGear(source.gear_id).category)} !important;` : ''"
+      :style="xGear(source.gear_id) && typeof xGear(source.gear_id).category == 'string' ? `border: 2px solid ${categoryColor(xGear(source.gear_id).category)} !important;` : ''"
     >
       <x-svg
-        v-if="xGear(source.gear_id) && typeof xGear(source.gear_id).category == 'number' && gearCategories[xGear(source.gear_id).category]"
-        :src="gearCategories[xGear(source.gear_id).category]"
+        v-if="xGear(source.gear_id) && typeof xGear(source.gear_id).category == 'string'"
+        :src="xGear(source.gear_id).category"
         svgPath="gearcategories/"
         :width="XSI"
         :height="XSI"
-        :tooltipText="xCap($t(`categories.${gearCategories[xGear(source.gear_id).category]}.desc`))"
+        :tooltipText="xCap($t(`categories.${xGear(source.gear_id).category}.desc`))"
       ></x-svg>
 
       <x-unknown-category-icon v-else :size="SMI" />

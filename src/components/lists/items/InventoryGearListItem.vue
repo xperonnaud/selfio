@@ -16,15 +16,15 @@
       :width="XXLI"
       :min-width="XXLI"
       :height="XXLI"
-      :style="typeof gear.category == 'number' ? 'border: 2px solid '+(gear.quantity_owned === 0 ? xInputColor : categoryColor(gear.category))+' !important;' : ''"
+      :style="typeof gear.category == 'string' ? 'border: 2px solid '+(gear.quantity_owned === 0 ? xInputColor : categoryColor(gear.category))+' !important;' : ''"
     >
       <x-svg
-        v-if="typeof gear.category == 'number' && gearCategories[gear.category]"
-        :src="gearCategories[gear.category]"
+        v-if="typeof gear.category == 'string' && gear.category"
+        :src="gear.category"
         svgPath="gearcategories/"
         :width="XSI"
         :height="XSI"
-        :tooltipText="xCap($t(`categories.${gearCategories[gear.category]}.desc`))"
+        :tooltipText="xCap($t(`categories.${gear.category}.desc`))"
       ></x-svg>
 
       <x-unknown-category-icon v-else :size="SMI" />
@@ -99,7 +99,7 @@
           <empty-data solo v-else />
         </v-col>
 
-        <v-col v-show="!isMobile" class="x-col">
+        <v-col v-if="!isMobile" class="x-col">
           <div
             v-if="inventoryGear && inventoryGear.gear_worn === true"
             :key="`gear_worn-${gear.id}-${inventoryGear.gear_worn}`"
@@ -135,7 +135,7 @@
     <v-list-item-action style="margin-right: 0 !important;">
       <v-btn
         :disabled="!inventoryGearList.includes(gear.id)"
-        @click.stop="inventoryGearAction(gear)"
+        v-on:click.stop="$emit('inventoryGearAction', gear)"
         :loading="isMenuLoading"
         icon
       >
@@ -177,65 +177,11 @@
       inventoryGear: Object,
       inventoryGearList: Array,
       index: {Number, String},
-      inventoryGearIndex: {Number, String},
-      inventoryGearQuantity: Number,
-      gearMenu: {
-        type: Boolean,
-        default: false,
-      }
     },
     data: () => ({
       isMounted: false,
-
       isMenuLoading: false,
-      inventoryGearMenu: false,
-      selectedInventoryGearIndex: null,
-      selectedInventoryGearMaxQuantity: null,
     }),
-    methods: {
-      async inventoryGearAction(gear) {
-        if(this.inventoryGearList.includes(gear.id)) {
-          this.isMenuLoading = true;
-          await this.selectInventoryGear(gear);
-          await this.toggleGearMenu();
-          this.isMenuLoading = false;
-        }
-      },
-      async selectInventoryGear(gear) {
-        let gearIndex = this.inventoryGearList.indexOf(gear.id);
-        this.selectedInventoryGearIndex = gearIndex;
-        this.selectedInventoryGearMaxQuantity = gear.quantity_owned;
-      },
-      async toggleGearMenu() {
-        this.inventoryGearMenu = true;
-      },
-    },
-    watch: {
-      gearMenu(val) {
-        if(this.isMounted)
-          this.inventoryGearMenu = val;
-      },
-      inventoryGearMenu(val) {
-        if(this.isMounted)
-          this.$emit('update:gearMenu',val);
-      },
-      inventoryGearIndex(val) {
-        if(this.isMounted)
-          this.selectedInventoryGearIndex = val;
-      },
-      selectedInventoryGearIndex(val) {
-        if(this.isMounted)
-          this.$emit('update:inventoryGearIndex',val);
-      },
-      inventoryGearQuantity(val) {
-        if(this.isMounted)
-          this.selectedInventoryGearMaxQuantity = val;
-      },
-      selectedInventoryGearMaxQuantity(val) {
-        if(this.isMounted)
-          this.$emit('update:inventoryGearQuantity',val);
-      },
-    },
     mounted() {
       this.isMounted = true;
     }

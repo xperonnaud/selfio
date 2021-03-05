@@ -10,6 +10,7 @@
         {'px-3' : (!isMobile && editMode)},
         {'px-2' : (isMobile && editMode)},
       ]"
+      :app="isMobile && !editMode"
     >
       <v-btn
         @click="leftArrowAction()"
