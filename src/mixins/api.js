@@ -340,7 +340,7 @@ export default {
         async api_get_gear() {
             let self = this;
 
-            await directus.items('gear').read()
+            await directus.items('gear').read({ limit: -1 })
             .then(function (response) {
                 self.$store.commit("updateGear",response.data);
             }).catch(async function (error) {
@@ -435,9 +435,12 @@ export default {
         async api_get_inventories() {
             let self = this;
 
-            await directus.items('inventories').read({
-                fields: ['*', 'inventory_gear.*']
-            })
+            await directus.items('inventories').read(
+                {
+                    limit: -1,
+                    fields: ['*', 'inventory_gear.*']
+                }
+            )
             .then(function (response) {
                 self.$store.commit("updateInventories",response.data);
 
@@ -626,7 +629,7 @@ export default {
         async api_get_adventures() {
             let self = this;
 
-            await directus.items('adventures').read()
+            await directus.items('adventures').read({ limit: -1 })
             .then(function (response) {
                 self.$store.commit("updateAdventures",response.data);
             }).catch(async function (error) {
