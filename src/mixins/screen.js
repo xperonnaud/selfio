@@ -144,6 +144,9 @@ export default {
         },
     },
     methods: {
+        DynamicListHeight() {
+            return (window.innerHeight && this.isMobile ? (window.innerHeight - 115) : 575);
+        },
         initCloseGuard() {
             if(this.xUi.closeGuard === true) {
                 let self = this;

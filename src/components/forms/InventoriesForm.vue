@@ -9,122 +9,280 @@
     ]"
   >
     <v-form v-model="valid">
-      <v-expand-transition>
-        <v-tabs
-          v-show="!isEditing"
-          v-model="tab"
-          :color="currentColor"
-          :background-color="xTabsColor"
-          fixed-tabs
-        >
-          <v-tab :key="'inventory-details'">
-            <span v-text="$t('global.details')" />
-          </v-tab>
-          <v-tab :key="'inventory-gear-balance'">
-            <span v-text="$t('global.gear')" />
-          </v-tab>
+      <v-tabs
+        v-model="tab"
+        :color="currentColor"
+        :background-color="xTabsColor"
+        fixed-tabs
+      >
+        <v-tab :key="'inventory-details'">
+          <span v-text="$t('global.details')" />
+        </v-tab>
+        <v-tab :key="'inventory-gear-balance'">
+          <span v-text="$t('global.gear')" />
+        </v-tab>
 
-          <v-tabs-items v-model="tab" :style="xBackgroundStyleColorStr">
-            <v-tab-item :key="'inventory-details'">
-              <v-responsive
-                class="overflow-y-auto"
-                :height="isMobile ? maxDialogContentHeight : 540"
-              >
-                <v-card flat :color="xBackgroundColor">
-                  <v-card-text :class="{'py-1':isMobile}">
-                    <v-row>
-                      <v-col cols="12" class="pb-0">
-                        <x-title-field
-                          label="title"
-                          v-bind:valid.sync="validTitle"
-                          v-bind:value.sync="updatedItem.title"
-                        ></x-title-field>
-                      </v-col>
+        <v-tabs-items v-model="tab" :style="xBackgroundStyleColorStr">
+          <v-tab-item :key="'inventory-details'">
+            <v-responsive
+              class="overflow-y-auto"
+              :height="isMobile ? maxDialogContentHeight : 540"
+            >
+              <v-card flat :color="xBackgroundColor">
+                <v-card-text :class="{'py-1':isMobile}">
+                  <v-row>
+                    <v-col cols="12" class="pb-0">
+                      <x-title-field
+                        label="title"
+                        v-bind:valid.sync="validTitle"
+                        v-bind:value.sync="updatedItem.title"
+                      ></x-title-field>
+                    </v-col>
 
-                      <v-col cols="12">
-                        <v-textarea
-                          :label="xCap($t('global.description'))"
-                          v-model="updatedItem.description"
-                          :color="currentColor"
-                          filled
-                          dense
-                          hide-details="auto"
-                          auto-grow
-                          rows="1"
-                        ></v-textarea>
-                      </v-col>
+                    <v-col cols="12">
+                      <v-textarea
+                        :label="xCap($t('global.description'))"
+                        v-model="updatedItem.description"
+                        :color="currentColor"
+                        filled
+                        dense
+                        hide-details="auto"
+                        auto-grow
+                        rows="1"
+                      ></v-textarea>
+                    </v-col>
 
-                      <v-col cols="12">
-                        <x-combobox
-                          label="tags"
-                          v-bind:value.sync="updatedItem.tags"
-                          v-bind:items="preferences.inventory_tags"
-                          v-bind:route="'inventories'"
-                        ></x-combobox>
-                      </v-col>
-                    </v-row>
-                  </v-card-text>
-                </v-card>
-              </v-responsive>
-            </v-tab-item>
+                    <v-col cols="12">
+                      <x-combobox
+                        label="tags"
+                        v-bind:value.sync="updatedItem.tags"
+                        v-bind:items="preferences.inventory_tags"
+                        v-bind:route="'inventories'"
+                      ></x-combobox>
+                    </v-col>
+                  </v-row>
+                </v-card-text>
+              </v-card>
+            </v-responsive>
+          </v-tab-item>
 
-            <v-tab-item :key="'inventory-gear-balance'">
-              <v-responsive
-                class="overflow-y-auto"
-                :height="isMobile ? maxDialogContentHeight : 540"
-              >
-                <v-card flat :color="xBackgroundColor">
-                  <v-card-text :class="{'py-1':isMobile}">
-                    <v-row>
-                      <v-col cols="12">
-                        <inventory-gear-card
-                          v-on:cardAction="editInventory()"
-                          :inventoryTotalWeight.sync="inventoryTotalWeight"
-                          :currentInventoryGear.sync="currentInventoryGear"
-                        ></inventory-gear-card>
-                      </v-col>
+          <v-tab-item :key="'inventory-gear-balance'">
+            <v-responsive
+              class="overflow-y-auto"
+              :height="isMobile ? maxDialogContentHeight : 540"
+            >
+              <v-card flat :color="xBackgroundColor">
+                <v-card-text :class="{'py-1':isMobile}">
+                  <v-row>
+                    <v-col cols="12">
+                      <inventory-gear-card
+                        v-on:cardAction="editInventory()"
+                        :isLoading="isEditing"
+                        :inventoryTotalWeight.sync="inventoryTotalWeight"
+                        :currentInventoryGear.sync="currentInventoryGear"
+                      ></inventory-gear-card>
+                    </v-col>
 
-                      <v-col v-if="inventoryGearList && inventoryGearList.length > 0" cols="12" class="py-0 mb-3">
-                        <x-stacked-progress-card
-                          :items.sync="balance"
-                        ></x-stacked-progress-card>
-                      </v-col>
+                    <v-col v-if="inventoryGearList && inventoryGearList.length > 0" cols="12" class="py-0 mb-3">
+                      <x-stacked-progress-card
+                        :items.sync="balance"
+                      ></x-stacked-progress-card>
+                    </v-col>
 
-                      <v-col v-if="isMobile" cols="12" class="py-0 mb-3">
-                        <v-tabs
-                          :color="currentColor"
-                          :background-color="xTabsColor"
-                          fixed-tabs
-                          dense
-                          class="shadow-bottom"
-                          style="border-radius: 4px 4px 0 0"
-                        >
-                          <v-tab>
-                            <v-icon small v-text="'mdi-chart-bar'" />
-                          </v-tab>
-                          <v-tab>
-                            <v-icon small v-text="'mdi-chart-donut'" :rotate="-90" />
-                          </v-tab>
+                    <v-col v-if="isMobile" cols="12" class="py-0 mb-3">
+                      <v-tabs
+                        :color="currentColor"
+                        :background-color="xTabsColor"
+                        fixed-tabs
+                        dense
+                        class="shadow-bottom"
+                        style="border-radius: 4px 4px 0 0"
+                      >
+                        <v-tab>
+                          <v-icon small v-text="'mdi-chart-bar'" />
+                        </v-tab>
+                        <v-tab>
+                          <v-icon small v-text="'mdi-chart-donut'" :rotate="-90" />
+                        </v-tab>
 
-                          <v-tab-item>
+                        <v-tab-item>
+                          <v-responsive
+                            class="overflow-y-auto pr-3 "
+                            :height="mobileResponsiveHeight"
+                          >
+                            <v-list
+                              v-if="inventoryGearList && inventoryGearList.length > 0"
+                              class="py-2 px-0"
+                              one-line
+                              dense
+                            >
+                              <template v-for="(gearCategoryStat) in sortedGearCategoryStats">
+                                <v-list-item :key="`gear-type-stat-${gearCategoryStat.id}`" class="pa-0">
+                                  <v-list-item-avatar
+                                    v-bind:class="['x-avatar my-0 ml-3 mr-1 d-flex justify-center']"
+                                    :width="XXLI"
+                                    :min-width="XXLI"
+                                    :height="XXLI"
+                                    :style="gearCategoryStat.id ? `border: 2px solid ${categoryColor(gearCategoryStat.id)} !important;` : ''"
+                                  >
+                                    <x-svg
+                                      v-if="typeof gearCategoryStat.id == 'string'"
+                                      :src="gearCategoryStat.id"
+                                      svgPath="gearcategories/"
+                                      :width="XSI"
+                                      :height="XSI"
+                                      :tooltipText="xCap($t(`categories.${gearCategoryStat.id}.desc`))"
+                                    ></x-svg>
+
+                                    <x-unknown-category-icon v-else :size="MDI" />
+                                  </v-list-item-avatar>
+
+                                  <v-list-item-title class="mb-1">
+                                    <div class="d-flex">
+                                      <div class="text-caption" style="width: 80px;">
+                                        <div v-if="typeof gearCategoryStat.id == 'string'"
+                                        >{{ $t(`categories.${gearCategoryStat.id}.title`) | capitalizeFilter }}</div>
+                                        <div v-else v-text="xCap($t('global.unknown'))" />
+                                      </div>
+
+                                      <div class="d-flex font-weight-regular text-caption">
+                                        <x-divider />
+
+                                        <div style="width: 60px;">
+                                          <span class="text-tiny" v-text="gearCategoryStat.items" />
+                                          <span class="text-tiny-dimmed" v-text="` ${$t(`global.item${gearCategoryStat.items > 1 ? 's' : ''}`)}`" />
+                                        </div>
+
+                                        <x-divider />
+
+                                        <div>
+                                          <span class="text-tiny">{{ gearCategoryStat.weight | weightUnitFilter(weightUnit) }}</span>
+                                          <span class="text-tiny-dimmed" v-text="dynamicWeightUnit(gearCategoryStat.weight)" :key="`weight-unit-${randomId()}-${gearCategoryStat.weight}`" />
+                                        </div>
+                                      </div>
+
+                                      <v-spacer />
+
+                                      <div class="float-right">
+                                        <span class="text-caption">{{ gearCategoryStat.weight | percentageFilter(inventoryGearList, inventoryTotalWeight) }}</span>
+                                        <span class="text-tiny-dimmed" v-text="'%'" />
+                                      </div>
+                                    </div>
+
+                                    <v-progress-linear
+                                      :value="gearCategoryStat.weight | percentageFilter(inventoryGearList, inventoryTotalWeight)"
+                                      :color="getVuetifyColor((typeof gearCategoryStat.id == 'string' ? gearCategories.indexOf(gearCategoryStat.id) : 'unknown'))"
+                                      :height="4"
+                                      :background-color="xProgressColor"
+                                      class="rounded"
+                                    ></v-progress-linear>
+                                  </v-list-item-title>
+                                </v-list-item>
+                              </template>
+                            </v-list>
+
+                            <empty-list
+                              v-else
+                              :label="t('add-gear')"
+                              :color="navItemColor('gear')"
+                            ></empty-list>
+                          </v-responsive>
+                        </v-tab-item>
+
+                        <v-tab-item class="rounded">
+                          <v-responsive
+                            class="overflow-y-auto"
+                            :height="mobileResponsiveHeight"
+                          >
+                            <empty-list
+                              v-if="inventoryGearList && inventoryGearList.length <= 0"
+                              :label="t('add-gear')"
+                              :color="navItemColor('gear')"
+                            ></empty-list>
+
+                            <x-pie-chart
+                              v-else-if="isMounted && !isLoadingPieData && !isEditing  && pieChart.labels.length > 0 && pieChart.datasets.length > 0"
+                              :key="`pie-chart-${updatedItem.title}-${gearCategoryStats.length}`"
+                              class="mx-3 my-6"
+                              :labels="pieChart.labels"
+                              :datasets="pieChart.datasets"
+                              style="max-height: 203px !important"
+                            ></x-pie-chart>
+
+                            <v-card
+                              v-else
+                              class="pa-6 my-8 d-flex justify-center align-center elevation-0"
+                              style="max-height: 203px !important"
+                            >
+                              <v-progress-circular
+                                indeterminate
+                                size="48"
+                                :color="currentColor"
+                              ></v-progress-circular>
+                            </v-card>
+                          </v-responsive>
+                        </v-tab-item>
+                      </v-tabs>
+                    </v-col>
+
+                    <v-col v-else-if="inventoryGearList" cols="12" class="py-0 rounded">
+                      <v-sheet class="rounded shadow-bottom">
+
+                        <empty-list
+                          v-if="inventoryGearList.length <= 0"
+                          :height="400"
+                          :label="t('add-gear')"
+                          :color="navItemColor('gear')"
+                        ></empty-list>
+
+                        <v-row v-show="inventoryGearList.length > 0">
+                          <v-col cols="5">
+
+                            <v-list-item one-line style="min-height: unset;">
+                              <v-list-item-content class="pt-0">
+                                <v-list-item-title>{{t(`weight-by-gear-category`) | capitalizeFirstFilter}}</v-list-item-title>
+                              </v-list-item-content>
+                            </v-list-item>
+
+                            <x-pie-chart
+                              v-if="isMounted && !isLoadingPieData && !isEditing && pieChart.labels.length > 0 && pieChart.datasets.length > 0"
+                              :key="`pie-chart-${updatedItem.title}-${gearCategoryStats.length}`"
+                              :labels="pieChart.labels"
+                              :datasets="pieChart.datasets"
+                              style="max-height: 230px !important;"
+                            ></x-pie-chart>
+
+                            <v-card
+                              v-else
+                              class="pa-6 d-flex justify-center align-center elevation-0"
+                              style="height: 230px; margin-top: 46px !important;"
+                            >
+                              <v-progress-circular
+                                indeterminate
+                                size="48"
+                                :color="currentColor"
+                              ></v-progress-circular>
+                            </v-card>
+                          </v-col>
+
+                          <v-col cols="7">
                             <v-responsive
                               class="overflow-y-auto pr-3 "
-                              :height="mobileResponsiveHeight"
+                              :height="300"
                             >
                               <v-list
-                                v-if="inventoryGearList && inventoryGearList.length > 0"
-                                class="py-2 px-0"
+                                class="pa-0"
                                 one-line
                                 dense
                               >
                                 <template v-for="(gearCategoryStat) in sortedGearCategoryStats">
-                                  <v-list-item :key="`gear-type-stat-${gearCategoryStat.id}`" class="pa-0">
+                                  <v-list-item :key="`gear-type-stat-${gearCategoryStat.id}`" class="pa-0" style="min-height: 36px;">
                                     <v-list-item-avatar
-                                      v-bind:class="['x-avatar my-0 ml-3 mr-1 d-flex justify-center']"
                                       :width="XXLI"
                                       :min-width="XXLI"
                                       :height="XXLI"
-                                      :style="gearCategoryStat.id ? `border: 2px solid ${categoryColor(gearCategoryStat.id)} !important;` : ''"
+                                      v-bind:class="['x-avatar my-0 ml-3 mr-1 d-flex justify-center']"
+                                      :style="gearCategoryStat.id ? 'border: 2px solid '+categoryColor(gearCategoryStat.id)+' !important;' : ''"
                                     >
                                       <x-svg
                                         v-if="typeof gearCategoryStat.id == 'string'"
@@ -135,7 +293,7 @@
                                         :tooltipText="xCap($t(`categories.${gearCategoryStat.id}.desc`))"
                                       ></x-svg>
 
-                                      <x-unknown-category-icon v-else :size="MDI" />
+                                      <x-unknown-category-icon v-else />
                                     </v-list-item-avatar>
 
                                     <v-list-item-title class="mb-1">
@@ -143,15 +301,17 @@
                                         <div class="text-caption" style="width: 80px;">
                                           <div v-if="typeof gearCategoryStat.id == 'string'"
                                           >{{ $t(`categories.${gearCategoryStat.id}.title`) | capitalizeFilter }}</div>
-                                          <div v-else v-text="xCap($t('global.unknown'))" />
+
+                                          <div v-else v-text="xCapFirst($t('global.unknown'))" />
                                         </div>
 
                                         <div class="d-flex font-weight-regular text-caption">
+
                                           <x-divider />
 
-                                          <div style="width: 60px;">
+                                          <div>
                                             <span class="text-tiny" v-text="gearCategoryStat.items" />
-                                            <span class="text-tiny-dimmed" v-text="` ${$t(`global.item${gearCategoryStat.items > 1 ? 's' : ''}`)}`" />
+                                            <span class="text-tiny-dimmed" v-text="' '+$t(`global.item${gearCategoryStat.items > 1 ? 's' : ''}`)" />
                                           </div>
 
                                           <x-divider />
@@ -173,7 +333,7 @@
                                       <v-progress-linear
                                         :value="gearCategoryStat.weight | percentageFilter(inventoryGearList, inventoryTotalWeight)"
                                         :color="getVuetifyColor((typeof gearCategoryStat.id == 'string' ? gearCategories.indexOf(gearCategoryStat.id) : 'unknown'))"
-                                        :height="4"
+                                        :height="6"
                                         :background-color="xProgressColor"
                                         class="rounded"
                                       ></v-progress-linear>
@@ -181,521 +341,382 @@
                                   </v-list-item>
                                 </template>
                               </v-list>
-
-                              <empty-list
-                                v-else
-                                :label="t('add-gear')"
-                                :color="navItemColor('gear')"
-                              ></empty-list>
                             </v-responsive>
-                          </v-tab-item>
+                          </v-col>
+                        </v-row>
+                      </v-sheet>
+                    </v-col>
+                  </v-row>
+                </v-card-text>
+              </v-card>
+            </v-responsive>
+          </v-tab-item>
+        </v-tabs-items>
+      </v-tabs>
 
-                          <v-tab-item class="rounded">
-                            <v-responsive
-                              class="overflow-y-auto"
-                              :height="mobileResponsiveHeight"
-                            >
-                              <empty-list
-                                v-if="inventoryGearList && inventoryGearList.length <= 0"
-                                :label="t('add-gear')"
-                                :color="navItemColor('gear')"
-                              ></empty-list>
+      <v-dialog
+        v-model="isEditing"
+        :transition="dialogTransition"
+        max-width="900px"
+        :fullscreen="isMobile"
+        :hide-overlay="isMobile"
+        persistent
+      >
+        <v-card class="mx-auto" flat :color="xBackgroundColor">
+          <v-toolbar :class="['edition-toolbar', (isMobile ? 'px-0' : 'px-2')]">
+            <v-btn
+              @click="closeEditor()"
+              :loading="isClosing"
+              icon
+            >
+              <v-icon v-text="'mdi-arrow-left'" />
+            </v-btn>
 
-                              <x-pie-chart
-                                v-else-if="isMounted && !isLoadingPieData && !isEditing  && pieChart.labels.length > 0 && pieChart.datasets.length > 0"
-                                :key="`pie-chart-${updatedItem.title}-${gearCategoryStats.length}`"
-                                class="mx-3 my-6"
-                                :labels="pieChart.labels"
-                                :datasets="pieChart.datasets"
-                                style="max-height: 203px !important"
-                              ></x-pie-chart>
+            <v-list-item two-line :class="[{'px-0':isMobile}]">
+              <v-list-item-content class="pa-0">
+                <v-list-item-title>
+                  <span v-if="updatedItem.title">{{updatedItem.title}}&nbsp;-&nbsp;</span>
+                  <span>{{t(`gear-list`) | capitalizeFirstFilter}}</span>
+                </v-list-item-title>
 
-                              <v-card
-                                v-else
-                                class="pa-6 my-8 d-flex justify-center align-center elevation-0"
-                                style="max-height: 203px !important"
-                              >
-                                <v-progress-circular
-                                  indeterminate
-                                  size="48"
-                                  :color="currentColor"
-                                ></v-progress-circular>
-                              </v-card>
-                            </v-responsive>
-                          </v-tab-item>
-                        </v-tabs>
-                      </v-col>
-
-                      <v-col v-else-if="inventoryGearList" cols="12" class="py-0 rounded">
-                        <v-sheet class="rounded shadow-bottom">
-
-                          <empty-list
-                            v-if="inventoryGearList.length <= 0"
-                            :height="400"
-                            :label="t('add-gear')"
-                            :color="navItemColor('gear')"
-                          ></empty-list>
-
-                          <v-row v-show="inventoryGearList.length > 0">
-                            <v-col cols="5">
-
-                              <v-list-item one-line style="min-height: unset;">
-                                <v-list-item-content class="pt-0">
-                                  <v-list-item-title>{{t(`weight-by-gear-category`) | capitalizeFirstFilter}}</v-list-item-title>
-                                </v-list-item-content>
-                              </v-list-item>
-
-                              <x-pie-chart
-                                v-if="isMounted && !isLoadingPieData && !isEditing && pieChart.labels.length > 0 && pieChart.datasets.length > 0"
-                                :key="`pie-chart-${updatedItem.title}-${gearCategoryStats.length}`"
-                                :labels="pieChart.labels"
-                                :datasets="pieChart.datasets"
-                                style="max-height: 230px !important;"
-                              ></x-pie-chart>
-
-                              <v-card
-                                v-else
-                                class="pa-6 d-flex justify-center align-center elevation-0"
-                                style="height: 230px; margin-top: 46px !important;"
-                              >
-                                <v-progress-circular
-                                  indeterminate
-                                  size="48"
-                                  :color="currentColor"
-                                ></v-progress-circular>
-                              </v-card>
-                            </v-col>
-
-                            <v-col cols="7">
-                              <v-responsive
-                                class="overflow-y-auto pr-3 "
-                                :height="300"
-                              >
-                                <v-list
-                                  class="pa-0"
-                                  one-line
-                                  dense
-                                >
-                                  <template v-for="(gearCategoryStat) in sortedGearCategoryStats">
-                                    <v-list-item :key="`gear-type-stat-${gearCategoryStat.id}`" class="pa-0" style="min-height: 36px;">
-                                      <v-list-item-avatar
-                                        :width="XXLI"
-                                        :min-width="XXLI"
-                                        :height="XXLI"
-                                        v-bind:class="['x-avatar my-0 ml-3 mr-1 d-flex justify-center']"
-                                        :style="gearCategoryStat.id ? 'border: 2px solid '+categoryColor(gearCategoryStat.id)+' !important;' : ''"
-                                      >
-                                        <x-svg
-                                          v-if="typeof gearCategoryStat.id == 'string'"
-                                          :src="gearCategoryStat.id"
-                                          svgPath="gearcategories/"
-                                          :width="XSI"
-                                          :height="XSI"
-                                          :tooltipText="xCap($t(`categories.${gearCategoryStat.id}.desc`))"
-                                        ></x-svg>
-
-                                        <x-unknown-category-icon v-else />
-                                      </v-list-item-avatar>
-
-                                      <v-list-item-title class="mb-1">
-                                        <div class="d-flex">
-                                          <div class="text-caption" style="width: 80px;">
-                                            <div v-if="typeof gearCategoryStat.id == 'string'"
-                                            >{{ $t(`categories.${gearCategoryStat.id}.title`) | capitalizeFilter }}</div>
-
-                                            <div v-else v-text="xCapFirst($t('global.unknown'))" />
-                                          </div>
-
-                                          <div class="d-flex font-weight-regular text-caption">
-
-                                            <x-divider />
-
-                                            <div>
-                                              <span class="text-tiny" v-text="gearCategoryStat.items" />
-                                              <span class="text-tiny-dimmed" v-text="' '+$t(`global.item${gearCategoryStat.items > 1 ? 's' : ''}`)" />
-                                            </div>
-
-                                            <x-divider />
-
-                                            <div>
-                                              <span class="text-tiny">{{ gearCategoryStat.weight | weightUnitFilter(weightUnit) }}</span>
-                                              <span class="text-tiny-dimmed" v-text="dynamicWeightUnit(gearCategoryStat.weight)" :key="`weight-unit-${randomId()}-${gearCategoryStat.weight}`" />
-                                            </div>
-                                          </div>
-
-                                          <v-spacer />
-
-                                          <div class="float-right">
-                                            <span class="text-caption">{{ gearCategoryStat.weight | percentageFilter(inventoryGearList, inventoryTotalWeight) }}</span>
-                                            <span class="text-tiny-dimmed" v-text="'%'" />
-                                          </div>
-                                        </div>
-
-                                        <v-progress-linear
-                                          :value="gearCategoryStat.weight | percentageFilter(inventoryGearList, inventoryTotalWeight)"
-                                          :color="getVuetifyColor((typeof gearCategoryStat.id == 'string' ? gearCategories.indexOf(gearCategoryStat.id) : 'unknown'))"
-                                          :height="6"
-                                          :background-color="xProgressColor"
-                                          class="rounded"
-                                        ></v-progress-linear>
-                                      </v-list-item-title>
-                                    </v-list-item>
-                                  </template>
-                                </v-list>
-                              </v-responsive>
-                            </v-col>
-                          </v-row>
-                        </v-sheet>
-                      </v-col>
-                    </v-row>
-                  </v-card-text>
-                </v-card>
-              </v-responsive>
-            </v-tab-item>
-          </v-tabs-items>
-        </v-tabs>
-      </v-expand-transition>
-
-      <v-expand-transition>
-        <div v-show="isEditing">
-          <v-card class="mx-auto" flat :color="xBackgroundColor">
-            <v-toolbar :class="['edition-toolbar', (isMobile ? 'px-0' : 'px-2')]">
-              <v-btn @click="closeEditor()" icon>
-                <v-icon v-text="'mdi-arrow-left'" />
-              </v-btn>
-
-              <v-list-item two-line :class="[{'px-0':isMobile}]">
-                <v-list-item-content class="pa-0">
-                  <v-list-item-title>{{t(`gear-list`) | capitalizeFirstFilter}}</v-list-item-title>
-
-                  <v-list-item-subtitle>
-                    <div class="d-flex">
-                      <div>
-                        <span v-bind:class="[currentColorText]">{{ inventoryTotalWeight | weightUnitFilter(weightUnit) }}</span>
-                        <span v-text="' '+dynamicWeightUnit(inventoryTotalWeight)" :key="`weight-unit-${randomId()}-${inventoryTotalWeight}`" class="text-tiny" />
-                      </div>
-
-                      <x-divider />
-
-                      <div>
-                          <span
-                            v-bind:class="[currentColorText]"
-                            v-text="inventoryTotalItems || 0"
-                          ></span>
-                        <span class="text-tiny" v-text="' '+$t(`components.inventory-gear-card.unique-item${inventoryTotalItems > 1 ? 's' : ''}`)" />
-                      </div>
+                <v-list-item-subtitle>
+                  <div class="d-flex">
+                    <div>
+                      <span v-bind:class="[currentColorText]">{{ inventoryTotalWeight | weightUnitFilter(weightUnit) }}</span>
+                      <span v-text="' '+dynamicWeightUnit(inventoryTotalWeight)" :key="`weight-unit-${randomId()}-${inventoryTotalWeight}`" class="text-tiny" />
                     </div>
-                  </v-list-item-subtitle>
-                </v-list-item-content>
-              </v-list-item>
 
-              <v-spacer />
+                    <x-divider />
 
-              <div class="mr-1 text-center">
-                <v-menu
-                  v-model="gearFilterModeOn"
-                  :close-on-content-click="false"
-                  min-width="333"
-                  max-width="333"
-                  :nudge-width="200"
-                  left
-                >
-                  <template v-slot:activator="{ on, attrs }">
-                    <v-btn
-                      @click="gearFilterModeOn = !gearFilterModeOn"
-                      v-bind="attrs"
-                      v-on="on"
-                      icon
-                    >
-                      <v-icon v-text="gearFilterModeOn ? 'mdi-filter-variant-minus' : 'mdi-filter-variant'" />
-                    </v-btn>
-                  </template>
+                    <div>
+                      <span
+                        v-bind:class="[currentColorText]"
+                        v-text="inventoryTotalItems || 0"
+                      ></span>
+                      <span class="text-tiny" v-text="' '+$t(`components.inventory-gear-card.unique-item${inventoryTotalItems > 1 ? 's' : ''}`)" />
+                    </div>
+                  </div>
+                </v-list-item-subtitle>
+              </v-list-item-content>
+            </v-list-item>
 
-                  <v-card>
-                    <v-list class="py-1">
-                      <v-list-item>
-                        <v-list-item-title>{{$t('global.filters') | capitalizeFirstFilter}}</v-list-item-title>
+            <v-spacer />
 
-                        <v-spacer />
+            <div class="mr-1 text-center">
+              <v-menu
+                v-model="gearFilterModeOn"
+                :close-on-content-click="false"
+                min-width="333"
+                max-width="333"
+                :nudge-width="200"
+                left
+              >
+                <template v-slot:activator="{ on, attrs }">
+                  <v-btn
+                    @click="gearFilterModeOn = !gearFilterModeOn"
+                    v-bind="attrs"
+                    v-on="on"
+                    icon
+                  >
+                    <v-icon v-text="gearFilterModeOn ? 'mdi-filter-variant-minus' : 'mdi-filter-variant'" />
+                  </v-btn>
+                </template>
 
-                        <v-btn
-                          @click="closeGearFilterMenu()"
-                          icon
-                        >
-                          <v-icon v-text="'mdi-close'" />
-                        </v-btn>
-
-                      </v-list-item>
-                    </v-list>
-
-                    <v-list>
-                      <v-list-item class="mb-3">
-                        <x-category-selector v-bind:value.sync="gearCategoryFilter" isInFilter />
-                      </v-list-item>
-
-                      <v-list-item class="mb-3">
-                        <v-autocomplete
-                          v-if="gearFilterModeOn"
-                          :label="xCapFirst($t('global.tags'))"
-                          v-model="gearTagsFilter"
-                          :items="preferences.gear_tags"
-                          :color="currentColor"
-                          filled
-                          dense
-                          clearable
-                          hide-details="auto"
-                        ></v-autocomplete>
-                      </v-list-item>
-
-                      <v-list-item class="mb-3">
-                        <x-brand-selector v-bind:value.sync="gearBrandFilter" isInFilter />
-                      </v-list-item>
-
-                      <v-list-item class="mb-3">
-                        <x-state-selector v-bind:value.sync="gearStateFilter" isInFilter />
-                      </v-list-item>
-
-                      <v-list-item class="mb-3">
-                        <x-checkbox
-                          label="consumable"
-                          v-bind:value.sync="gearConsumableFilter"
-                        ></x-checkbox>
-                      </v-list-item>
-
-                      <v-list-item class="mb-3">
-                        <x-checkbox
-                          label="packed"
-                          v-bind:value.sync="gearIsPackedFilter"
-                        ></x-checkbox>
-                      </v-list-item>
-
-                      <v-list-item class="mb-3">
-                        <x-checkbox
-                          label="quantity-positive"
-                          v-bind:value.sync="gearQuantityOwnedFilter"
-                        ></x-checkbox>
-                      </v-list-item>
-                    </v-list>
-
-                    <v-card-actions>
-                      <v-btn
-                        @click="clearMenuFilters()"
-                        :color="errorColor"
-                        text
-                      >
-                        <span v-text="$t('global.reset')" />
-                      </v-btn>
+                <v-card>
+                  <v-list class="py-1">
+                    <v-list-item>
+                      <v-list-item-title>{{$t('global.filters') | capitalizeFirstFilter}}</v-list-item-title>
 
                       <v-spacer />
 
                       <v-btn
-                        @click="closeGearFilterMenu()"
-                        icon
-                        class="mr-2"
+                              @click="closeGearFilterMenu()"
+                              icon
                       >
-                        <poly-icon icon="mdi-check" :size="XLI" />
+                        <v-icon v-text="'mdi-close'" />
                       </v-btn>
-                    </v-card-actions>
-                  </v-card>
-                </v-menu>
-              </div>
 
-              <v-btn
-                @click="closeGearList()"
-                icon
-              >
-                <poly-icon
-                  :size="XLI"
-                  icon="mdi-check"
-                ></poly-icon>
-              </v-btn>
+                    </v-list-item>
+                  </v-list>
 
-              <template v-slot:extension>
-                <v-list
-                  v-bind:class="['rounded-0 py-0 max-width']"
-                  one-line
-                  flat
-                  dense
-                  color="transparent"
-                >
-                  <v-list-item :class="[(isMobile ? 'pl-13 pr-3' : 'pl-11')]">
-                    <v-list-item-avatar
-                      v-bind:class="['x-avatar my-0 py-0 mr-1 d-flex justify-center']"
-                      width="40"
-                      height="40"
+                  <v-list>
+                    <v-list-item class="mb-3">
+                      <x-category-selector v-bind:value.sync="gearCategoryFilter" isInFilter />
+                    </v-list-item>
+
+                    <v-list-item class="mb-3">
+                      <v-autocomplete
+                        v-if="gearFilterModeOn"
+                        :label="xCapFirst($t('global.tags'))"
+                        v-model="gearTagsFilter"
+                        :items="preferences.gear_tags"
+                        :color="currentColor"
+                        filled
+                        dense
+                        clearable
+                        hide-details="auto"
+                      ></v-autocomplete>
+                    </v-list-item>
+
+                    <v-list-item class="mb-3">
+                      <x-brand-selector v-bind:value.sync="gearBrandFilter" isInFilter />
+                    </v-list-item>
+
+                    <v-list-item class="mb-3">
+                      <x-state-selector v-bind:value.sync="gearStateFilter" isInFilter />
+                    </v-list-item>
+
+                    <v-list-item class="mb-3">
+                      <x-checkbox
+                        label="consumable"
+                        v-bind:value.sync="gearConsumableFilter"
+                      ></x-checkbox>
+                    </v-list-item>
+
+                    <v-list-item class="mb-3">
+                      <x-checkbox
+                        label="packed"
+                        v-bind:value.sync="gearIsPackedFilter"
+                      ></x-checkbox>
+                    </v-list-item>
+
+                    <v-list-item class="mb-3">
+                      <x-checkbox
+                        label="quantity-positive"
+                        v-bind:value.sync="gearQuantityOwnedFilter"
+                      ></x-checkbox>
+                    </v-list-item>
+                  </v-list>
+
+                  <v-card-actions>
+                    <v-btn
+                      @click="clearMenuFilters()"
+                      :color="errorColor"
+                      text
                     >
-                      <v-col class="x-col py-2 x-primary-btn" @click.stop="sortGear('category')" v-ripple>
-                        <div class="d-flex justify-center">
-                          <x-sort-icon prop="category" />
+                      <span v-text="$t('global.reset')" />
+                    </v-btn>
+
+                    <v-spacer />
+
+                    <v-btn
+                      @click="closeGearFilterMenu()"
+                      icon
+                      class="mr-2"
+                    >
+                      <poly-icon icon="mdi-check" :size="XLI" />
+                    </v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-menu>
+            </div>
+
+            <v-btn
+              @click="closeGearList()"
+              icon
+            >
+              <poly-icon
+                :size="XLI"
+                icon="mdi-check"
+              ></poly-icon>
+            </v-btn>
+
+            <template v-slot:extension>
+              <v-list
+                v-bind:class="['rounded-0 py-0 max-width']"
+                one-line
+                flat
+                dense
+                color="transparent"
+              >
+                <v-list-item :class="[(isMobile ? 'pl-13 pr-3' : 'pl-11')]">
+                  <v-list-item-avatar
+                    v-bind:class="['x-avatar my-0 py-0 mr-1 d-flex justify-center']"
+                    width="40"
+                    height="40"
+                  >
+                    <v-col class="x-col py-2 x-primary-btn" @click.stop="sortGear('category')" v-ripple>
+                      <div class="d-flex justify-center">
+                        <x-sort-icon prop="category" />
+                      </div>
+                    </v-col>
+                  </v-list-item-avatar>
+
+                  <v-list-item-content class="py-0">
+                    <v-row align="center" justify="center">
+
+                      <v-col :cols="isMobile ? 6 : 3" class="py-2 col-border-r x-primary-btn rounded" @click.stop="sortGear('title')" v-ripple>
+                        <div class="d-flex align-center">
+                          <div v-bind:class="['text-tiny', ((gearOrderBy === 'title') ? currentColorText : '')]">{{$t('global.title') | capitalizeFirstFilter}}</div>
+                          <x-sort-icon prop="title" />
                         </div>
                       </v-col>
-                    </v-list-item-avatar>
 
-                    <v-list-item-content class="py-0">
-                      <v-row align="center" justify="center">
+                      <v-col class="x-col px-0 py-2 col-border-r x-primary-btn rounded" @click.stop="sortGear('weight')" v-ripple>
+                        <div class="d-flex justify-center align-center">
+                          <div v-bind:class="['text-tiny', ((gearOrderBy === 'weight') ? currentColorText : '')]">{{$t('global.weight') | capitalizeFirstFilter}}</div>
+                          <x-sort-icon prop="weight" />
+                        </div>
+                      </v-col>
 
-                        <v-col :cols="isMobile ? 6 : 3" class="py-2 col-border-r x-primary-btn rounded" @click.stop="sortGear('title')" v-ripple>
-                          <div class="d-flex align-center">
-                            <div v-bind:class="['text-tiny', ((gearOrderBy === 'title') ? currentColorText : '')]">{{$t('global.title') | capitalizeFirstFilter}}</div>
-                            <x-sort-icon prop="title" />
-                          </div>
-                        </v-col>
+                      <v-col v-if="!isMobile" class="x-col px-0 py-2 col-border-r x-primary-btn rounded" @click.stop="sortGear('price')" v-ripple>
+                        <div class="d-flex justify-center align-center">
+                          <div v-bind:class="['text-tiny', ((gearOrderBy === 'price') ? currentColorText : '')]">{{$t('global.price') | capitalizeFirstFilter}}</div>
+                          <x-sort-icon prop="price" />
+                        </div>
+                      </v-col>
 
-                        <v-col class="x-col px-0 py-2 col-border-r x-primary-btn rounded" @click.stop="sortGear('weight')" v-ripple>
-                          <div class="d-flex justify-center align-center">
-                            <div v-bind:class="['text-tiny', ((gearOrderBy === 'weight') ? currentColorText : '')]">{{$t('global.weight') | capitalizeFirstFilter}}</div>
-                            <x-sort-icon prop="weight" />
-                          </div>
-                        </v-col>
+                      <v-col v-if="!isMobile" class="x-col px-0 py-2 col-border-r x-primary-btn rounded" @click.stop="sortGear('state')" v-ripple>
+                        <div class="d-flex justify-center align-center">
+                          <div v-bind:class="['text-tiny', ((gearOrderBy === 'state') ? currentColorText : '')]">{{$t('global.state') | capitalizeFirstFilter}}</div>
+                          <x-sort-icon prop="state" />
+                        </div>
+                      </v-col>
 
-                        <v-col v-if="!isMobile" class="x-col px-0 py-2 col-border-r x-primary-btn rounded" @click.stop="sortGear('price')" v-ripple>
-                          <div class="d-flex justify-center align-center">
-                            <div v-bind:class="['text-tiny', ((gearOrderBy === 'price') ? currentColorText : '')]">{{$t('global.price') | capitalizeFirstFilter}}</div>
-                            <x-sort-icon prop="price" />
-                          </div>
-                        </v-col>
+                      <v-col v-if="!isMobile" class="x-col px-0 py-2 col-border-r x-primary-btn rounded" @click.stop="sortGear('consumable')" v-ripple>
+                        <div class="d-flex justify-center align-center">
+                          <div v-bind:class="['text-tiny', ((gearOrderBy === 'consumable') ? currentColorText : '')]">{{$t('global.consumable') | minifyTextFilter | capitalizeFirstFilter}}</div>
+                          <x-sort-icon prop="consumable" />
+                        </div>
+                      </v-col>
 
-                        <v-col v-if="!isMobile" class="x-col px-0 py-2 col-border-r x-primary-btn rounded" @click.stop="sortGear('state')" v-ripple>
-                          <div class="d-flex justify-center align-center">
-                            <div v-bind:class="['text-tiny', ((gearOrderBy === 'state') ? currentColorText : '')]">{{$t('global.state') | capitalizeFirstFilter}}</div>
-                            <x-sort-icon prop="state" />
-                          </div>
-                        </v-col>
+                      <v-col v-if="!isMobile" class="x-col px-0 py-2 col-border-r">
+                        <div class="text-tiny text-center">{{$t('global.worn') | capitalizeFirstFilter}}</div>
+                      </v-col>
 
-                        <v-col v-if="!isMobile" class="x-col px-0 py-2 col-border-r x-primary-btn rounded" @click.stop="sortGear('consumable')" v-ripple>
-                          <div class="d-flex justify-center align-center">
-                            <div v-bind:class="['text-tiny', ((gearOrderBy === 'consumable') ? currentColorText : '')]">{{$t('global.consumable') | minifyTextFilter | capitalizeFirstFilter}}</div>
-                            <x-sort-icon prop="consumable" />
-                          </div>
-                        </v-col>
+                      <v-col class="x-col px-0 py-2 col-border-r x-primary-btn rounded" @click.stop="sortGear('quantity_owned')" v-ripple>
+                        <div class="d-flex justify-center align-center">
+                          <div v-bind:class="['text-tiny text-center', ((gearOrderBy === 'quantity_owned') ? currentColorText : '')]">{{$t('global.qty') | capitalizeFirstFilter}}</div>
+                          <x-sort-icon prop="state" />
+                        </div>
+                      </v-col>
+                    </v-row>
+                  </v-list-item-content>
 
-                        <v-col v-if="!isMobile" class="x-col px-0 py-2 col-border-r">
-                          <div class="text-tiny text-center">{{$t('global.worn') | capitalizeFirstFilter}}</div>
-                        </v-col>
+                  <v-list-item-action class="ma-0" :style="'width: '+(isMobile ? '33' : '30')+'px !important; margin-left: '+(isMobile ? '13' : '20')+'px !important;'" />
+                </v-list-item>
+              </v-list>
+            </template>
+          </v-toolbar>
 
-                        <v-col class="x-col px-0 py-2 col-border-r x-primary-btn rounded" @click.stop="sortGear('quantity_owned')" v-ripple>
-                          <div class="d-flex justify-center align-center">
-                            <div v-bind:class="['text-tiny text-center', ((gearOrderBy === 'quantity_owned') ? currentColorText : '')]">{{$t('global.qty') | capitalizeFirstFilter}}</div>
-                            <x-sort-icon prop="state" />
-                          </div>
-                        </v-col>
-                      </v-row>
-                    </v-list-item-content>
-
-                    <v-list-item-action class="ma-0" :style="'width: '+(isMobile ? '33' : '30')+'px !important; margin-left: '+(isMobile ? '13' : '20')+'px !important;'" />
-                  </v-list-item>
-                </v-list>
-              </template>
-            </v-toolbar>
-
-            <v-card-text :class="['pa-0']">
-              <v-list
-                v-if="filteredGear.length > 0"
-                subheader
-                two-line
-                dense
+          <v-card-text :class="['pa-0']">
+            <v-list
+              v-if="filteredGear.length > 0"
+              subheader
+              two-line
+              dense
+            >
+              <DynamicScroller
+                :style="`height: ${DynamicListHeight()}px`"
+                :items.sync="filteredGear"
+                :minItemSize="xListItemsHeight"
+                key-field="id"
               >
-                  <DynamicScroller
-                    :style="`height: ${isMobile ? (listHeight) : 600}px`"
-                    :items.sync="filteredGear"
-                    :minItemSize="xListItemsHeight"
-                    key-field="id"
+                <template v-slot="{ item, index, active }">
+                  <DynamicScrollerItem
+                    :item="item"
+                    :active="active"
+                    :size-dependencies="[item.title]"
+                    :data-index="index"
                   >
-                    <template v-slot="{ item, index, active }">
-                      <DynamicScrollerItem
-                        :item="item"
-                        :active="active"
-                        :size-dependencies="[item.title]"
-                        :data-index="index"
-                      >
-                        <inventory-gear-list-item
-                          :key="`inventory-gear-${item}-${index}`"
-                          :gear="item"
-                          :index="index"
-                          :inventoryGearList.sync="inventoryGearList"
-                          :inventoryGear="inventoryGearItem(item.id)"
-                          v-on:itemAction="item.quantity_owned > 0 ? gearListItemAction(item) : null"
-                          v-on:inventoryGearAction="inventoryGearAction(item)"
-                        ></inventory-gear-list-item>
+                    <inventory-gear-list-item
+                      :key="`inventory-gear-${item}-${index}`"
+                      :gear="item"
+                      :index="index"
+                      :inventoryGearList.sync="inventoryGearList"
+                      :inventoryGear="inventoryGearItem(item.id)"
+                      v-on:itemAction="item.quantity_owned > 0 ? gearListItemAction(item) : null"
+                      v-on:inventoryGearAction="inventoryGearAction(item)"
+                    ></inventory-gear-list-item>
 
-                        <v-divider />
-                      </DynamicScrollerItem>
-                    </template>
-                  </DynamicScroller>
-              </v-list>
+                    <v-divider />
+                  </DynamicScrollerItem>
+                </template>
+              </DynamicScroller>
+            </v-list>
 
-              <empty-list
-                v-else
-                :height="currentDialogHeight"
-                :label="t(`add-inventory-gear`)"
-                :color="navItemColor('gear')"
-              ></empty-list>
-            </v-card-text>
-          </v-card>
+            <empty-list
+              v-else
+              :height="currentDialogHeight"
+              :label="t(`add-inventory-gear`)"
+              :color="navItemColor('gear')"
+            ></empty-list>
+          </v-card-text>
+        </v-card>
 
-          <v-dialog
-            v-model="inventoryGearMenu"
-            transition="dialog-right-transition"
-            max-width="350"
-          >
-            <v-card v-if="typeof selectedInventoryGearIndex == 'number' && selectedInventoryGear">
-              <v-list class="py-1">
-                <v-list-item>
-                  <v-list-item-title>{{$t('global.packing-options') | capitalizeFirstFilter}}</v-list-item-title>
-
-                  <v-spacer />
-
-                  <v-btn
-                    @click.stop="unSelectInventoryGear()"
-                    icon
-                    :disabled="isGearMenuLoading"
-                  >
-                    <v-icon v-text="'mdi-close'" />
-                  </v-btn>
-
-                </v-list-item>
-              </v-list>
-
-              <v-list>
-                <v-list-item class="mb-3">
-                  <x-increment
-                    label="quantity-packed"
-                    v-bind:value.sync="temporaryInventoryGear.gear_quantity_packed"
-                    :rules="xRules.decimals"
-                    :color="currentColor"
-                    :max="selectedInventoryGearMaxQuantity"
-                    :min="0"
-                  ></x-increment>
-                </v-list-item>
-
-                <v-list-item>
-                  <x-checkbox
-                    label="worn"
-                    v-bind:value.sync="temporaryInventoryGear.gear_worn"
-                  ></x-checkbox>
-                </v-list-item>
-              </v-list>
-
-              <v-card-actions>
+        <v-dialog
+          v-model="inventoryGearMenu"
+          transition="dialog-right-transition"
+          max-width="350"
+        >
+          <v-card v-if="typeof selectedInventoryGearIndex == 'number' && selectedInventoryGear">
+            <v-list class="py-1">
+              <v-list-item>
+                <v-list-item-title>
+                  <span
+                    v-if="temporaryInventoryGear
+                    && temporaryInventoryGear.gear_id
+                    && xGear(temporaryInventoryGear.gear_id)"
+                  >{{xGear(temporaryInventoryGear.gear_id).title}}&nbsp;-&nbsp;</span>
+                  <span>{{$t('global.packing-options') | capitalizeFirstFilter}}</span>
+                </v-list-item-title>
 
                 <v-spacer />
 
                 <v-btn
-                  @click.stop="saveInventoryGear()"
+                  @click.stop="unSelectInventoryGear()"
                   icon
-                  class="mr-2"
-                  :loading="isGearMenuLoading"
+                  :disabled="isGearMenuLoading"
                 >
-                  <poly-icon icon="mdi-check" />
+                  <v-icon v-text="'mdi-close'" />
                 </v-btn>
-              </v-card-actions>
-            </v-card>
 
-          </v-dialog>
-        </div>
-      </v-expand-transition>
+              </v-list-item>
+            </v-list>
 
-      <v-text-field v-show="false" v-model="validTitle" :rules="xRules.boolean" />
+            <v-list>
+              <v-list-item class="mb-3">
+                <x-increment
+                  label="quantity-packed"
+                  v-bind:value.sync="temporaryInventoryGear.gear_quantity_packed"
+                  :rules="xRules.decimals"
+                  :color="currentColor"
+                  :max="selectedInventoryGearMaxQuantity"
+                  :min="0"
+                ></x-increment>
+              </v-list-item>
+
+              <v-list-item>
+                <x-checkbox
+                  label="worn"
+                  v-bind:value.sync="temporaryInventoryGear.gear_worn"
+                ></x-checkbox>
+              </v-list-item>
+            </v-list>
+
+            <v-card-actions>
+
+              <v-spacer />
+
+              <v-btn
+                @click.stop="saveInventoryGear()"
+                icon
+                class="mr-2"
+                :loading="isGearMenuLoading"
+              >
+                <poly-icon icon="mdi-check" />
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+
+        </v-dialog>
+      </v-dialog>
+
+      <v-text-field
+        v-show="false"
+        v-model="validTitle"
+        :rules="xRules.boolean"
+      ></v-text-field>
     </v-form>
   </v-container>
 
@@ -821,8 +842,8 @@
       overlay: false,
       isEditing: false,
       isLoading: null,
+      isClosing: null,
       isLoadingPieData: false,
-      listHeight: 160,
 
       gearOrderBy: 'type',
       gearOrderOption: 'desc',
@@ -902,14 +923,14 @@
             ) return this.gearList;
 
             return (
-                (this.itemSearch ? (item.title && item.title.toLowerCase().includes(this.itemSearch.toLowerCase())) : true)
-                && (typeof this.gearCategoryFilter != 'number' ? (typeof this.gearCategoryFilter != 'number' && (item.category === this.gearCategoryFilter)) : true)
-                && (this.gearStateFilter ? (item.state && (item.state === this.gearStateFilter)) : true)
-                && (typeof this.gearBrandFilter != 'number' ? (typeof this.gearBrandFilter != 'number' && (item.brand === this.gearBrandFilter)) : true)
-                && (this.gearConsumableFilter ? (item.consumable === true) : true)
-                && (this.gearTagsFilter ? (item.tags && item.tags.includes(this.gearTagsFilter)) : true)
-                && (this.gearIsPackedFilter ? (this.inventoryGearList && this.inventoryGearList.includes(item.id)) : true)
-                && (this.gearQuantityOwnedFilter ? (item.quantity_owned > 0) : true)
+              (this.itemSearch ? (item.title && item.title.toLowerCase().includes(this.itemSearch.toLowerCase())) : true)
+              && (typeof this.gearCategoryFilter != 'number' ? (typeof this.gearCategoryFilter != 'number' && (item.category === this.gearCategoryFilter)) : true)
+              && (this.gearStateFilter ? (item.state && (item.state === this.gearStateFilter)) : true)
+              && (typeof this.gearBrandFilter != 'number' ? (typeof this.gearBrandFilter != 'number' && (item.brand === this.gearBrandFilter)) : true)
+              && (this.gearConsumableFilter ? (item.consumable === true) : true)
+              && (this.gearTagsFilter ? (item.tags && item.tags.includes(this.gearTagsFilter)) : true)
+              && (this.gearIsPackedFilter ? (this.inventoryGearList && this.inventoryGearList.includes(item.id)) : true)
+              && (this.gearQuantityOwnedFilter ? (item.quantity_owned > 0) : true)
             )
           }));
 
@@ -928,8 +949,10 @@
       },
       async inventoryGearAction(gear) {
         if(this.inventoryGearList.includes(gear.id)) {
+          this.isLoading = true;
           await this.selectInventoryGear(gear);
           await this.toggleGearMenu();
+          this.isLoading = false;
         }
       },
       async selectInventoryGear(gear) {
@@ -1001,7 +1024,9 @@
         }
       },
       async closeEditor() {
+        this.isClosing = true;
         await this.initGearList();
+        this.isClosing = false;
         this.isEditing = false;
       },
       async saveInventoryGear() {
@@ -1026,14 +1051,14 @@
       editInventory() {
         this.isEditing = true;
       },
-      gearListItemAction(gear) {
+      async gearListItemAction(gear) {
         if(this.inventoryGearList.includes(gear.id)) {
-          this.removeGear(gear)
+          await this.removeGear(gear)
         } else {
-          this.addGear(gear);
+          await this.addGear(gear);
         }
       },
-      addGear(gear) {
+      async addGear(gear) {
         if(gear.quantity_owned > 0 && !this.inventoryGearList.includes(gear.id)) {
           this.inventoryGearList.push(gear.id);
 
@@ -1052,7 +1077,7 @@
           this.updatedItem.inventory_gear.push(newInventoryGear);
         }
       },
-      removeGear(gear) {
+      async removeGear(gear) {
         let index = this.inventoryGearList.indexOf(gear.id);
         this.inventoryGearList.splice(index, 1);
         this.updatedItem.inventory_gear.splice(index, 1);
@@ -1137,9 +1162,6 @@
           }
         }
       },
-      initWindowHeight() {
-        this.listHeight = (window.innerHeight - 160);
-      },
       sumCheckedGearProperty(prop) {
         let self = this;
         let sum = 0;
@@ -1195,21 +1217,23 @@
       },
       async isMounted(newVal, oldVal) {
         if(newVal === true && oldVal === false) {
+          this.isLoading = true;
           this.$emit('update:isFormMounted',newVal);
           await this.initGearList();
+          this.isLoading = false;
         }
       },
       currentInventoryGear: {
         handler: async function() {
+          this.isLoading = true;
           await this.initInventoryStats();
           await this.initGearCategoryStats();
+          this.isLoading = false;
         },
         deep: true
       },
       isEditing(newVal) {
-        this.isLoading = true;
         this.$emit('update:editMode',newVal);
-        this.isLoading = false;
       },
       async postItem(val) {
         if(this.valid===true && val===true) {
@@ -1249,19 +1273,18 @@
       },
       async editMode(val) {
         if(this.isMounted) {
+          this.isLoading = true;
           this.isEditing = val;
 
           if(val === false) {
-            this.isLoading = true;
             this.clearMenuFilters();
             await this.initGearCategoryStats();
-            this.isLoading = false;
           }
+          this.isLoading = false;
         }
       },
     },
     async mounted() {
-      this.initWindowHeight();
 
       if(this.item)
         this.updatedItem = this.copyVar(this.item);

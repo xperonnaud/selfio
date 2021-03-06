@@ -2,6 +2,7 @@
 
   <x-action-card
     :title="xCapFirst(t('gear-list'))"
+    :isLoading="isLoading"
     v-on:xCardAction="$emit('cardAction')"
   >
     <div class="d-flex text-caption">
@@ -20,6 +21,7 @@
         v-bind:class="[currentColorText]"
         v-text="(currentInventoryGear ? currentInventoryGear.length : 0)"
       ></span>
+
       <span
         class="ml-1"
         v-text="` ${t(`unique-item${(currentInventoryGear ? currentInventoryGear.length : 0) > 1 ? 's':''}`)}`"
@@ -41,6 +43,10 @@
     props: {
       inventoryTotalWeight: Number,
       currentInventoryGear: [Array, Object],
+      isLoading: {
+        type: Boolean,
+        default: false
+      },
     },
     methods: {
       t(str) {
