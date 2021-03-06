@@ -26,7 +26,7 @@
           <v-tab-item :key="'inventory-details'">
             <v-responsive
               class="overflow-y-auto"
-              :height="isMobile ? maxDialogContentHeight : 540"
+              :height="maxDialogContentHeight"
             >
               <v-card flat :color="xBackgroundColor">
                 <v-card-text :class="{'py-1':isMobile}">
@@ -69,7 +69,7 @@
           <v-tab-item :key="'inventory-gear-balance'">
             <v-responsive
               class="overflow-y-auto"
-              :height="isMobile ? maxDialogContentHeight : 540"
+              :height="maxDialogContentHeight"
             >
               <v-card flat :color="xBackgroundColor">
                 <v-card-text :class="{'py-1':isMobile}">

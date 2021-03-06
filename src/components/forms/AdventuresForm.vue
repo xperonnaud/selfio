@@ -2,233 +2,230 @@
 
     <v-container
       v-if="isMounted"
-      style="max-width: unset;"
       v-bind:class="[
         {'py-0': isMobile},
         'adventures-form pa-0'
       ]"
+      style="max-width: unset;"
     >
       <v-form class="adventures-form" v-model="valid">
-          <v-tabs
-            v-model="tab"
-            :color="currentColor"
-            :background-color="xTabsColor"
-            fixed-tabs
-          >
-            <v-tab :key="'adventure-general'">
-              <span v-text="$t('global.general')" />
-            </v-tab>
-            <v-tab :key="'adventure-event'">
-              <span v-text="$t('routes.adventures.event')" />
-            </v-tab>
-            <v-tab :key="'adventure-details'">
-              <span v-text="$t('global.details')" />
-            </v-tab>
+        <v-tabs
+          v-model="tab"
+          :color="currentColor"
+          :background-color="xTabsColor"
+          fixed-tabs
+        >
+          <v-tab :key="'adventure-general'">
+            <span v-text="$t('global.general')" />
+          </v-tab>
+          <v-tab :key="'adventure-event'">
+            <span v-text="$t('routes.adventures.event')" />
+          </v-tab>
+          <v-tab :key="'adventure-details'">
+            <span v-text="$t('global.details')" />
+          </v-tab>
 
-            <v-tabs-items v-model="tab" :style="xBackgroundStyleColorStr">
-              <v-tab-item :key="'adventure-general'">
-                <v-responsive
-                  class="overflow-y-auto"
-                  :min-height="dialogContentHeight"
-                  :max-height="maxDialogContentHeight"
-                >
-                  <v-card flat :color="xBackgroundColor">
-                    <v-card-text :class="{'py-1':isMobile}">
-                      <v-row>
-                        <v-col cols="12" class="pb-0">
-                          <x-title-field
-                            label="title"
-                            v-bind:valid.sync="validTitle"
-                            v-bind:value.sync="updatedItem.title"
-                          ></x-title-field>
-                        </v-col>
+          <v-tabs-items v-model="tab" :style="xBackgroundStyleColorStr">
+            <v-tab-item :key="'adventure-general'">
+              <v-responsive
+                class="overflow-y-auto"
+                :height="maxDialogContentHeight"
+              >
+                <v-card flat :color="xBackgroundColor">
+                  <v-card-text :class="{'py-1':isMobile}">
+                    <v-row>
+                      <v-col cols="12" class="pb-0">
+                        <x-title-field
+                          label="title"
+                          v-bind:valid.sync="validTitle"
+                          v-bind:value.sync="updatedItem.title"
+                        ></x-title-field>
+                      </v-col>
 
-                        <v-col cols="12">
-                          <x-activity-selector v-bind:value.sync="updatedItem.activity" />
-                        </v-col>
+                      <v-col cols="12">
+                        <x-activity-selector v-bind:value.sync="updatedItem.activity" />
+                      </v-col>
 
-                        <v-col cols="12">
-                          <x-picker
-                            label="inventory"
-                            :list="inventoriesList"
-                            :color="currentColor"
-                            :type="'inventories'"
-                            v-bind:value.sync="updatedItem.adventure_inventory"
-                          ></x-picker>
-                        </v-col>
+                      <v-col cols="12">
+                        <x-picker
+                          label="inventory"
+                          :list="inventoriesList"
+                          :color="currentColor"
+                          :type="'inventories'"
+                          v-bind:value.sync="updatedItem.adventure_inventory"
+                        ></x-picker>
+                      </v-col>
 
-                        <v-col
-                          v-if="(typeof updatedItem.adventure_inventory === 'number') && inventoryHasGear"
-                          cols="12"
-                        >
-                          <adventure-gear-card
-                            v-on:cardAction="editInventory()"
-                            :isLoading="isEditing"
-                            :updatedItem.sync="updatedItem"
-                            :originalInventoryGear.sync="originalInventoryGear"
-                            :packedGearRatio.sync="packedGearRatio"
-                            :roundedPackedGearRatio.sync="roundedPackedGearRatio"
-                          ></adventure-gear-card>
-                        </v-col>
+                      <v-col
+                        v-if="(typeof updatedItem.adventure_inventory === 'number') && inventoryHasGear"
+                        cols="12"
+                      >
+                        <adventure-gear-card
+                          v-on:cardAction="editInventory()"
+                          :isLoading="isEditing"
+                          :updatedItem.sync="updatedItem"
+                          :originalInventoryGear.sync="originalInventoryGear"
+                          :packedGearRatio.sync="packedGearRatio"
+                          :roundedPackedGearRatio.sync="roundedPackedGearRatio"
+                        ></adventure-gear-card>
+                      </v-col>
 
-                        <v-col cols="12">
-                          <x-combobox
-                            label="tags"
-                            v-bind:value.sync="updatedItem.tags"
-                            v-bind:items="preferences.adventure_tags"
-                            v-bind:route="'adventures'"
-                          ></x-combobox>
-                        </v-col>
+                      <v-col cols="12">
+                        <x-combobox
+                          label="tags"
+                          v-bind:value.sync="updatedItem.tags"
+                          v-bind:items="preferences.adventure_tags"
+                          v-bind:route="'adventures'"
+                        ></x-combobox>
+                      </v-col>
 
-                        <v-col cols="12">
-                          <v-textarea
-                            :label="xCapFirst($t('global.note'))"
-                            v-model="updatedItem.note"
-                            :color="currentColor"
-                            filled
-                            dense
-                            hide-details="auto"
-                            auto-grow
-                            rows="1"
-                          ></v-textarea>
-                        </v-col>
-                      </v-row>
-                    </v-card-text>
-                  </v-card>
-                </v-responsive>
-              </v-tab-item>
+                      <v-col cols="12">
+                        <v-textarea
+                          :label="xCapFirst($t('global.note'))"
+                          v-model="updatedItem.note"
+                          :color="currentColor"
+                          filled
+                          dense
+                          hide-details="auto"
+                          auto-grow
+                          rows="1"
+                        ></v-textarea>
+                      </v-col>
+                    </v-row>
+                  </v-card-text>
+                </v-card>
+              </v-responsive>
+            </v-tab-item>
 
-              <v-tab-item :key="'adventure-event'">
-                <v-responsive
-                  class="overflow-y-auto"
-                  :min-height="dialogContentHeight"
-                  :max-height="maxDialogContentHeight"
-                >
-                  <v-card flat :color="xBackgroundColor">
-                    <v-card-text :class="{'py-1':isMobile}">
-                      <v-row>
-                        <v-col cols="12">
-                          <x-landscape-selector v-bind:value.sync="updatedItem.landscape" />
-                        </v-col>
+            <v-tab-item :key="'adventure-event'">
+              <v-responsive
+                class="overflow-y-auto"
+                :height="maxDialogContentHeight"
+              >
+                <v-card flat :color="xBackgroundColor">
+                  <v-card-text :class="{'py-1':isMobile}">
+                    <v-row>
+                      <v-col cols="12">
+                        <x-landscape-selector v-bind:value.sync="updatedItem.landscape" />
+                      </v-col>
 
-                        <v-col cols="12">
-                          <x-text
-                            :label="$t('global.location')"
-                            v-bind:value.sync="updatedItem.location"
-                          ></x-text>
-                        </v-col>
+                      <v-col cols="12">
+                        <x-text
+                          :label="$t('global.location')"
+                          v-bind:value.sync="updatedItem.location"
+                        ></x-text>
+                      </v-col>
 
-                        <v-col cols="12">
-                          <x-date-picker
-                            label="start-date"
-                            v-bind:value.sync="updatedItem.start_date"
-                          ></x-date-picker>
-                        </v-col>
+                      <v-col cols="12">
+                        <x-date-picker
+                          label="start-date"
+                          v-bind:value.sync="updatedItem.start_date"
+                        ></x-date-picker>
+                      </v-col>
 
-                        <v-col cols="12">
-                          <x-time-picker
-                            label="start-time"
-                            v-bind:value.sync="updatedItem.start_time"
-                          ></x-time-picker>
-                        </v-col>
+                      <v-col cols="12">
+                        <x-time-picker
+                          label="start-time"
+                          v-bind:value.sync="updatedItem.start_time"
+                        ></x-time-picker>
+                      </v-col>
 
-                        <v-col cols="12">
-                          <x-date-picker
-                            label="end-date"
-                            v-bind:value.sync="updatedItem.end_date"
-                            :minDate="updatedItem.start_date"
-                          ></x-date-picker>
-                        </v-col>
+                      <v-col cols="12">
+                        <x-date-picker
+                          label="end-date"
+                          v-bind:value.sync="updatedItem.end_date"
+                          :minDate="updatedItem.start_date"
+                        ></x-date-picker>
+                      </v-col>
 
-                        <v-col cols="12">
-                          <x-time-picker
-                            label="end-time"
-                            v-bind:value.sync="updatedItem.end_time"
-                          ></x-time-picker>
-                        </v-col>
-                      </v-row>
-                    </v-card-text>
-                  </v-card>
-                </v-responsive>
-              </v-tab-item>
+                      <v-col cols="12">
+                        <x-time-picker
+                          label="end-time"
+                          v-bind:value.sync="updatedItem.end_time"
+                        ></x-time-picker>
+                      </v-col>
+                    </v-row>
+                  </v-card-text>
+                </v-card>
+              </v-responsive>
+            </v-tab-item>
 
-              <v-tab-item :key="'adventure-conditions'">
-                <v-responsive
-                  class="overflow-y-auto"
-                  :min-height="dialogContentHeight"
-                  :max-height="maxDialogContentHeight"
-                >
-                  <v-card flat :color="xBackgroundColor">
-                    <v-card-text :class="{'py-1':isMobile}">
-                      <v-row>
-                        <v-col cols="12">
-                          <x-text
-                            :label="`${$t('global.elevation')}/${$t('global.depth')}`"
-                            v-bind:value.sync="updatedItem.elevation"
-                            :rules="xRules.decimals"
-                            :suffix="elevationUnit"
-                          ></x-text>
-                        </v-col>
+            <v-tab-item :key="'adventure-conditions'">
+              <v-responsive
+                class="overflow-y-auto"
+                :height="maxDialogContentHeight"
+              >
+                <v-card flat :color="xBackgroundColor">
+                  <v-card-text :class="{'py-1':isMobile}">
+                    <v-row>
+                      <v-col cols="12">
+                        <x-text
+                          :label="`${$t('global.elevation')}/${$t('global.depth')}`"
+                          v-bind:value.sync="updatedItem.elevation"
+                          :rules="xRules.decimals"
+                          :suffix="elevationUnit"
+                        ></x-text>
+                      </v-col>
 
-                        <v-col cols="12">
-                          <x-text
-                            :label="$t('global.distance')"
-                            v-bind:value.sync="updatedItem.distance"
-                            :rules="xRules.decimals"
-                            :suffix="distanceUnit"
-                          ></x-text>
-                        </v-col>
+                      <v-col cols="12">
+                        <x-text
+                          :label="$t('global.distance')"
+                          v-bind:value.sync="updatedItem.distance"
+                          :rules="xRules.decimals"
+                          :suffix="distanceUnit"
+                        ></x-text>
+                      </v-col>
 
-                        <v-col cols="12">
-                          <x-weather-selector
-                            v-bind:value.sync="updatedItem.weather"
-                            :iconSize="LGI"
-                            hasIcon
-                          ></x-weather-selector>
-                        </v-col>
+                      <v-col cols="12">
+                        <x-weather-selector
+                          v-bind:value.sync="updatedItem.weather"
+                          :iconSize="LGI"
+                          hasIcon
+                        ></x-weather-selector>
+                      </v-col>
 
-                        <v-col cols="12">
-                          <x-increment
-                            label="max-temp"
-                            v-bind:value.sync="updatedItem.temp_max"
-                            :rules="xRules.temperature"
-                            :color="currentColor"
-                            :min="updatedItem.temp_min || null"
-                            :max="50"
-                            :append="temperatureUnit"
-                          ></x-increment>
-                        </v-col>
+                      <v-col cols="12">
+                        <x-increment
+                          label="max-temp"
+                          v-bind:value.sync="updatedItem.temp_max"
+                          :rules="xRules.temperature"
+                          :color="currentColor"
+                          :min="updatedItem.temp_min || null"
+                          :max="50"
+                          :append="temperatureUnit"
+                        ></x-increment>
+                      </v-col>
 
-                        <v-col cols="12">
-                          <x-increment
-                            label="min-temp"
-                            v-bind:value.sync="updatedItem.temp_min"
-                            :rules="xRules.temperature"
-                            :color="currentColor"
-                            :min="-50"
-                            :max="updatedItem.temp_max || null"
-                            :append="temperatureUnit"
-                          ></x-increment>
-                        </v-col>
+                      <v-col cols="12">
+                        <x-increment
+                          label="min-temp"
+                          v-bind:value.sync="updatedItem.temp_min"
+                          :rules="xRules.temperature"
+                          :color="currentColor"
+                          :min="-50"
+                          :max="updatedItem.temp_max || null"
+                          :append="temperatureUnit"
+                        ></x-increment>
+                      </v-col>
 
-                        <v-col cols="12">
-                          <x-increment
-                            label="humidity"
-                            v-bind:value.sync="updatedItem.humidity"
-                            :rules="xRules.integer"
-                            :color="currentColor"
-                            :min="0"
-                            :max="100"
-                            :append="'%'"
-                          ></x-increment>
-                        </v-col>
-                      </v-row>
-                    </v-card-text>
-                  </v-card>
-                </v-responsive>
-              </v-tab-item>
-            </v-tabs-items>
-          </v-tabs>
+                      <v-col cols="12">
+                        <x-increment
+                          label="humidity"
+                          v-bind:value.sync="updatedItem.humidity"
+                          :rules="xRules.integer"
+                          :color="currentColor"
+                          :min="0"
+                          :max="100"
+                          :append="'%'"
+                        ></x-increment>
+                      </v-col>
+                    </v-row>
+                  </v-card-text>
+                </v-card>
+              </v-responsive>
+            </v-tab-item>
+          </v-tabs-items>
+        </v-tabs>
 
         <v-dialog
           v-model="isEditing"
@@ -503,7 +500,7 @@
               <empty-list
                 v-else
                 :height="currentDialogHeight"
-                :label="xCapFirst($t(`inventories.add-inventory-gear`))"
+                :label="xCapFirst($t(`routes.inventories.add-inventory-gear`))"
                 :color="navItemColor('gear')"
               ></empty-list>
             </v-card-text>

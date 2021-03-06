@@ -137,7 +137,7 @@ export default {
             return (this.isMobile ? '300' : '450');
         },
         maxDialogContentHeight() {
-            return this.currentWindowHeightOrValue(660)
+            return this.currentWindowHeightOrValue(550)
         },
         dialogContentHeight() {
             return this.currentWindowHeightOrValue(500);
