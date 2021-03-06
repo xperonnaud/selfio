@@ -4,6 +4,7 @@
         title="landscape"
         :items="landscapes"
         v-bind:value.sync="pickerValue"
+        :isInFilter="isInFilter"
     >
         <template v-slot:header>
             <v-text-field

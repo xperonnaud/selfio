@@ -62,6 +62,7 @@
           v-if="isConfigurationRoute"
           v-bind:class="['px-2 ml-1 elevation-0 primary-gradient-color']"
           @click="brandPostDialog = !brandPostDialog"
+          :loading="isAppLoading"
           :width="48"
           :height="48"
           fab
@@ -185,9 +186,11 @@
     methods: {
       async postBrand() {
         if(this.validBrand === true) {
+          this.isAppLoading = true;
           await this.api_post_brand(this.defaultBrand);
           this.brandPostDialog = false;
           this.defaultBrand.title = '';
+          this.isAppLoading = false;
         }
       },
       headerComponentLoad() {

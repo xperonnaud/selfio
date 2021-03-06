@@ -301,7 +301,7 @@
                   <v-card>
                     <v-list class="py-1">
                       <v-list-item>
-                        <v-list-item-title v-text="$t('global.filters')" />
+                        <v-list-item-title>{{$t('global.filters') | capitalizeFirstFilter}}</v-list-item-title>
 
                         <v-spacer />
 

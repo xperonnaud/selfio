@@ -4,18 +4,19 @@
         title="state"
         :items="gearStates"
         v-bind:value.sync="pickerValue"
+        :isInFilter="isInFilter"
     >
         <template v-slot:header>
             <v-text-field
-                    :label="xCapFirst($t('global.state'))"
-                    :value="typeof pickerValue==='number' ? xCap((gearStates[pickerValue-1].title)) : null"
-                    :color="currentColor"
-                    hide-details="auto"
-                    append-icon="mdi-menu-down"
-                    dense
-                    filled
-                    clearable
-                    @click:clear="pickerValue = null"
+                :label="xCapFirst($t('global.state'))"
+                :value="typeof pickerValue==='number' ? xCap((gearStates[pickerValue-1].title)) : null"
+                :color="currentColor"
+                hide-details="auto"
+                append-icon="mdi-menu-down"
+                dense
+                filled
+                clearable
+                @click:clear="pickerValue = null"
             >
                 <template v-slot:prepend-inner style="margin-top: 0">
                     <v-avatar v-if="typeof pickerValue==='number'" tile left min-width="26" width="26" height="26">

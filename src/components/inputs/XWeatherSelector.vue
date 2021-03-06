@@ -5,6 +5,7 @@
       title="weather"
       :items="weathers"
       v-bind:value.sync="pickerValue"
+      :isInFilter="isInFilter"
   >
     <template v-slot:header>
       <v-text-field

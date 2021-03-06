@@ -4,6 +4,7 @@
         title="activity"
         :items="activities"
         v-bind:value.sync="pickerValue"
+        :isInFilter="isInFilter"
     >
         <template v-slot:header>
             <v-text-field
@@ -77,6 +78,10 @@
         },
         props: {
             value: String,
+            isInFilter: {
+                type: Boolean,
+                default: false
+            },
         },
         data: () => ({
             isMounted: false,

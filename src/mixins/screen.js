@@ -336,7 +336,8 @@ export default {
             setTimeout(function(){
                 self.formDialog = true;
                 self.formDialogType = 'post';
-            }, 50);
+                self.isAppLoading = false;
+            }, 100);
         },
         async toggleTheme(theme) {
             this.$vuetify.theme.dark = theme

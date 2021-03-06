@@ -430,8 +430,8 @@
                       <v-spacer />
 
                       <v-btn
-                              @click="closeGearFilterMenu()"
-                              icon
+                        @click="closeGearFilterMenu()"
+                        icon
                       >
                         <v-icon v-text="'mdi-close'" />
                       </v-btn>
