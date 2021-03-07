@@ -719,7 +719,7 @@
         gearStateFilter: null,
         gearBrandFilter: null,
         gearConsumableFilter: null,
-        gearQuantityOwnedFilter: null,
+        gearQuantityOwnedFilter: true,
       },
 
       balance: {

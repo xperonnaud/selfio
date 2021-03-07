@@ -27,7 +27,7 @@
 
         <v-list-item-content>
             <v-row align="center" justify="center">
-                <v-col :cols="isMobile ? 4 : 3" class="py-0">
+                <v-col :cols="isMobile ? 7 : 3" class="py-0">
                   <div>
                     <v-list-item-title
                       v-text="xCap(source.title)"
@@ -76,15 +76,15 @@
                     </v-tooltip>
                     <empty-data solo v-else />
                   </v-col>
-                </template>
 
-                <v-col class="x-col d-flex justify-center align-center">
-                  <x-consumable-icon
-                    v-if="source.consumable"
-                    small
-                  ></x-consumable-icon>
-                  <empty-data solo v-else />
-                </v-col>
+                    <v-col class="x-col d-flex justify-center align-center">
+                        <x-consumable-icon
+                            v-if="source.consumable"
+                            small
+                        ></x-consumable-icon>
+                        <empty-data solo v-else />
+                    </v-col>
+                </template>
 
                 <v-col class="x-col">
                   <div v-bind:class="['ml-1', nullOrZeroColorText(source.quantity_owned)]">

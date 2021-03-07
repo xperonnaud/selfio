@@ -4,7 +4,7 @@
     <v-row align="center" justify="center">
 
       <v-col
-        :cols="isMobile ? 4 : 3"
+        :cols="isMobile ? 7 : 3"
         class="py-2 col-border-r x-primary-btn rounded"
         @click.stop="sortItems('title')"
         v-ripple
@@ -25,9 +25,9 @@
         <x-col text="update" prop="date_updated" />
 
         <x-col text="state" prop="state" />
-      </template>
 
-      <x-col text="consumable" mini prop="consumable" />
+        <x-col text="consumable" mini prop="consumable" />
+      </template>
 
       <x-col :text="isMobile ? 'qty' : 'quantity'" prop="quantity_owned" />
 
