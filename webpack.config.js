@@ -33,6 +33,6 @@ module.exports = {
   plugins: [
     // make sure to include the plugin!
     new VueLoaderPlugin(),
-    new webpack.DefinePlugin({ 'process.env.NODE_ENV': '"development"' })
+    new webpack.DefinePlugin({ 'process.env.NODE_ENV': '"production"' })
   ]
 };
