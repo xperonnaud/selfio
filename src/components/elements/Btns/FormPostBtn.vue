@@ -5,6 +5,8 @@
     :width="48"
     :height="48"
     :fab="isFab"
+    :loading="isAppLoading"
+    :disabled="formDialog"
     right
     bottom
     v-bind:class="[(isMobile ? 'px-0' : 'px-2 ml-3')]"

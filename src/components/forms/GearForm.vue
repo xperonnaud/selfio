@@ -25,8 +25,7 @@
           <v-tab-item :key="'gear-general'">
             <v-responsive
               class="overflow-y-auto"
-              :min-height="dialogContentHeight"
-              :max-height="maxDialogContentHeight"
+              :height="maxDialogContentHeight"
             >
               <v-card flat :color="xBackgroundColor">
                 <v-card-text :class="{'py-1':isMobile}">
@@ -87,8 +86,7 @@
           <v-tab-item :key="'gear-purchase'">
             <v-responsive
               class="overflow-y-auto"
-              :min-height="dialogContentHeight"
-              :max-height="maxDialogContentHeight"
+              :height="maxDialogContentHeight"
             >
               <v-card flat :color="xBackgroundColor">
                 <v-card-text :class="{'py-1':isMobile}">

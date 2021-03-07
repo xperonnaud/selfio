@@ -137,13 +137,16 @@ export default {
             return (this.isMobile ? '300' : '450');
         },
         maxDialogContentHeight() {
-            return this.currentWindowHeightOrValue(660)
+            return this.currentWindowHeightOrValue(550)
         },
         dialogContentHeight() {
             return this.currentWindowHeightOrValue(500);
         },
     },
     methods: {
+        DynamicListHeight() {
+            return (window.innerHeight && this.isMobile ? (window.innerHeight - 115) : 575);
+        },
         initCloseGuard() {
             if(this.xUi.closeGuard === true) {
                 let self = this;
@@ -333,7 +336,8 @@ export default {
             setTimeout(function(){
                 self.formDialog = true;
                 self.formDialogType = 'post';
-            }, 50);
+                self.isAppLoading = false;
+            }, 100);
         },
         async toggleTheme(theme) {
             this.$vuetify.theme.dark = theme

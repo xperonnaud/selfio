@@ -2,6 +2,7 @@
 
   <x-action-card
     :title="t('gear-checklist')"
+    :isLoading="isLoading"
     v-on:xCardAction="$emit('cardAction')"
   >
     <div>
@@ -55,6 +56,10 @@
       originalInventoryGear: [Array, Object],
       packedGearRatio: Number,
       roundedPackedGearRatio: [Number, String],
+      isLoading: {
+        type: Boolean,
+        default: false
+      },
     },
     methods: {
       t(str) {

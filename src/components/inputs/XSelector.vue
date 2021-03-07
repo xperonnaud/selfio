@@ -1,84 +1,85 @@
 <template>
 
-  <v-sheet
-    v-if="isMounted"
-    :class="[`x-${title}-selector x-check-form max-width`]"
-    :color="xTabsColor"
+  <v-menu
+    v-bind:value.sync="editing"
+    origin="center center"
+    transition="scale-transition"
+    max-width="550px"
+    bottom
   >
-    <v-card
-      v-bind:class="[
-        'x-check-form-card',
-        'mx-auto',
-        'elevation-0',
-        {'is-dark':isDark}
-      ]"
-      :color="isInFilter ? null : xBackgroundColor"
-      @click.stop="toggleEditor()"
-    >
-      <slot name="header" />
-    </v-card>
+    <template v-slot:activator="{ on, attrs }">
+      <v-card
+        v-bind:class="[
+          'x-check-form-card',
+          'mx-0 max-width',
+          'elevation-0',
+          {'is-dark':isDark}
+        ]"
+        :color="isInFilter ? null : xBackgroundColor"
+        @click.stop="toggleEditor()"
+        v-bind="attrs"
+        v-on="on"
+      >
+        <slot name="header" />
+      </v-card>
+    </template>
 
-    <v-dialog
-      v-model="editing"
-      max-width="550px"
-    >
-      <v-sheet :color="xSheetColor">
-        <v-container fluid class="pa-0 elevation-0">
-          <v-card
-            class="d-flex align-content-space-between rounded-0"
-            :color="reversedShadeColor"
+    <v-sheet :color="xSheetColor" :max-width="isInFilter ? 305 : null">
+      <v-container fluid class="pa-0 elevation-0">
+        <v-card
+          class="d-flex align-content-space-between rounded-0"
+          :color="reversedShadeColor"
+        >
+          <v-list-item-title class="pl-4">{{$t(`global.${title}`) | capitalizeFirstFilter}}</v-list-item-title>
+
+          <v-spacer />
+
+          <v-btn
+            @click="toggleEditor()"
+            fab
+            icon
           >
-            <v-list-item-title class="pl-4">{{$t(`global.${title}`) | capitalizeFirstFilter}}</v-list-item-title>
+            <v-icon
+              v-bind:class="[fontShadeColor]"
+              :size="XLI"
+              v-text="'mdi-check'"
+            ></v-icon>
+          </v-btn>
+        </v-card>
 
-            <v-spacer />
-
-            <v-btn
-              @click="toggleEditor()"
-              fab
-              icon
-            >
-              <v-icon
-                v-bind:class="[fontShadeColor]"
-                :size="XLI"
-                v-text="'mdi-check'"
-              ></v-icon>
-            </v-btn>
-          </v-card>
-
-          <div class="px-2 pt-3 pb-1">
-            <v-responsive
-              class="overflow-y-auto"
-              :max-height="isMobile ? (currentWindowHeight - 100) : 600"
-            >
-              <v-row no-gutters>
-                <template v-for="(item, itemIndex) in items">
-                  <v-col
-                    :key="`${title}-selector-${itemIndex}`"
-                    :cols="isMobile || isInFilter ? 6 : 3"
-                    v-bind:class="[(isMobile ? 'pa-1' : 'pt-0 pb-2 px-1')]"
+        <div class="px-2 pt-3 pb-1">
+          <v-responsive
+            class="overflow-y-auto"
+            :max-height="isMobile ? (currentWindowHeight - 100) : 600"
+          >
+            <v-row no-gutters>
+              <template v-for="(item, itemIndex) in items">
+                <v-col
+                  :key="`${title}-selector-${itemIndex}`"
+                  :cols="isMobile || isInFilter ? 6 : 3"
+                  v-bind:class="[(isMobile ? 'pa-1' : 'pt-0 pb-2 px-1')]"
+                >
+                  <v-card
+                    v-bind:class="[
+                      'selector-card',
+                      'd-flex',
+                      'justify-space-around',
+                      'align-self-center',
+                      'pt-2 pb-1 elevation-0',
+                      {'x-selected-card':(pickerValue === item)}
+                    ]"
+                    @click.stop="assignValue(item)"
                   >
-                    <v-card
-                      v-bind:class="[
-                        'selector-card',
-                        'd-flex',
-                        'justify-space-around',
-                        'align-self-center',
-                        'pt-2 pb-1 elevation-0',
-                        {'x-selected-card':(pickerValue === item)}
-                      ]"
-                      @click.stop="assignValue(item)"
-                    >
-                      <slot name="content" :item="item" />
-                    </v-card>
-                  </v-col>
-                </template>
-              </v-row>
-            </v-responsive>
-          </div>
-        </v-container>
-      </v-sheet>
-    </v-dialog>
-  </v-sheet>
+                    <slot name="content" :item="item" />
+                  </v-card>
+                </v-col>
+              </template>
+            </v-row>
+          </v-responsive>
+        </div>
+      </v-container>
+    </v-sheet>
+  </v-menu>
 
 </template>
 
