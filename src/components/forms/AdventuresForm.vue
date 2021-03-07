@@ -245,7 +245,7 @@
                 <v-list-item two-line class="px-0">
                   <v-list-item-content class="pa-0">
                     <v-list-item-title>
-                      <span v-if="updatedItem.title">{{updatedItem.title}}&nbsp;-&nbsp;</span>
+                      <span v-if="updatedItem.title">{{updatedItem.title | capitalizeFirstFilter}}&nbsp;-&nbsp;</span>
                       <span>{{$t('components.adventure-gear-card.gear-checklist') | capitalizeFirstFilter}}</span>
                     </v-list-item-title>
 
@@ -288,14 +288,26 @@
                   left
                 >
                   <template v-slot:activator="{ on, attrs }">
-                    <v-btn
-                      @click="gearFilterModeOn = !gearFilterModeOn"
-                      v-bind="attrs"
-                      v-on="on"
-                      icon
+                    <v-badge
+                      :color="nbActiveFilters ? shadeColor : 'transparent'"
+                      overlap
                     >
-                      <v-icon v-text="gearFilterModeOn?'mdi-filter-variant-minus':'mdi-filter-variant'" />
-                    </v-btn>
+                      <template v-if="nbActiveFilters" v-slot:badge>
+                      <span
+                        v-bind:class="reversedFontShadeColor"
+                        v-text="nbActiveFilters"
+                      ></span>
+                      </template>
+
+                      <v-btn
+                        @click="gearFilterModeOn = !gearFilterModeOn"
+                        v-bind="attrs"
+                        v-on="on"
+                        icon
+                      >
+                        <v-icon v-text="gearFilterModeOn?'mdi-filter-variant-minus':'mdi-filter-variant'" />
+                      </v-btn>
+                    </v-badge>
                   </template>
 
                   <v-card>
@@ -317,14 +329,14 @@
 
                     <v-list>
                       <v-list-item class="mb-3">
-                        <x-category-selector v-bind:value.sync="gearCategoryFilter" isInFilter />
+                        <x-category-selector v-bind:value.sync="filters.gearCategoryFilter" isInFilter />
                       </v-list-item>
 
                       <v-list-item class="mb-3">
                         <v-autocomplete
                           v-if="gearFilterModeOn"
                           :label="xCapFirst($t('global.tags'))"
-                          v-model="gearTagsFilter"
+                          v-model="filters.gearTagsFilter"
                           :items="preferences.gear_tags"
                           :color="currentColor"
                           filled
@@ -335,31 +347,31 @@
                       </v-list-item>
 
                       <v-list-item class="mb-3">
-                        <x-brand-selector v-bind:value.sync="gearBrandFilter" isInFilter />
+                        <x-brand-selector v-bind:value.sync="filters.gearBrandFilter" isInFilter />
                       </v-list-item>
 
                       <v-list-item class="mb-3">
-                        <x-state-selector v-bind:value.sync="gearStateFilter" isInFilter />
+                        <x-state-selector v-bind:value.sync="filters.gearStateFilter" isInFilter />
                       </v-list-item>
 
                       <v-list-item class="mb-3">
                         <x-checkbox
                           label="packed"
-                          v-bind:value.sync="gearIsPackedFilter"
+                          v-bind:value.sync="filters.gearIsPackedFilter"
                         ></x-checkbox>
                       </v-list-item>
 
                       <v-list-item class="mb-3">
                         <x-checkbox
                           label="worn"
-                          v-bind:value.sync="gearIsWornFilter"
+                          v-bind:value.sync="filters.gearIsWornFilter"
                         ></x-checkbox>
                       </v-list-item>
 
                       <v-list-item class="mb-3">
                         <x-checkbox
                           label="consumable"
-                          v-bind:value.sync="gearConsumableFilter"
+                          v-bind:value.sync="filters.gearConsumableFilter"
                         ></x-checkbox>
                       </v-list-item>
                     </v-list>
@@ -610,15 +622,28 @@
       gearOrderOption: 'desc',
 
       gearFilterModeOn: false,
-      gearCategoryFilter: null,
-      gearTagsFilter: null,
-      gearStateFilter: null,
-      gearBrandFilter: null,
-      gearIsWornFilter: null,
-      gearIsPackedFilter: null,
-      gearConsumableFilter: null,
+      filters: {
+        gearCategoryFilter: null,
+        gearIsPackedFilter: null,
+        gearTagsFilter: null,
+        gearStateFilter: null,
+        gearBrandFilter: null,
+        gearConsumableFilter: null,
+        gearIsWornFilter: null,
+      },
     }),
     computed: {
+      nbActiveFilters() {
+        let self = this;
+        let nbActiveFilters = 0;
+
+        Object.keys(this.filters).forEach(function(item) {
+          if(self.filters[item]!==null && self.filters[item]!==undefined && self.filters[item]!==false)
+            nbActiveFilters++;
+        });
+
+        return nbActiveFilters;
+      },
       nbUnpackedItems() {
         if(this.isMounted && this.updatedItem.packed_gear && this.updatedItem.packed_gear.length)
           return (this.originalInventoryGear.length - this.updatedItem.packed_gear.length);
@@ -655,24 +680,24 @@
             let gear = this.xGear(item.gear_id);
             if(
               !this.itemSearch
-              && !this.gearCategoryFilter
-              && !this.gearStateFilter
-              && !this.gearTagsFilter
-              && !this.gearBrandFilter
-              && !this.gearIsWornFilter
-              && !this.gearIsPackedFilter
-              && !this.gearConsumableFilter
+              && !this.filters.gearCategoryFilter
+              && !this.filters.gearStateFilter
+              && !this.filters.gearTagsFilter
+              && !this.filters.gearBrandFilter
+              && !this.filters.gearIsWornFilter
+              && !this.filters.gearIsPackedFilter
+              && !this.filters.gearConsumableFilter
             ) return this.originalInventoryGear;
 
             return (
               (this.itemSearch ? (gear.title && gear.title.toLowerCase().includes(this.itemSearch.toLowerCase())) : true)
-              && (this.gearCategoryFilter ? (gear.category && gear.category === this.gearCategoryFilter) : true)
-              && (this.gearStateFilter ? (gear.state && gear.state === this.gearStateFilter) : true)
-              && (this.gearBrandFilter ? (gear.brand && gear.brand === this.gearBrandFilter) : true)
-              && (this.gearConsumableFilter ? (gear.consumable === true) : true)
-              && (this.gearTagsFilter ? (gear.tags.includes(this.gearTagsFilter)) : true)
-              && (this.gearIsWornFilter ? (item.gear_worn === true) : true)
-              && (this.gearIsPackedFilter ? (this.updatedItem && this.updatedItem.packed_gear && this.updatedItem.packed_gear.includes(item.gear_id)) : true)
+              && (this.filters.gearCategoryFilter ? (gear.category && gear.category === this.filters.gearCategoryFilter) : true)
+              && (this.filters.gearStateFilter ? (gear.state && gear.state === this.filters.gearStateFilter) : true)
+              && (this.filters.gearBrandFilter ? (gear.brand && gear.brand === this.filters.gearBrandFilter) : true)
+              && (this.filters.gearConsumableFilter ? (gear.consumable === true) : true)
+              && (this.filters.gearTagsFilter ? (gear.tags.includes(this.filters.gearTagsFilter)) : true)
+              && (this.filters.gearIsWornFilter ? (item.gear_worn === true) : true)
+              && (this.filters.gearIsPackedFilter ? (this.updatedItem && this.updatedItem.packed_gear && this.updatedItem.packed_gear.includes(item.gear_id)) : true)
             )
           }));
 
@@ -684,13 +709,13 @@
     },
     methods: {
       clearAdventureMenuFilters() {
-        this.gearCategoryFilter = null;
-        this.gearTagsFilter = null;
-        this.gearStateFilter = null;
-        this.gearBrandFilter = null;
-        this.gearIsPackedFilter = null;
-        this.gearIsWornFilter = null;
-        this.gearConsumableFilter = null;
+        this.filters.gearCategoryFilter = null;
+        this.filters.gearTagsFilter = null;
+        this.filters.gearStateFilter = null;
+        this.filters.gearBrandFilter = null;
+        this.filters.gearIsPackedFilter = null;
+        this.filters.gearIsWornFilter = null;
+        this.filters.gearConsumableFilter = null;
       },
       closeGearFilterMenu() {
         this.gearFilterModeOn = false;

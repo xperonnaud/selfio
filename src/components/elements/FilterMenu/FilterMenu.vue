@@ -15,7 +15,10 @@
           overlap
         >
           <template v-if="nbActiveFilters" v-slot:badge>
-            <span v-bind:class="reversedFontShadeColor" v-text="nbActiveFilters" />
+            <span
+              v-bind:class="reversedFontShadeColor"
+              v-text="nbActiveFilters"
+            ></span>
           </template>
 
           <v-btn
@@ -122,7 +125,7 @@
 
         if(typeof this.currentRouteId == 'string' && this.xUi.filters[this.currentRouteId]) {
           Object.keys(this.xUi.filters[this.currentRouteId]).forEach(function(item) {
-            if(self.xUi.filters[self.currentRouteId][item]!==null && self.xUi.filters[self.currentRouteId][item]!==undefined)
+            if(self.xUi.filters[self.currentRouteId][item]!==null && self.xUi.filters[self.currentRouteId][item]!==undefined && self.xUi.filters[self.currentRouteId][item]!==false)
               nbActiveFilters++;
           });
         }

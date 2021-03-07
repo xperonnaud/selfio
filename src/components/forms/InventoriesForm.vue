@@ -375,7 +375,7 @@
             <v-list-item two-line :class="[{'px-0':isMobile}]">
               <v-list-item-content class="pa-0">
                 <v-list-item-title>
-                  <span v-if="updatedItem.title">{{updatedItem.title}}&nbsp;-&nbsp;</span>
+                  <span v-if="updatedItem.title">{{updatedItem.title | capitalizeFirstFilter}}&nbsp;-&nbsp;</span>
                   <span>{{t(`gear-list`) | capitalizeFirstFilter}}</span>
                 </v-list-item-title>
 
@@ -412,14 +412,26 @@
                 left
               >
                 <template v-slot:activator="{ on, attrs }">
-                  <v-btn
-                    @click="gearFilterModeOn = !gearFilterModeOn"
-                    v-bind="attrs"
-                    v-on="on"
-                    icon
+                  <v-badge
+                    :color="nbActiveFilters ? shadeColor : 'transparent'"
+                    overlap
                   >
-                    <v-icon v-text="gearFilterModeOn ? 'mdi-filter-variant-minus' : 'mdi-filter-variant'" />
-                  </v-btn>
+                    <template v-if="nbActiveFilters" v-slot:badge>
+                      <span
+                        v-bind:class="reversedFontShadeColor"
+                        v-text="nbActiveFilters"
+                      ></span>
+                    </template>
+
+                    <v-btn
+                      @click="gearFilterModeOn = !gearFilterModeOn"
+                      v-bind="attrs"
+                      v-on="on"
+                      icon
+                    >
+                      <v-icon v-text="gearFilterModeOn ? 'mdi-filter-variant-minus' : 'mdi-filter-variant'" />
+                    </v-btn>
+                  </v-badge>
                 </template>
 
                 <v-card>
@@ -441,14 +453,14 @@
 
                   <v-list>
                     <v-list-item class="mb-3">
-                      <x-category-selector v-bind:value.sync="gearCategoryFilter" isInFilter />
+                      <x-category-selector v-bind:value.sync="filters.gearCategoryFilter" isInFilter />
                     </v-list-item>
 
                     <v-list-item class="mb-3">
                       <v-autocomplete
                         v-if="gearFilterModeOn"
                         :label="xCapFirst($t('global.tags'))"
-                        v-model="gearTagsFilter"
+                        v-model="filters.gearTagsFilter"
                         :items="preferences.gear_tags"
                         :color="currentColor"
                         filled
@@ -459,31 +471,31 @@
                     </v-list-item>
 
                     <v-list-item class="mb-3">
-                      <x-brand-selector v-bind:value.sync="gearBrandFilter" isInFilter />
+                      <x-brand-selector v-bind:value.sync="filters.gearBrandFilter" isInFilter />
                     </v-list-item>
 
                     <v-list-item class="mb-3">
-                      <x-state-selector v-bind:value.sync="gearStateFilter" isInFilter />
+                      <x-state-selector v-bind:value.sync="filters.gearStateFilter" isInFilter />
                     </v-list-item>
 
                     <v-list-item class="mb-3">
                       <x-checkbox
                         label="consumable"
-                        v-bind:value.sync="gearConsumableFilter"
+                        v-bind:value.sync="filters.gearConsumableFilter"
                       ></x-checkbox>
                     </v-list-item>
 
                     <v-list-item class="mb-3">
                       <x-checkbox
                         label="packed"
-                        v-bind:value.sync="gearIsPackedFilter"
+                        v-bind:value.sync="filters.gearIsPackedFilter"
                       ></x-checkbox>
                     </v-list-item>
 
                     <v-list-item class="mb-3">
                       <x-checkbox
                         label="quantity-positive"
-                        v-bind:value.sync="gearQuantityOwnedFilter"
+                        v-bind:value.sync="filters.gearQuantityOwnedFilter"
                       ></x-checkbox>
                     </v-list-item>
                   </v-list>
@@ -849,13 +861,15 @@
       gearOrderOption: 'desc',
 
       gearFilterModeOn: false,
-      gearCategoryFilter: null,
-      gearIsPackedFilter: null,
-      gearTagsFilter: null,
-      gearStateFilter: null,
-      gearBrandFilter: null,
-      gearConsumableFilter: null,
-      gearQuantityOwnedFilter: true,
+      filters: {
+        gearCategoryFilter: null,
+        gearIsPackedFilter: null,
+        gearTagsFilter: null,
+        gearStateFilter: null,
+        gearBrandFilter: null,
+        gearConsumableFilter: null,
+        gearQuantityOwnedFilter: null,
+      },
 
       balance: {
         base: {
@@ -889,6 +903,17 @@
       }
     }),
     computed: {
+      nbActiveFilters() {
+        let self = this;
+        let nbActiveFilters = 0;
+
+          Object.keys(this.filters).forEach(function(item) {
+            if(self.filters[item]!==null && self.filters[item]!==undefined && self.filters[item]!==false)
+              nbActiveFilters++;
+          });
+
+        return nbActiveFilters;
+      },
       mobileResponsiveHeight() {
         return (this.currentWindowHeight - 240);
       },
@@ -913,24 +938,24 @@
           return (this.sortedGear.filter(item => {
             if(
               !this.itemSearch
-              && typeof this.gearCategoryFilter != 'number'
-              && !this.gearStateFilter
-              && !this.gearTagsFilter
-              && typeof this.gearBrandFilter != 'number'
-              && !this.gearIsPackedFilter
-              && !this.gearConsumableFilter
-              && !this.gearQuantityOwnedFilter
+              && typeof this.filters.gearCategoryFilter != 'number'
+              && !this.filters.gearStateFilter
+              && !this.filters.gearTagsFilter
+              && typeof this.filters.gearBrandFilter != 'number'
+              && !this.filters.gearIsPackedFilter
+              && !this.filters.gearConsumableFilter
+              && !this.filters.gearQuantityOwnedFilter
             ) return this.gearList;
 
             return (
               (this.itemSearch ? (item.title && item.title.toLowerCase().includes(this.itemSearch.toLowerCase())) : true)
-              && (typeof this.gearCategoryFilter != 'number' ? (typeof this.gearCategoryFilter != 'number' && (item.category === this.gearCategoryFilter)) : true)
-              && (this.gearStateFilter ? (item.state && (item.state === this.gearStateFilter)) : true)
-              && (typeof this.gearBrandFilter != 'number' ? (typeof this.gearBrandFilter != 'number' && (item.brand === this.gearBrandFilter)) : true)
-              && (this.gearConsumableFilter ? (item.consumable === true) : true)
-              && (this.gearTagsFilter ? (item.tags && item.tags.includes(this.gearTagsFilter)) : true)
-              && (this.gearIsPackedFilter ? (this.inventoryGearList && this.inventoryGearList.includes(item.id)) : true)
-              && (this.gearQuantityOwnedFilter ? (item.quantity_owned > 0) : true)
+              && (typeof this.filters.gearCategoryFilter != 'number' ? (typeof this.filters.gearCategoryFilter != 'number' && (item.category === this.filters.gearCategoryFilter)) : true)
+              && (this.filters.gearStateFilter ? (item.state && (item.state === this.filters.gearStateFilter)) : true)
+              && (typeof this.filters.gearBrandFilter != 'number' ? (typeof this.filters.gearBrandFilter != 'number' && (item.brand === this.filters.gearBrandFilter)) : true)
+              && (this.filters.gearConsumableFilter ? (item.consumable === true) : true)
+              && (this.filters.gearTagsFilter ? (item.tags && item.tags.includes(this.filters.gearTagsFilter)) : true)
+              && (this.filters.gearIsPackedFilter ? (this.inventoryGearList && this.inventoryGearList.includes(item.id)) : true)
+              && (this.filters.gearQuantityOwnedFilter ? (item.quantity_owned > 0) : true)
             )
           }));
 
@@ -970,13 +995,13 @@
         this.temporaryInventoryGear.gear_worn = null;
       },
       clearMenuFilters() {
-        this.gearCategoryFilter = null;
-        this.gearTagsFilter = null;
-        this.gearStateFilter = null;
-        this.gearBrandFilter = null;
-        this.gearConsumableFilter = null;
-        this.gearIsPackedFilter = null;
-        this.gearQuantityOwnedFilter = null;
+        this.filters.gearCategoryFilter = null;
+        this.filters.gearTagsFilter = null;
+        this.filters.gearStateFilter = null;
+        this.filters.gearBrandFilter = null;
+        this.filters.gearConsumableFilter = null;
+        this.filters.gearIsPackedFilter = null;
+        this.filters.gearQuantityOwnedFilter = null;
       },
       closeGearFilterMenu() {
         this.gearFilterModeOn = false;
@@ -1192,6 +1217,15 @@
       }
     },
     watch: {
+      filters: {
+        handler: async function() {
+          this.isLoading = true;
+          await this.initInventoryStats();
+          await this.initGearCategoryStats();
+          this.isLoading = false;
+        },
+        deep: true
+      },
       async selectedInventoryGearIndex(newVal, oldVal) {
         if(!newVal || (newVal === oldVal)) {
           await this.resetTemporaryInventoryGear();
