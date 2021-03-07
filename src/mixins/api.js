@@ -3,7 +3,7 @@ import localforage from 'localforage';
 import DirectusSDK from '@directus/sdk-js';
 import CONSTANTS from '@/constants'
 
-const directus = new DirectusSDK('http://localhost:8055/', {
+const directus = new DirectusSDK(process.env.VUE_APP_DIRECTUS_URL, {
     auth: {
         storage: localforage, // Storage adapter where refresh tokens are stored in JSON mode
         mode: 'cookie', // What login mode to use. One of `json`, `cookie`
@@ -13,13 +13,13 @@ const directus = new DirectusSDK('http://localhost:8055/', {
 
 export default {
     computed: {
-        assetUrl() {
-            return this.store.api.baseUrl+'assets/'
-        },
         apiBaseUrl: {
             get() {
-                return this.$store.state.api.baseUrl;
+                return this.xEnv.baseUrl;
             }
+        },
+        assetUrl() {
+            return `${this.apiBaseUrl}assets/`;
         },
         brandsList: {
             get() {

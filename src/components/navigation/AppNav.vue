@@ -20,7 +20,7 @@
 
         <v-list-item-content>
           <v-list-item-title>
-            <span v-text="$t('global.app-name')" class="text-h5 primary-gradient-color-text" />
+            <span class="text-h5 primary-gradient-color-text">{{$store.state.env.title}}</span>
           </v-list-item-title>
         </v-list-item-content>
       </v-list-item>
@@ -125,11 +125,6 @@
     components: {
       PolyIcon
     },
-    methods: {
-      goToRoute() {
-
-      }
-    }
   }
 
 </script>

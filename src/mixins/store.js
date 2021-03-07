@@ -182,6 +182,11 @@ export default {
                 return this.$store.state;
             }
         },
+        xEnv: {
+            get() {
+                return this.store.env;
+            }
+        },
         xUi: {
             get() {
                 return this.store.ui;

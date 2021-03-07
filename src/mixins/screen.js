@@ -151,7 +151,7 @@ export default {
             return (window.innerHeight && this.isMobile ? (window.innerHeight - 115) : 575);
         },
         initCloseGuard() {
-            if(this.xUi.closeGuard === true) {
+            if(this.xEnv.closeGuard === true) {
                 let self = this;
                 window.onbeforeunload = function () {
                     return self.$t('global.close-guard');
