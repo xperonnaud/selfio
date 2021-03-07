@@ -14,7 +14,7 @@
 
       <app-nav v-if="displayApp && isLoggedIn" />
 
-      <app-body v-show="!isMobile || (isMobile && !isAppLoading)" />
+      <app-body v-show="!isAppLoading" />
 
       <app-footer v-if="displayApp && isLoggedIn" />
 

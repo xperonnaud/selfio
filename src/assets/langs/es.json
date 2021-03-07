@@ -1,7 +1,8 @@
 
 {
   "global": {
-    "app-name": "PackHub.io",
+    "null": "NA",
+    "close-guard": "En continuant vous perdrez toute progression non sauvegardée. Souhaitez vous vraiment fermer cette page?",
 
     "gear":"matériel",
     "inventories":"inventaires",
@@ -10,7 +11,7 @@
     "home":"accueil",
     "account":"compte",
     "brands":"marques",
-    "tags":"tags",
+    "tags":"étiquettes",
     "import-export":"import / export",
     "import":"importer",
     "export":"exporter",
@@ -18,7 +19,7 @@
     "feedback":"contactez nous",
     "theme":"thème",
 
-    "add-gear":"ajoutez de matériel",
+    "add-gear":"ajoutez du matériel",
     "add-inventories":"ajoutez un inventaire",
     "add-adventures":"ajoutez une aventure",
 
@@ -29,13 +30,14 @@
     "public": "public",
     "email": "email",
     "login": "se connecter",
-    "logout": "déconnexion",
+    "logout": "se déconnecter",
 
     "languages": "langues",
     "language": "langue",
     "object": "objet",
     "message": "message",
     "unit": "unité",
+    "currency": "devise",
     "format": "format",
     "weight": "poids",
     "temperature": "température",
@@ -111,9 +113,9 @@
     "leave":"quitter",
     "new":"nouveau",
 
-    "gear-tags": "tags de matériel",
-    "inventory-tags": "tags d'inventaire",
-    "adventure-tags": "tags d'aventure"
+    "gear-tags": "étiquesttes de matériel",
+    "inventory-tags": "étiquesttes d'inventaire",
+    "adventure-tags": "étiquesttes d'aventure"
   },
   "states": {
     "new":"neuf",
@@ -122,70 +124,118 @@
     "poor":"hs"
   },
   "weathers": {
-    "cloudy": { "title": "nuageux"},
-    "fog": { "title": "brouillard"},
-    "hail": { "title": "grêle"},
-    "hazy": { "title": "brumeux"},
-    "lightning": { "title": "orage"},
-    "lightning-rainy": { "title": "orage & pluie"},
-    "partly-cloudy": { "title": "légers nuages"},
-    "partly-rainy": { "title": "petite pluie"},
-    "partly-snowy": { "title": "petite neige"},
-    "pouring": { "title": "averse"},
-    "rainy": { "title": "pluie"},
-    "snowy": { "title": "neige"},
-    "snowy-heavy": { "title": "grosse neige"},
-    "snowy-rainy": { "title": "grosse pluie"},
-    "sunny": { "title": "ensoleillé"},
-    "windy": { "title": "venteux"}
+    "cloudy": {"title": "nuageux"},
+    "fog": {"title": "brouillard"},
+    "hail": {"title": "grêle"},
+    "hazy": {"title": "brumeux"},
+    "lightning": {"title": "orage"},
+    "lightning-rainy": {"title": "orage & pluie"},
+    "partly-cloudy": {"title": "légers nuages"},
+    "partly-rainy": {"title": "petite pluie"},
+    "partly-snowy": {"title": "petite neige"},
+    "pouring": {"title": "averse"},
+    "rainy": {"title": "pluie"},
+    "snowy": {"title": "neige"},
+    "snowy-heavy": {"title": "grosse neige"},
+    "snowy-rainy": {"title": "grosse pluie"},
+    "sunny": {"title": "ensoleillé"},
+    "windy": {"title": "venteux"}
   },
   "landscapes": {
-    "beach": { "title": "plage"},
-    "tropical": { "title": "tropical"},
-    "offshore": { "title": "haute mer"},
-    "forest": { "title": "foret"},
-    "hills": { "title": "collines"},
-    "taiga": { "title": "taïga"},
-    "riverside": { "title": "rivière"},
-    "city-indoor": { "title": "en intérieur"},
-    "mixed": { "title": "varié"},
-    "island": { "title": "île"},
-    "toundra": { "title": "toundra"},
-    "fields": { "title": "champs"},
-    "arctic": { "title": "arctique"},
-    "volcano": { "title": "volcan"},
-    "badland": { "title": "badland"},
-    "savannah": { "title": "savane"},
-    "mountains": { "title": "montagnes"},
-    "arial": { "title": "aérien"},
-    "desert": { "title": "désert"},
-    "plateau": { "title": "plateau"},
-    "coastal": { "title": "côtier"},
-    "city-outdoor": { "title": "en ville"},
-    "park": { "title": "parc"}
+    "beach": {"title": "plage"},
+    "tropical": {"title": "tropical"},
+    "offshore": {"title": "haute mer"},
+    "forest": {"title": "foret"},
+    "hills": {"title": "collines"},
+    "taiga": {"title": "taïga"},
+    "riverside": {"title": "rivière"},
+    "city-indoor": {"title": "en intérieur"},
+    "mixed": {"title": "varié"},
+    "island": {"title": "île"},
+    "toundra": {"title": "toundra"},
+    "fields": {"title": "champs"},
+    "arctic": {"title": "arctique"},
+    "volcano": {"title": "volcan"},
+    "badland": {"title": "badland"},
+    "savannah": {"title": "savane"},
+    "mountains": {"title": "montagnes"},
+    "arial": {"title": "aérien"},
+    "desert": {"title": "désert"},
+    "plateau": {"title": "plateau"},
+    "coastal": {"title": "côtier"},
+    "city-outdoor": {"title": "en ville"},
+    "park": {"title": "parc"}
   },
   "activities": {
-    "running": { "title": "course à pied"},
-    "hiking": { "title": "randonnée"},
-    "trekking": { "title": "trekking"},
-    "mountaineering": { "title": "mountaineering"},
-    "alpinism": { "title": "alpinisme"},
-    "hunting": { "title": "chasse"},
-    "camping": { "title": "camping"},
-    "backpacking": { "title": "backpacking"},
-    "off-road": { "title": "hors route"},
-    "trip": { "title": "voyage"},
-    "sightseeing": { "title": "sightseeing"},
-    "photography": { "title": "photographie"},
-    "airsoft": { "title": "airsoft"},
-    "climbing": { "title": "escalade"},
-    "fishing": { "title": "pêche"},
-    "diving": { "title": "plongée"}
+    "running": {
+      "title": "course à pied",
+      "desc": ""
+    },
+    "hiking": {
+      "title": "randonnée",
+      "desc": ""
+    },
+    "trekking": {
+      "title": "trekking",
+      "desc": ""
+    },
+    "mountaineering": {
+      "title": "mountaineering",
+      "desc": ""
+    },
+    "alpinism": {
+      "title": "alpinisme",
+      "desc": ""
+    },
+    "hunting": {
+      "title": "chasse",
+      "desc": ""
+    },
+    "camping": {
+      "title": "camping",
+      "desc": ""
+    },
+    "backpacking": {
+      "title": "backpacking",
+      "desc": ""
+    },
+    "off-road": {
+      "title": "hors route",
+      "desc": ""
+    },
+    "trip": {
+      "title": "voyage",
+      "desc": ""
+    },
+    "sightseeing": {
+      "title": "sightseeing",
+      "desc": ""
+    },
+    "photography": {
+      "title": "photographie",
+      "desc": ""
+    },
+    "airsoft-paintball": {
+      "title": "airsoft / paintball",
+      "desc": ""
+    },
+    "climbing": {
+      "title": "escalade",
+      "desc": ""
+    },
+    "fishing": {
+      "title": "pêche",
+      "desc": ""
+    },
+    "diving": {
+      "title": "plongée",
+      "desc": ""
+    }
   },
   "categories": {
     "activity": {
       "title": "activité",
-      "desc": "Équipement spécifique: harnais d'escalade, câne à pêche, skis, ..."
+      "desc": "Équipement spécifique: harnais d'escalade, canne à pêche, skis, ..."
     },
     "clothing": {
       "title": "vêtements",
@@ -236,7 +286,7 @@
       "desc": "Couteau, hache, pelle, outil multi-fonction, ..."
     },
     "hydration": {
-      "title": "eau & boissons",
+      "title": "hydratation",
       "desc": "Eau, café, boisson énergisante, ..."
     }
   },
@@ -247,7 +297,8 @@
       "gear-balance": "répartition du matériel",
       "balance": "répartition",
       "weight-by-gear-category": "Poids par categories",
-      "add-gear": "ajoutez du matériel à votre inventaire."
+      "add-gear": "ajoutez du matériel à votre inventaire.",
+      "add-inventory-gear": "ajoutez d'abord des éléments à votre liste matériel."
     },
     "adventures": {
       "event": "évènement"
@@ -323,18 +374,19 @@
     "username-password": "Email / Mot de passe non valides",
     "logged-out": "Déconnecté",
     "feedback-sent": "Commentaire envoyé. Merci!",
-    "brand-added": "Brand ajoutée",
-    "brand-deleted": "Brand supprimée",
-    "tags-updated": "Tags modifiés",
-    "settings-updated": "Settings modifiés",
-    "gear-added": "Gear ajoutée",
-    "gear-updated": "Gear modifié",
-    "gear-deleted": "Gear supprimé",
-    "inventory-added": "Inventory ajouté",
-    "inventory-updated": "Inventory modifié",
-    "inventory-deleted": "Inventory supprimé",
-    "adventure-added": "Adventure ajoutée",
-    "adventure-updated": "Adventure modifiée",
-    "adventure-deleted": "Adventure supprimée"
+    "brand-added": "Marque ajoutée",
+    "brand-deleted": "Marque supprimée",
+    "tags-updated": "Étiquettes modifiés",
+    "settings-added": "Paramètres ajoutés",
+    "settings-updated": "Paramètres modifiés",
+    "gear-added": "Matériel ajoutée",
+    "gear-updated": "Matériel modifié",
+    "gear-deleted": "Matériel supprimé",
+    "inventory-added": "Inventaire ajouté",
+    "inventory-updated": "Inventaire modifié",
+    "inventory-deleted": "Inventaire supprimé",
+    "adventure-added": "Aventure ajoutée",
+    "adventure-updated": "Aventure modifiée",
+    "adventure-deleted": "Aventure supprimée"
   }
 }

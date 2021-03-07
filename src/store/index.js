@@ -5,8 +5,10 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
     state: {
-        api: {
-            baseUrl: 'https://servo-13475.nodechef.com/',
+        env: {
+            baseUrl: process.env.VUE_APP_DIRECTUS_URL || 'http://localhost:8055/',
+            title: process.env.VUE_APP_TITLE || 'PackHub.io',
+            closeGuard: process.env.VUE_APP_CLOSE_GUARD || false,
         },
         selfio: {
             user: {},
@@ -23,13 +25,13 @@ export default new Vuex.Store({
             adventureReferences: {},
         },
         ui: {
+            loadingRoute: null,
             isSessionExpired: false,
             formDialog: false,
             formDialogType: null,
             selectedItemRelations: {},
             selectedItem: null,
             selectedItemIndex: null,
-            closeGuard: true,
 
             filters: {
                 title: '',
@@ -279,6 +281,9 @@ export default new Vuex.Store({
             }
         },
         // Ui
+        updateLoadingRoute(state, loadingRoute) {
+            state.ui.loadingRoute = loadingRoute;
+        },
         updateUiIsSessionExpired(state, isSessionExpired) {
             state.ui.isSessionExpired = isSessionExpired;
         },
@@ -300,9 +305,6 @@ export default new Vuex.Store({
         },
         updateUiSelectedItemIndex(state, selectedItemIndex) {
             state.ui.selectedItemIndex = selectedItemIndex;
-        },
-        updateCloseGuard(state, closeGuard) {
-            state.ui.closeGuard = closeGuard;
         },
         updateTitleSearchFilter(state, title) {
             state.ui.filters.title = title;

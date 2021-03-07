@@ -70,11 +70,31 @@ new Vue({
     'ui'
   ]),
   created: async function () {
+    // init isLoggedIn global prop
     localforage.getItem('is-logged-in')
-    .then(function (value) {
-      store.commit('updateUiIsLoggedIn', value);
-    }).catch(function (err) {
+        .then(function (value) {
+          store.commit('updateUiIsLoggedIn', value);
+        }).catch(function (err) {
       console.log('is-logged-in',err)
+    });
+
+    router.beforeEach((to, from, next) => {
+      if (typeof to.path === 'string') {
+        store.commit('updateLoadingRoute', to.name);
+        store.commit('updateUiIsAppLoading', true);
+        setTimeout(function(){
+          next();
+        }, 50);
+      } else {
+        next() // make sure to always call next()!
+      }
+    });
+
+    router.afterEach((to, from) => {
+      if (typeof to.path === 'string') {
+        store.commit('updateLoadingRoute', null);
+        store.commit('updateUiIsAppLoading', false);
+      }
     });
   },
   render: h => h(App)

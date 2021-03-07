@@ -185,14 +185,3 @@
   }
 
 </script>
-
-<style lang="scss">
-
-  .filter-menu {
-    .v-badge__wrapper {
-      left: -4px;
-      top: 4px;
-    }
-  }
-
-</style>

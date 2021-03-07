@@ -1,5 +1,12 @@
 
 
+.filter-menu {
+  .v-badge__wrapper {
+    left: -4px !important;
+    top: 4px !important;
+  }
+}
+
 .inventories-form, .adventures-form {
   .scroller {
     height: 100%;

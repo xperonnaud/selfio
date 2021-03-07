@@ -338,7 +338,7 @@
           endDatetime = moment(source.end_time);
         }
 
-        unitOfTime = unitOfTime > 1 ? unitOfTime+'s' : unitOfTime;
+        unitOfTime =  `${unitOfTime}${this.pluralizeStr(unitOfTime)}`;
 
         this.duration = (startDatetime && endDatetime) ? endDatetime.diff(startDatetime, unitOfTime) : 0;
       }

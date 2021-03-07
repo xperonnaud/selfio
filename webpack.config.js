@@ -1,3 +1,4 @@
+import * as webpack from "webpack";
 
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
@@ -31,6 +32,7 @@ module.exports = {
   },
   plugins: [
     // make sure to include the plugin!
-    new VueLoaderPlugin()
+    new VueLoaderPlugin(),
+    new webpack.DefinePlugin({ 'process.env.NODE_ENV': '"development"' })
   ]
 };

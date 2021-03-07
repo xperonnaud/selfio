@@ -1,7 +1,10 @@
 <template>
 
   <v-main>
-    <v-card height="100%" :color="isLoggedIn ? xBackgroundColor : 'transparent'">
+    <v-card
+      height="100%"
+      :color="isLoggedIn ? xBackgroundColor : 'transparent'"
+    >
       <login-form v-if="!isLoggedIn" />
 
       <router-view

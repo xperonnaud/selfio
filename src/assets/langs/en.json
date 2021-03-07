@@ -2,7 +2,6 @@
 {
   "global": {
     "null": "NA",
-    "app-name": "PackHub.io",
     "close-guard": "By proceeding you will lose all unsaved progressions. Do you really wish to leave this page?",
 
     "gear":"gear",

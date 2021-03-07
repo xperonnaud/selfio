@@ -161,7 +161,7 @@
 
                                           <div style="width: 60px;">
                                             <span class="text-tiny" v-text="gearCategoryStat.items" />
-                                            <span class="text-tiny-dimmed" v-text="` ${$t(`global.item${gearCategoryStat.items > 1 ? 's' : ''}`)}`" />
+                                            <span class="text-tiny-dimmed" v-text="` ${$t(`global.item${pluralizeStr(gearCategoryStat.items)}`)}`" />
                                           </div>
 
                                           <x-divider />
@@ -326,7 +326,7 @@
 
                                           <div>
                                             <span class="text-tiny" v-text="gearCategoryStat.items" />
-                                            <span class="text-tiny-dimmed" v-text="' '+$t(`global.item${gearCategoryStat.items > 1 ? 's' : ''}`)" />
+                                            <span class="text-tiny-dimmed" v-text="' '+$t(`global.item${pluralizeStr(gearCategoryStat.items)}`)" />
                                           </div>
 
                                           <x-divider />
@@ -408,7 +408,7 @@
                         v-bind:class="[currentColorText]"
                         v-text="inventoryTotalItems || 0"
                       ></span>
-                      <span class="text-tiny" v-text="' '+$t(`components.inventory-gear-card.unique-item${inventoryTotalItems > 1 ? 's' : ''}`)" />
+                      <span class="text-tiny" v-text="' '+$t(`components.inventory-gear-card.unique-item${pluralizeStr(inventoryTotalItems)}`)" />
                     </div>
                   </div>
                 </v-list-item-subtitle>
@@ -417,126 +417,10 @@
 
             <v-spacer />
 
-            <div class="mr-1 text-center">
-              <v-menu
-                v-model="gearFilterModeOn"
-                :close-on-content-click="false"
-                min-width="333"
-                max-width="333"
-                :nudge-width="200"
-                left
-              >
-                <template v-slot:activator="{ on, attrs }">
-                  <v-badge
-                    :color="nbActiveFilters ? shadeColor : 'transparent'"
-                    overlap
-                  >
-                    <template v-if="nbActiveFilters" v-slot:badge>
-                      <span
-                        v-bind:class="reversedFontShadeColor"
-                        v-text="nbActiveFilters"
-                      ></span>
-                    </template>
-
-                    <v-btn
-                      @click="gearFilterModeOn = !gearFilterModeOn"
-                      v-bind="attrs"
-                      v-on="on"
-                      icon
-                    >
-                      <v-icon v-text="gearFilterModeOn ? 'mdi-filter-variant-minus' : 'mdi-filter-variant'" />
-                    </v-btn>
-                  </v-badge>
-                </template>
-
-                <v-card>
-                  <v-list class="py-1">
-                    <v-list-item>
-                      <v-list-item-title>{{$t('global.filters') | capitalizeFirstFilter}}</v-list-item-title>
-
-                      <v-spacer />
-
-                      <v-btn
-                        @click="closeGearFilterMenu()"
-                        icon
-                      >
-                        <v-icon v-text="'mdi-close'" />
-                      </v-btn>
-
-                    </v-list-item>
-                  </v-list>
-
-                  <v-list>
-                    <v-list-item class="mb-3">
-                      <x-category-selector v-bind:value.sync="filters.gearCategoryFilter" isInFilter />
-                    </v-list-item>
-
-                    <v-list-item class="mb-3">
-                      <v-autocomplete
-                        v-if="gearFilterModeOn"
-                        :label="xCapFirst($t('global.tags'))"
-                        v-model="filters.gearTagsFilter"
-                        :items="preferences.gear_tags"
-                        :color="currentColor"
-                        filled
-                        dense
-                        clearable
-                        hide-details="auto"
-                      ></v-autocomplete>
-                    </v-list-item>
-
-                    <v-list-item class="mb-3">
-                      <x-brand-selector v-bind:value.sync="filters.gearBrandFilter" isInFilter />
-                    </v-list-item>
-
-                    <v-list-item class="mb-3">
-                      <x-state-selector v-bind:value.sync="filters.gearStateFilter" isInFilter />
-                    </v-list-item>
-
-                    <v-list-item class="mb-3">
-                      <x-checkbox
-                        label="consumable"
-                        v-bind:value.sync="filters.gearConsumableFilter"
-                      ></x-checkbox>
-                    </v-list-item>
-
-                    <v-list-item class="mb-3">
-                      <x-checkbox
-                        label="packed"
-                        v-bind:value.sync="filters.gearIsPackedFilter"
-                      ></x-checkbox>
-                    </v-list-item>
-
-                    <v-list-item class="mb-3">
-                      <x-checkbox
-                        label="quantity-positive"
-                        v-bind:value.sync="filters.gearQuantityOwnedFilter"
-                      ></x-checkbox>
-                    </v-list-item>
-                  </v-list>
-
-                  <v-card-actions>
-                    <v-btn
-                      @click="clearMenuFilters()"
-                      :color="errorColor"
-                      text
-                    >
-                      <span v-text="$t('global.reset')" />
-                    </v-btn>
-
-                    <v-spacer />
-
-                    <v-btn
-                      @click="closeGearFilterMenu()"
-                      icon
-                      class="mr-2"
-                    >
-                      <poly-icon icon="mdi-check" :size="XLI" />
-                    </v-btn>
-                  </v-card-actions>
-                </v-card>
-              </v-menu>
-            </div>
+            <inventory-gear-filter-menu
+              v-bind:filters.sync="filters"
+              v-bind:gearFilterMode.sync="gearFilterModeOn"
+            ></inventory-gear-filter-menu>
 
             <v-btn
               @click="closeGearList()"
@@ -569,56 +453,10 @@
                     </v-col>
                   </v-list-item-avatar>
 
-                  <v-list-item-content class="py-0">
-                    <v-row align="center" justify="center">
-
-                      <v-col :cols="isMobile ? 6 : 3" class="py-2 col-border-r x-primary-btn rounded" @click.stop="sortGear('title')" v-ripple>
-                        <div class="d-flex align-center">
-                          <div v-bind:class="['text-tiny', ((gearOrderBy === 'title') ? currentColorText : '')]">{{$t('global.title') | capitalizeFirstFilter}}</div>
-                          <x-sort-icon prop="title" />
-                        </div>
-                      </v-col>
-
-                      <v-col class="x-col px-0 py-2 col-border-r x-primary-btn rounded" @click.stop="sortGear('weight')" v-ripple>
-                        <div class="d-flex justify-center align-center">
-                          <div v-bind:class="['text-tiny', ((gearOrderBy === 'weight') ? currentColorText : '')]">{{$t('global.weight') | capitalizeFirstFilter}}</div>
-                          <x-sort-icon prop="weight" />
-                        </div>
-                      </v-col>
-
-                      <v-col v-if="!isMobile" class="x-col px-0 py-2 col-border-r x-primary-btn rounded" @click.stop="sortGear('price')" v-ripple>
-                        <div class="d-flex justify-center align-center">
-                          <div v-bind:class="['text-tiny', ((gearOrderBy === 'price') ? currentColorText : '')]">{{$t('global.price') | capitalizeFirstFilter}}</div>
-                          <x-sort-icon prop="price" />
-                        </div>
-                      </v-col>
-
-                      <v-col v-if="!isMobile" class="x-col px-0 py-2 col-border-r x-primary-btn rounded" @click.stop="sortGear('state')" v-ripple>
-                        <div class="d-flex justify-center align-center">
-                          <div v-bind:class="['text-tiny', ((gearOrderBy === 'state') ? currentColorText : '')]">{{$t('global.state') | capitalizeFirstFilter}}</div>
-                          <x-sort-icon prop="state" />
-                        </div>
-                      </v-col>
-
-                      <v-col v-if="!isMobile" class="x-col px-0 py-2 col-border-r x-primary-btn rounded" @click.stop="sortGear('consumable')" v-ripple>
-                        <div class="d-flex justify-center align-center">
-                          <div v-bind:class="['text-tiny', ((gearOrderBy === 'consumable') ? currentColorText : '')]">{{$t('global.consumable') | minifyTextFilter | capitalizeFirstFilter}}</div>
-                          <x-sort-icon prop="consumable" />
-                        </div>
-                      </v-col>
-
-                      <v-col v-if="!isMobile" class="x-col px-0 py-2 col-border-r">
-                        <div class="text-tiny text-center">{{$t('global.worn') | capitalizeFirstFilter}}</div>
-                      </v-col>
-
-                      <v-col class="x-col px-0 py-2 col-border-r x-primary-btn rounded" @click.stop="sortGear('quantity_owned')" v-ripple>
-                        <div class="d-flex justify-center align-center">
-                          <div v-bind:class="['text-tiny text-center', ((gearOrderBy === 'quantity_owned') ? currentColorText : '')]">{{$t('global.qty') | capitalizeFirstFilter}}</div>
-                          <x-sort-icon prop="state" />
-                        </div>
-                      </v-col>
-                    </v-row>
-                  </v-list-item-content>
+                  <inventory-gear-list-header
+                    :gearOrderBy="gearOrderBy"
+                    v-on:sortGear="sortGear($event)"
+                  ></inventory-gear-list-header>
 
                   <v-list-item-action class="ma-0" :style="'width: '+(isMobile ? '33' : '30')+'px !important; margin-left: '+(isMobile ? '13' : '20')+'px !important;'" />
                 </v-list-item>
@@ -753,12 +591,11 @@
 
   const _ = require('lodash');
 
+  import InventoryGearFilterMenu from "@/components/elements/FilterMenu/InventoryGearFilterMenu";
+  import InventoryGearListHeader from "@/components/lists/headers/InventoryGearListHeader";
   import PolyIcon from "@/components/elements/Icons/PolyIcon";
   import InventoryGearListItem from "@/components/lists/items/InventoryGearListItem";
   import InventoryGearCard from "@/components/elements/Cards/InventoryGearCard";
-  import XCategorySelector from "@/components/inputs/XCategorySelector";
-  import XBrandSelector from "@/components/inputs/XBrandSelector";
-  import XStateSelector from "@/components/inputs/XStateSelector";
   import XTitleField from "@/components/inputs/XTitleField";
   import XCombobox from "@/components/inputs/XCombobox";
   import XSortIcon from "@/components/elements/Icons/XSortIcon";
@@ -772,15 +609,14 @@
   export default {
     name: 'inventories-form',
     components: {
+      InventoryGearFilterMenu,
+      InventoryGearListHeader,
       PolyIcon,
       InventoryGearListItem,
       EmptyList,
       InventoryGearCard,
       XTitleField,
       XUnknownCategoryIcon,
-      XCategorySelector,
-      XBrandSelector,
-      XStateSelector,
       XIncrement,
       XCheckbox,
       XSortIcon,
@@ -883,7 +719,7 @@
         gearStateFilter: null,
         gearBrandFilter: null,
         gearConsumableFilter: null,
-        gearQuantityOwnedFilter: null,
+        gearQuantityOwnedFilter: true,
       },
 
       balance: {
@@ -918,17 +754,6 @@
       }
     }),
     computed: {
-      nbActiveFilters() {
-        let self = this;
-        let nbActiveFilters = 0;
-
-          Object.keys(this.filters).forEach(function(item) {
-            if(self.filters[item]!==null && self.filters[item]!==undefined && self.filters[item]!==false)
-              nbActiveFilters++;
-          });
-
-        return nbActiveFilters;
-      },
       mobileResponsiveHeight() {
         return (this.currentWindowHeight - 240);
       },
@@ -1008,18 +833,6 @@
         this.temporaryInventoryGear.gear_id = null;
         this.temporaryInventoryGear.gear_quantity_packed = null;
         this.temporaryInventoryGear.gear_worn = null;
-      },
-      clearMenuFilters() {
-        this.filters.gearCategoryFilter = null;
-        this.filters.gearTagsFilter = null;
-        this.filters.gearStateFilter = null;
-        this.filters.gearBrandFilter = null;
-        this.filters.gearConsumableFilter = null;
-        this.filters.gearIsPackedFilter = null;
-        this.filters.gearQuantityOwnedFilter = null;
-      },
-      closeGearFilterMenu() {
-        this.gearFilterModeOn = false;
       },
       inventoryGearItem(gearId) {
         let index = this.inventoryGearList.indexOf(gearId);
@@ -1229,7 +1042,16 @@
         this.inventoryTotalItems = this.sumCheckedGearProperty('quantity_packed');
         this.inventoryTotalWeight = this.sumCheckedGearProperty('weight');
         this.inventoryTotalPrice = this.sumCheckedGearProperty('price');
-      }
+      },
+      clearGearMenuFilters() {
+        this.filters.gearCategoryFilter = null;
+        this.filters.gearTagsFilter = null;
+        this.filters.gearStateFilter = null;
+        this.filters.gearBrandFilter = null;
+        this.filters.gearConsumableFilter = null;
+        this.filters.gearIsPackedFilter = null;
+        this.filters.gearQuantityOwnedFilter = null;
+      },
     },
     watch: {
       filters: {
@@ -1327,6 +1149,7 @@
 
           if(val === false) {
             this.clearMenuFilters();
+            this.clearGearMenuFilters();
             await this.initGearCategoryStats();
           }
           this.isLoading = false;
