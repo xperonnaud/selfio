@@ -144,6 +144,9 @@ export default {
         },
     },
     methods: {
+        pluralizeStr(prop) {
+            return (prop > 1 ? 's' : '');
+        },
         DynamicListHeight() {
             return (window.innerHeight && this.isMobile ? (window.innerHeight - 115) : 575);
         },

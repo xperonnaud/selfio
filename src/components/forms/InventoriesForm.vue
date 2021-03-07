@@ -161,7 +161,7 @@
 
                                           <div style="width: 60px;">
                                             <span class="text-tiny" v-text="gearCategoryStat.items" />
-                                            <span class="text-tiny-dimmed" v-text="` ${$t(`global.item${gearCategoryStat.items > 1 ? 's' : ''}`)}`" />
+                                            <span class="text-tiny-dimmed" v-text="` ${$t(`global.item${pluralizeStr(gearCategoryStat.items)}`)}`" />
                                           </div>
 
                                           <x-divider />
@@ -326,7 +326,7 @@
 
                                           <div>
                                             <span class="text-tiny" v-text="gearCategoryStat.items" />
-                                            <span class="text-tiny-dimmed" v-text="' '+$t(`global.item${gearCategoryStat.items > 1 ? 's' : ''}`)" />
+                                            <span class="text-tiny-dimmed" v-text="' '+$t(`global.item${pluralizeStr(gearCategoryStat.items)}`)" />
                                           </div>
 
                                           <x-divider />
@@ -408,7 +408,7 @@
                         v-bind:class="[currentColorText]"
                         v-text="inventoryTotalItems || 0"
                       ></span>
-                      <span class="text-tiny" v-text="' '+$t(`components.inventory-gear-card.unique-item${inventoryTotalItems > 1 ? 's' : ''}`)" />
+                      <span class="text-tiny" v-text="' '+$t(`components.inventory-gear-card.unique-item${pluralizeStr(inventoryTotalItems)}`)" />
                     </div>
                   </div>
                 </v-list-item-subtitle>
@@ -1042,7 +1042,16 @@
         this.inventoryTotalItems = this.sumCheckedGearProperty('quantity_packed');
         this.inventoryTotalWeight = this.sumCheckedGearProperty('weight');
         this.inventoryTotalPrice = this.sumCheckedGearProperty('price');
-      }
+      },
+      clearGearMenuFilters() {
+        this.filters.gearCategoryFilter = null;
+        this.filters.gearTagsFilter = null;
+        this.filters.gearStateFilter = null;
+        this.filters.gearBrandFilter = null;
+        this.filters.gearConsumableFilter = null;
+        this.filters.gearIsPackedFilter = null;
+        this.filters.gearQuantityOwnedFilter = null;
+      },
     },
     watch: {
       filters: {
@@ -1140,6 +1149,7 @@
 
           if(val === false) {
             this.clearMenuFilters();
+            this.clearGearMenuFilters();
             await this.initGearCategoryStats();
           }
           this.isLoading = false;

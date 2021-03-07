@@ -47,13 +47,13 @@
                       </v-col>
 
                       <v-col cols="12">
-                        <x-picker
+                        <x-inventory-selector
                           label="inventory"
                           :list="inventoriesList"
                           :color="currentColor"
                           :type="'inventories'"
                           v-bind:value.sync="updatedItem.adventure_inventory"
-                        ></x-picker>
+                        ></x-inventory-selector>
                       </v-col>
 
                       <v-col
@@ -383,7 +383,7 @@
   import XIncrement from "@/components/inputs/XIncrement";
   import XDatePicker from "@/components/inputs/XDatePicker";
   import XTimePicker from "@/components/inputs/XTimePicker";
-  import XPicker from "@/components/inputs/XPicker";
+  import XInventorySelector from "@/components/inputs/XInventorySelector";
   import XActivitySelector from "@/components/inputs/XActivitySelector";
   import XLandscapeSelector from "@/components/inputs/XLandscapeSelector";
   import XCombobox from "@/components/inputs/XCombobox";
@@ -401,7 +401,7 @@
       XWeatherSelector,
       XCombobox,
       XIncrement,
-      XPicker,
+      XInventorySelector,
       XTimePicker,
       XDatePicker,
       XActivitySelector,
@@ -633,6 +633,15 @@
         if(!this.updatedItem.packed_gear)
           return null;
         return (this.updatedItem.packed_gear.indexOf(gearId) !== -1);
+      },
+      clearAdventureMenuFilters() {
+        this.filters.gearCategoryFilter = null;
+        this.filters.gearTagsFilter = null;
+        this.filters.gearStateFilter = null;
+        this.filters.gearBrandFilter = null;
+        this.filters.gearIsPackedFilter = null;
+        this.filters.gearIsWornFilter = null;
+        this.filters.gearConsumableFilter = null;
       },
     },
     watch: {

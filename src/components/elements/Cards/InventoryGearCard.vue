@@ -24,7 +24,7 @@
 
       <span
         class="ml-1"
-        v-text="` ${t(`unique-item${(currentInventoryGear ? currentInventoryGear.length : 0) > 1 ? 's':''}`)}`"
+        v-text="` ${t(`unique-item${pluralizeStr(currentInventoryGear ? currentInventoryGear.length : 0)}`)}`"
       ></span>
     </div>
   </x-action-card>
