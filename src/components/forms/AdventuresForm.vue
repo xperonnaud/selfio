@@ -278,7 +278,7 @@
 
               <v-spacer />
 
-              <div class="mr-1 text-center">
+              <div class="mr-1 text-center filter-menu">
                 <v-menu
                   v-model="gearFilterModeOn"
                   :close-on-content-click="false"

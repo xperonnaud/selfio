@@ -201,6 +201,8 @@ export default {
                 } else {
                     self.formDialog = false;
                 }
+
+                this.isAppLoading = false;
             }
         },
         stateIcon(title) {
