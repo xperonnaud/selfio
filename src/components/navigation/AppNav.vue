@@ -124,6 +124,11 @@
     name: 'app-nav',
     components: {
       PolyIcon
+    },
+    methods: {
+      goToRoute() {
+
+      }
     }
   }
 

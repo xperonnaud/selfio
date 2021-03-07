@@ -424,6 +424,14 @@ export default {
                 this.$store.commit("updateTitleSearchFilter", value)
             }
         },
+        loadingRoute: {
+            get() {
+                return this.xUi.loadingRoute
+            },
+            set(value) {
+                this.$store.commit("updateLoadingRoute", value)
+            }
+        },
     },
     methods: {
         xCap(str) {

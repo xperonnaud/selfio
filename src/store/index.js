@@ -23,6 +23,7 @@ export default new Vuex.Store({
             adventureReferences: {},
         },
         ui: {
+            loadingRoute: null,
             isSessionExpired: false,
             formDialog: false,
             formDialogType: null,
@@ -279,6 +280,9 @@ export default new Vuex.Store({
             }
         },
         // Ui
+        updateLoadingRoute(state, loadingRoute) {
+            state.ui.loadingRoute = loadingRoute;
+        },
         updateUiIsSessionExpired(state, isSessionExpired) {
             state.ui.isSessionExpired = isSessionExpired;
         },
