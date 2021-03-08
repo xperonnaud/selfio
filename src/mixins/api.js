@@ -62,6 +62,13 @@ export default {
             }
         },
         async handleResponse(responseType, message, response, action) {
+
+            console.log('handleResponse');
+            console.log('responseType',responseType);
+            console.log('message',message);
+            console.log('response',response);
+            console.log('action',action);
+
             if(this.isSessionExpiredResponse(responseType, message)) {
                 this.$store.commit("updateUiIsSessionExpired", true);
 
