@@ -50,7 +50,7 @@
         data: () => ({
             isMounted: false,
         }),
-        method: {
+        methods: {
             t(str) {
                 return this.$t(`components.session-dialog.${str}`);
             }
