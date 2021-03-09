@@ -66,7 +66,7 @@
                       'justify-space-around',
                       'align-self-center',
                       'pt-2 pb-1 elevation-0',
-                      {'x-selected-card':(pickerValue === item)}
+                      {'x-selected-card':(pickerValue === (isStateSelector ? item.id : item))}
                     ]"
                     @click.stop="assignValue(item)"
                   >
@@ -89,9 +89,13 @@
     name: 'x-selector',
     props: {
       title: String,
-      value: [Number, String],
+      value: [Number, String, Object],
       items: [Array, Object],
       isInFilter: {
+        type: Boolean,
+        default: false
+      },
+      isStateSelector: {
         type: Boolean,
         default: false
       },
@@ -109,10 +113,10 @@
         this.pickerValue = null;
       },
       assignValue(item) {
-        if(this.pickerValue === item) {
+        if(this.pickerValue === (this.isStateSelector ? item.id : item)) {
           this.resetValue();
         } else {
-          this.pickerValue = item;
+          this.pickerValue = this.isStateSelector ? item.id : item;
         }
 
         if(this.editing === true)

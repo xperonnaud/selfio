@@ -5,6 +5,7 @@
         :items="gearStates"
         v-bind:value.sync="pickerValue"
         :isInFilter="isInFilter"
+        isStateSelector
     >
         <template v-slot:header>
             <v-text-field
@@ -63,7 +64,7 @@
             XSelector
         },
         props: {
-            value: Number,
+            value: [Number, Object],
             isInFilter: {
                 type: Boolean,
                 default: false
