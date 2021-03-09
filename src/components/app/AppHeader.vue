@@ -221,8 +221,6 @@
 
       if(this.isItemRoute || this.isConfigurationRoute)
         this.headerComponentLoad();
-
-      console.log('env vars',process.env);
     }
   }
 
