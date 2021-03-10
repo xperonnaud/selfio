@@ -4,17 +4,17 @@ import Router from 'vue-router';
 
 import Home from './views/Home.vue';
 
-import Gear from "@/views/Gear";
-import Inventories from "@/views/Inventories";
-import Adventures from "@/views/Adventures";
+const Gear = () => import('./views/Gear.vue');
+const Inventories = () => import('./views/Inventories.vue');
+const Adventures = () => import('./views/Adventures.vue');
 
-import Account from "@/views/Account";
-import Tags from "@/views/Tags";
-import Brands from "@/views/Brands";
-import Settings from "@/views/Settings";
-import ImportExport from "@/views/ImportExport";
+const Account = () => import('./views/Account.vue');
+const Tags = () => import('./views/Tags.vue');
+const Brands = () => import('./views/Brands.vue');
+const Settings = () => import('./views/Settings.vue');
+const ImportExport = () => import('./views/ImportExport.vue');
 
-import Feedback from "@/views/Feedback";
+const Feedback = () => import('./views/Feedback.vue');
 
 Vue.use(Router);
 

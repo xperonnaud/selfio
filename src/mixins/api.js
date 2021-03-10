@@ -150,7 +150,7 @@ export default {
                 await self.handleResponse('error', error.message, error);
             });
 
-            directus.auth.token = null;
+            // directus.auth.token = null;
             this.$store.commit("updateUiIsSessionExpired", false);
             this.$store.commit("updateUiIsAppLoading", false);
         },

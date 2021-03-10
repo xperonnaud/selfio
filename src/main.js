@@ -84,7 +84,7 @@ new Vue({
         store.commit('updateUiIsAppLoading', true);
         setTimeout(function(){
           next();
-        }, 50);
+        }, 10);
       } else {
         next() // make sure to always call next()!
       }
