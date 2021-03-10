@@ -29,8 +29,8 @@
 
 <script>
 
-  import XStackedProgressBar from "@/components/elements/StackedProgressCard/XStackedProgressBar";
-  import XStackedProgressLegend from "@/components/elements/StackedProgressCard/XStackedProgressLegend";
+  import XStackedProgressBar from "@/components/elements/Progress/StackedProgressCard/XStackedProgressBar";
+  import XStackedProgressLegend from "@/components/elements/Progress/StackedProgressCard/XStackedProgressLegend";
 
   export default {
     name: 'x-stacked-progress-card',

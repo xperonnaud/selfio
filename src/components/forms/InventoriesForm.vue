@@ -180,13 +180,11 @@
                                         </div>
                                       </div>
 
-                                      <v-progress-linear
-                                        :value="gearCategoryStat.weight | percentageFilter(inventoryGearList, inventoryTotalWeight)"
-                                        :color="getVuetifyColor((typeof gearCategoryStat.id == 'string' ? gearCategories.indexOf(gearCategoryStat.id) : 'unknown'))"
-                                        :height="4"
-                                        :background-color="xProgressColor"
-                                        class="rounded"
-                                      ></v-progress-linear>
+                                      <gear-weight-progress
+                                        :gearCategoryStat.sync="gearCategoryStat"
+                                        :inventoryGearList.sync="inventoryGearList"
+                                        :inventoryTotalWeight.sync="inventoryTotalWeight"
+                                      ></gear-weight-progress>
                                     </v-list-item-title>
                                   </v-list-item>
                                 </template>
@@ -345,13 +343,11 @@
                                         </div>
                                       </div>
 
-                                      <v-progress-linear
-                                        :value="gearCategoryStat.weight | percentageFilter(inventoryGearList, inventoryTotalWeight)"
-                                        :color="getVuetifyColor((typeof gearCategoryStat.id == 'string' ? gearCategories.indexOf(gearCategoryStat.id) : 'unknown'))"
-                                        :height="6"
-                                        :background-color="xProgressColor"
-                                        class="rounded"
-                                      ></v-progress-linear>
+                                      <gear-weight-progress
+                                        :gearCategoryStat.sync="gearCategoryStat"
+                                        :inventoryGearList.sync="inventoryGearList"
+                                        :inventoryTotalWeight.sync="inventoryTotalWeight"
+                                      ></gear-weight-progress>
                                     </v-list-item-title>
                                   </v-list-item>
                                 </template>
@@ -591,6 +587,7 @@
 
   const _ = require('lodash');
 
+  import GearWeightProgress from "@/components/elements/Progress/GearWeightProgress";
   import InventoryGearFilterMenu from "@/components/elements/FilterMenu/InventoryGearFilterMenu";
   import InventoryGearListHeader from "@/components/lists/headers/InventoryGearListHeader";
   import PolyIcon from "@/components/elements/Icons/PolyIcon";
@@ -609,6 +606,7 @@
   export default {
     name: 'inventories-form',
     components: {
+      GearWeightProgress,
       InventoryGearFilterMenu,
       InventoryGearListHeader,
       PolyIcon,
@@ -624,7 +622,7 @@
       XDivider,
       XSvg,
       XPieChart: () => import('@/components/charts/XPieChart'),
-      XStackedProgressCard: () => import('@/components/elements/StackedProgressCard/XStackedProgressCard'),
+      XStackedProgressCard: () => import('@/components/elements/Progress/StackedProgressCard/XStackedProgressCard'),
     },
     props: {
       item: Object,
