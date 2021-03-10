@@ -18,7 +18,7 @@
 <script>
 
   export default {
-    name: 'x-unknown-category-icon',
+    name: 'unknown-category-icon',
     props: {
       size: {
         type: Number,

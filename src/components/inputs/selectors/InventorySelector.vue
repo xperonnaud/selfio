@@ -139,7 +139,7 @@
   import XImg from "@/components/elements/XImg";
 
   export default {
-    name: 'x-inventory-selector',
+    name: 'inventory-selector',
     components: {
       XDivider,
       XImg

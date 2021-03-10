@@ -1,20 +1,20 @@
 <template>
 
-  <x-linear-progress
+  <x-progress-linear
     :value="gearCategoryStat.weight | percentageFilter(inventoryGearList, inventoryTotalWeight)"
     :color="getVuetifyColor((typeof gearCategoryStat.id == 'string' ? gearCategories.indexOf(gearCategoryStat.id) : 'unknown'))"
-  ></x-linear-progress>
+  ></x-progress-linear>
 
 </template>
 
 <script>
 
-  import XLinearProgress from "@/components/elements/Progress/XLinearProgress";
+  import XProgressLinear from "@/components/elements/Progress/XProgressLinear";
 
   export default {
     name: 'gear-weight-progress',
     components: {
-      XLinearProgress
+      XProgressLinear
     },
     props: {
       gearCategoryStat: [Array, Object],

@@ -140,7 +140,7 @@
 <script>
 
   import XText from "@/components/inputs/XText";
-  import XSvg from "@/components/elements/XSvg";
+  import XSvg from "@/components/elements/Icons/XSvg";
   import MobileOnlyFeature from "@/components/elements/MobileOnlyFeature";
 
   export default {

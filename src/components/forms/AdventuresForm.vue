@@ -35,25 +35,25 @@
                   <v-card-text :class="{'py-1':isMobile}">
                     <v-row>
                       <v-col cols="12" class="pb-0">
-                        <x-title-field
+                        <title-field
                           label="title"
                           v-bind:valid.sync="validTitle"
                           v-bind:value.sync="updatedItem.title"
-                        ></x-title-field>
+                        ></title-field>
                       </v-col>
 
                       <v-col cols="12">
-                        <x-activity-selector v-bind:value.sync="updatedItem.activity" />
+                        <activity-selector v-bind:value.sync="updatedItem.activity" />
                       </v-col>
 
                       <v-col cols="12">
-                        <x-inventory-selector
+                        <inventory-selector
                           label="inventory"
                           :list="inventoriesList"
                           :color="currentColor"
                           :type="'inventories'"
                           v-bind:value.sync="updatedItem.adventure_inventory"
-                        ></x-inventory-selector>
+                        ></inventory-selector>
                       </v-col>
 
                       <v-col
@@ -106,7 +106,7 @@
                   <v-card-text :class="{'py-1':isMobile}">
                     <v-row>
                       <v-col cols="12">
-                        <x-landscape-selector v-bind:value.sync="updatedItem.landscape" />
+                        <landscape-selector v-bind:value.sync="updatedItem.landscape" />
                       </v-col>
 
                       <v-col cols="12">
@@ -177,11 +177,11 @@
                       </v-col>
 
                       <v-col cols="12">
-                        <x-weather-selector
+                        <weather-selector
                           v-bind:value.sync="updatedItem.weather"
                           :iconSize="LGI"
                           hasIcon
-                        ></x-weather-selector>
+                        ></weather-selector>
                       </v-col>
 
                       <v-col cols="12">
@@ -378,14 +378,14 @@
   import AdventureGearListItem from "@/components/lists/items/AdventureGearListItem";
   import AdventureGearCard from "@/components/elements/Cards/AdventureGearCard";
   import XText from "@/components/inputs/XText";
-  import XTitleField from "@/components/inputs/XTitleField";
-  import XWeatherSelector from "@/components/inputs/XWeatherSelector";
+  import TitleField from "@/components/inputs/TitleField";
+  import WeatherSelector from "@/components/inputs/selectors/WeatherSelector";
   import XIncrement from "@/components/inputs/XIncrement";
   import XDatePicker from "@/components/inputs/XDatePicker";
   import XTimePicker from "@/components/inputs/XTimePicker";
-  import XInventorySelector from "@/components/inputs/XInventorySelector";
-  import XActivitySelector from "@/components/inputs/XActivitySelector";
-  import XLandscapeSelector from "@/components/inputs/XLandscapeSelector";
+  import InventorySelector from "@/components/inputs/selectors/InventorySelector";
+  import ActivitySelector from "@/components/inputs/selectors/ActivitySelector";
+  import LandscapeSelector from "@/components/inputs/selectors/LandscapeSelector";
   import XCombobox from "@/components/inputs/XCombobox";
 
   export default {
@@ -397,15 +397,15 @@
       AdventureGearListItem,
       AdventureGearCard,
       XText,
-      XTitleField,
-      XWeatherSelector,
+      TitleField,
+      WeatherSelector,
       XCombobox,
       XIncrement,
-      XInventorySelector,
+      InventorySelector,
       XTimePicker,
       XDatePicker,
-      XActivitySelector,
-      XLandscapeSelector,
+      ActivitySelector,
+      LandscapeSelector,
     },
     props: {
       item: Object,

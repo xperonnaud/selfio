@@ -13,7 +13,7 @@
 <script>
 
   export default {
-    name: 'x-linear-progress',
+    name: 'x-progress-linear',
     props: {
       value: Number,
       color: String

@@ -49,10 +49,10 @@
 
 <script>
 
-  import XSelector from "@/components/inputs/XSelector";
+  import XSelector from "@/components/inputs/selectors/XSelector";
 
   export default {
-    name: 'x-weather-selector',
+    name: 'weather-selector',
     components: {
       XSelector
     },

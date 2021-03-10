@@ -10,7 +10,7 @@
       >
         <div class="d-flex">
           <div v-bind:class="['text-tiny', ((itemOrderBy === 'title') ? currentColorText : '')]">{{$t('global.title') | capitalizeFirstFilter}}</div>
-          <x-sort-icon prop="title" />
+          <sort-icon prop="title" />
         </div>
       </v-col>
 
@@ -23,13 +23,13 @@
 <script>
 
   import XCol from "@/components/xcols/XCol";
-  import XSortIcon from "@/components/elements/Icons/XSortIcon";
+  import SortIcon from "@/components/elements/Icons/SortIcon";
 
   export default {
     name: 'brand-list-header',
     components: {
       XCol,
-      XSortIcon
+      SortIcon
     }
   }
 

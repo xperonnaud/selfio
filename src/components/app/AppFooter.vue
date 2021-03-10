@@ -66,7 +66,7 @@
   export default {
     name: 'app-footer',
     components: {
-      FormPostBtn: () => import('@/components/elements/Btns/FormPostBtn'),
+      FormPostBtn: () => import('@/components/elements/Btns/PostBtn'),
       NewBrandDialog
     },
     data: () => ({

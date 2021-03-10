@@ -27,7 +27,7 @@
 <script>
 
   export default {
-    name: 'x-delete-actions',
+    name: 'delete-dialog-actions',
     props: {
       value: {
         type: Boolean,

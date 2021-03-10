@@ -20,7 +20,7 @@
 <script>
 
   export default {
-    name: 'x-worn-icon',
+    name: 'worn-icon',
     props: {
       size: {
         type: Number,

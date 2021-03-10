@@ -255,7 +255,7 @@
       XUpdateCol,
       EmptyData,
       EditIcon,
-      XSvg: () => import('@/components/elements/XSvg'),
+      XSvg: () => import('@/components/elements/Icons/XSvg'),
     },
     props: {
       source: {

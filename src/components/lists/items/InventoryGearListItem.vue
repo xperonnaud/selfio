@@ -27,7 +27,7 @@
         :tooltipText="xCap($t(`categories.${gear.category}.desc`))"
       ></x-svg>
 
-      <x-unknown-category-icon v-else :size="SMI" />
+      <unknown-category-icon v-else :size="SMI" />
     </v-list-item-avatar>
 
     <v-list-item-content>
@@ -48,17 +48,17 @@
             ></v-list-item-subtitle>
 
             <v-list-item-subtitle v-else>
-              <x-consumable-icon
+              <consumable-icon
                 v-if="gear.consumable"
                 :size="12"
                 :disabled="gear.quantity_owned === 0"
-              ></x-consumable-icon>
+              ></consumable-icon>
 
-              <x-worn-icon
+              <worn-icon
                 v-if="inventoryGear && inventoryGear.gear_worn"
                 :size="12"
                 :disabled="gear.quantity_owned === 0"
-              ></x-worn-icon>
+              ></worn-icon>
             </v-list-item-subtitle>
           </div>
         </v-col>
@@ -94,7 +94,7 @@
             v-if="gear.consumable === true"
             :key="`gear_consumable-${gear.id}-${gear.consumable}`"
           >
-            <x-consumable-icon css="margin-bottom: 3px;" :disabled="gear.quantity_owned === 0" small />
+            <consumable-icon css="margin-bottom: 3px;" :disabled="gear.quantity_owned === 0" small />
           </div>
           <empty-data solo v-else />
         </v-col>
@@ -104,7 +104,7 @@
             v-if="inventoryGear && inventoryGear.gear_worn === true"
             :key="`gear_worn-${gear.id}-${inventoryGear.gear_worn}`"
           >
-            <x-worn-icon css="margin-bottom: 3px;" :disabled="gear.quantity_owned === 0" small />
+            <worn-icon css="margin-bottom: 3px;" :disabled="gear.quantity_owned === 0" small />
           </div>
           <empty-data solo v-else />
         </v-col>
@@ -152,13 +152,13 @@
 <script>
 
   import PolyIcon from "@/components/elements/Icons/PolyIcon";
-  import XSvg from "@/components/elements/XSvg";
+  import XSvg from "@/components/elements/Icons/XSvg";
   import XWeightCol from "@/components/xcols/XWeightCol";
   import XChecker from "@/components/inputs/XChecker";
   import EmptyData from "@/components/elements/EmptyData";
-  import XWornIcon from "@/components/elements/Icons/XWornIcon";
-  import XConsumableIcon from "@/components/elements/Icons/XConsumableIcon";
-  import XUnknownCategoryIcon from "@/components/elements/Icons/XUnknownCategoryIcon";
+  import WornIcon from "@/components/elements/Icons/WornIcon";
+  import ConsumableIcon from "@/components/elements/Icons/ConsumableIcon";
+  import UnknownCategoryIcon from "@/components/elements/Icons/UnknownCategoryIcon";
 
   export default {
     name: 'inventory-gear-list-item',
@@ -168,9 +168,9 @@
       XWeightCol,
       XChecker,
       EmptyData,
-      XWornIcon,
-      XConsumableIcon,
-      XUnknownCategoryIcon,
+      WornIcon,
+      ConsumableIcon,
+      UnknownCategoryIcon,
     },
     props: {
       gear: Object,

@@ -1,15 +1,15 @@
 <template>
 
     <x-selector
-        title="category"
-        :items="gearCategories"
+        title="landscape"
+        :items="landscapes"
         v-bind:value.sync="pickerValue"
         :isInFilter="isInFilter"
     >
         <template v-slot:header>
             <v-text-field
-                :label="xCapFirst($t('global.category'))"
-                :value="typeof pickerValue==='string' ? xCap($t(`categories.${pickerValue}.title`)) : null"
+                :label="xCapFirst($t('global.landscape'))"
+                :value="typeof pickerValue==='string' ? xCap($t(`landscapes.${pickerValue}.title`)) : null"
                 :color="currentColor"
                 hide-details="auto"
                 append-icon="mdi-menu-down"
@@ -27,14 +27,14 @@
                         class="x-avatar"
                         :width="XXLI"
                         :height="XXLI"
-                        :style="((pickerValue !== 'unknown') ? 'border: 2px solid '+categoryColor(pickerValue)+' !important;' : '')+'min-width: unset;'"
                     >
                         <x-svg
                             :src="pickerValue"
-                            svgPath="gearcategories/"
-                            :width="XSI"
-                            :height="XSI"
-                            :tooltipText="xCap($t(`categories.${pickerValue}.desc`))"
+                            svgPath="landscapes/"
+                            :width="XLI"
+                            :height="XLI"
+                            :tooltipText="xCapFirst($t(`landscapes.${pickerValue}.title`))"
+                            logo
                         ></x-svg>
                     </v-avatar>
                 </template>
@@ -46,21 +46,21 @@
                 <div class="d-flex justify-space-around align-self-center">
                     <v-avatar
                         class="x-avatar"
-                        :width="40"
-                        :height="40"
-                        :style="((item !== 'unknown') ? 'border: 2px solid '+categoryColor(item)+' !important;' : '')+'min-width: unset;'"
+                        :width="XXLI"
+                        :height="XXLI"
                     >
                         <x-svg
                             :src="item"
-                            svgPath="gearcategories/"
-                            :width="SMI"
-                            :height="SMI"
-                            :tooltipText="xCap($t(`categories.${item}.desc`))"
+                            svgPath="landscapes/"
+                            :width="XLI"
+                            :height="XLI"
+                            :tooltipText="xCapFirst($t(`landscapes.${item}.title`))"
+                            logo
                         ></x-svg>
                     </v-avatar>
                 </div>
 
-                <div class="text-caption text-center">{{xCapFirst($t(`categories.${item}.title`))}}</div>
+                <div class="text-caption text-center">{{xCapFirst($t(`landscapes.${item}.title`))}}</div>
             </div>
         </template>
     </x-selector>
@@ -69,11 +69,11 @@
 
 <script>
 
-    import XSelector from "@/components/inputs/XSelector";
-    import XSvg from "@/components/elements/XSvg";
+    import XSelector from "@/components/inputs/selectors/XSelector";
+    import XSvg from "@/components/elements/Icons/XSvg";
 
     export default {
-        name: 'x-category-selector',
+        name: 'landscape-selector',
         components: {
             XSelector,
             XSvg
@@ -104,5 +104,4 @@
             this.pickerValue = this.value;
         }
     }
-
 </script>

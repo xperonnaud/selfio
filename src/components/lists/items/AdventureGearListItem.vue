@@ -30,7 +30,7 @@
         :tooltipText="xCap($t(`categories.${xGear(source.gear_id).category}.desc`))"
       ></x-svg>
 
-      <x-unknown-category-icon v-else :size="SMI" />
+      <unknown-category-icon v-else :size="SMI" />
     </v-list-item-avatar>
 
     <v-list-item-content>
@@ -82,14 +82,14 @@
 
         <v-col v-if="!isMobile" class="x-col d-flex justify-center align-center">
           <div v-if="xGear(source.gear_id).consumable">
-            <x-consumable-icon small />
+            <consumable-icon small />
           </div>
           <empty-data solo v-else />
         </v-col>
 
         <v-col class="x-col d-flex justify-center align-center">
           <div v-if="source.gear_worn">
-            <x-worn-icon small />
+            <worn-icon small />
           </div>
           <empty-data solo v-else />
         </v-col>
@@ -109,13 +109,13 @@
 
 <script>
 
-  import XSvg from "@/components/elements/XSvg";
+  import XSvg from "@/components/elements/Icons/XSvg";
   import XWeightCol from "@/components/xcols/XWeightCol";
   import XChecker from "@/components/inputs/XChecker";
   import EmptyData from "@/components/elements/EmptyData";
-  import XWornIcon from "@/components/elements/Icons/XWornIcon";
-  import XConsumableIcon from "@/components/elements/Icons/XConsumableIcon";
-  import XUnknownCategoryIcon from "@/components/elements/Icons/XUnknownCategoryIcon";
+  import WornIcon from "@/components/elements/Icons/WornIcon";
+  import ConsumableIcon from "@/components/elements/Icons/ConsumableIcon";
+  import UnknownCategoryIcon from "@/components/elements/Icons/UnknownCategoryIcon";
 
   export default {
     name: 'adventure-gear-list-item',
@@ -124,9 +124,9 @@
       XWeightCol,
       XChecker,
       EmptyData,
-      XWornIcon,
-      XConsumableIcon,
-      XUnknownCategoryIcon,
+      WornIcon,
+      ConsumableIcon,
+      UnknownCategoryIcon,
     },
     props: {
       source: {

@@ -33,7 +33,7 @@
 <script>
 
   export default {
-    name: 'x-title-field',
+    name: 'title-field',
     props: {
       list: Array,
       label: String,

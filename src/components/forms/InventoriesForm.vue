@@ -32,11 +32,11 @@
                 <v-card-text :class="{'py-1':isMobile}">
                   <v-row>
                     <v-col cols="12" class="pb-0">
-                      <x-title-field
+                      <title-field
                         label="title"
                         v-bind:valid.sync="validTitle"
                         v-bind:value.sync="updatedItem.title"
-                      ></x-title-field>
+                      ></title-field>
                     </v-col>
 
                     <v-col cols="12">
@@ -84,9 +84,9 @@
                     </v-col>
 
                     <v-col v-if="inventoryGearList && inventoryGearList.length > 0" cols="12" class="py-0 mb-3">
-                      <x-stacked-progress-card
+                      <stacked-progress-card
                         :items.sync="balance"
-                      ></x-stacked-progress-card>
+                      ></stacked-progress-card>
                     </v-col>
 
                     <v-col v-if="isMobile" cols="12" class="py-0 mb-3">
@@ -121,74 +121,13 @@
                               class="overflow-y-auto pr-6"
                               :height="mobileResponsiveHeight"
                             >
-                              <v-list
-                                v-if="inventoryGearList && inventoryGearList.length > 0"
-                                class="py-4 px-0"
-                                one-line
-                                dense
-                              >
-                                <template v-for="(gearCategoryStat) in sortedGearCategoryStats">
-                                  <v-list-item :key="`gear-type-stat-${gearCategoryStat.id}`" class="pa-0">
-                                    <v-list-item-avatar
-                                      v-bind:class="['x-avatar my-0 ml-3 mr-1 d-flex justify-center']"
-                                      :width="XXLI"
-                                      :min-width="XXLI"
-                                      :height="XXLI"
-                                      :style="gearCategoryStat.id ? `border: 2px solid ${categoryColor(gearCategoryStat.id)} !important;` : ''"
-                                    >
-                                      <x-svg
-                                        v-if="typeof gearCategoryStat.id == 'string'"
-                                        :src="gearCategoryStat.id"
-                                        svgPath="gearcategories/"
-                                        :width="XSI"
-                                        :height="XSI"
-                                        :tooltipText="xCap($t(`categories.${gearCategoryStat.id}.desc`))"
-                                      ></x-svg>
-
-                                      <x-unknown-category-icon v-else :size="MDI" />
-                                    </v-list-item-avatar>
-
-                                    <v-list-item-title class="mb-1">
-                                      <div class="d-flex">
-                                        <div class="text-caption" style="width: 80px;">
-                                          <div v-if="typeof gearCategoryStat.id == 'string'"
-                                          >{{ $t(`categories.${gearCategoryStat.id}.title`) | capitalizeFilter }}</div>
-                                          <div v-else v-text="xCap($t('global.unknown'))" />
-                                        </div>
-
-                                        <div class="d-flex font-weight-regular text-caption">
-                                          <x-divider />
-
-                                          <div style="width: 60px;">
-                                            <span class="text-tiny" v-text="gearCategoryStat.items" />
-                                            <span class="text-tiny-dimmed" v-text="` ${$t(`global.item${pluralizeStr(gearCategoryStat.items)}`)}`" />
-                                          </div>
-
-                                          <x-divider />
-
-                                          <div>
-                                            <span class="text-tiny">{{ gearCategoryStat.weight | weightUnitFilter(weightUnit) }}</span>
-                                            <span class="text-tiny-dimmed" v-text="dynamicWeightUnit(gearCategoryStat.weight)" :key="`weight-unit-${randomId()}-${gearCategoryStat.weight}`" />
-                                          </div>
-                                        </div>
-
-                                        <v-spacer />
-
-                                        <div class="float-right">
-                                          <span class="text-caption">{{ gearCategoryStat.weight | percentageFilter(inventoryGearList, inventoryTotalWeight) }}</span>
-                                          <span class="text-tiny-dimmed" v-text="'%'" />
-                                        </div>
-                                      </div>
-
-                                      <gear-weight-progress
-                                        :gearCategoryStat.sync="gearCategoryStat"
-                                        :inventoryGearList.sync="inventoryGearList"
-                                        :inventoryTotalWeight.sync="inventoryTotalWeight"
-                                      ></gear-weight-progress>
-                                    </v-list-item-title>
-                                  </v-list-item>
-                                </template>
-                              </v-list>
+                              <gear-weight-progress-card
+                                  v-if="inventoryGearList && inventoryGearList.length > 0"
+                                  :sortedGearCategoryStats.sync="sortedGearCategoryStats"
+                                  :inventoryGearList.sync="inventoryGearList"
+                                  :inventoryTotalWeight.sync="inventoryTotalWeight"
+                                  class="py-4 px-0"
+                              ></gear-weight-progress-card>
 
                               <empty-list
                                 v-else
@@ -283,75 +222,12 @@
                               class="overflow-y-auto pr-4"
                               :height="272"
                             >
-                              <v-list
+                              <gear-weight-progress-card
+                                :sortedGearCategoryStats.sync="sortedGearCategoryStats"
+                                :inventoryGearList.sync="inventoryGearList"
+                                :inventoryTotalWeight.sync="inventoryTotalWeight"
                                 class="pa-0"
-                                one-line
-                                dense
-                              >
-                                <template v-for="(gearCategoryStat) in sortedGearCategoryStats">
-                                  <v-list-item :key="`gear-type-stat-${gearCategoryStat.id}`" class="pa-0" style="min-height: 36px;">
-                                    <v-list-item-avatar
-                                      :width="XXLI"
-                                      :min-width="XXLI"
-                                      :height="XXLI"
-                                      v-bind:class="['x-avatar my-0 ml-3 mr-1 d-flex justify-center']"
-                                      :style="gearCategoryStat.id ? 'border: 2px solid '+categoryColor(gearCategoryStat.id)+' !important;' : ''"
-                                    >
-                                      <x-svg
-                                        v-if="typeof gearCategoryStat.id == 'string'"
-                                        :src="gearCategoryStat.id"
-                                        svgPath="gearcategories/"
-                                        :width="XSI"
-                                        :height="XSI"
-                                        :tooltipText="xCap($t(`categories.${gearCategoryStat.id}.desc`))"
-                                      ></x-svg>
-
-                                      <x-unknown-category-icon v-else />
-                                    </v-list-item-avatar>
-
-                                    <v-list-item-title class="mb-1">
-                                      <div class="d-flex">
-                                        <div class="text-caption" style="width: 80px;">
-                                          <div v-if="typeof gearCategoryStat.id == 'string'"
-                                          >{{ $t(`categories.${gearCategoryStat.id}.title`) | capitalizeFilter }}</div>
-
-                                          <div v-else v-text="xCapFirst($t('global.unknown'))" />
-                                        </div>
-
-                                        <div class="d-flex font-weight-regular text-caption">
-
-                                          <x-divider />
-
-                                          <div>
-                                            <span class="text-tiny" v-text="gearCategoryStat.items" />
-                                            <span class="text-tiny-dimmed" v-text="' '+$t(`global.item${pluralizeStr(gearCategoryStat.items)}`)" />
-                                          </div>
-
-                                          <x-divider />
-
-                                          <div>
-                                            <span class="text-tiny">{{ gearCategoryStat.weight | weightUnitFilter(weightUnit) }}</span>
-                                            <span class="text-tiny-dimmed" v-text="dynamicWeightUnit(gearCategoryStat.weight)" :key="`weight-unit-${randomId()}-${gearCategoryStat.weight}`" />
-                                          </div>
-                                        </div>
-
-                                        <v-spacer />
-
-                                        <div class="float-right">
-                                          <span class="text-caption">{{ gearCategoryStat.weight | percentageFilter(inventoryGearList, inventoryTotalWeight) }}</span>
-                                          <span class="text-tiny-dimmed" v-text="'%'" />
-                                        </div>
-                                      </div>
-
-                                      <gear-weight-progress
-                                        :gearCategoryStat.sync="gearCategoryStat"
-                                        :inventoryGearList.sync="inventoryGearList"
-                                        :inventoryTotalWeight.sync="inventoryTotalWeight"
-                                      ></gear-weight-progress>
-                                    </v-list-item-title>
-                                  </v-list-item>
-                                </template>
-                              </v-list>
+                              ></gear-weight-progress-card>
                             </v-responsive>
                           </v-col>
                         </v-row>
@@ -431,10 +307,10 @@
             <template v-slot:extension>
               <v-list
                 v-bind:class="['rounded-0 py-0 max-width']"
+                color="transparent"
                 one-line
                 flat
                 dense
-                color="transparent"
               >
                 <v-list-item :class="[(isMobile ? 'pl-13 pr-3' : 'pl-11')]">
                   <v-list-item-avatar
@@ -444,7 +320,7 @@
                   >
                     <v-col class="x-col py-2 x-primary-btn" @click.stop="sortGear('category')" v-ripple>
                       <div class="d-flex justify-center">
-                        <x-sort-icon prop="category" />
+                        <sort-icon prop="category" />
                       </div>
                     </v-col>
                   </v-list-item-avatar>
@@ -526,8 +402,8 @@
 
                 <v-btn
                   @click.stop="unSelectInventoryGear()"
-                  icon
                   :disabled="isGearMenuLoading"
+                  icon
                 >
                   <v-icon v-text="'mdi-close'" />
                 </v-btn>
@@ -587,42 +463,40 @@
 
   const _ = require('lodash');
 
-  import GearWeightProgress from "@/components/elements/Progress/GearWeightProgress";
+  import GearWeightProgressCard from "@/components/elements/Progress/GearWeightProgressCard/GearWeightProgressCard";
   import InventoryGearFilterMenu from "@/components/elements/FilterMenu/InventoryGearFilterMenu";
   import InventoryGearListHeader from "@/components/lists/headers/InventoryGearListHeader";
   import PolyIcon from "@/components/elements/Icons/PolyIcon";
   import InventoryGearListItem from "@/components/lists/items/InventoryGearListItem";
   import InventoryGearCard from "@/components/elements/Cards/InventoryGearCard";
-  import XTitleField from "@/components/inputs/XTitleField";
+  import TitleField from "@/components/inputs/TitleField";
   import XCombobox from "@/components/inputs/XCombobox";
-  import XSortIcon from "@/components/elements/Icons/XSortIcon";
+  import SortIcon from "@/components/elements/Icons/SortIcon";
   import XCheckbox from "@/components/inputs/XCheckbox";
   import XIncrement from "@/components/inputs/XIncrement";
-  import XSvg from "@/components/elements/XSvg";
+  import XSvg from "@/components/elements/Icons/XSvg";
   import XDivider from "@/components/elements/XDivider";
   import EmptyList from "@/components/elements/EmptyList";
-  import XUnknownCategoryIcon from "@/components/elements/Icons/XUnknownCategoryIcon";
 
   export default {
     name: 'inventories-form',
     components: {
-      GearWeightProgress,
+      GearWeightProgressCard,
       InventoryGearFilterMenu,
       InventoryGearListHeader,
       PolyIcon,
       InventoryGearListItem,
       EmptyList,
       InventoryGearCard,
-      XTitleField,
-      XUnknownCategoryIcon,
+      TitleField,
       XIncrement,
       XCheckbox,
-      XSortIcon,
+      SortIcon,
       XCombobox,
       XDivider,
       XSvg,
       XPieChart: () => import('@/components/charts/XPieChart'),
-      XStackedProgressCard: () => import('@/components/elements/Progress/StackedProgressCard/XStackedProgressCard'),
+      XStackedProgressCard: () => import('@/components/elements/Progress/StackedProgressCard/StackedProgressCard'),
     },
     props: {
       item: Object,

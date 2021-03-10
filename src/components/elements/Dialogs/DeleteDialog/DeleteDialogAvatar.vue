@@ -20,7 +20,7 @@
 <script>
 
   export default {
-    name: 'x-delete-avatar'
+    name: 'delete-dialog-avatar'
   }
 
 </script>

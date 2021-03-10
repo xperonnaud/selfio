@@ -12,15 +12,15 @@
             <v-list-item-title v-text="xCapFirst($t('routes.inventories.balance'))" />
 
             <v-list-item-subtitle class="pt-1">
-                <x-stacked-progress-legend
+                <stacked-progress-legend
                     :items.sync="items"
                     :toggleLimit="displayToggleLimit"
-                ></x-stacked-progress-legend>
+                ></stacked-progress-legend>
 
-                <x-stacked-progress-bar
+                <stacked-progress-bar
                     :items.sync="items"
                     :toggleLimit="displayToggleLimit"
-                ></x-stacked-progress-bar>
+                ></stacked-progress-bar>
             </v-list-item-subtitle>
         </v-list-item-content>
     </v-card>
@@ -29,14 +29,14 @@
 
 <script>
 
-  import XStackedProgressBar from "@/components/elements/Progress/StackedProgressCard/XStackedProgressBar";
-  import XStackedProgressLegend from "@/components/elements/Progress/StackedProgressCard/XStackedProgressLegend";
+  import StackedProgressBar from "@/components/elements/Progress/StackedProgressCard/StackedProgressBar";
+  import StackedProgressLegend from "@/components/elements/Progress/StackedProgressCard/StackedProgressLegend";
 
   export default {
-    name: 'x-stacked-progress-card',
+    name: 'stacked-progress-card',
     components: {
-        XStackedProgressLegend,
-        XStackedProgressBar
+        StackedProgressLegend,
+        StackedProgressBar
     },
     props: {
       items: Object,

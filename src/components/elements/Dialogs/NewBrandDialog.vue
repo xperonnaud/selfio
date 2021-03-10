@@ -22,13 +22,13 @@
         <v-card-text>
           <v-row>
             <v-col cols="12" class="pb-0">
-              <x-title-field
+              <title-field
                 label="title"
                 v-bind:value.sync="defaultBrand.title"
                 v-bind:valid.sync="validBrand"
                 :color="darkColor('primary')"
                 @keyup.enter="postBrand()"
-              ></x-title-field>
+              ></title-field>
             </v-col>
           </v-row>
         </v-card-text>
@@ -58,13 +58,13 @@
 <script>
 
   import PrimaryBtn from "@/components/elements/Btns/PrimaryBtn";
-  import XTitleField from "@/components/inputs/XTitleField";
+  import TitleField from "@/components/inputs/TitleField";
 
   export default {
     name: 'new-brand-dialog',
     components: {
       PrimaryBtn,
-      XTitleField
+      TitleField
     },
     props: {
       dialog: Boolean

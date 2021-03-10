@@ -20,7 +20,7 @@
 <script>
 
   export default {
-    name: 'x-consumable-icon',
+    name: 'consumable-icon',
     props: {
       size: {
         type: Number,
