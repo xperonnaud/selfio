@@ -10,7 +10,7 @@
         <div class="session-dialog">
             <v-card>
                 <div class="max-width d-flex align-center justify-center">
-                    <v-avatar :size="48" class="primary-gradient-color" style="position: absolute; top: -26px;">
+                    <v-avatar :size="48" class="primary-gradient-color dialog-avatar">
                         <v-icon :size="MDI" v-text="'mdi-alarm'" style="margin-top: 23px;" />
                     </v-avatar>
                 </div>

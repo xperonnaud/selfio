@@ -231,7 +231,7 @@
 
         <v-col cols="1" class="pa-0">
           <div class="mx-3">
-            <edit-icon v-bind:class="[{'mx-4' : !isMobile}]" :style="'padding: 9px 0'" />
+            <edit-icon v-bind:class="['edit-icon', {'mx-4' : !isMobile}]" />
           </div>
         </v-col>
 
