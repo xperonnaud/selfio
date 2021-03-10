@@ -5,8 +5,6 @@
       v-bind:icon="currentIcon"
       v-bind:title="currentTitle"
       v-bind:items.sync="inventoriesList"
-      v-bind:itemHeaders="inventoriesHeaders"
-      v-bind:keyName="'name'"
     ></x-list>
 
   </v-sheet>
@@ -22,14 +20,6 @@
     data: () => ({
       isMounted: false,
     }),
-    computed: {
-      inventoriesHeaders() {
-        return [
-          {text: '', value: 'icon', align: 'start'},
-          {text: this.$t('global.title'), value: 'title'},
-        ]
-      },
-    },
     mounted() {
       this.isMounted = true;
     }

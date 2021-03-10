@@ -5,8 +5,6 @@
       v-bind:icon="currentIcon"
       v-bind:title="currentTitle"
       v-bind:items="adventuresList"
-      v-bind:itemHeaders="adventuresHeaders"
-      v-bind:keyName="'name'"
     ></x-list>
 
   </v-sheet>
@@ -22,17 +20,6 @@
     data: () => ({
       isMounted: false,
     }),
-    computed: {
-      adventuresHeaders() {
-        return [
-          {text: '', value: 'icon', align: 'start'},
-          {text: 'Title', value: 'title'},
-          {text: 'Activity', value: 'activity'},
-          {text: 'Inventory', value: 'adventure_inventory'},
-          {text: 'Difficulty', value: 'difficulty'},
-        ]
-      },
-    },
     mounted() {
       this.isMounted = true;
     }
