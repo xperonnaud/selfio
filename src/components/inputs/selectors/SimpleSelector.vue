@@ -104,7 +104,7 @@
 <script>
 
   export default {
-    name: 'x-simple-selector',
+    name: 'simple-selector',
     props: {
       list: Array,
       label: String,

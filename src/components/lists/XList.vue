@@ -52,8 +52,10 @@
       title: String,
       icon: String,
       items: Array,
-      itemHeaders: Array,
-      keyName: String
+      keyName: {
+        type: String,
+        default: 'name'
+      }
     },
     data: () => ({
       isMounted: false,

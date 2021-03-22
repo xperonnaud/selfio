@@ -51,7 +51,7 @@
 
         <v-list>
           <v-list-item class="mb-3">
-            <x-category-selector v-bind:value.sync="filters.gearCategoryFilter" isInFilter />
+            <category-selector v-bind:value.sync="filters.gearCategoryFilter" isInFilter />
           </v-list-item>
 
           <v-list-item class="mb-3">
@@ -69,11 +69,11 @@
           </v-list-item>
 
           <v-list-item class="mb-3">
-            <x-brand-selector v-bind:value.sync="filters.gearBrandFilter" isInFilter />
+            <brand-selector v-bind:value.sync="filters.gearBrandFilter" isInFilter />
           </v-list-item>
 
           <v-list-item class="mb-3">
-            <x-state-selector v-bind:value.sync="filters.gearStateFilter" isInFilter />
+            <state-selector v-bind:value.sync="filters.gearStateFilter" isInFilter />
           </v-list-item>
 
           <v-list-item class="mb-3">
@@ -127,18 +127,18 @@
 
   import PolyIcon from "@/components/elements/Icons/PolyIcon";
   import XCheckbox from "@/components/inputs/XCheckbox";
-  import XCategorySelector from "@/components/inputs/XCategorySelector";
-  import XBrandSelector from "@/components/inputs/XBrandSelector";
-  import XStateSelector from "@/components/inputs/XStateSelector";
+  import CategorySelector from "@/components/inputs/selectors/CategorySelector";
+  import BrandSelector from "@/components/inputs/selectors/BrandSelector";
+  import StateSelector from "@/components/inputs/selectors/StateSelector";
 
   export default {
     name: 'adventure-gear-filter-menu',
     components: {
       PolyIcon,
       XCheckbox,
-      XCategorySelector,
-      XBrandSelector,
-      XStateSelector,
+      CategorySelector,
+      BrandSelector,
+      StateSelector,
     },
     props: {
       filters: Object,

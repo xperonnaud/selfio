@@ -11,7 +11,7 @@
         <span v-else>{{$t(`global.${text}`) | minifyTextFilter | capitalizeFirstFilter}}</span>
       </div>
 
-      <x-sort-icon :prop="prop" />
+      <sort-icon :prop="prop" />
     </div>
   </v-col>
 
@@ -19,12 +19,12 @@
 
 <script>
 
-  import XSortIcon from "@/components/elements/Icons/XSortIcon";
+  import SortIcon from "@/components/elements/Icons/SortIcon";
 
   export default {
     name: 'x-col',
     components: {
-      XSortIcon
+      SortIcon
     },
     props: {
       text: String,

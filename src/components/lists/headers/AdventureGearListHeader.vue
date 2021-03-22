@@ -34,14 +34,14 @@
       <v-col class="x-col px-0 py-2 col-border-r x-primary-btn rounded" v-on:click="$emit('sortGear', 'gear_worn')" v-ripple>
         <div class="d-flex justify-center align-center">
           <div v-bind:class="['text-tiny text-center', ((gearOrderBy === 'gear_worn') ? currentColorText : '')]">{{$t('global.worn') | capitalizeFirstFilter}}</div>
-          <x-sort-icon prop="gear_worn" />
+          <sort-icon prop="gear_worn" />
         </div>
       </v-col>
 
       <v-col class="x-col px-0 py-2 col-border-r x-primary-btn rounded" v-on:click="$emit('sortGear', 'gear_quantity_packed')" v-ripple>
         <div class="d-flex justify-center align-center">
           <div v-bind:class="['text-tiny text-center', ((gearOrderBy === 'gear_quantity_packed') ? currentColorText : '')]">{{$t('global.qty') | capitalizeFirstFilter}}</div>
-          <x-sort-icon prop="gear_quantity_packed" />
+          <sort-icon prop="gear_quantity_packed" />
         </div>
       </v-col>
     </v-row>
@@ -51,12 +51,12 @@
 
 <script>
 
-  import XSortIcon from "@/components/elements/Icons/XSortIcon";
+  import SortIcon from "@/components/elements/Icons/SortIcon";
 
   export default {
     name: 'adventure-gear-list-header',
     components: {
-      XSortIcon
+      SortIcon
     },
     props: {
       gearOrderBy: String,

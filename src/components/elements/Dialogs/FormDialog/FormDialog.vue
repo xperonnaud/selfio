@@ -13,7 +13,7 @@
       :color="xBackgroundColor"
       :min-height="isMobile ? '100%' : 450"
     >
-      <dialog-app-bar
+      <form-dialog-header
         :item="item"
         v-bind:hasItemRelations="hasItemRelations"
         v-bind:editMode.sync="editMode"
@@ -23,7 +23,7 @@
         v-bind:patchItem.sync="patchItem"
         v-bind:deleteItem.sync="deleteItem"
         :isActionLoading.sync="isFormLoading"
-      ></dialog-app-bar>
+      ></form-dialog-header>
 
       <v-card-text v-bind:class="['pb-0 px-0']">
         <component
@@ -55,7 +55,7 @@
 
 <script>
 
-  import DialogAppBar from "@/components/elements/Dialogs/FormDialog/DialogAppBar";
+  import DialogAppBar from "@/components/elements/Dialogs/FormDialog/FormDialogHeader";
 
   export default {
     name: "form-dialog",

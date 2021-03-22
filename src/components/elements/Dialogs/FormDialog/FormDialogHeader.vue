@@ -46,7 +46,7 @@
 
       <v-spacer />
 
-      <x-delete-dialog
+      <delete-dialog
         v-if="formDialogType === 'update'"
         v-bind:item.sync="item"
         v-bind:value.sync="deleteDialog"
@@ -56,7 +56,7 @@
         v-bind:hasItemRelations.sync="hasItemRelations"
         v-bind:deleteItem.sync="dialogDeleteItem"
         :isActionLoading.sync="isActionLoading"
-      ></x-delete-dialog>
+      ></delete-dialog>
 
       <v-btn
         @click="formDialogAction()"
@@ -77,13 +77,13 @@
 <script>
 
   import PolyIcon from "@/components/elements/Icons/PolyIcon";
-  import XDeleteDialog from "@/components/elements/Dialogs/XDeleteDialog/XDeleteDialog";
+  import DeleteDialog from "@/components/elements/Dialogs/DeleteDialog/DeleteDialog";
 
   export default {
-    name: "dialog-app-bar",
+    name: "form-dialog-header",
     components: {
       PolyIcon,
-      XDeleteDialog
+      DeleteDialog
     },
     props: {
       item: {

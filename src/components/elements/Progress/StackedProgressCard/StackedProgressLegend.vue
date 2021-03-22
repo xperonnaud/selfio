@@ -49,7 +49,7 @@
 <script>
 
   export default {
-    name: 'x-stacked-progress-legend',
+    name: 'stacked-progress-legend',
     props: {
         items: Object,
         toggleLimit: {

@@ -22,7 +22,7 @@
                 :tooltipText="xCapFirst($t(`categories.${source.category}.desc`))"
             ></x-svg>
 
-            <x-unknown-category-icon v-else :size="MDI" />
+            <unknown-category-icon v-else :size="MDI" />
         </v-list-item-avatar>
 
         <v-list-item-content>
@@ -97,7 +97,7 @@
 
                 <v-col cols="1" class="pa-0">
                   <div class="mx-3">
-                    <edit-icon v-bind:class="[{'mx-4' : !isMobile}]" :style="'padding: 9px 0'" />
+                    <edit-icon v-bind:class="['edit-icon', {'mx-4' : !isMobile}]" />
                   </div>
                 </v-col>
             </v-row>
@@ -108,12 +108,12 @@
 
 <script>
 
-    import XConsumableIcon from "@/components/elements/Icons/XConsumableIcon";
+    import XConsumableIcon from "@/components/elements/Icons/ConsumableIcon";
     import XUpdateCol from "@/components/xcols/XUpdateCol";
     import XWeightCol from "@/components/xcols/XWeightCol";
     import EmptyData from "@/components/elements/EmptyData";
     import EditIcon from "@/components/elements/Icons/EditIcon";
-    import XUnknownCategoryIcon from "@/components/elements/Icons/XUnknownCategoryIcon";
+    import UnknownCategoryIcon from "@/components/elements/Icons/UnknownCategoryIcon";
 
   export default {
     name: 'gear-list-item',
@@ -123,8 +123,8 @@
       XWeightCol,
       EmptyData,
       EditIcon,
-      XSvg: () => import('@/components/elements/XSvg'),
-      XUnknownCategoryIcon
+      XSvg: () => import('@/components/elements/Icons/XSvg'),
+      UnknownCategoryIcon
     },
     props: {
       source: {

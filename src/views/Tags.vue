@@ -46,7 +46,7 @@
     </v-tabs>
 
     <v-container v-if="!isMobile" fluid v-bind:class="(isMobile ? 'px-4 py-0' : 'px-8 py-0')">
-      <v-row style="max-width: 750px">
+      <v-row class="tag-row">
         <v-col cols="12" class="py-0">
           <primary-btn
             label="save"

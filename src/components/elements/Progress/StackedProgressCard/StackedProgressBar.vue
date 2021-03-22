@@ -34,7 +34,7 @@
 <script>
 
   export default {
-    name: 'x-stacked-progress-bar',
+    name: 'stacked-progress-bar',
     props: {
         items: Object,
         toggleLimit: {

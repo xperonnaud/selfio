@@ -10,7 +10,7 @@
 <script>
 
   export default {
-    name: 'x-delete-sure',
+    name: 'delete-dialog-sure',
     methods: {
       t(str) {
         return this.$t(`components.x-delete-dialog.${str}`)

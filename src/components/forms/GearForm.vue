@@ -31,15 +31,15 @@
                 <v-card-text :class="{'py-1':isMobile}">
                   <v-row>
                     <v-col cols="12" class="pb-0">
-                      <x-title-field
+                      <title-field
                         label="title"
                         v-bind:valid.sync="validTitle"
                         v-bind:value.sync="updatedItem.title"
-                      ></x-title-field>
+                      ></title-field>
                     </v-col>
 
                     <v-col cols="12">
-                      <x-category-selector v-bind:value.sync="updatedItem.category" />
+                      <category-selector v-bind:value.sync="updatedItem.category" />
                     </v-col>
 
                     <v-col cols="12">
@@ -92,7 +92,7 @@
                 <v-card-text :class="{'py-1':isMobile}">
                   <v-row>
                     <v-col cols="12">
-                      <x-brand-selector v-bind:value.sync="updatedItem.brand" />
+                      <brand-selector v-bind:value.sync="updatedItem.brand" />
                     </v-col>
 
                     <v-col cols="12">
@@ -105,7 +105,7 @@
                     </v-col>
 
                     <v-col cols="12">
-                      <x-state-selector v-bind:value.sync="updatedItem.state" />
+                      <state-selector v-bind:value.sync="updatedItem.state" />
                     </v-col>
 
                     <v-col cols="12">
@@ -159,12 +159,12 @@
   import Vue from 'vue'
 
   import XText from "@/components/inputs/XText";
-  import XTitleField from "@/components/inputs/XTitleField";
-  import XBrandSelector from "@/components/inputs/XBrandSelector";
-  import XStateSelector from "@/components/inputs/XStateSelector";
+  import TitleField from "@/components/inputs/TitleField";
+  import BrandSelector from "@/components/inputs/selectors/BrandSelector";
+  import StateSelector from "@/components/inputs/selectors/StateSelector";
   import XIncrement from "@/components/inputs/XIncrement";
   import XDatePicker from "@/components/inputs/XDatePicker";
-  import XCategorySelector from "@/components/inputs/XCategorySelector";
+  import CategorySelector from "@/components/inputs/selectors/CategorySelector";
   import XCombobox from "@/components/inputs/XCombobox";
   import XCheckbox from "@/components/inputs/XCheckbox";
 
@@ -172,14 +172,14 @@
     name: 'gear-form',
     components: {
       XText,
-      XTitleField,
-      XStateSelector,
-      XBrandSelector,
+      TitleField,
+      StateSelector,
+      BrandSelector,
       XCheckbox,
       XCombobox,
       XIncrement,
       XDatePicker,
-      XCategorySelector
+      CategorySelector
     },
     props: {
       item: Object,

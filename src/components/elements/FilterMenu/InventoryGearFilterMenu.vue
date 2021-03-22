@@ -130,9 +130,9 @@
 
   import PolyIcon from "@/components/elements/Icons/PolyIcon";
   import XCheckbox from "@/components/inputs/XCheckbox";
-  import XCategorySelector from "@/components/inputs/XCategorySelector";
-  import XBrandSelector from "@/components/inputs/XBrandSelector";
-  import XStateSelector from "@/components/inputs/XStateSelector";
+  import XCategorySelector from "@/components/inputs/selectors/CategorySelector";
+  import XBrandSelector from "@/components/inputs/selectors/BrandSelector";
+  import XStateSelector from "@/components/inputs/selectors/StateSelector";
 
   export default {
     name: 'inventory-gear-filter-menu',

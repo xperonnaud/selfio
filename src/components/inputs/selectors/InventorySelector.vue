@@ -40,14 +40,14 @@
 
           <div class="d-flex text-tiny">
             <template v-if="data.item.inventory_gear">
-              <div class="text-right" :style="'width: '+(isMobile?'45':'70')+'px;'">
+              <div class="text-right" :style="itemPropWidth">
                 <span class="text-caption">{{ data.item.inventory_gear.length }}</span>
                 <span class="text-tiny-dimmed" v-text="` item${pluralizeStr(data.item.inventory_gear.length)}`" />
               </div>
 
               <x-divider />
 
-              <div class="text-center" :style="'width: '+(isMobile?'40':'70')+'px;'">
+              <div class="text-center" :style="itemPropWidth">
                 <span class="text-caption">{{ sumInventoryWeight(data.item.inventory_gear) | weightUnitFilter(weightUnit) }}</span>
                 <span class="text-tiny-dimmed" v-text="dynamicWeightUnit(sumInventoryWeight(data.item.inventory_gear))" />
               </div>
@@ -55,7 +55,7 @@
               <template v-show="!isMobile">
                 <v-divider vertical class="mx-2" />
 
-                <div class="text-center" :style="'width:70px;'">
+                <div class="text-center" style="width:70px;">
                   <span class="text-caption">{{ parseInt(sumInventoryPrice(data.item.inventory_gear)) }}</span>
                   <span class="text-tiny-dimmed" v-text="priceUnit" />
                 </div>
@@ -99,14 +99,14 @@
 
         <div class="d-flex float-right text-tiny pt-1">
           <template v-if="data.item.inventory_gear">
-            <div class="text-right" :style="'width: '+(isMobile?'45':'70')+'px;'">
+            <div class="text-right" :style="itemPropWidth">
               <span class="text-caption">{{ data.item.inventory_gear.length }}</span>
               <span class="text-tiny-dimmed" v-text="` item${pluralizeStr(data.item.inventory_gear.length)}`" />
             </div>
 
             <x-divider />
 
-            <div class="text-center" :style="'width: '+(isMobile?'40':'70')+'px;'">
+            <div class="text-center" :style="itemPropWidth">
               <span class="text-caption">{{ sumInventoryWeight(data.item.inventory_gear) | weightUnitFilter(weightUnit) }}</span>
               <span class="text-tiny-dimmed" v-text="dynamicWeightUnit(sumInventoryWeight(data.item.inventory_gear))" />
             </div>
@@ -114,7 +114,7 @@
             <template v-show="!isMobile">
               <v-divider vertical class="mx-2" />
 
-              <div class="text-center" :style="'width:70px;'">
+              <div class="text-center" style="width:70px;">
                 <span class="text-caption">{{ parseInt(sumInventoryPrice(data.item.inventory_gear)) }}</span>
                 <span class="text-tiny-dimmed" v-text="priceUnit" />
               </div>
@@ -139,7 +139,7 @@
   import XImg from "@/components/elements/XImg";
 
   export default {
-    name: 'x-inventory-selector',
+    name: 'inventory-selector',
     components: {
       XDivider,
       XImg
@@ -161,6 +161,11 @@
       isMounted: false,
       pickerValue: null,
     }),
+    computed: {
+      itemPropWidth() {
+        return (`width: ${this.isMobile ? '45' : '70'}px`);
+      }
+    },
     methods: {
       resetValue() {
         this.pickerValue = null;

@@ -19,7 +19,7 @@
     </template>
 
     <v-card :style="`border-top: 2px solid ${errorColor} !important;`">
-      <x-delete-avatar />
+      <delete-dialog-avatar />
 
       <v-card-title class=" mt-6">
         <span class="text-h6">{{t(`deleting-${currentRouteId}`) | capitalizeFirstFilter}}</span>
@@ -59,16 +59,16 @@
           </v-sheet>
         </v-responsive>
 
-        <x-delete-sure v-else />
+        <delete-dialog-sure v-else />
       </v-card-text>
 
-      <x-delete-actions
+      <delete-dialog-actions
         v-bind:value.sync="pickerValue"
         v-bind:deleteItem.sync="dialogDeleteItem"
         :hasItemRelations.sync="hasItemRelations"
         :isActionLoading.sync="isActionLoading"
         class="mt-1"
-      ></x-delete-actions>
+      ></delete-dialog-actions>
     </v-card>
   </v-dialog>
 
@@ -77,16 +77,16 @@
 <script>
 
   import RelationChip from "@/components/elements/RelationChip";
-  import XDeleteSure from "@/components/elements/Dialogs/XDeleteDialog/XDeleteSure";
-  import XDeleteAvatar from "@/components/elements/Dialogs/XDeleteDialog/XDeleteAvatar";
-  import XDeleteActions from "@/components/elements/Dialogs/XDeleteDialog/XDeleteActions";
+  import DeleteDialogSure from "@/components/elements/Dialogs/DeleteDialog/DeleteDialogSure";
+  import DeleteDialogAvatar from "@/components/elements/Dialogs/DeleteDialog/DeleteDialogAvatar";
+  import DeleteDialogActions from "@/components/elements/Dialogs/DeleteDialog/DeleteDialogActions";
 
   export default {
-    name: 'x-delete-dialog',
+    name: 'delete-dialog',
     components: {
-      XDeleteSure,
-      XDeleteAvatar,
-      XDeleteActions,
+      DeleteDialogSure,
+      DeleteDialogAvatar,
+      DeleteDialogActions,
       RelationChip
     },
     props: {

@@ -103,7 +103,7 @@
                 v-ripple
               >
                 <div class="d-flex justify-center">
-                  <x-sort-icon :prop="avatarSortProp" />
+                  <sort-icon :prop="avatarSortProp" />
                 </div>
               </v-col>
             </v-row>
@@ -141,15 +141,15 @@
 
   import XText from "@/components/inputs/XText";
   import NewBrandDialog from "@/components/elements/Dialogs/NewBrandDialog";
-  import XSortIcon from "@/components/elements/Icons/XSortIcon";
+  import SortIcon from "@/components/elements/Icons/SortIcon";
 
   export default {
     name: 'app-header',
     components: {
       XText,
-      XSortIcon,
+      SortIcon,
       NewBrandDialog,
-      FormPostBtn: () => import('@/components/elements/Btns/FormPostBtn'),
+      FormPostBtn: () => import('@/components/elements/Btns/PostBtn'),
       FilterMenu: () => import('@/components/elements/FilterMenu/FilterMenu'),
     },
     data: () => ({

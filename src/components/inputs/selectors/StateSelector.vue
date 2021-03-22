@@ -56,10 +56,10 @@
 
 <script>
 
-    import XSelector from "@/components/inputs/XSelector";
+    import XSelector from "@/components/inputs/selectors/XSelector";
 
     export default {
-        name: 'x-state-selector',
+        name: 'state-selector',
         components: {
             XSelector
         },

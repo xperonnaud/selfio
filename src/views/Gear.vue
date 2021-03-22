@@ -5,8 +5,6 @@
       v-bind:icon="currentIcon"
       v-bind:title="currentTitle"
       v-bind:items.sync="gearList"
-      v-bind:itemHeaders="gearHeaders"
-      v-bind:keyName="'name'"
     ></x-list>
 
   </v-sheet>
@@ -22,21 +20,6 @@ export default {
     data: () => ({
       isMounted: false,
     }),
-    computed: {
-      gearHeaders() {
-        return [
-          {text: 'Category', value: 'type'},
-          {text: 'Title', value: 'title', align: 'start'},
-          {text: 'Brand', value: 'brand'},
-          {text: 'Weight ('+this.weightUnit+')', value: 'weight'},
-          {text: 'Color', value: 'color'},
-          {text: 'Size', value: 'size'},
-          {text: 'State', value: 'state'},
-          {text: 'Price ('+this.priceUnit+')', value: 'price'},
-          {text: 'Qty (owned)', value: 'quantity_owned'},
-        ]
-      },
-    },
     mounted() {
       this.isMounted = true;
     }

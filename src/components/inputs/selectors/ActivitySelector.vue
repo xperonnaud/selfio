@@ -1,15 +1,15 @@
 <template>
 
     <x-selector
-        title="landscape"
-        :items="landscapes"
+        title="activity"
+        :items="activities"
         v-bind:value.sync="pickerValue"
         :isInFilter="isInFilter"
     >
         <template v-slot:header>
             <v-text-field
-                :label="xCapFirst($t('global.landscape'))"
-                :value="typeof pickerValue==='string' ? xCap($t(`landscapes.${pickerValue}.title`)) : null"
+                :label="xCapFirst($t('global.activity'))"
+                :value="typeof pickerValue==='string' ? xCap($t(`activities.${pickerValue}.title`)) : null"
                 :color="currentColor"
                 hide-details="auto"
                 append-icon="mdi-menu-down"
@@ -30,11 +30,10 @@
                     >
                         <x-svg
                             :src="pickerValue"
-                            svgPath="landscapes/"
+                            svgPath="activities/"
                             :width="XLI"
                             :height="XLI"
-                            :tooltipText="xCapFirst($t(`landscapes.${pickerValue}.title`))"
-                            logo
+                            :tooltipText="xCap($t(`activities.${pickerValue}.desc`))"
                         ></x-svg>
                     </v-avatar>
                 </template>
@@ -51,16 +50,15 @@
                     >
                         <x-svg
                             :src="item"
-                            svgPath="landscapes/"
+                            svgPath="activities/"
                             :width="XLI"
                             :height="XLI"
-                            :tooltipText="xCapFirst($t(`landscapes.${item}.title`))"
-                            logo
+                            :tooltipText="xCapFirst($t(`activities.${item}.desc`))"
                         ></x-svg>
                     </v-avatar>
                 </div>
 
-                <div class="text-caption text-center">{{xCapFirst($t(`landscapes.${item}.title`))}}</div>
+                <div class="text-caption text-center">{{xCap($t(`activities.${item}.title`))}}</div>
             </div>
         </template>
     </x-selector>
@@ -69,11 +67,11 @@
 
 <script>
 
-    import XSelector from "@/components/inputs/XSelector";
-    import XSvg from "@/components/elements/XSvg";
+    import XSelector from "@/components/inputs/selectors/XSelector";
+    import XSvg from "@/components/elements/Icons/XSvg";
 
     export default {
-        name: 'x-landscape-selector',
+        name: 'activity-selector',
         components: {
             XSelector,
             XSvg

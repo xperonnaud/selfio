@@ -2,7 +2,7 @@
 
   <v-list>
     <v-list-item class="mb-3">
-      <x-category-selector v-bind:value.sync="gearCategoryFilter" isInFilter />
+      <category-selector v-bind:value.sync="gearCategoryFilter" isInFilter />
     </v-list-item>
 
     <v-list-item class="mb-3">
@@ -20,11 +20,11 @@
     </v-list-item>
 
     <v-list-item class="mb-3">
-      <x-brand-selector v-bind:value.sync="brandFilter" isInFilter />
+      <brand-selector v-bind:value.sync="brandFilter" isInFilter />
     </v-list-item>
 
     <v-list-item class="mb-3">
-      <x-state-selector v-bind:value.sync="gearStateFilter" isInFilter />
+      <state-selector v-bind:value.sync="gearStateFilter" isInFilter />
     </v-list-item>
 
     <v-list-item class="mb-3">
@@ -51,18 +51,18 @@
 <script>
 
   import XCheckbox from "@/components/inputs/XCheckbox";
-  import XCategorySelector from "@/components/inputs/XCategorySelector";
-  import XBrandSelector from "@/components/inputs/XBrandSelector";
-  import XStateSelector from "@/components/inputs/XStateSelector";
+  import CategorySelector from "@/components/inputs/selectors/CategorySelector";
+  import BrandSelector from "@/components/inputs/selectors/BrandSelector";
+  import StateSelector from "@/components/inputs/selectors/StateSelector";
   import XIncrement from "@/components/inputs/XIncrement";
 
   export default {
     name: 'gear-filter',
     components: {
       XCheckbox,
-      XCategorySelector,
-      XBrandSelector,
-      XStateSelector,
+      CategorySelector,
+      BrandSelector,
+      StateSelector,
       XIncrement,
     },
     props: {

@@ -44,7 +44,7 @@
           persistent
       >
         <v-card :style="'border-top: 2px solid '+errorColor+' !important;'">
-          <x-delete-avatar />
+          <delete-dialog-avatar />
 
           <v-card-title class="text-subtitle-2 mt-3">
             <span v-if="hasBrandRelations">{{$t('components.brands-list-item.delete-forbidden') | capitalizeFirstFilter}}</span>
@@ -77,7 +77,7 @@
               </v-sheet>
             </v-responsive>
 
-            <x-delete-sure v-else />
+            <delete-dialog-sure v-else />
 
           </v-card-text>
 
@@ -108,14 +108,14 @@
 
 <script>
 
-  import XDeleteAvatar from "@/components/elements/Dialogs/XDeleteDialog/XDeleteAvatar";
-  import XDeleteSure from "@/components/elements/Dialogs/XDeleteDialog/XDeleteSure";
+  import DeleteDialogAvatar from "@/components/elements/Dialogs/DeleteDialog/DeleteDialogAvatar";
+  import DeleteDialogSure from "@/components/elements/Dialogs/DeleteDialog/DeleteDialogSure";
 
   export default {
     name: 'brands-list-item',
     components: {
-      XDeleteSure,
-      XDeleteAvatar,
+      DeleteDialogAvatar,
+      DeleteDialogSure,
     },
     data: () => ({
       deleteDialog: false,

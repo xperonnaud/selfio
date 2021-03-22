@@ -22,7 +22,7 @@
 <script>
 
   export default {
-    name: 'x-brand-selector',
+    name: 'brand-selector',
     props: {
       value: Number,
     },

@@ -15,7 +15,7 @@
 <script>
 
   export default {
-    name: 'x-sort-icon',
+    name: 'sort-icon',
     props: {
       prop: String
     }

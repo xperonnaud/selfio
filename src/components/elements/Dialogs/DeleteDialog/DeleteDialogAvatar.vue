@@ -4,7 +4,7 @@
     <v-avatar
       :size="48"
       :color="errorColor"
-      style="position: absolute; top: -26px;"
+      class="dialog-avatar"
     >
       <v-icon
         :size="MDI"
@@ -20,7 +20,7 @@
 <script>
 
   export default {
-    name: 'x-delete-avatar'
+    name: 'delete-dialog-avatar'
   }
 
 </script>
