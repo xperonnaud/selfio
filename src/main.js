@@ -18,7 +18,7 @@ import CssVariables from "@/assets/scss/variables.scss"
 
 import ToolsMixin from './mixins/tools'
 import LangsMixin from './mixins/langs'
-import ApiMixin from './mixins/api'
+import ApiMixin from './mixins/directusApi'
 import StoreMixin from './mixins/store'
 import ScreenMixin from './mixins/screen'
 
@@ -71,12 +71,12 @@ new Vue({
   ]),
   created: async function () {
     // init isLoggedIn global prop
-    localforage.getItem('is-logged-in')
-        .then(function (value) {
-          store.commit('updateUiIsLoggedIn', value);
-        }).catch(function (err) {
-      console.log('is-logged-in',err)
-    });
+    // localforage.getItem('is-logged-in')
+    //     .then(function (value) {
+    //       store.commit('updateUiIsLoggedIn', value);
+    //     }).catch(function (err) {
+    //   console.log('is-logged-in',err)
+    // });
 
     router.beforeEach((to, from, next) => {
       if (typeof to.path === 'string') {

@@ -5,19 +5,18 @@
       height="100%"
       :color="isLoggedIn ? xBackgroundColor : 'transparent'"
     >
-      <login-form v-if="!isLoggedIn" />
+<!--      <login-form v-if="!isLoggedIn" />-->
 
       <router-view
-        v-else
         v-show="!(formDialog && isMobile) && (isMobile ? !navigationCollapse : true)"
         v-bind:class="['router-view', {'is-dark':isDark}]"
       ></router-view>
 
-      <form-dialog
-        v-if="isLoggedIn && formDialogType"
-        :item="selectedItem"
-        :itemIndex="selectedItemIndex"
-      ></form-dialog>
+<!--      <form-dialog-->
+<!--        v-if="isLoggedIn && formDialogType"-->
+<!--        :item="selectedItem"-->
+<!--        :itemIndex="selectedItemIndex"-->
+<!--      ></form-dialog>-->
     </v-card>
   </v-main>
 
@@ -25,13 +24,13 @@
 
 <script>
 
-  import LoginForm from "@/components/forms/LoginForm";
+  // import LoginForm from "@/components/forms/LoginForm";
 
   export default {
     name: 'app-body',
     components: {
-      LoginForm,
-      FormDialog: () => import('@/components/elements/Dialogs/FormDialog/FormDialog')
+      // LoginForm,
+      // FormDialog: () => import('@/components/elements/Dialogs/FormDialog/FormDialog')
     },
   }
 

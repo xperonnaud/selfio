@@ -66,7 +66,7 @@ export default new Vuex.Store({
             snackbarType: null,
             snackbarText: null,
 
-            isLoggedIn: false,
+            isLoggedIn: true,
             isAppLoading: false,
             isConfigurationReady: false,
             displayApp: false,

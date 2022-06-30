@@ -3,20 +3,20 @@
     v-if="isMounted"
     v-bind:class="[
       'back',
-      {'is-logged-in':displayApp && isLoggedIn},
+      {'is-logged-in':displayApp},
       {'is-ios':isIOS()},
       {'is-small':isMobile},
       {'is-dark':isDark},
     ]"
   >
     <v-app id="inspire">
-      <app-header v-if="displayApp && isLoggedIn" />
+      <app-header v-if="displayApp" />
 
-      <app-nav v-if="displayApp && isLoggedIn" />
+      <app-nav v-if="displayApp" />
 
       <app-body v-show="!isAppLoading" />
 
-      <app-footer v-if="displayApp && isLoggedIn" />
+      <app-footer v-if="displayApp" />
 
       <v-overlay :value="isAppLoading">
         <v-progress-circular
@@ -27,7 +27,7 @@
 
       <snack-bar />
 
-      <session-dialog v-if="displayApp && isLoggedIn" :dialog.sync="isSessionExpired" />
+<!--      <session-dialog v-if="displayApp" :dialog.sync="isSessionExpired" />-->
     </v-app>
   </div>
 </template>
@@ -37,7 +37,7 @@
   import AppHeader from "@/components/app/AppHeader";
   import AppNav from "@/components/navigation/AppNav";
   import AppFooter from "@/components/app/AppFooter";
-  import SessionDialog from "@/components/elements/Dialogs/SessionDialog";
+  // import SessionDialog from "@/components/elements/Dialogs/SessionDialog";
   import SnackBar from "@/components/elements/SnackBar";
 
   export default {
@@ -48,17 +48,17 @@
       AppBody: () => import('@/components/app/AppBody'),
       AppFooter,
       SnackBar,
-      SessionDialog
+      // SessionDialog
     },
     data: () => ({
       isMounted: false,
     }),
     computed: {
-      isSessionExpired: {
-        get() {
-          return this.xUi.isSessionExpired
-        },
-      },
+      // isSessionExpired: {
+      //   get() {
+      //     return this.xUi.isSessionExpired
+      //   },
+      // },
       displayApp: {
         get() {
           return this.xUi.displayApp
@@ -93,17 +93,23 @@
       },
     },
     watch: {
+      isMounted(val) {
+        if(val === true) {
+          this.$store.commit('updateUiDisplayApp',true);
+          this.isAppLoading = false;
+        }
+      },
       currentRouteName(val) {
         if(val) {
           if(this.navigationCollapse===true && this.isMobile)
             this.navigationCollapse = !this.navigationCollapse;
         }
       },
-      async isLoggedIn(value) {
-        if(value && (typeof value === 'boolean')) {
-          await this.fetchSelfioItems();
-        }
-      },
+      // async isLoggedIn(value) {
+      //   if(value && (typeof value === 'boolean')) {
+      //     await this.fetchSelfioItems();
+      //   }
+      // },
       formDialog(val) {
         if(this.isMounted && (val === false)) {
           this.selectedItem = null;
@@ -116,6 +122,7 @@
       },
     },
     mounted() {
+      this.isAppLoading = true;
       this.initCloseGuard();
       this.setLang(this.getNavigatorLanguage());
       this.isMounted = true;

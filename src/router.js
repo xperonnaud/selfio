@@ -4,6 +4,8 @@ import Router from 'vue-router';
 
 import Home from './views/Home.vue';
 
+const Overview = () => import('./views/Overview.vue');
+
 const Gear = () => import('./views/Gear.vue');
 const Inventories = () => import('./views/Inventories.vue');
 const Adventures = () => import('./views/Adventures.vue');
@@ -24,6 +26,11 @@ export default new Router({
       path: '/',
       name: 'home',
       component: Home
+    },
+    {
+      path: '/overview',
+      name: 'overview',
+      component: Overview
     },
     {
       path: '/gear',
